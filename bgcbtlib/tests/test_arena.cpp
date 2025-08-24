@@ -7,7 +7,7 @@
 
 class ArenaTest : public ::testing::Test {
 protected:
-    static std::mt19937 rng;
+    inline static std::mt19937 rng;
 
     static void SetUpTestSuite() {
         rng.seed(12345);

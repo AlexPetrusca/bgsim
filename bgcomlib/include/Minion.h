@@ -44,6 +44,11 @@ public:
         _health = health;
     }
 
+    int deal_damage(const int damage) {
+        _health -= damage;
+        return _health;
+    }
+
 private:
     std::string _name;
     int _tier;
