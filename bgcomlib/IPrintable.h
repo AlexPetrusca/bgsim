@@ -8,9 +8,9 @@ class IPrintable {
 public:
     virtual ~IPrintable() = default;
 
-    [[nodiscard]] virtual std::string to_string() const = 0;   // Pure virtual function
+    [[nodiscard]] virtual std::string to_string() = 0;
 
-    friend std::ostream& operator<<(std::ostream& os, const IPrintable& p) {
+    friend std::ostream& operator<<(std::ostream& os, IPrintable& p) {
         os << p.to_string();
         return os;
     }

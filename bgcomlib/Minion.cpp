@@ -10,7 +10,7 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
     this->_health = health;
 }
 
-std::string Minion::to_string() const {
+[[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";
     return oss.str();

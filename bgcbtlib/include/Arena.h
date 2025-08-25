@@ -4,15 +4,21 @@
 #include <Board.h>
 #include <random>
 
+#include "AnalysisReport.h"
+#include "BattleReport.h"
+
 class Arena {
 public:
-    Arena(const Board& boardA, const Board& boardB, std::mt19937 rng);
-    void battle(); // todo: return battle report
+    Arena(const Board& boardA, const Board& boardB, std::mt19937 rng = std::mt19937(std::random_device()()));
+
+    BattleReport battle(bool debug = false); // todo: return battle report
+    AnalysisReport analyze(int iterations = 10000);
 private:
     Board boardA;
     Board boardB;
     std::mt19937 rng;
-    bool isTerminal();
+
+    BattleStatus get_battle_status();
 };
 
 #endif //ARENA_H

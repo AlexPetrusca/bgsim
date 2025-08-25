@@ -10,7 +10,7 @@ class Minion : public IPrintable {
 public:
     Minion(std::string name, int tier, int attack, int health);
     
-    [[nodiscard]] std::string to_string() const override;
+    [[nodiscard]] std::string to_string() override;
 
     [[nodiscard]] std::string name() const {
         return _name;

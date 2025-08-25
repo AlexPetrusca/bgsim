@@ -22,9 +22,17 @@ void Board::remove_minion(size_t idx) {
     minions.erase(minions.begin() + idx);
 }
 
-[[nodiscard]] std::string Board::to_string() const {
+int Board::tier_total() const {
+    int total = 0;
+    for (const Minion &minion : minions) {
+        total += minion.tier();
+    }
+    return total;
+}
+
+[[nodiscard]] std::string Board::to_string() {
     std::ostringstream oss;
-    for (const auto& minion : minions) {
+    for (auto& minion : minions) {
         oss << minion << " ";
     }
     return oss.str();

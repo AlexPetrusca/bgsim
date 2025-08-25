@@ -11,7 +11,8 @@ public:
     std::vector<Minion> &get_minions();
     void add_minion(const Minion &minion, size_t idx);
     void remove_minion(size_t idx);
-    [[nodiscard]] std::string to_string() const override;
+    [[nodiscard]] int tier_total() const;
+    [[nodiscard]] std::string to_string() override;
     [[nodiscard]] size_t size() const;
     [[nodiscard]] bool empty() const;
 private:
