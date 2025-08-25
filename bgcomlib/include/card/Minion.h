@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../IPrintable.h"
+#include "../../IPrintable.h"
 
 class Minion : public IPrintable {
 public:

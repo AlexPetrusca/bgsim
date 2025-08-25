@@ -1,0 +1,221 @@
+[
+  {
+    "attack": 3,
+    "battlegroundsPremiumDbfId": 70801,
+    "cardClass": "NEUTRAL",
+    "cost": 2,
+    "dbfId": 70790,
+    "health": 2,
+    "id": "BG19_010",
+    "name": "Sewer Rat",
+    "race": "BEAST",
+    "races": [
+      "BEAST"
+    ],
+    "referencedTags": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "tier": 2,
+    "text": "<b>Deathrattle:</b> Summon a 2/3 Turtle with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "attack": 6,
+    "battlegroundsNormalDbfId": 70790,
+    "cardClass": "NEUTRAL",
+    "cost": 2,
+    "dbfId": 70801,
+    "health": 4,
+    "id": "BG19_010_G",
+    "name": "Sewer Rat",
+    "races": [
+      "BEAST"
+    ],
+    "referencedTags": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "tier": 2,
+    "text": "<b>Deathrattle:</b> Summon a 4/6 Turtle with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "attack": 2,
+    "battlegroundsPremiumDbfId": 70802,
+    "cardClass": "NEUTRAL",
+    "cost": 1,
+    "dbfId": 70791,
+    "health": 3,
+    "id": "BG19_010t",
+    "name": "Half-Shell",
+    "race": "BEAST",
+    "races": [
+      "BEAST"
+    ],
+    "referencedTags": [
+      "TAUNT"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 1,
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "attack": 4,
+    "battlegroundsNormalDbfId": 70791,
+    "cardClass": "NEUTRAL",
+    "cost": 1,
+    "dbfId": 70802,
+    "health": 6,
+    "id": "BG19_010_Gt",
+    "name": "Half-Shell",
+    "race": "BEAST",
+    "races": [
+      "BEAST"
+    ],
+    "referencedTags": [
+      "TAUNT"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 1,
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "artist": "Dan Brereton",
+    "attack": 4,
+    "battlegroundsPremiumDbfId": 59499,
+    "cardClass": "HUNTER",
+    "cost": 4,
+    "dbfId": 96778,
+    "health": 3,
+    "id": "BG_DS1_070",
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "name": "Houndmaster",
+    "rarity": "FREE",
+    "referencedTags": [
+      "TAUNT"
+    ],
+    "set": "BATTLEGROUNDS",
+    "targetingArrowText": "Give a Beast +2/+2 and Taunt.",
+    "tier": 3,
+    "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "attack": 8,
+    "battlegroundsNormalDbfId": 96778,
+    "cardClass": "HUNTER",
+    "cost": 4,
+    "dbfId": 59499,
+    "health": 6,
+    "id": "TB_BaconUps_068",
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "name": "Houndmaster",
+    "rarity": "FREE",
+    "referencedTags": [
+      "TAUNT"
+    ],
+    "set": "BATTLEGROUNDS",
+    "targetingArrowText": "Give a Beast +4/+4 and Taunt.",
+    "tier": 3,
+    "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4 and <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "attack": 0,
+    "battlegroundsPremiumDbfId": 104554,
+    "cardClass": "NEUTRAL",
+    "cost": 1,
+    "dbfId": 104551,
+    "health": 2,
+    "id": "BG28_300",
+    "isBattlegroundsPoolMinion": true,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "deathrattle": {
+      "summon": [
+        99629,
+        99629
+      ]
+    },
+    "name": "Harmless Bonehead",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 1,
+    "text": "<b>Deathrattle:</b> Summon\ntwo 1/1 Skeletons.",
+    "type": "MINION"
+  },
+  {
+    "attack": 0,
+    "battlegroundsNormalDbfId": 104551,
+    "cardClass": "NEUTRAL",
+    "cost": 1,
+    "dbfId": 104554,
+    "health": 4,
+    "id": "BG28_300_G",
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "deathrattle": {
+      "summon": [
+        99630,
+        99630
+      ]
+    },
+    "name": "Harmless Bonehead",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 1,
+    "text": "<b>Deathrattle:</b> Summon\ntwo 2/2 Skeletons.",
+    "type": "MINION"
+  },
+  {
+    "artist": "Andrew Hou",
+    "attack": 1,
+    "battlegroundsPremiumDbfId": 99630,
+    "cardClass": "NEUTRAL",
+    "cost": 0,
+    "dbfId": 99629,
+    "health": 1,
+    "id": "BG_ICC_026t",
+    "name": "Skeleton",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "ICECROWN",
+    "tier": 1,
+    "type": "MINION"
+  },
+  {
+    "artist": "Andrew Hou",
+    "attack": 2,
+    "battlegroundsNormalDbfId": 99629,
+    "cardClass": "NEUTRAL",
+    "cost": 0,
+    "dbfId": 99630,
+    "health": 2,
+    "id": "BG_ICC_026t_G",
+    "name": "Skeleton",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "ICECROWN",
+    "tier": 1,
+    "type": "MINION"
+  }
+]

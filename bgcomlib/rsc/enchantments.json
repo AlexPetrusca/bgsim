@@ -1,0 +1,20 @@
+[
+  {
+    "cardClass": "HUNTER",
+    "dbfId": 722,
+    "id": "DS1_070o",
+    "name": "Master's Presence",
+    "set": "LEGACY",
+    "text": "+2/+2 and <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "cardClass": "HUNTER",
+    "dbfId": 59500,
+    "id": "TB_BaconUps_068e",
+    "name": "Master's Presence",
+    "set": "BATTLEGROUNDS",
+    "text": "+4/+4 and <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  }
+]

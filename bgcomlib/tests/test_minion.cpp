@@ -1,7 +1,7 @@
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
 
-#include "Minion.h"
+#include "../include/card/Minion.h"
 
 TEST(MinionTest, Print) {
     Minion minion = Minion("Alleycat", 1, 1, 1);

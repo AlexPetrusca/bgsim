@@ -4,7 +4,7 @@
 #include "AnalysisReport.h"
 #include "Arena.h"
 #include "Board.h"
-#include "Minion.h"
+#include "../../bgcomlib/include/card/Minion.h"
 
 #define EXPECT_APPROX_EQ(val1, val2, error) \
     EXPECT_LE(std::abs(1.0 - ((double)(val1)) / ((double)(val2))), (error))
@@ -36,7 +36,7 @@ TEST(ArenaTest, SimpleAnalysis) {
     Arena arena = Arena(boardA, boardB);
 
     auto start = std::chrono::high_resolution_clock::now();
-    int iterations = 10000;
+    int iterations = 100000;
     AnalysisReport report = arena.analyze(iterations);
     auto end = std::chrono::high_resolution_clock::now();
     auto raw_duration = duration_cast<std::chrono::microseconds>(end - start).count();

@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "Board.h"
-#include "Minion.h"
+#include "../include/card/Minion.h"
 
 TEST(BoardTest, Print) {
     Minion minion1 = Minion("Alleycat", 1, 1, 1);

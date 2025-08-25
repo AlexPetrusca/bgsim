@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "Minion.h"
+#include "card/Minion.h"
 #include "../IPrintable.h"
 
 class Board : public IPrintable {

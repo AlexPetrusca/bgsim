@@ -13,6 +13,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+add_compile_definitions(
+        ROOT_DIR="${CMAKE_SOURCE_DIR}"
+        BGCOMLIB_DIR="${CMAKE_SOURCE_DIR}/bgcomlib"
+        BGCBTLIB_DIR="${CMAKE_SOURCE_DIR}/bgcbtlib"
+)
+
 add_subdirectory(bgcomlib)
 add_subdirectory(bgcbtlib)
 add_subdirectory(bgsim-server)
