@@ -9,11 +9,16 @@
 class CardDb {
 public:
     CardDb();
+
     Minion get_minion(int id);
+
     Enchantment get_enchantment(int id);
+
 private:
     std::unordered_map<int, Minion> minions;
     std::unordered_map<int, Enchantment> enchantments;
 };
+
+extern CardDb db;
 
 #endif //MINIONDB_H

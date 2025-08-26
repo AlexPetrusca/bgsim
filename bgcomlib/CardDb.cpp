@@ -25,3 +25,5 @@ Minion CardDb::get_minion(int id) {
 Enchantment CardDb::get_enchantment(int id) {
     return enchantments.at(id);
 }
+
+CardDb db = CardDb();

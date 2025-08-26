@@ -91,13 +91,10 @@
     "dbfId": 96778,
     "health": 3,
     "id": "BG_DS1_070",
-    "mechanics": [
-      "BATTLECRY"
-    ],
     "name": "Houndmaster",
     "rarity": "FREE",
     "mechanics": [
-      "TAUNT"
+      "BATTLECRY"
     ],
     "set": "BATTLEGROUNDS",
     "targetingArrowText": "Give a Beast +2/+2 and Taunt.",
@@ -113,13 +110,10 @@
     "dbfId": 59499,
     "health": 6,
     "id": "TB_BaconUps_068",
-    "mechanics": [
-      "BATTLECRY"
-    ],
     "name": "Houndmaster",
     "rarity": "FREE",
     "mechanics": [
-      "TAUNT"
+      "BATTLECRY"
     ],
     "set": "BATTLEGROUNDS",
     "targetingArrowText": "Give a Beast +4/+4 and Taunt.",
@@ -128,12 +122,12 @@
     "type": "MINION"
   },
   {
-    "attack": 0,
+    "attack": 1,
     "goldenDbfId": 104554,
     "cardClass": "NEUTRAL",
     "cost": 1,
     "dbfId": 104551,
-    "health": 2,
+    "health": 1,
     "id": "BG28_300",
     "isBattlegroundsPoolMinion": true,
     "mechanics": [
@@ -160,11 +154,11 @@
     "type": "MINION"
   },
   {
-    "attack": 0,
+    "attack": 2,
     "normalDbfId": 104551,
     "cardClass": "NEUTRAL",
     "dbfId": 104554,
-    "health": 4,
+    "health": 2,
     "id": "BG28_300_G",
     "mechanics": [
       "DEATHRATTLE"

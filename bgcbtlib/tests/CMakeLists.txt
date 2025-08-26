@@ -1,4 +1,7 @@
-add_executable(bgcbtlib_tests test_arena.cpp)
+add_executable(bgcbtlib_tests
+        test_arena_battle.cpp
+        test_arena_analysis.cpp
+)
 
 target_link_libraries(bgcbtlib_tests
         PRIVATE

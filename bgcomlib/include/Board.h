@@ -8,13 +8,24 @@ class Board : public IPrintable {
 public:
     explicit Board(const std::vector<Minion>& minions = {});
 
-    std::vector<Minion> &get_minions();
-    void add_minion(const Minion &minion, size_t idx);
-    void remove_minion(size_t idx);
+    std::vector<Minion>& get_minions();
+
+    void add_minion(const Minion& minion, size_t idx = -1);
+
+    void kill_minion(size_t idx);
+
+    void exec_effect(const Effect& effect, size_t idx);
+
     [[nodiscard]] int tier_total() const;
+
     [[nodiscard]] std::string to_string() override;
+
     [[nodiscard]] size_t size() const;
+
     [[nodiscard]] bool empty() const;
+
+    [[nodiscard]] bool full() const;
+
 private:
     std::vector<Minion> minions;
     // Aura auras[];
