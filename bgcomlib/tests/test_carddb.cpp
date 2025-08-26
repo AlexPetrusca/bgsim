@@ -26,7 +26,7 @@ TEST(CardDbTest, ResolveDeathrattles) {
     EXPECT_EQ(token.name(), "Skeleton");
 }
 
-TEST(CardDbTest, GetGoldenVersion) {
+TEST(CardDbTest, ResolveGoldenVersion) {
     CardDb db;
     const Minion minion = db.get_minion(96778); // Houndmaster
     EXPECT_EQ(minion.name(), "Houndmaster");

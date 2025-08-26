@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 
-Arena::Arena(const Board &boardA, const Board &boardB, std::mt19937 rng) {
+Arena::Arena(const Board& boardA, const Board& boardB, std::mt19937 rng) {
     this->boardA = boardA;
     this->boardB = boardB;
     this->rng = rng;
@@ -14,84 +14,85 @@ BattleStatus Arena::get_battle_status() {
     if (boardA.empty()) return WIN_B;
     if (boardB.empty()) return WIN_A;
 
-    for (const auto &minion: boardA.get_minions()) {
+    for (const auto& minion: boardA.get_minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
-    for (const auto &minion: boardB.get_minions()) {
+    for (const auto& minion: boardB.get_minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
 
     return TIE;
 }
 
-void debug_combat(Board &attacking, Board &defending, int turn) {
+void debug_combat(Board& boardA, Board& boardB) {
     std::cout << "-------------------------------------------------------------" << std::endl;
-    if (turn % 2 == 0) {
-        std::cout << attacking << "\n" << defending << std::endl;
-    } else {
-        std::cout << defending << "\n" << attacking << std::endl;
-    }
+    std::cout << boardA << "\n" << boardB << std::endl;
     std::cout << "-------------------------------------------------------------" << std::endl;
     std::cout << std::endl;
 }
 
-BattleReport Arena::battle(bool debug) {
+int Arena::combat(Board& attacking, Board& defending, const int attack_idx, const bool debug) {
+    const size_t atk_minion_idx = attack_idx;
+    Minion& atk_minion = attacking.get_minions().at(atk_minion_idx);
+
+    std::uniform_int_distribution<size_t> dist_def(0, defending.size() - 1);
+    const size_t def_minion_idx = dist_def(rng);
+    Minion& def_minion = defending.get_minions().at(def_minion_idx);
+
+    if (debug) {
+        std::cout << atk_minion.name() << " -> " << def_minion.name() << std::endl;
+        debug_combat(attacking, defending);
+    }
+
+    const int atk_health = atk_minion.deal_damage(def_minion.attack());
+    const int def_health = def_minion.deal_damage(atk_minion.attack());
+    bool attacker_died = false;
+    if (atk_health <= 0) {
+        attacking.remove_minion(atk_minion_idx);
+        attacker_died = true;
+    }
+    if (def_health <= 0) {
+        defending.remove_minion(def_minion_idx);
+    }
+    return attacker_died ? attack_idx : attack_idx + 1;
+}
+
+BattleReport Arena::battle(const bool debug) {
+    // save
     Board saveA = boardA;
     Board saveB = boardB;
 
-    bool goes_first_A = boardA.size() > boardB.size();
+    int turn = boardA.size() > boardB.size() ? 0 : 1;
     if (boardA.size() == boardB.size()) {
-        goes_first_A = std::uniform_int_distribution(0, 1)(rng);
+        turn = std::uniform_int_distribution(0, 1)(rng);
     }
-    Board& attacking = goes_first_A ? boardA : boardB;
-    Board& defending = goes_first_A ? boardB : boardA;
 
-    int turn = 0;
+    int atk_idx_a = 0;
+    int atk_idx_b = 0;
     while (get_battle_status() == IN_PROGRESS) {
-        std::uniform_int_distribution<size_t> dist_atk(0, attacking.size() - 1);
-        std::uniform_int_distribution<size_t> dist_def(0, defending.size() - 1);
-
-        size_t atk_minion_idx = dist_atk(rng);
-        size_t def_minion_idx = dist_def(rng);
-        Minion &atk_minion = attacking.get_minions().at(atk_minion_idx);
-        Minion &def_minion = defending.get_minions().at(def_minion_idx);
-
-        if (debug) {
-            std::cout << atk_minion.name() << " -> " << def_minion.name() << std::endl;
-            debug_combat(attacking, defending, turn);
+        if (turn % 2 == 0) {
+            atk_idx_a = combat(boardA, boardB, atk_idx_a, debug);
+        } else {
+            atk_idx_b = combat(boardB, boardA, atk_idx_b, debug);
         }
-
-        int atk_health = atk_minion.deal_damage(def_minion.attack());
-        int def_health = def_minion.deal_damage(atk_minion.attack());
-        if (atk_health <= 0) {
-            attacking.remove_minion(atk_minion_idx);
-        }
-        if (def_health <= 0) {
-            defending.remove_minion(def_minion_idx);
-        }
-
-        std::swap(attacking, defending);
         turn++;
-    }
-
-    if (turn % 2 == 1) {
-        std::swap(attacking, defending);
     }
 
     if (debug) {
         std::cout << "Final Board:" << std::endl;;
-        debug_combat(attacking, defending, 0);
+        debug_combat(boardA, boardB);
     }
 
-    BattleStatus status = get_battle_status();
+    const BattleStatus status = get_battle_status();
     int damage = 0;
     if (status == WIN_A) {
         damage = boardA.tier_total();
     } else if (status == WIN_B) {
         damage = boardB.tier_total();
     }
-    BattleReport report = BattleReport(status, damage);
+    const BattleReport report = BattleReport(status, damage);
 
+    // restore
     boardA = std::move(saveA);
     boardB = std::move(saveB);
 
@@ -101,7 +102,7 @@ BattleReport Arena::battle(bool debug) {
 AnalysisReport Arena::analyze(int iterations) {
     AnalysisReport analysis_report = AnalysisReport();
     for (int i = 0; i < iterations; i++) {
-        BattleReport battle_report = battle();
+        const BattleReport battle_report = battle();
         analysis_report.add_battle_report(battle_report);
     }
     return analysis_report;
