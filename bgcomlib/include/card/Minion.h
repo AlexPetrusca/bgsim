@@ -64,6 +64,17 @@ public:
         return _effects.at(keyword);
     }
 
+    [[nodiscard]] int id() const {
+        return _id;
+    }
+
+    [[nodiscard]] int alt_id() const {
+        return _alt_id;
+    }
+
+    [[nodiscard]] bool is_golden() const {
+        return _is_golden;
+    }
 private:
     std::string _name;
     int _tier{};
@@ -75,6 +86,10 @@ private:
     // vector<buff_t> tempBuffs;
     // vector<buff_t> auraBuffs;
     // vector<effect_t> effects;
+
+    int _id{};
+    int _alt_id{};
+    bool _is_golden{};
 };
 
 #endif //CARD_H

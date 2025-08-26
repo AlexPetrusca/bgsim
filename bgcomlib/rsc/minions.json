@@ -1,7 +1,7 @@
 [
   {
     "attack": 3,
-    "battlegroundsPremiumDbfId": 70801,
+    "goldenDbfId": 70801,
     "cardClass": "NEUTRAL",
     "cost": 2,
     "dbfId": 70790,
@@ -22,7 +22,7 @@
   },
   {
     "attack": 6,
-    "battlegroundsNormalDbfId": 70790,
+    "normalDbfId": 70790,
     "cardClass": "NEUTRAL",
     "cost": 2,
     "dbfId": 70801,
@@ -42,7 +42,7 @@
   },
   {
     "attack": 2,
-    "battlegroundsPremiumDbfId": 70802,
+    "goldenDbfId": 70802,
     "cardClass": "NEUTRAL",
     "cost": 1,
     "dbfId": 70791,
@@ -63,7 +63,7 @@
   },
   {
     "attack": 4,
-    "battlegroundsNormalDbfId": 70791,
+    "normalDbfId": 70791,
     "cardClass": "NEUTRAL",
     "cost": 1,
     "dbfId": 70802,
@@ -85,7 +85,7 @@
   {
     "artist": "Dan Brereton",
     "attack": 4,
-    "battlegroundsPremiumDbfId": 59499,
+    "goldenDbfId": 59499,
     "cardClass": "HUNTER",
     "cost": 4,
     "dbfId": 96778,
@@ -107,7 +107,7 @@
   },
   {
     "attack": 8,
-    "battlegroundsNormalDbfId": 96778,
+    "normalDbfId": 96778,
     "cardClass": "HUNTER",
     "cost": 4,
     "dbfId": 59499,
@@ -129,7 +129,7 @@
   },
   {
     "attack": 0,
-    "battlegroundsPremiumDbfId": 104554,
+    "goldenDbfId": 104554,
     "cardClass": "NEUTRAL",
     "cost": 1,
     "dbfId": 104551,
@@ -161,7 +161,7 @@
   },
   {
     "attack": 0,
-    "battlegroundsNormalDbfId": 104551,
+    "normalDbfId": 104551,
     "cardClass": "NEUTRAL",
     "dbfId": 104554,
     "health": 4,
@@ -190,7 +190,7 @@
   {
     "artist": "Andrew Hou",
     "attack": 1,
-    "battlegroundsPremiumDbfId": 99630,
+    "goldenDbfId": 99630,
     "cardClass": "NEUTRAL",
     "cost": 0,
     "dbfId": 99629,
@@ -208,7 +208,7 @@
   {
     "artist": "Andrew Hou",
     "attack": 2,
-    "battlegroundsNormalDbfId": 99629,
+    "normalDbfId": 99629,
     "cardClass": "NEUTRAL",
     "cost": 0,
     "dbfId": 99630,

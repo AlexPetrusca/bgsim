@@ -12,7 +12,7 @@ Minion::Minion(const json& minion_json) {
     _health = minion_json["health"];
     if (minion_json.contains("mechanics")) {
         for (const auto& keyword_json : minion_json["mechanics"]) {
-            Keyword keyword = KeywordUtil::fromString(keyword_json.get<std::string>());
+            Keyword keyword = KeywordUtil::fromString(keyword_json);
             _keywords.insert(keyword);
         }
     }
@@ -22,6 +22,10 @@ Minion::Minion(const json& minion_json) {
             _effects.insert({effect.trigger(), effect});
         }
     }
+
+    _id = minion_json["dbfId"];
+    _is_golden = minion_json.contains("normalDbfId");
+    _alt_id = (_is_golden) ? minion_json["normalDbfId"] : minion_json["goldenDbfId"];
 }
 
 Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
