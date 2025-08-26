@@ -5,16 +5,20 @@ set(CMAKE_CXX_STANDARD 26)
 
 add_library(bgcomlib STATIC
         Minion.cpp
-        include/card/Minion.h
         Player.cpp
-        include/Player.h
         Board.cpp
-        include/Board.h
         IPrintable.h
         CardDB.cpp
-        include/card/CardDB.h
         Enchantment.cpp
-        include/card/Enchantment.h)
+        include/card/Minion.h
+        include/Player.h
+        include/Board.h
+        include/card/CardDB.h
+        include/card/Enchantment.h
+        include/Keyword.h
+        include/Effect.h
+        Effect.cpp
+)
 target_include_directories(bgcomlib PUBLIC include)
 
 FetchContent_Declare(
@@ -23,6 +27,6 @@ FetchContent_Declare(
         GIT_TAG        v3.12.0
 )
 FetchContent_MakeAvailable(nlohmann_json)
-target_link_libraries(bgcomlib PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(bgcomlib PUBLIC nlohmann_json::nlohmann_json)
 
 add_subdirectory(tests)

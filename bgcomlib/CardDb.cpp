@@ -1,19 +1,9 @@
 #include "card/CardDb.h"
 
 #include <fstream>
-#include <iostream>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
-
-Minion parseMinion(const json& minions_json) {
-    return {
-        minions_json["name"],
-        minions_json["tier"],
-        minions_json["attack"],
-        minions_json["health"]
-    };
-}
 
 CardDb::CardDb() {
     std::ifstream file(BGCOMLIB_DIR "/rsc/minions.json");
@@ -24,7 +14,7 @@ CardDb::CardDb() {
     json minions_json;
     file >> minions_json;
     for (const auto& minion_json : minions_json) {
-        minions.insert({minion_json["dbfId"], parseMinion(minion_json)});
+        minions.insert({minion_json["dbfId"], Minion(minion_json)});
     }
 }
 

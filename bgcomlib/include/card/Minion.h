@@ -2,13 +2,20 @@
 #define CARD_H
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
+#include "Effect.h"
+#include "Keyword.h"
 #include "../../IPrintable.h"
 
 class Minion : public IPrintable {
 public:
-    Minion(std::string name, int tier, int attack, int health);
+    Minion();
+
+    Minion(const json& minion_json);
+
+    Minion(std::string name, int tier, int attack, int health); // todo: delete me
     
     [[nodiscard]] std::string to_string() override;
 
@@ -49,11 +56,21 @@ public:
         return _health;
     }
 
+    [[nodiscard]] bool has_keyword(const Keyword keyword) const {
+        return _keywords.contains(keyword);
+    }
+
+    [[nodiscard]] const Effect& get_effect(const Keyword keyword) const {
+        return _effects.at(keyword);
+    }
+
 private:
     std::string _name;
-    int _tier;
-    int _attack;
-    int _health;
+    int _tier{};
+    int _attack{};
+    int _health{};
+    std::unordered_set<Keyword> _keywords;
+    std::unordered_map<Keyword, Effect> _effects;
     // vector<buff_t> buffs;
     // vector<buff_t> tempBuffs;
     // vector<buff_t> auraBuffs;

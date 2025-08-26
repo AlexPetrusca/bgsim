@@ -12,7 +12,7 @@
     "races": [
       "BEAST"
     ],
-    "referencedTags": [
+    "mechanics": [
       "DEATHRATTLE",
       "TAUNT"
     ],
@@ -32,7 +32,7 @@
     "races": [
       "BEAST"
     ],
-    "referencedTags": [
+    "mechanics": [
       "DEATHRATTLE",
       "TAUNT"
     ],
@@ -53,7 +53,7 @@
     "races": [
       "BEAST"
     ],
-    "referencedTags": [
+    "mechanics": [
       "TAUNT"
     ],
     "set": "BATTLEGROUNDS",
@@ -74,7 +74,7 @@
     "races": [
       "BEAST"
     ],
-    "referencedTags": [
+    "mechanics": [
       "TAUNT"
     ],
     "set": "BATTLEGROUNDS",
@@ -96,7 +96,7 @@
     ],
     "name": "Houndmaster",
     "rarity": "FREE",
-    "referencedTags": [
+    "mechanics": [
       "TAUNT"
     ],
     "set": "BATTLEGROUNDS",
@@ -118,7 +118,7 @@
     ],
     "name": "Houndmaster",
     "rarity": "FREE",
-    "referencedTags": [
+    "mechanics": [
       "TAUNT"
     ],
     "set": "BATTLEGROUNDS",
@@ -139,12 +139,16 @@
     "mechanics": [
       "DEATHRATTLE"
     ],
-    "deathrattle": {
-      "summon": [
-        99629,
-        99629
-      ]
-    },
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          99629,
+          99629
+        ]
+      }
+    ],
     "name": "Harmless Bonehead",
     "race": "UNDEAD",
     "races": [
@@ -159,25 +163,26 @@
     "attack": 0,
     "battlegroundsNormalDbfId": 104551,
     "cardClass": "NEUTRAL",
-    "cost": 1,
     "dbfId": 104554,
     "health": 4,
     "id": "BG28_300_G",
     "mechanics": [
       "DEATHRATTLE"
     ],
-    "deathrattle": {
-      "summon": [
-        99630,
-        99630
-      ]
-    },
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          99630,
+          99630
+        ]
+      }
+    ],
     "name": "Harmless Bonehead",
-    "race": "UNDEAD",
     "races": [
       "UNDEAD"
     ],
-    "set": "BATTLEGROUNDS",
     "tier": 1,
     "text": "<b>Deathrattle:</b> Summon\ntwo 2/2 Skeletons.",
     "type": "MINION"
