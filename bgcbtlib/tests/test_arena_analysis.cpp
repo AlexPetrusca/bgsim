@@ -11,17 +11,6 @@
 #define EXPECT_APPROX_EQ(val1, val2, error) \
     EXPECT_LE(std::abs(1.0 - ((double)(val1)) / ((double)(val2))), (error))
 
-template<typename R>
-R time_fn(std::function<R()> fn) {
-    auto start = std::chrono::high_resolution_clock::now();
-    R output = fn();
-    auto end = std::chrono::high_resolution_clock::now();
-    auto raw_duration = duration_cast<std::chrono::microseconds>(end - start).count();
-    auto milliseconds = static_cast<double>(raw_duration) * 0.001;
-    std::cout << "Time taken: " << milliseconds << " milliseconds\n";
-    return output;
-}
-
 static const int ITERATIONS = 10000;
 static const float CI = 0.05;
 
@@ -76,14 +65,46 @@ TEST(ArenaTest, AnalyzeSimpleFiftyFifty) {
     EXPECT_EQ(report.out_dmg_quart3(), 0);
 }
 
+TEST(ArenaTest, AnalyzeLongBattle) {
+    Board boardA;
+    for (int i = 0; i < 7; i++) {
+        Minion minion = Minion("A" + std::to_string(i), 1, 5, 150);
+        boardA.add_minion(minion);
+    }
+
+    Board boardB;
+    for (int i = 0; i < 7; i++) {
+        Minion minion = Minion("B" + std::to_string(i), 1, 5, 150);
+        boardB.add_minion(minion);
+    }
+
+    Arena arena = Arena(boardA, boardB);
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.wins(), 0);
+    EXPECT_EQ(report.ties(), ITERATIONS);
+    EXPECT_EQ(report.losses(), 0);
+
+    EXPECT_EQ(report.in_dmg_quart1(), 0);
+    EXPECT_EQ(report.in_dmg_median(), 0);
+    EXPECT_EQ(report.in_dmg_quart3(), 0);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 0);
+    EXPECT_EQ(report.out_dmg_median(), 0);
+    EXPECT_EQ(report.out_dmg_quart3(), 0);
+}
+
 TEST(ArenaTest, AnalyzeDeathrattle) {
     CardDb db;
-    Minion minionA1 = db.get_minion(104551); // Harmless Bonehead
-    Minion minionA2 = db.get_minion(104551); // Harmless Bonehead
-    Board boardA = Board({minionA1, minionA2});
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD
+    });
 
-    Minion minionB1 = db.get_minion(96778); // Houndmaster
-    Board boardB = Board({minionB1});
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER
+    });
 
     Arena arena = Arena(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
@@ -104,16 +125,16 @@ TEST(ArenaTest, AnalyzeDeathrattle) {
 
 TEST(ArenaTest, AnalyzeDeathrattleOverflow) {
     CardDb db;
-    Board boardA = Board();
+    Board boardA;
     for (int i = 0; i < 7; i++) {
-        Minion minion = db.get_minion(104551); // Harmless Bonehead
+        Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("A" + std::to_string(i));
         boardA.add_minion(minion);
     }
 
-    Board boardB = Board();
+    Board boardB;
     for (int i = 0; i < 7; i++) {
-        Minion minion = db.get_minion(104551); // Harmless Bonehead
+        Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("B" + std::to_string(i));
         boardB.add_minion(minion);
     }
@@ -131,4 +152,96 @@ TEST(ArenaTest, AnalyzeDeathrattleOverflow) {
 
     EXPECT_EQ(report.out_dmg_quart1(), 1);
     EXPECT_EQ(report.out_dmg_quart3(), 2);
+}
+
+TEST(ArenaTest, AnalyzeDivineShieldTaunt) {
+    CardDb db;
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PSYCH_O_TRON,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON,
+    });
+
+    Arena arena = Arena(boardA, boardB);
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.wins(), ITERATIONS);
+    EXPECT_EQ(report.ties(), 0);
+    EXPECT_EQ(report.losses(), 0);
+
+    EXPECT_EQ(report.in_dmg_quart1(), 0);
+    EXPECT_EQ(report.in_dmg_median(), 0);
+    EXPECT_EQ(report.in_dmg_quart3(), 0);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 1);
+    EXPECT_EQ(report.out_dmg_median(), 1);
+    EXPECT_EQ(report.out_dmg_quart3(), 2);
+}
+
+TEST(ArenaTest, AnalyzeDivineShieldReborn) {
+    CardDb db;
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::COLOSSUS_OF_THE_SUN,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Arena arena = Arena(boardA, boardB);
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.wins(), 0);
+    EXPECT_EQ(report.ties(), 0);
+    EXPECT_EQ(report.losses(), ITERATIONS);
+
+    EXPECT_EQ(report.in_dmg_quart1(), 6);
+    EXPECT_EQ(report.in_dmg_median(), 6);
+    EXPECT_EQ(report.in_dmg_quart3(), 6);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 0);
+    EXPECT_EQ(report.out_dmg_median(), 0);
+    EXPECT_EQ(report.out_dmg_quart3(), 0);
+}
+
+TEST(ArenaTest, AnalyzeTauntDeathrattle) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::HOUNDMASTER
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::COLOSSUS_OF_THE_SUN,
+    });
+
+    Arena arena = Arena(boardA, boardB);
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.wins(), 0);
+    EXPECT_EQ(report.ties(), ITERATIONS);
+    EXPECT_EQ(report.losses(), 0);
+
+    EXPECT_EQ(report.in_dmg_quart1(), 0);
+    EXPECT_EQ(report.in_dmg_median(), 0);
+    EXPECT_EQ(report.in_dmg_quart3(), 0);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 0);
+    EXPECT_EQ(report.out_dmg_median(), 0);
+    EXPECT_EQ(report.out_dmg_quart3(), 0);
 }

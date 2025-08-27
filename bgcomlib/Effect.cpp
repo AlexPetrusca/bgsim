@@ -9,3 +9,9 @@ Effect::Effect(const json& json) {
         }
     }
 }
+
+Effect::Effect(const Keyword trigger, const Type type, const std::vector<int>& args) {
+    _trigger = trigger;
+    _type = type;
+    _args = args;
+}

@@ -22,6 +22,10 @@ Minion CardDb::get_minion(int id) {
     return minions.at(id);
 }
 
+Minion CardDb::get_minion(Id id) {
+    return minions.at(static_cast<int>(id));
+}
+
 Enchantment CardDb::get_enchantment(int id) {
     return enchantments.at(id);
 }

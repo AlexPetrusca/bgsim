@@ -16,6 +16,15 @@
       "DEATHRATTLE",
       "TAUNT"
     ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          70791
+        ]
+      }
+    ],
     "tier": 2,
     "text": "<b>Deathrattle:</b> Summon a 2/3 Turtle with <b>Taunt</b>.",
     "type": "MINION"
@@ -35,6 +44,15 @@
     "mechanics": [
       "DEATHRATTLE",
       "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          70802
+        ]
+      }
     ],
     "tier": 2,
     "text": "<b>Deathrattle:</b> Summon a 4/6 Turtle with <b>Taunt</b>.",
@@ -215,6 +233,102 @@
     ],
     "set": "ICECROWN",
     "tier": 1,
+    "type": "MINION"
+  },
+  {
+    "artist": "Matt Dixon",
+    "attack": 3,
+    "goldenDbfId": 105887,
+    "cardClass": "NEUTRAL",
+    "cost": 5,
+    "dbfId": 105886,
+    "flavor": "\"Annoyinger-o-Tron\" was just too unwieldy. And accurate.",
+    "health": 4,
+    "id": "BG_OG_145",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "name": "Psych-o-Tron",
+    "race": "MECHANICAL",
+    "races": [
+      "MECHANICAL"
+    ],
+    "rarity": "COMMON",
+    "set": "OG",
+    "tier": 3,
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
+    "artist": "Matt Dixon",
+    "attack": 6,
+    "normalDbfId": 105886,
+    "cardClass": "NEUTRAL",
+    "cost": 5,
+    "dbfId": 105887,
+    "flavor": "\"Annoyinger-o-Tron\" was just too unwieldy. And accurate.",
+    "health": 8,
+    "id": "BG_OG_145_G",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "name": "Psych-o-Tron",
+    "race": "MECHANICAL",
+    "races": [
+      "MECHANICAL"
+    ],
+    "rarity": "COMMON",
+    "set": "OG",
+    "tier": 3,
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
+    "attack": 9,
+    "goldenDbfId": 98868,
+    "cardClass": "DEATHKNIGHT",
+    "cost": 0,
+    "dbfId": 98867,
+    "elite": true,
+    "health": 9,
+    "id": "BG25_050",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "REBORN"
+    ],
+    "name": "Colossus of the Sun",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 6,
+    "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
+    "type": "MINION"
+  },
+  {
+    "attack": 18,
+    "normalDbfId": 98867,
+    "cardClass": "DEATHKNIGHT",
+    "cost": 0,
+    "dbfId": 98868,
+    "elite": true,
+    "health": 18,
+    "id": "BG25_050_G",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "REBORN"
+    ],
+    "name": "Colossus of the Sun",
+    "race": "UNDEAD",
+    "races": [
+      "UNDEAD"
+    ],
+    "set": "BATTLEGROUNDS",
+    "tier": 6,
+    "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
     "type": "MINION"
   }
 ]

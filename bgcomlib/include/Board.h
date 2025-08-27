@@ -2,11 +2,14 @@
 #define BOARD_H
 
 #include "card/Minion.h"
+#include "card/CardDb.h"
 #include "../IPrintable.h"
 
 class Board : public IPrintable {
 public:
     explicit Board(const std::vector<Minion>& minions = {});
+
+    static Board from_ids(const std::vector<CardDb::Id>& minionIds);
 
     std::vector<Minion>& get_minions();
 
@@ -26,8 +29,11 @@ public:
 
     [[nodiscard]] bool full() const;
 
+    [[nodiscard]] int taunt_count() const;
+
 private:
-    std::vector<Minion> minions;
+    std::vector<Minion> _minions;
+    int _taunt_count;
     // Aura auras[];
 };
 

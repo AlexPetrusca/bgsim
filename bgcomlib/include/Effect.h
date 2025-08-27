@@ -11,16 +11,18 @@ class Effect {
 public:
     enum class Type {
         SUMMON,
+        REBORN_SUMMON,
         GEN_CARD,
         ENCHANT
     };
 
     class TypeUtil {
     public:
-        inline static std::unordered_map<std::string, Type> type_map {
-                {"SUMMON", Type::SUMMON},
-                {"GEN_CARD", Type::GEN_CARD},
-                {"ENCHANT", Type::ENCHANT}
+        inline static std::unordered_map<std::string, Type> type_map{
+            {"SUMMON", Type::SUMMON},
+            {"REBORN_SUMMON", Type::REBORN_SUMMON},
+            {"GEN_CARD", Type::GEN_CARD},
+            {"ENCHANT", Type::ENCHANT}
         };
 
         static Type fromString(const std::string& str) {
@@ -29,6 +31,8 @@ public:
     };
 
     explicit Effect(const json& json);
+
+    Effect(Keyword trigger, Type type, const std::vector<int>& args);
 
     [[nodiscard]] Keyword trigger() const {
         return _trigger;

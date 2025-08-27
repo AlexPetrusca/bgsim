@@ -14,11 +14,14 @@ enum class Keyword {
     RALLY,
     OVERKILL,
     WINDFURY,
+    STEALTH,
+    CHOOSE_ONE,
 
     // Custom
     CLEAVE,
     IMMUNE,
     AURA,
+    ADJACENT_BUFF,
     START_OF_TURN,
     END_OF_TURN,
     ON_DAMAGE_SELF,
@@ -45,10 +48,13 @@ namespace KeywordUtil {
         {"RALLY", Keyword::RALLY},
         {"OVERKILL", Keyword::OVERKILL},
         {"WINDFURY", Keyword::WINDFURY},
+        {"STEALTH", Keyword::STEALTH},
+        {"CHOOSE_ONE", Keyword::CHOOSE_ONE},
 
         {"CLEAVE", Keyword::CLEAVE},
         {"IMMUNE", Keyword::IMMUNE},
         {"AURA", Keyword::AURA},
+        {"ADJACENT_BUFF", Keyword::ADJACENT_BUFF},
         {"START_OF_TURN", Keyword::START_OF_TURN},
         {"END_OF_TURN", Keyword::END_OF_TURN},
         {"ON_DAMAGE_SELF", Keyword::ON_DAMAGE_SELF},

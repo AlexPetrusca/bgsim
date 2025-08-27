@@ -39,14 +39,37 @@ TEST(ArenaTest, SimpleFiftyFifty) {
     EXPECT_EQ(report.damage(), 1);
 }
 
+TEST(ArenaTest, LongBattle) {
+    Board boardA;
+    for (int i = 0; i < 7; i++) {
+        Minion minion = Minion("A" + std::to_string(i), 1, 5, 150);
+        boardA.add_minion(minion);
+    }
+
+    Board boardB;
+    for (int i = 0; i < 7; i++) {
+        Minion minion = Minion("B" + std::to_string(i), 1, 5, 150);
+        boardB.add_minion(minion);
+    }
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
 TEST(ArenaTest, Deathrattle) {
     CardDb db;
-    Minion minionA1 = db.get_minion(104551); // Harmless Bonehead
-    Minion minionA2 = db.get_minion(104551); // Harmless Bonehead
-    Board boardA = Board({minionA1, minionA2});
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD
+    });
 
-    Minion minionB1 = db.get_minion(96778); // Houndmaster
-    Board boardB = Board({minionB1});
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER
+    });
 
     std::mt19937 rng(12345);
     Arena arena = Arena(boardA, boardB, rng);
@@ -58,16 +81,16 @@ TEST(ArenaTest, Deathrattle) {
 
 TEST(ArenaTest, DeathrattleOverflow) {
     CardDb db;
-    Board boardA = Board();
+    Board boardA;
     for (int i = 0; i < 7; i++) {
-        Minion minion = db.get_minion(104551); // Harmless Bonehead
+        Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("A" + std::to_string(i));
         boardA.add_minion(minion);
     }
 
-    Board boardB = Board();
+    Board boardB;
     for (int i = 0; i < 7; i++) {
-        Minion minion = db.get_minion(104551); // Harmless Bonehead
+        Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("B" + std::to_string(i));
         boardB.add_minion(minion);
     }
@@ -78,4 +101,69 @@ TEST(ArenaTest, DeathrattleOverflow) {
 
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 1);
+}
+
+TEST(ArenaTest, DivineShieldTaunt) {
+    CardDb db;
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PSYCH_O_TRON,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 2);
+}
+
+TEST(ArenaTest, DivineShieldReborn) {
+    CardDb db;
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::COLOSSUS_OF_THE_SUN,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 6);
+}
+
+TEST(ArenaTest, TauntDeathrattle) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::HOUNDMASTER
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::COLOSSUS_OF_THE_SUN,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
 }

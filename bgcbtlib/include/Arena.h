@@ -11,7 +11,7 @@ class Arena {
 public:
     Arena(const Board& boardA, const Board& boardB, std::mt19937 rng = std::mt19937(std::random_device()()));
 
-    BattleReport battle(bool debug = false); // todo: return battle report
+    BattleReport battle(bool debug = false);
 
     AnalysisReport analyze(int iterations = 10000);
 

@@ -16,8 +16,6 @@ public:
     Minion(const json& minion_json);
 
     Minion(std::string name, int tier, int attack, int health); // todo: delete me
-    
-    [[nodiscard]] std::string to_string() override;
 
     [[nodiscard]] std::string name() const {
         return _name;
@@ -75,21 +73,58 @@ public:
     [[nodiscard]] bool is_golden() const {
         return _is_golden;
     }
+
+    [[nodiscard]] bool is_divine_shield() const {
+        return _is_divine_shield;
+    }
+
+    void set_divine_shield(bool is_divine_shield) {
+        _is_divine_shield = is_divine_shield;
+    }
+
+    [[nodiscard]] bool is_taunt() const {
+        return _is_taunt;
+    }
+
+    void set_taunt(bool is_taunt) {
+        _is_taunt = is_taunt;
+    }
+
+    [[nodiscard]] bool is_reborn() const {
+        return _is_reborn;
+    }
+
+    void set_reborn(bool is_reborn) {
+        _is_reborn = is_reborn;
+    }
+
+    [[nodiscard]] bool is_deathrattle() const {
+        return _is_deathrattle;
+    }
+
+    [[nodiscard]] std::string to_string() override;
+
 private:
     std::string _name;
     int _tier{};
-    int _attack{};
-    int _health{};
     std::unordered_set<Keyword> _keywords;
     std::unordered_map<Keyword, Effect> _effects;
-    // vector<buff_t> buffs;
-    // vector<buff_t> tempBuffs;
-    // vector<buff_t> auraBuffs;
-    // vector<effect_t> effects;
 
     int _id{};
     int _alt_id{};
     bool _is_golden{};
+
+    int _attack{};
+    int _health{};
+    bool _is_divine_shield{};
+    bool _is_taunt{};
+    bool _is_reborn{};
+    bool _is_deathrattle{};
+
+    // vector<buff_t> buffs;
+    // vector<buff_t> tempBuffs;
+    // vector<buff_t> auraBuffs;
+    // vector<effect_t> effects;
 };
 
 #endif //CARD_H
