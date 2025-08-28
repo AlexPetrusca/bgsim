@@ -279,6 +279,100 @@
     "type": "MINION"
   },
   {
+    "dbfId": 48100,
+    "name": "Security Rover",
+    "tier": 4,
+    "attack": 2,
+    "health": 6,
+    "mechanics": [
+      "ON_DAMAGE_SELF"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_SELF",
+        "type": "SUMMON",
+        "args": [
+          49278
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BOT_218",
+    "goldenDbfId": 58392,
+    "artist": "Adam Byrne",
+    "cardClass": "WARRIOR",
+    "flavor": "Insecurity detected. Alerting hugbots.",
+    "rarity": "RARE",
+    "text": "[x]Whenever this minion\ntakes damage, summon a\n2/3 Mech with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58392,
+    "name": "Security Rover",
+    "tier": 4,
+    "attack": 4,
+    "health": 12,
+    "mechanics": [
+      "ON_DAMAGE_SELF"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_SELF",
+        "type": "SUMMON",
+        "args": [
+          58393
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_041",
+    "normalDbfId": 48100,
+    "cardClass": "WARRIOR",
+    "text": "[x]Whenever this minion\ntakes damage, summon a\n4/6 Mech with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 49278,
+    "name": "Guard Bot",
+    "tier": 1,
+    "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BOT_218t",
+    "goldenDbfId": 58393,
+    "artist": "Sam Nielson",
+    "cardClass": "WARRIOR",
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58393,
+    "name": "Guard Bot",
+    "tier": 1,
+    "attack": 4,
+    "health": 6,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_041t",
+    "normalDbfId": 49278,
+    "cardClass": "WARRIOR",
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
     "dbfId": 104551,
     "name": "Harmless Bonehead",
     "tier": 1,

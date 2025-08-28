@@ -20,6 +20,8 @@ public:
         HOUNDMASTER_G = 59499,
         IMP_GANG_BOSS = 115949,
         IMP_GANG_BOSS_G = 58372,
+        SECURITY_ROVER = 48100,
+        SECURITY_ROVER_G = 58392,
         HARMLESS_BONEHEAD = 104551,
         HARMLESS_BONEHEAD_G = 104554,
         PSYCH_O_TRON = 105886,
@@ -36,6 +38,8 @@ public:
         SKELETON_T_G = 99630,
         IMP_T = 96788,
         IMP_T_G = 58373,
+        GUARD_BOT_T = 49278,
+        GUARD_BOT_T_G = 58393,
     };
 
     Minion get_minion(int id);

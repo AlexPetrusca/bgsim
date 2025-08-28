@@ -186,3 +186,22 @@ TEST(ArenaTest, OnDamageSummon) {
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 1);
 }
+
+TEST(ArenaTest, OnDamageSummonTaunt) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
