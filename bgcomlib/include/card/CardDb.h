@@ -12,6 +12,8 @@ public:
 
     enum class Id {
         // minions
+        ALLEYCAT = 96758,
+        ALLEYCAT_G = 60053,
         SEWER_RAT = 70790,
         SEWER_RAT_G = 70801,
         HOUNDMASTER = 96778,
@@ -24,6 +26,8 @@ public:
         COLOSSUS_OF_THE_SUN_G = 98868,
 
         // tokens
+        TABBYCAT_T = 96759,
+        TABBYCAT_T_G = 60054,
         HALF_SHELL_T = 70791,
         HALF_SHELL_T_G = 70802,
         SKELETON_T = 99629,

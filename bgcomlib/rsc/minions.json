@@ -38,6 +38,35 @@
     "type": "MINION"
   },
   {
+    "dbfId": 96759,
+    "name": "Tabbycat",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_CFM_315t",
+    "goldenDbfId": 60054,
+    "artist": "Anton Zemskov",
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60054,
+    "name": "Tabbycat",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_093t",
+    "normalDbfId": 96759,
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
     "dbfId": 70790,
     "name": "Sewer Rat",
     "tier": 2,
