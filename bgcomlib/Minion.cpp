@@ -12,24 +12,7 @@ Minion::Minion(const json& minion_json) {
     _health = minion_json["health"];
     if (minion_json.contains("mechanics")) {
         for (const auto& keyword_json : minion_json["mechanics"]) {
-            Keyword keyword = KeywordUtil::fromString(keyword_json);
-            switch (keyword) {
-                case Keyword::DIVINE_SHIELD:
-                    _is_divine_shield = true;
-                    break;
-                case Keyword::TAUNT:
-                    _is_taunt = true;
-                    break;
-                case Keyword::REBORN:
-                    _is_reborn = true;
-                    break;
-                case Keyword::DEATHRATTLE:
-                    _is_deathrattle = true;
-                    break;
-                default:
-                    break;
-            }
-            _keywords.insert(keyword);
+            set(KeywordUtil::fromString(keyword_json));
         }
     }
     if (minion_json.contains("effects")) {
@@ -54,20 +37,19 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
 [[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";
-    // todo: replace these with a bitvector
-    if (_is_divine_shield || _is_taunt || _is_reborn || _is_deathrattle) {
+    if (_props.any()) {
         oss << " ";
     }
-    if (_is_divine_shield) {
+    if (has(Keyword::DIVINE_SHIELD)) {
         oss << "[S]";
     }
-    if (_is_taunt) {
+    if (has(Keyword::TAUNT)) {
         oss << "[T]";
     }
-    if (_is_reborn) {
+    if (has(Keyword::REBORN)) {
         oss << "[R]";
     }
-    if (_is_deathrattle) {
+    if (has(Keyword::DEATHRATTLE)) {
         oss << "[D]";
     }
     return oss.str();

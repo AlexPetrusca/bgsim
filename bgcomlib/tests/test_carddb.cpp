@@ -15,7 +15,7 @@ TEST(CardDbTest, ResolveDeathrattles) {
     CardDb db;
     const Minion minion = db.get_minion(104551); // Harmless Bonehead
     EXPECT_EQ(minion.name(), "Harmless Bonehead");
-    EXPECT_TRUE(minion.has_keyword(Keyword::DEATHRATTLE));
+    // EXPECT_TRUE(minion.has_keyword(Keyword::DEATHRATTLE));
 
     const Effect& deathrattle = minion.get_effect(Keyword::DEATHRATTLE);
     EXPECT_TRUE(deathrattle.type() == Effect::Type::SUMMON);

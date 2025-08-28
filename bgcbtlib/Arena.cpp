@@ -50,7 +50,7 @@ int Arena::combat(Board& boardA, Board& boardB, const int turn, const int attack
         size_t taunt_idx = dist_def(rng);
         for (int i = 0; i < defending.size(); i++) {
             Minion& minion = defending.get_minions().at(i);
-            if (minion.is_taunt()) {
+            if (minion.has(Keyword::TAUNT)) {
                 if (taunt_idx == 0) {
                     def_minion_idx = i;
                     def_minion = &minion;
@@ -77,27 +77,10 @@ int Arena::combat(Board& boardA, Board& boardB, const int turn, const int attack
         debug_combat(boardA, boardB);
     }
 
-    // resolve damage
-    if (atk_minion->is_divine_shield()) {
-        atk_minion->set_divine_shield(false);
-    } else {
-        atk_minion->deal_damage(def_minion->attack());
-    }
-    if (def_minion->is_divine_shield()) {
-        def_minion->set_divine_shield(false);
-    } else {
-        def_minion->deal_damage(atk_minion->attack());
-    }
-
-    // resolve deaths
-    bool attacker_died = false;
-    if (atk_minion->health() <= 0) {
-        attacking.kill_minion(atk_minion_idx);
-        attacker_died = true;
-    }
-    if (def_minion->health() <= 0) {
-        defending.kill_minion(def_minion_idx);
-    }
+    const int atk_attack = atk_minion->attack();
+    const int def_attack = def_minion->attack();
+    const bool attacker_died= attacking.damage_minion(atk_minion_idx, def_attack);
+    defending.damage_minion(def_minion_idx, atk_attack);
 
     if (debug) {
         debug_combat(boardA, boardB);

@@ -2,7 +2,6 @@
 #define CARD_H
 
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 #include "Effect.h"
@@ -54,10 +53,6 @@ public:
         return _health;
     }
 
-    [[nodiscard]] bool has_keyword(const Keyword keyword) const {
-        return _keywords.contains(keyword);
-    }
-
     [[nodiscard]] const Effect& get_effect(const Keyword keyword) const {
         return _effects.at(keyword);
     }
@@ -74,32 +69,24 @@ public:
         return _is_golden;
     }
 
-    [[nodiscard]] bool is_divine_shield() const {
-        return _is_divine_shield;
+    [[nodiscard]] bool has(const Keyword keyword) const {
+        return _props.has(keyword);
     }
 
-    void set_divine_shield(bool is_divine_shield) {
-        _is_divine_shield = is_divine_shield;
+    void set(const Keyword keyword) {
+        return _props.set(keyword);
     }
 
-    [[nodiscard]] bool is_taunt() const {
-        return _is_taunt;
+    void clear(const Keyword keyword) {
+        return _props.clear(keyword);
     }
 
-    void set_taunt(bool is_taunt) {
-        _is_taunt = is_taunt;
-    }
-
-    [[nodiscard]] bool is_reborn() const {
-        return _is_reborn;
-    }
-
-    void set_reborn(bool is_reborn) {
-        _is_reborn = is_reborn;
-    }
-
-    [[nodiscard]] bool is_deathrattle() const {
-        return _is_deathrattle;
+    void toggle(const Keyword keyword) {
+        if (_props.has(keyword)) {
+            _props.clear(keyword);
+        } else {
+            _props.set(keyword);
+        }
     }
 
     [[nodiscard]] std::string to_string() override;
@@ -107,7 +94,6 @@ public:
 private:
     std::string _name;
     int _tier{};
-    std::unordered_set<Keyword> _keywords;
     std::unordered_map<Keyword, Effect> _effects;
 
     int _id{};
@@ -116,10 +102,7 @@ private:
 
     int _attack{};
     int _health{};
-    bool _is_divine_shield{};
-    bool _is_taunt{};
-    bool _is_reborn{};
-    bool _is_deathrattle{};
+    BitVector<Keyword> _props;
 
     // vector<buff_t> buffs;
     // vector<buff_t> tempBuffs;

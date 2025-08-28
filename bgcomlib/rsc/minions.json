@@ -194,6 +194,91 @@
     "type": "MINION"
   },
   {
+    "dbfId": 115949,
+    "name": "Imp Gang Boss",
+    "tier": 2,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "ON_DAMAGE_SELF"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_SELF",
+        "type": "SUMMON",
+        "args": [
+          96788
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG_BRM_006",
+    "goldenDbfId": 58372,
+    "artist": "Steve Prescott",
+    "cardClass": "WARLOCK",
+    "flavor": "His imp gang likes to sneak into Stormwind to spraypaint \"Ragnaros Rulez\" on the Mage Tower.",
+    "rarity": "COMMON",
+    "text": "Whenever this minion takes damage, summon a 1/1 Imp.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58372,
+    "name": "Imp Gang Boss",
+    "tier": 2,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "ON_DAMAGE_SELF"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_SELF",
+        "type": "SUMMON",
+        "args": [
+          58373
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_030",
+    "normalDbfId": 115949,
+    "cardClass": "WARLOCK",
+    "text": "Whenever this minion takes damage, summon a 2/2 Imp.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96788,
+    "name": "Imp",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG_BRM_006t",
+    "goldenDbfId": 58373,
+    "cardClass": "WARLOCK",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58373,
+    "name": "Imp",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_030t",
+    "normalDbfId": 96788,
+    "cardClass": "WARLOCK",
+    "type": "MINION"
+  },
+  {
     "dbfId": 104551,
     "name": "Harmless Bonehead",
     "tier": 1,

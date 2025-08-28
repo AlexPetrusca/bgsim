@@ -4,14 +4,14 @@
 
 #include "card/CardDb.h"
 
-Board::Board(const std::vector<Minion> &minions) {
+Board::Board(const std::vector<Minion>& minions) {
     if (minions.size() > 7) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minions.size()));
     }
     this->_minions = minions;
     this->_taunt_count = 0;
-    for (const Minion& minion : _minions) {
-        if (minion.is_taunt()) {
+    for (const Minion& minion: _minions) {
+        if (minion.has(Keyword::TAUNT)) {
             _taunt_count++;
         }
     }
@@ -22,7 +22,8 @@ Board Board::from_ids(const std::vector<CardDb::Id>& minionIds) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minionIds.size()));
     }
     std::vector<Minion> minions;
-    for (const CardDb::Id& minionId : minionIds) {
+    minions.reserve(minionIds.size());
+    for (const CardDb::Id& minionId: minionIds) {
         minions.push_back(db.get_minion(minionId));
     }
     return Board(minions);
@@ -32,7 +33,7 @@ std::vector<Minion>& Board::get_minions() {
     return this->_minions;
 }
 
-void Board::add_minion(const Minion &minion, const size_t idx) {
+void Board::summon_minion(const Minion& minion, const size_t idx) {
     if (full()) return;
 
     if (idx == -1) {
@@ -41,7 +42,7 @@ void Board::add_minion(const Minion &minion, const size_t idx) {
         _minions.insert(_minions.begin() + idx, minion);
     }
 
-    if (minion.is_taunt()) {
+    if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
 }
@@ -49,24 +50,48 @@ void Board::add_minion(const Minion &minion, const size_t idx) {
 void Board::kill_minion(size_t idx) {
     Minion minion = _minions.at(idx);
     _minions.erase(_minions.begin() + idx);
-    if (minion.is_deathrattle()) {
+    if (minion.has(Keyword::DEATHRATTLE)) {
         exec_effect(minion.get_effect(Keyword::DEATHRATTLE), idx);
     }
-    if (minion.is_reborn()) {
+    if (minion.has(Keyword::REBORN)) {
         // todo: [optimize] so inefficient (maybe don't handle with effect)
         const Effect reborn_effect(Keyword::REBORN, Effect::Type::REBORN_SUMMON, {minion.id()});
         exec_effect(reborn_effect, idx);
     }
-    if (minion.is_taunt()) {
+    if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
     }
+}
+
+bool Board::damage_minion(size_t idx, const int damage) {
+    Minion* minion = &_minions.at(idx);
+
+    // resolve damage
+    if (minion->has(Keyword::DIVINE_SHIELD)) {
+        minion->clear(Keyword::DIVINE_SHIELD);
+    } else {
+        minion->deal_damage(damage);
+        if (minion->has(Keyword::ON_DAMAGE_SELF)) {
+            exec_effect(minion->get_effect(Keyword::ON_DAMAGE_SELF), idx + 1);
+        }
+    }
+
+    minion = &_minions.at(idx); // todo: hacky - refactor
+
+    // resolve deaths
+    if (minion->health() <= 0) {
+        kill_minion(idx);
+        return true;
+    }
+
+    return false;
 }
 
 void Board::exec_effect(const Effect& effect, const size_t idx) {
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
-            for (const int minion_id : effect.args()) {
-                add_minion(db.get_minion(minion_id), idx);
+            for (const int minion_id: effect.args()) {
+                summon_minion(db.get_minion(minion_id), idx);
             }
             break;
         }
@@ -74,8 +99,8 @@ void Board::exec_effect(const Effect& effect, const size_t idx) {
             const int minion_id = effect.args()[0];
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
-            minion.set_reborn(false);
-            add_minion(minion, idx);
+            minion.clear(Keyword::REBORN);
+            summon_minion(minion, idx);
             break;
         }
         default:
@@ -85,7 +110,7 @@ void Board::exec_effect(const Effect& effect, const size_t idx) {
 
 int Board::tier_total() const {
     int total = 0;
-    for (const Minion &minion : _minions) {
+    for (const Minion& minion: _minions) {
         total += minion.tier();
     }
     return total;
@@ -110,7 +135,7 @@ int Board::taunt_count() const {
 [[nodiscard]] std::string Board::to_string() {
     std::ostringstream oss;
     oss << _minions.size() << " | ";
-    for (auto& minion : _minions) {
+    for (auto& minion: _minions) {
         oss << minion << " | ";
     }
     return oss.str();

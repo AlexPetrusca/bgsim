@@ -13,9 +13,11 @@ public:
 
     std::vector<Minion>& get_minions();
 
-    void add_minion(const Minion& minion, size_t idx = -1);
+    void summon_minion(const Minion& minion, size_t idx = -1);
 
     void kill_minion(size_t idx);
+
+    bool damage_minion(size_t idx, int damage);
 
     void exec_effect(const Effect& effect, size_t idx);
 

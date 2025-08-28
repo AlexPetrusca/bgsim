@@ -18,6 +18,8 @@ public:
         SEWER_RAT_G = 70801,
         HOUNDMASTER = 96778,
         HOUNDMASTER_G = 59499,
+        IMP_GANG_BOSS = 115949,
+        IMP_GANG_BOSS_G = 58372,
         HARMLESS_BONEHEAD = 104551,
         HARMLESS_BONEHEAD_G = 104554,
         PSYCH_O_TRON = 105886,
@@ -32,6 +34,8 @@ public:
         HALF_SHELL_T_G = 70802,
         SKELETON_T = 99629,
         SKELETON_T_G = 99630,
+        IMP_T = 96788,
+        IMP_T_G = 58373,
     };
 
     Minion get_minion(int id);

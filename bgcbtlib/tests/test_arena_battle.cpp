@@ -43,13 +43,13 @@ TEST(ArenaTest, LongBattle) {
     Board boardA;
     for (int i = 0; i < 7; i++) {
         Minion minion = Minion("A" + std::to_string(i), 1, 5, 150);
-        boardA.add_minion(minion);
+        boardA.summon_minion(minion);
     }
 
     Board boardB;
     for (int i = 0; i < 7; i++) {
         Minion minion = Minion("B" + std::to_string(i), 1, 5, 150);
-        boardB.add_minion(minion);
+        boardB.summon_minion(minion);
     }
 
     std::mt19937 rng(12345);
@@ -85,14 +85,14 @@ TEST(ArenaTest, DeathrattleOverflow) {
     for (int i = 0; i < 7; i++) {
         Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("A" + std::to_string(i));
-        boardA.add_minion(minion);
+        boardA.summon_minion(minion);
     }
 
     Board boardB;
     for (int i = 0; i < 7; i++) {
         Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
         minion.set_name("B" + std::to_string(i));
-        boardB.add_minion(minion);
+        boardB.summon_minion(minion);
     }
 
     std::mt19937 rng(12345);
@@ -166,4 +166,23 @@ TEST(ArenaTest, TauntDeathrattle) {
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaTest, OnDamageSummon) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::IMP_GANG_BOSS,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 1);
 }
