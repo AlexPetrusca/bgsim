@@ -1,17 +1,48 @@
 [
   {
-    "attack": 3,
-    "goldenDbfId": 70801,
-    "cardClass": "NEUTRAL",
-    "cost": 2,
-    "dbfId": 70790,
-    "health": 2,
-    "id": "BG19_010",
-    "name": "Sewer Rat",
-    "race": "BEAST",
+    "dbfId": 96758,
+    "name": "Alleycat",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "BATTLECRY"
+    ],
     "races": [
       "BEAST"
     ],
+    "id": "BG_CFM_315",
+    "goldenDbfId": 60053,
+    "artist": "Anton Zemskov",
+    "cardClass": "HUNTER",
+    "flavor": "To be a cool cat in Gadgetzan, you gotta have bling.",
+    "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60053,
+    "name": "Alleycat",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_093",
+    "normalDbfId": 96758,
+    "cardClass": "HUNTER",
+    "text": "<b>Battlecry:</b> Summon a 2/2 Cat.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 70790,
+    "name": "Sewer Rat",
+    "tier": 2,
+    "attack": 3,
+    "health": 2,
     "mechanics": [
       "DEATHRATTLE",
       "TAUNT"
@@ -25,22 +56,21 @@
         ]
       }
     ],
-    "tier": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG19_010",
+    "goldenDbfId": 70801,
+    "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Summon a 2/3 Turtle with <b>Taunt</b>.",
     "type": "MINION"
   },
   {
-    "attack": 6,
-    "normalDbfId": 70790,
-    "cardClass": "NEUTRAL",
-    "cost": 2,
     "dbfId": 70801,
-    "health": 4,
-    "id": "BG19_010_G",
     "name": "Sewer Rat",
-    "races": [
-      "BEAST"
-    ],
+    "tier": 2,
+    "attack": 6,
+    "health": 4,
     "mechanics": [
       "DEATHRATTLE",
       "TAUNT"
@@ -54,100 +84,92 @@
         ]
       }
     ],
-    "tier": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG19_010_G",
+    "normalDbfId": 70790,
+    "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Summon a 4/6 Turtle with <b>Taunt</b>.",
     "type": "MINION"
   },
   {
+    "dbfId": 70791,
+    "name": "Half-Shell",
+    "tier": 1,
     "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG19_010t",
     "goldenDbfId": 70802,
     "cardClass": "NEUTRAL",
-    "cost": 1,
-    "dbfId": 70791,
-    "health": 3,
-    "id": "BG19_010t",
-    "name": "Half-Shell",
-    "race": "BEAST",
-    "races": [
-      "BEAST"
-    ],
-    "mechanics": [
-      "TAUNT"
-    ],
-    "set": "BATTLEGROUNDS",
-    "tier": 1,
     "text": "<b>Taunt</b>",
     "type": "MINION"
   },
   {
-    "attack": 4,
-    "normalDbfId": 70791,
-    "cardClass": "NEUTRAL",
-    "cost": 1,
     "dbfId": 70802,
-    "health": 6,
-    "id": "BG19_010_Gt",
     "name": "Half-Shell",
-    "race": "BEAST",
-    "races": [
-      "BEAST"
-    ],
+    "tier": 1,
+    "attack": 4,
+    "health": 6,
     "mechanics": [
       "TAUNT"
     ],
-    "set": "BATTLEGROUNDS",
-    "tier": 1,
+    "races": [
+      "BEAST"
+    ],
+    "normalDbfId": 70791,
+    "id": "BG19_010_Gt",
+    "cardClass": "NEUTRAL",
     "text": "<b>Taunt</b>",
     "type": "MINION"
   },
   {
-    "artist": "Dan Brereton",
-    "attack": 4,
-    "goldenDbfId": 59499,
-    "cardClass": "HUNTER",
-    "cost": 4,
     "dbfId": 96778,
-    "health": 3,
-    "id": "BG_DS1_070",
     "name": "Houndmaster",
-    "rarity": "FREE",
+    "tier": 3,
+    "attack": 4,
+    "health": 3,
     "mechanics": [
       "BATTLECRY"
     ],
-    "set": "BATTLEGROUNDS",
+    "id": "BG_DS1_070",
+    "goldenDbfId": 59499,
+    "artist": "Dan Brereton",
+    "cardClass": "HUNTER",
+    "rarity": "FREE",
     "targetingArrowText": "Give a Beast +2/+2 and Taunt.",
-    "tier": 3,
     "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.",
     "type": "MINION"
   },
   {
-    "attack": 8,
-    "normalDbfId": 96778,
-    "cardClass": "HUNTER",
-    "cost": 4,
     "dbfId": 59499,
-    "health": 6,
-    "id": "TB_BaconUps_068",
     "name": "Houndmaster",
-    "rarity": "FREE",
+    "tier": 3,
+    "attack": 8,
+    "health": 6,
     "mechanics": [
       "BATTLECRY"
     ],
-    "set": "BATTLEGROUNDS",
+    "id": "TB_BaconUps_068",
+    "normalDbfId": 96778,
+    "cardClass": "HUNTER",
+    "rarity": "FREE",
     "targetingArrowText": "Give a Beast +4/+4 and Taunt.",
-    "tier": 3,
     "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4 and <b>Taunt</b>.",
     "type": "MINION"
   },
   {
-    "attack": 1,
-    "goldenDbfId": 104554,
-    "cardClass": "NEUTRAL",
-    "cost": 1,
     "dbfId": 104551,
+    "name": "Harmless Bonehead",
+    "tier": 1,
+    "attack": 1,
     "health": 1,
-    "id": "BG28_300",
-    "isBattlegroundsPoolMinion": true,
     "mechanics": [
       "DEATHRATTLE"
     ],
@@ -161,23 +183,21 @@
         ]
       }
     ],
-    "name": "Harmless Bonehead",
-    "race": "UNDEAD",
     "races": [
       "UNDEAD"
     ],
-    "set": "BATTLEGROUNDS",
-    "tier": 1,
+    "id": "BG28_300",
+    "goldenDbfId": 104554,
+    "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Summon\ntwo 1/1 Skeletons.",
     "type": "MINION"
   },
   {
-    "attack": 2,
-    "normalDbfId": 104551,
-    "cardClass": "NEUTRAL",
     "dbfId": 104554,
+    "name": "Harmless Bonehead",
+    "tier": 1,
+    "attack": 2,
     "health": 2,
-    "id": "BG28_300_G",
     "mechanics": [
       "DEATHRATTLE"
     ],
@@ -191,143 +211,126 @@
         ]
       }
     ],
-    "name": "Harmless Bonehead",
     "races": [
       "UNDEAD"
     ],
-    "tier": 1,
+    "id": "BG28_300_G",
+    "normalDbfId": 104551,
+    "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Summon\ntwo 2/2 Skeletons.",
     "type": "MINION"
   },
   {
-    "artist": "Andrew Hou",
-    "attack": 1,
-    "goldenDbfId": 99630,
-    "cardClass": "NEUTRAL",
-    "cost": 0,
     "dbfId": 99629,
+    "name": "Skeleton",
+    "tier": 1,
+    "attack": 1,
     "health": 1,
+    "races": [
+      "UNDEAD"
+    ],
     "id": "BG_ICC_026t",
-    "name": "Skeleton",
-    "race": "UNDEAD",
-    "races": [
-      "UNDEAD"
-    ],
-    "set": "ICECROWN",
-    "tier": 1,
-    "type": "MINION"
-  },
-  {
+    "goldenDbfId": 99630,
     "artist": "Andrew Hou",
-    "attack": 2,
-    "normalDbfId": 99629,
     "cardClass": "NEUTRAL",
-    "cost": 0,
+    "type": "MINION"
+  },
+  {
     "dbfId": 99630,
-    "health": 2,
-    "id": "BG_ICC_026t_G",
     "name": "Skeleton",
-    "race": "UNDEAD",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
     "races": [
       "UNDEAD"
     ],
-    "set": "ICECROWN",
-    "tier": 1,
+    "id": "BG_ICC_026t_G",
+    "normalDbfId": 99629,
+    "artist": "Andrew Hou",
+    "cardClass": "NEUTRAL",
     "type": "MINION"
   },
   {
-    "artist": "Matt Dixon",
-    "attack": 3,
-    "goldenDbfId": 105887,
-    "cardClass": "NEUTRAL",
-    "cost": 5,
     "dbfId": 105886,
-    "flavor": "\"Annoyinger-o-Tron\" was just too unwieldy. And accurate.",
+    "name": "Psych-o-Tron",
+    "tier": 3,
+    "attack": 3,
     "health": 4,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
     "id": "BG_OG_145",
-    "mechanics": [
-      "DIVINE_SHIELD",
-      "TAUNT"
-    ],
-    "name": "Psych-o-Tron",
-    "race": "MECHANICAL",
-    "races": [
-      "MECHANICAL"
-    ],
-    "rarity": "COMMON",
-    "set": "OG",
-    "tier": 3,
-    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
-    "type": "MINION"
-  },
-  {
+    "goldenDbfId": 105887,
     "artist": "Matt Dixon",
-    "attack": 6,
-    "normalDbfId": 105886,
     "cardClass": "NEUTRAL",
-    "cost": 5,
-    "dbfId": 105887,
     "flavor": "\"Annoyinger-o-Tron\" was just too unwieldy. And accurate.",
-    "health": 8,
-    "id": "BG_OG_145_G",
-    "mechanics": [
-      "DIVINE_SHIELD",
-      "TAUNT"
-    ],
-    "name": "Psych-o-Tron",
-    "race": "MECHANICAL",
-    "races": [
-      "MECHANICAL"
-    ],
     "rarity": "COMMON",
-    "set": "OG",
-    "tier": 3,
     "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
     "type": "MINION"
   },
   {
-    "attack": 9,
-    "goldenDbfId": 98868,
-    "cardClass": "DEATHKNIGHT",
-    "cost": 0,
+    "dbfId": 105887,
+    "name": "Psych-o-Tron",
+    "tier": 3,
+    "attack": 6,
+    "health": 8,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_OG_145_G",
+    "normalDbfId": 105886,
+    "artist": "Matt Dixon",
+    "cardClass": "NEUTRAL",
+    "flavor": "\"Annoyinger-o-Tron\" was just too unwieldy. And accurate.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
     "dbfId": 98867,
-    "elite": true,
+    "name": "Colossus of the Sun",
+    "tier": 6,
+    "attack": 9,
     "health": 9,
-    "id": "BG25_050",
     "mechanics": [
       "DIVINE_SHIELD",
       "REBORN"
     ],
-    "name": "Colossus of the Sun",
-    "race": "UNDEAD",
     "races": [
       "UNDEAD"
     ],
-    "set": "BATTLEGROUNDS",
-    "tier": 6,
+    "id": "BG25_050",
+    "goldenDbfId": 98868,
+    "cardClass": "DEATHKNIGHT",
+    "elite": true,
     "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
     "type": "MINION"
   },
   {
-    "attack": 18,
-    "normalDbfId": 98867,
-    "cardClass": "DEATHKNIGHT",
-    "cost": 0,
     "dbfId": 98868,
-    "elite": true,
+    "name": "Colossus of the Sun",
+    "tier": 6,
+    "attack": 18,
     "health": 18,
-    "id": "BG25_050_G",
     "mechanics": [
       "DIVINE_SHIELD",
       "REBORN"
     ],
-    "name": "Colossus of the Sun",
-    "race": "UNDEAD",
     "races": [
       "UNDEAD"
     ],
-    "set": "BATTLEGROUNDS",
-    "tier": 6,
+    "id": "BG25_050_G",
+    "normalDbfId": 98867,
+    "elite": true,
+    "cardClass": "DEATHKNIGHT",
     "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
     "type": "MINION"
   }
