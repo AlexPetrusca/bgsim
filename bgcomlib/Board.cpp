@@ -48,7 +48,7 @@ void Board::summon_minion(const Minion& minion, const size_t idx) {
 }
 
 void Board::kill_minion(size_t idx) {
-    Minion minion = _minions.at(idx);
+    Minion minion = std::move(_minions.at(idx));
     _minions.erase(_minions.begin() + idx);
     if (minion.has(Keyword::DEATHRATTLE)) {
         exec_effect(minion.get_effect(Keyword::DEATHRATTLE), idx);
