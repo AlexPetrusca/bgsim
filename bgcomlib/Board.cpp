@@ -52,14 +52,13 @@ void Board::kill_minion(const MinionLoc loc) {
     _zombie_count++;
 
     const Minion& minion = *loc;
-    const MinionLoc nextLoc = std::next(loc);
     if (minion.has(Keyword::DEATHRATTLE)) {
-        exec_effect(minion.get_effect(Keyword::DEATHRATTLE), nextLoc);
+        exec_effect(minion.get_effect(Keyword::DEATHRATTLE), loc);
     }
     if (minion.has(Keyword::REBORN)) {
         // todo: [optimize] so inefficient (maybe don't handle with effect)
         const Effect reborn_effect(Keyword::REBORN, Effect::Type::REBORN_SUMMON, {minion.id()});
-        exec_effect(reborn_effect, nextLoc);
+        exec_effect(reborn_effect, loc);
     }
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
@@ -75,7 +74,6 @@ void Board::kill_minion(const MinionLoc loc) {
 
 bool Board::damage_minion(const MinionLoc loc, const int damage) {
     Minion& minion = *loc;
-    const MinionLoc nextLoc = std::next(loc);
 
     // resolve damage
     if (minion.has(Keyword::DIVINE_SHIELD)) {
@@ -83,7 +81,7 @@ bool Board::damage_minion(const MinionLoc loc, const int damage) {
     } else {
         minion.deal_damage(damage);
         if (minion.has(Keyword::ON_DAMAGE_SELF)) {
-            exec_effect(minion.get_effect(Keyword::ON_DAMAGE_SELF), nextLoc);
+            exec_effect(minion.get_effect(Keyword::ON_DAMAGE_SELF), loc);
         }
     }
 
@@ -95,13 +93,12 @@ bool Board::damage_minion(const MinionLoc loc, const int damage) {
     return false;
 }
 
-// todo: do you want loc to be "from the left" or "from the right"
-//      - right now you're passing "from the right" (i.e. nextLoc)
 void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
+    const auto next_loc = std::next(loc);
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
-                summon_minion(db.get_minion(minion_id), loc);
+                summon_minion(db.get_minion(minion_id), next_loc);
             }
             break;
         }
@@ -110,7 +107,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, loc);
+            summon_minion(minion, next_loc);
             break;
         }
         default:
