@@ -1,9 +1,13 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include <list>
+
 #include "card/Minion.h"
 #include "card/CardDb.h"
 #include "../IPrintable.h"
+
+using MinionLoc = std::list<Minion>::iterator;
 
 class Board : public IPrintable {
 public:
@@ -11,15 +15,23 @@ public:
 
     static Board from_ids(const std::vector<CardDb::Id>& minionIds);
 
-    std::vector<Minion>& get_minions();
+    std::list<Minion>& minions();
 
-    void summon_minion(const Minion& minion, size_t idx = -1);
+    void summon_minion(const Minion& minion);
 
-    void kill_minion(size_t idx);
+    void summon_minion(const Minion& minion, MinionLoc loc);
 
-    bool damage_minion(size_t idx, int damage);
+    void kill_minion(MinionLoc loc);
 
-    void exec_effect(const Effect& effect, size_t idx);
+    bool damage_minion(MinionLoc loc, int damage);
+
+    void exec_effect(const Effect& effect, MinionLoc loc);
+
+    void prep_for_battle();
+
+    void increment_active();
+
+    [[nodiscard]] MinionLoc active() const;
 
     [[nodiscard]] int tier_total() const;
 
@@ -34,8 +46,10 @@ public:
     [[nodiscard]] int taunt_count() const;
 
 private:
-    std::vector<Minion> _minions;
+    std::list<Minion> _minions;
+    MinionLoc _active; // todo: should the board really track this
     int _taunt_count;
+    int _zombie_count;
     // Aura auras[];
 };
 

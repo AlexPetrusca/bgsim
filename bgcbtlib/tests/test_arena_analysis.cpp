@@ -182,6 +182,6 @@ TEST(ArenaTest, AnalyzeDivineShieldTaunt) {
     EXPECT_EQ(report.in_dmg_quart3(), 0);
 
     EXPECT_EQ(report.out_dmg_quart1(), 1);
-    EXPECT_EQ(report.out_dmg_median(), 1);
+    EXPECT_EQ(report.out_dmg_median(), 2);
     EXPECT_EQ(report.out_dmg_quart3(), 2);
 }

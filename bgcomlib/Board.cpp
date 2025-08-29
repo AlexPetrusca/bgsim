@@ -8,7 +8,8 @@ Board::Board(const std::vector<Minion>& minions) {
     if (minions.size() > 7) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minions.size()));
     }
-    this->_minions = minions;
+    this->_minions = std::list(minions.begin(), minions.end());
+    this->_zombie_count = 0;
     this->_taunt_count = 0;
     for (const Minion& minion: _minions) {
         if (minion.has(Keyword::TAUNT)) {
@@ -29,69 +30,78 @@ Board Board::from_ids(const std::vector<CardDb::Id>& minionIds) {
     return Board(minions);
 }
 
-std::vector<Minion>& Board::get_minions() {
+std::list<Minion>& Board::minions() {
     return this->_minions;
 }
 
-void Board::summon_minion(const Minion& minion, const size_t idx) {
+void Board::summon_minion(const Minion& minion) {
+    summon_minion(minion, _minions.end());
+}
+
+void Board::summon_minion(const Minion& minion, const MinionLoc loc) {
     if (full()) return;
 
-    if (idx == -1) {
-        _minions.push_back(minion);
-    } else {
-        _minions.insert(_minions.begin() + idx, minion);
-    }
+    _minions.insert(loc, minion);
 
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
 }
 
-void Board::kill_minion(size_t idx) {
-    Minion minion = std::move(_minions.at(idx));
-    _minions.erase(_minions.begin() + idx);
+void Board::kill_minion(const MinionLoc loc) {
+    _zombie_count++;
+
+    const Minion& minion = *loc;
+    const MinionLoc nextLoc = std::next(loc);
     if (minion.has(Keyword::DEATHRATTLE)) {
-        exec_effect(minion.get_effect(Keyword::DEATHRATTLE), idx);
+        exec_effect(minion.get_effect(Keyword::DEATHRATTLE), nextLoc);
     }
     if (minion.has(Keyword::REBORN)) {
         // todo: [optimize] so inefficient (maybe don't handle with effect)
         const Effect reborn_effect(Keyword::REBORN, Effect::Type::REBORN_SUMMON, {minion.id()});
-        exec_effect(reborn_effect, idx);
+        exec_effect(reborn_effect, nextLoc);
     }
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
     }
+
+    if (_active == loc) {
+        increment_active();
+    }
+    _minions.erase(loc); // erase zombie
+
+    _zombie_count--;
 }
 
-bool Board::damage_minion(size_t idx, const int damage) {
-    Minion* minion = &_minions.at(idx);
+bool Board::damage_minion(const MinionLoc loc, const int damage) {
+    Minion& minion = *loc;
+    const MinionLoc nextLoc = std::next(loc);
 
     // resolve damage
-    if (minion->has(Keyword::DIVINE_SHIELD)) {
-        minion->clear(Keyword::DIVINE_SHIELD);
+    if (minion.has(Keyword::DIVINE_SHIELD)) {
+        minion.clear(Keyword::DIVINE_SHIELD);
     } else {
-        minion->deal_damage(damage);
-        if (minion->has(Keyword::ON_DAMAGE_SELF)) {
-            exec_effect(minion->get_effect(Keyword::ON_DAMAGE_SELF), idx + 1);
+        minion.deal_damage(damage);
+        if (minion.has(Keyword::ON_DAMAGE_SELF)) {
+            exec_effect(minion.get_effect(Keyword::ON_DAMAGE_SELF), nextLoc);
         }
     }
 
-    minion = &_minions.at(idx); // todo: hacky - refactor
-
-    // resolve deaths
-    if (minion->health() <= 0) {
-        kill_minion(idx);
+    // resolve death
+    if (minion.health() <= 0) {
+        kill_minion(loc);
         return true;
     }
-
     return false;
 }
 
-void Board::exec_effect(const Effect& effect, const size_t idx) {
+// todo: do you want loc to be "from the left" or "from the right"
+//      - right now you're passing "from the right" (i.e. nextLoc)
+void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
-                summon_minion(db.get_minion(minion_id), idx);
+                summon_minion(db.get_minion(minion_id), loc);
             }
             break;
         }
@@ -100,12 +110,37 @@ void Board::exec_effect(const Effect& effect, const size_t idx) {
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, idx);
+            summon_minion(minion, loc);
             break;
         }
         default:
             break;
     }
+}
+
+void Board::prep_for_battle() {
+    _active = _minions.begin();
+}
+
+void Board::increment_active() {
+    if (empty()) return;
+
+    ++_active;
+    if (_active == _minions.end()) {
+        _active = _minions.begin(); // wraparound
+    }
+
+    // // todo: we only need this for effects like cleave - uncomment later
+    // while (_active->health() < 0) { // todo: replace with something like "->dead()"
+    //     ++_active;
+    //     if (_active == _minions.end()) {
+    //         _active = _minions.begin(); // wraparound
+    //     }
+    // }
+}
+
+MinionLoc Board::active() const {
+    return _active;
 }
 
 int Board::tier_total() const {
@@ -117,15 +152,15 @@ int Board::tier_total() const {
 }
 
 size_t Board::size() const {
-    return _minions.size();
+    return _minions.size() - _zombie_count;
 }
 
 bool Board::empty() const {
-    return _minions.empty();
+    return size() == 0;
 }
 
 bool Board::full() const {
-    return _minions.size() == 7;
+    return size() == 7;
 }
 
 int Board::taunt_count() const {

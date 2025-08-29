@@ -14,10 +14,10 @@ BattleStatus Arena::get_battle_status() {
     if (boardA.empty()) return WIN_B;
     if (boardB.empty()) return WIN_A;
 
-    for (const auto& minion: boardA.get_minions()) {
+    for (const auto& minion: boardA.minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
-    for (const auto& minion: boardB.get_minions()) {
+    for (const auto& minion: boardB.minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
 
@@ -32,28 +32,22 @@ void debug_combat(Board& boardA, Board& boardB) {
     std::cout << "-------------------------------------------------------------" << std::endl;
 }
 
-int Arena::combat(Board& boardA, Board& boardB, const int turn, const int attack_idx, const bool debug) {
-    // todo: half this code needs to be moved into board
-
+void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debug) {
     Board& attacking = turn % 2 == 0 ? boardA : boardB;
     Board& defending = turn % 2 == 0 ? boardB : boardA;
 
     // select attacker
-    const size_t atk_minion_idx = attack_idx % attacking.get_minions().size();
-    Minion* atk_minion = &attacking.get_minions().at(atk_minion_idx);
+    const MinionLoc atk_minion = attacking.active();
 
     // select defender
-    size_t def_minion_idx = 0;
-    Minion* def_minion = &defending.get_minions().at(0);
+    MinionLoc def_minion;
     if (defending.taunt_count() > 0) {
         std::uniform_int_distribution<size_t> dist_def(0, defending.taunt_count() - 1);
         size_t taunt_idx = dist_def(rng);
-        for (int i = 0; i < defending.size(); i++) {
-            Minion& minion = defending.get_minions().at(i);
-            if (minion.has(Keyword::TAUNT)) {
+        for (auto m = defending.minions().begin(); m != defending.minions().end(); ++m) {
+            if (m->has(Keyword::TAUNT)) {
                 if (taunt_idx == 0) {
-                    def_minion_idx = i;
-                    def_minion = &minion;
+                    def_minion = m;
                     break;
                 }
                 taunt_idx--;
@@ -61,8 +55,8 @@ int Arena::combat(Board& boardA, Board& boardB, const int turn, const int attack
         }
     } else {
         std::uniform_int_distribution<size_t> dist_def(0, defending.size() - 1);
-        def_minion_idx = dist_def(rng);
-        def_minion = &defending.get_minions().at(def_minion_idx);
+        const size_t minion_idx = dist_def(rng);
+        def_minion = std::next(defending.minions().begin(), minion_idx);
     }
 
     if (debug) {
@@ -71,23 +65,26 @@ int Arena::combat(Board& boardA, Board& boardB, const int turn, const int attack
         } else {
             std::cout << "[B -> A] ";
         }
-        std::cout << atk_minion->name() << " (" << atk_minion_idx << ")"
-            << " -> "
-            << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
+        // std::cout << atk_minion->name() << " (" << atk_minion_idx << ")"
+        //     << " -> "
+        //     << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
+        std::cout << atk_minion->name() << " -> " << def_minion->name() << std::endl;
         debug_combat(boardA, boardB);
     }
 
     const int atk_attack = atk_minion->attack();
     const int def_attack = def_minion->attack();
-    const bool attacker_died= attacking.damage_minion(atk_minion_idx, def_attack);
-    defending.damage_minion(def_minion_idx, atk_attack);
+    const bool attacker_died = attacking.damage_minion(atk_minion, def_attack);
+    defending.damage_minion(def_minion, atk_attack);
+
+    if (!attacker_died) {
+        attacking.increment_active();
+    }
 
     if (debug) {
         debug_combat(boardA, boardB);
         std::cout << std::endl;
     }
-
-    return attacker_died ? attack_idx : attack_idx + 1;
 }
 
 BattleReport Arena::battle(const bool debug) {
@@ -100,14 +97,10 @@ BattleReport Arena::battle(const bool debug) {
         turn = std::uniform_int_distribution(0, 1)(rng);
     }
 
-    int atk_idx_a = 0;
-    int atk_idx_b = 0;
+    boardA.prep_for_battle();
+    boardB.prep_for_battle();
     while (get_battle_status() == IN_PROGRESS) {
-        if (turn % 2 == 0) {
-            atk_idx_a = combat(boardA, boardB, turn, atk_idx_a, debug);
-        } else {
-            atk_idx_b = combat(boardA, boardB, turn, atk_idx_b, debug);
-        }
+        combat(boardA, boardB, turn, debug);
         turn++;
     }
 

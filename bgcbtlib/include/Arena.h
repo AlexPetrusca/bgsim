@@ -22,7 +22,7 @@ private:
 
     BattleStatus get_battle_status();
 
-    int combat(Board& boardA, Board& boardB, int turn, int attack_idx, bool debug = false);
+    void combat(Board& boardA, Board& boardB, int turn, bool debug = false);
 };
 
 #endif //ARENA_H
