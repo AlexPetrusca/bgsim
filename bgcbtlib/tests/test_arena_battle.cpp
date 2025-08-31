@@ -222,3 +222,21 @@ TEST(ArenaTest, WindfuryDivineShield) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaTest, CleaveTaunt) {
+    Board boardA = Board::from_ids({
+            CardDb::Id::FOE_REAPER_4000,
+        });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

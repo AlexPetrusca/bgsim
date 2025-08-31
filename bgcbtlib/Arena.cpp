@@ -77,6 +77,19 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
         const int atk_attack = atk_minion->attack();
         const int def_attack = def_minion->attack();
         attacker_died = attacking.damage_minion(atk_minion, def_attack);
+        if (atk_minion->has(Keyword::CLEAVE)) {
+            // todo: right now we're killing minions one-by-one - instead, they should die all at once
+            // attack left
+            if (def_minion != defending.minions().begin()) { // if not attacking head
+                const auto left_def_minion = std::prev(def_minion);
+                defending.damage_minion(left_def_minion, atk_attack);
+            }
+            // attack right
+            const auto right_def_minion = std::next(def_minion);
+            if (right_def_minion != defending.minions().end()) { // if not attacking tail
+                defending.damage_minion(right_def_minion, atk_attack);
+            }
+        }
         defending.damage_minion(def_minion, atk_attack);
 
         if (attacker_died) {

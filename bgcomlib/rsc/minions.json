@@ -579,5 +579,47 @@
     "cardClass": "DEATHKNIGHT",
     "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96787,
+    "name": "Foe Reaper 4000",
+    "tier": 6,
+    "attack": 6,
+    "health": 9,
+    "mechanics": [
+      "CLEAVE"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_GVG_113",
+    "goldenDbfId": 63776,
+    "artist": "James Ryman",
+    "cardClass": "PALADIN",
+    "elite": true,
+    "flavor": "Foe reaping is really not so different from harvest reaping, at the end of the day.",
+    "rarity": "LEGENDARY",
+    "text": "Also damages the minions next to whomever it attacks.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63776,
+    "name": "Foe Reaper 4000",
+    "tier": 6,
+    "attack": 12,
+    "health": 18,
+    "mechanics": [
+      "CLEAVE"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_153",
+    "normalDbfId": 96787,
+    "cardClass": "PALADIN",
+    "elite": true,
+    "rarity": "LEGENDARY",
+    "text": "Also damages the minions next to whomever it attacks.",
+    "type": "MINION"
   }
 ]

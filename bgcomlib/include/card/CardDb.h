@@ -30,6 +30,8 @@ public:
         COLOSSUS_OF_THE_SUN_G = 98868,
         CRACKLING_CYCLONE = 64054,
         CRACKLING_CYCLONE_G = 64055,
+        FOE_REAPER_4000 = 96787,
+        FOE_REAPER_4000_G = 63776,
 
         // tokens
         TABBYCAT_T = 96759,
