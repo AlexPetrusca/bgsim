@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <random>
+#include <sstream>
 
 Arena::Arena(const Board& boardA, const Board& boardB, std::mt19937 rng) {
     this->boardA = boardA;
@@ -22,14 +23,6 @@ BattleStatus Arena::get_battle_status() {
     }
 
     return TIE;
-}
-
-// todo: this can be arena's to_string()
-void debug_combat(Board& boardA, Board& boardB) {
-    std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "[A] " << boardA << std::endl;
-    std::cout << "[B] " << boardB << std::endl;
-    std::cout << "-------------------------------------------------------------" << std::endl;
 }
 
 void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debug) {
@@ -78,7 +71,7 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
             //     << " -> "
             //     << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
             std::cout << "\"" << atk_minion->name() << "\"" << " -> " << "\"" << def_minion->name() << "\"" << std::endl;
-            debug_combat(boardA, boardB);
+            std::cout << this->to_string();
         }
 
         const int atk_attack = atk_minion->attack();
@@ -96,7 +89,7 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
     }
 
     if (debug) {
-        debug_combat(boardA, boardB);
+        std::cout << this->to_string();
         std::cout << std::endl;
     }
 }
@@ -120,7 +113,7 @@ BattleReport Arena::battle(const bool debug) {
 
     if (debug) {
         std::cout << "Final Board:" << std::endl;;
-        debug_combat(boardA, boardB);
+        std::cout << this->to_string();
     }
 
     const BattleStatus status = get_battle_status();
@@ -146,4 +139,13 @@ AnalysisReport Arena::analyze(int iterations) {
         analysis_report.add_battle_report(battle_report);
     }
     return analysis_report;
+}
+
+std::string Arena::to_string() {
+    std::ostringstream oss;
+    oss << "-------------------------------------------------------------" << std::endl;
+    oss << "[A] " << boardA << std::endl;
+    oss << "[B] " << boardB << std::endl;
+    oss << "-------------------------------------------------------------" << std::endl;
+    return oss.str();
 }
