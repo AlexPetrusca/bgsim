@@ -39,43 +39,57 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
     // select attacker
     const MinionLoc atk_minion = attacking.active();
 
-    // select defender
-    MinionLoc def_minion;
-    if (defending.taunt_count() > 0) {
-        std::uniform_int_distribution<size_t> dist_def(0, defending.taunt_count() - 1);
-        size_t taunt_idx = dist_def(rng);
-        for (auto m = defending.minions().begin(); m != defending.minions().end(); ++m) {
-            if (m->has(Keyword::TAUNT)) {
-                if (taunt_idx == 0) {
-                    def_minion = m;
-                    break;
+    int attack_count = 1;
+    if (atk_minion->has(Keyword::WINDFURY)) {
+        attack_count = 2;
+    } else if (atk_minion->has(Keyword::MEGA_WINDFURY)) {
+        attack_count = 4;
+    }
+
+    bool attacker_died = false;
+    for (int i = 0; i < attack_count; i++) {
+        // select defender
+        MinionLoc def_minion;
+        if (defending.taunt_count() > 0) {
+            std::uniform_int_distribution<size_t> dist_def(0, defending.taunt_count() - 1);
+            size_t taunt_idx = dist_def(rng);
+            for (auto m = defending.minions().begin(); m != defending.minions().end(); ++m) {
+                if (m->has(Keyword::TAUNT)) {
+                    if (taunt_idx == 0) {
+                        def_minion = m;
+                        break;
+                    }
+                    taunt_idx--;
                 }
-                taunt_idx--;
             }
-        }
-    } else {
-        std::uniform_int_distribution<size_t> dist_def(0, defending.size() - 1);
-        const size_t minion_idx = dist_def(rng);
-        def_minion = std::next(defending.minions().begin(), minion_idx);
-    }
-
-    if (debug) {
-        if (turn % 2 == 0) {
-            std::cout << "[A -> B] ";
         } else {
-            std::cout << "[B -> A] ";
+            std::uniform_int_distribution<size_t> dist_def(0, defending.size() - 1);
+            const size_t minion_idx = dist_def(rng);
+            def_minion = std::next(defending.minions().begin(), minion_idx);
         }
-        // std::cout << atk_minion->name() << " (" << atk_minion_idx << ")"
-        //     << " -> "
-        //     << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
-        std::cout << atk_minion->name() << " -> " << def_minion->name() << std::endl;
-        debug_combat(boardA, boardB);
-    }
 
-    const int atk_attack = atk_minion->attack();
-    const int def_attack = def_minion->attack();
-    const bool attacker_died = attacking.damage_minion(atk_minion, def_attack);
-    defending.damage_minion(def_minion, atk_attack);
+        if (debug) {
+            if (turn % 2 == 0) {
+                std::cout << "[A -> B] ";
+            } else {
+                std::cout << "[B -> A] ";
+            }
+            // std::cout << atk_minion->name() << " (" << atk_minion_idx << ")"
+            //     << " -> "
+            //     << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
+            std::cout << "\"" << atk_minion->name() << "\"" << " -> " << "\"" << def_minion->name() << "\"" << std::endl;
+            debug_combat(boardA, boardB);
+        }
+
+        const int atk_attack = atk_minion->attack();
+        const int def_attack = def_minion->attack();
+        attacker_died = attacking.damage_minion(atk_minion, def_attack);
+        defending.damage_minion(def_minion, atk_attack);
+
+        if (attacker_died) {
+            break;
+        }
+    }
 
     if (!attacker_died) {
         attacking.increment_active();

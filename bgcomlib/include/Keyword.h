@@ -16,26 +16,27 @@ enum class Keyword : uint64_t {
     RALLY = 1ull << 8,
     OVERKILL = 1ull << 9,
     WINDFURY = 1ull << 10,
-    STEALTH = 1ull << 11,
-    CHOOSE_ONE = 1ull << 12,
+    MEGA_WINDFURY = 1ull << 11,
+    STEALTH = 1ull << 12,
+    CHOOSE_ONE = 1ull << 13,
 
     // Custom
-    CLEAVE = 1ull << 13,
-    IMMUNE = 1ull << 14,
-    AURA = 1ull << 15,
-    ADJACENT_BUFF = 1ull << 16,
-    START_OF_TURN = 1ull << 17,
-    END_OF_TURN = 1ull << 18,
-    ON_DAMAGE_SELF = 1ull << 19,
-    ON_DAMAGE_OTHER = 1ull << 20,
-    ON_DAMAGE_PLAYER = 1ull << 21,
-    ON_SUMMON = 1ull << 22,
-    ON_ATTACK = 1ull << 23,
-    ON_KILL = 1ull << 24,
-    ON_DEATH_OTHER = 1ull << 25,
+    CLEAVE = 1ull << 14,
+    IMMUNE = 1ull << 15,
+    AURA = 1ull << 16,
+    ADJACENT_BUFF = 1ull << 17,
+    START_OF_TURN = 1ull << 18,
+    END_OF_TURN = 1ull << 19,
+    ON_DAMAGE_SELF = 1ull << 20,
+    ON_DAMAGE_OTHER = 1ull << 21,
+    ON_DAMAGE_PLAYER = 1ull << 22,
+    ON_SUMMON = 1ull << 23,
+    ON_ATTACK = 1ull << 24,
+    ON_KILL = 1ull << 25,
+    ON_DEATH_OTHER = 1ull << 26,
 
     // Card-Specific
-    ZAPP_SLYWICK = 1ull << 26,
+    ZAPP_SLYWICK = 1ull << 27,
 };
 
 namespace KeywordUtil {
@@ -51,6 +52,7 @@ namespace KeywordUtil {
         {"RALLY", Keyword::RALLY},
         {"OVERKILL", Keyword::OVERKILL},
         {"WINDFURY", Keyword::WINDFURY},
+        {"MEGA_WINDFURY", Keyword::MEGA_WINDFURY},
         {"STEALTH", Keyword::STEALTH},
         {"CHOOSE_ONE", Keyword::CHOOSE_ONE},
 

@@ -205,3 +205,20 @@ TEST(ArenaTest, OnDamageSummonTaunt) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaTest, WindfuryDivineShield) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::CRACKLING_CYCLONE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

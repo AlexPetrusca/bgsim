@@ -38,6 +38,44 @@
     "type": "MINION"
   },
   {
+    "dbfId": 64054,
+    "name": "Crackling Cyclone",
+    "tier": 2,
+    "attack": 4,
+    "health": 1,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "WINDFURY"
+    ],
+    "races": [
+      "ELEMENTAL"
+    ],
+    "id": "BGS_119",
+    "goldenDbfId": 64055,
+    "cardClass": "MAGE",
+    "text": "<b>Divine Shield</b>\n<b>Windfury</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 64055,
+    "name": "Crackling Cyclone",
+    "tier": 2,
+    "attack": 8,
+    "health": 2,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "WINDFURY"
+    ],
+    "races": [
+      "ELEMENTAL"
+    ],
+    "id": "TB_BaconUps_159",
+    "normalDbfId": 64054,
+    "cardClass": "MAGE",
+    "text": "<b>Divine Shield</b>\n<b>Windfury</b>",
+    "type": "MINION"
+  },
+  {
     "dbfId": 96759,
     "name": "Tabbycat",
     "tier": 1,

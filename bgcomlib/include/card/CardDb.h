@@ -28,6 +28,8 @@ public:
         PSYCH_O_TRON_G = 105887,
         COLOSSUS_OF_THE_SUN = 98867,
         COLOSSUS_OF_THE_SUN_G = 98868,
+        CRACKLING_CYCLONE = 64054,
+        CRACKLING_CYCLONE_G = 64055,
 
         // tokens
         TABBYCAT_T = 96759,
