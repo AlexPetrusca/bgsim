@@ -12,7 +12,7 @@ class Minion : public IPrintable {
 public:
     Minion();
 
-    Minion(const json& minion_json);
+    explicit Minion(const json& minion_json);
 
     Minion(std::string name, int tier, int attack, int health); // todo: delete me
 
@@ -69,6 +69,14 @@ public:
         return _is_golden;
     }
 
+    [[nodiscard]] bool is_zombie() const {
+        return _is_zombie;
+    }
+
+    void set_zombie(bool is_zombie) {
+        _is_zombie = is_zombie;
+    }
+
     [[nodiscard]] bool has(const Keyword keyword) const {
         return _props.has(keyword);
     }
@@ -92,6 +100,7 @@ public:
     [[nodiscard]] std::string to_string() override;
 
 private:
+    // todo: how many of these fields can you get rid of
     std::string _name;
     int _tier{};
     std::unordered_map<Keyword, Effect> _effects;
@@ -103,6 +112,7 @@ private:
     int _attack{};
     int _health{};
     BitVector<Keyword> _props;
+    bool _is_zombie{};
 
     // vector<buff_t> buffs;
     // vector<buff_t> tempBuffs;

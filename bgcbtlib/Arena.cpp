@@ -74,23 +74,41 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
             std::cout << this->to_string();
         }
 
-        const int atk_attack = atk_minion->attack();
-        const int def_attack = def_minion->attack();
-        attacker_died = attacking.damage_minion(atk_minion, def_attack);
+        // resolve damage
+        attacking.damage_minion(atk_minion, def_minion->attack());
         if (atk_minion->has(Keyword::CLEAVE)) {
-            // todo: right now we're killing minions one-by-one - instead, they should die all at once
             // attack left
             if (def_minion != defending.minions().begin()) { // if not attacking head
-                const auto left_def_minion = std::prev(def_minion);
-                defending.damage_minion(left_def_minion, atk_attack);
+                const MinionLoc left_def_minion = std::prev(def_minion);
+                defending.damage_minion(left_def_minion, atk_minion->attack());
             }
+            // attack middle
+            defending.damage_minion(def_minion, atk_minion->attack());
             // attack right
-            const auto right_def_minion = std::next(def_minion);
+            const MinionLoc right_def_minion = std::next(def_minion);
             if (right_def_minion != defending.minions().end()) { // if not attacking tail
-                defending.damage_minion(right_def_minion, atk_attack);
+                defending.damage_minion(right_def_minion, atk_minion->attack());
             }
+        } else {
+            defending.damage_minion(def_minion, atk_minion->attack());
         }
-        defending.damage_minion(def_minion, atk_attack);
+
+        // resolve deaths
+        const bool is_cleave = atk_minion->has(Keyword::CLEAVE);
+        // todo: we should return something else from `reap` & `try_reap`
+        //  - certain effects like "blaster" and "the beast" need to be handled specially by it
+        attacker_died = attacking.try_reap_minion(atk_minion);
+        if (is_cleave) {
+            // todo: trying to reap all is inefficient
+            auto m = defending.minions().begin();
+            while (m != defending.minions().end()) {
+                const auto m_next = std::next(m);
+                defending.try_reap_minion(m);
+                m = m_next;
+            }
+        } else {
+            defending.try_reap_minion(def_minion);
+        }
 
         if (attacker_died) {
             break;

@@ -21,9 +21,11 @@ public:
 
     void summon_minion(const Minion& minion, MinionLoc loc);
 
-    void kill_minion(MinionLoc loc);
+    void reap_minion(MinionLoc loc);
 
-    bool damage_minion(MinionLoc loc, int damage);
+    void damage_minion(MinionLoc loc, int damage);
+
+    bool try_reap_minion(MinionLoc loc);
 
     void exec_effect(const Effect& effect, MinionLoc loc);
 

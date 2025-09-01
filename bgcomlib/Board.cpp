@@ -48,9 +48,16 @@ void Board::summon_minion(const Minion& minion, const MinionLoc loc) {
     }
 }
 
-void Board::kill_minion(const MinionLoc loc) {
-    _zombie_count++;
+bool Board::try_reap_minion(const MinionLoc loc) {
+    const Minion& minion = *loc;
+    if (minion.is_zombie()) {
+        reap_minion(loc);
+        return true;
+    }
+    return false;
+}
 
+void Board::reap_minion(const MinionLoc loc) {
     const Minion& minion = *loc;
     if (minion.has(Keyword::DEATHRATTLE)) {
         exec_effect(minion.get_effect(Keyword::DEATHRATTLE), loc);
@@ -72,10 +79,8 @@ void Board::kill_minion(const MinionLoc loc) {
     _zombie_count--;
 }
 
-bool Board::damage_minion(const MinionLoc loc, const int damage) {
+void Board::damage_minion(const MinionLoc loc, const int damage) {
     Minion& minion = *loc;
-
-    // resolve damage
     if (minion.has(Keyword::DIVINE_SHIELD)) {
         minion.clear(Keyword::DIVINE_SHIELD);
     } else {
@@ -85,12 +90,10 @@ bool Board::damage_minion(const MinionLoc loc, const int damage) {
         }
     }
 
-    // resolve death
     if (minion.health() <= 0) {
-        kill_minion(loc);
-        return true;
+        minion.set_zombie(true);
+        _zombie_count++;
     }
-    return false;
 }
 
 void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
@@ -127,8 +130,7 @@ void Board::increment_active() {
         _active = _minions.begin(); // wraparound
     }
 
-    // // todo: we only need this for effects like cleave - uncomment later
-    // while (_active->health() < 0) { // todo: replace with something like "->dead()"
+    // while (_active->is_zombie()) {
     //     ++_active;
     //     if (_active == _minions.end()) {
     //         _active = _minions.begin(); // wraparound
