@@ -37,7 +37,7 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
 [[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";
-    if (_props.any()) {
+    if (has(Keyword::DIVINE_SHIELD) || has(Keyword::TAUNT) || has(Keyword::REBORN) || has(Keyword::DEATHRATTLE)) {
         oss << " ";
     }
     if (has(Keyword::DIVINE_SHIELD)) {

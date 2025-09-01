@@ -34,12 +34,12 @@ std::list<Minion>& Board::minions() {
     return this->_minions;
 }
 
-void Board::summon_minion(const Minion& minion) {
-    summon_minion(minion, _minions.end());
+void Board::summon_minion(const Minion& minion, const bool post_death) {
+    summon_minion(minion, _minions.end(), post_death);
 }
 
-void Board::summon_minion(const Minion& minion, const MinionLoc loc) {
-    if (full()) return;
+void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
+    if (full(!post_death)) return;
 
     _minions.insert(loc, minion);
 
@@ -101,7 +101,8 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
-                summon_minion(db.get_minion(minion_id), next_loc);
+                const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
+                summon_minion(db.get_minion(minion_id), next_loc, post_death);
             }
             break;
         }
@@ -110,7 +111,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, next_loc);
+            summon_minion(minion, next_loc, true);
             break;
         }
         default:
@@ -129,13 +130,6 @@ void Board::increment_active() {
     if (_active == _minions.end()) {
         _active = _minions.begin(); // wraparound
     }
-
-    // while (_active->is_zombie()) {
-    //     ++_active;
-    //     if (_active == _minions.end()) {
-    //         _active = _minions.begin(); // wraparound
-    //     }
-    // }
 }
 
 MinionLoc Board::active() const {
@@ -150,20 +144,28 @@ int Board::tier_total() const {
     return total;
 }
 
-size_t Board::size() const {
-    return _minions.size() - _zombie_count;
+size_t Board::size(const bool include_zombies) const {
+    if (include_zombies) {
+        return _minions.size();
+    } else {
+        return _minions.size() - _zombie_count;
+    }
 }
 
-bool Board::empty() const {
-    return size() == 0;
+bool Board::empty(const bool include_zombies) const {
+    return size(include_zombies) == 0;
 }
 
-bool Board::full() const {
-    return size() == 7;
+bool Board::full(const bool include_zombies) const {
+    return size(include_zombies) >= 7;
 }
 
 int Board::taunt_count() const {
     return _taunt_count;
+}
+
+int Board::zombie_count() const {
+    return _zombie_count;
 }
 
 [[nodiscard]] std::string Board::to_string() {

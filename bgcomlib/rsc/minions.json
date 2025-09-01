@@ -16,7 +16,7 @@
     "artist": "Anton Zemskov",
     "cardClass": "HUNTER",
     "flavor": "To be a cool cat in Gadgetzan, you gotta have bling.",
-    "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
+    "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
     "type": "MINION"
   },
   {
@@ -34,7 +34,7 @@
     "id": "TB_BaconUps_093",
     "normalDbfId": 96758,
     "cardClass": "HUNTER",
-    "text": "<b>Battlecry:</b> Summon a 2/2 Cat.",
+    "text": "<b>Battlecry:</b> Summon a 2/2 Cat.",
     "type": "MINION"
   },
   {
@@ -343,7 +343,7 @@
     "cardClass": "WARRIOR",
     "flavor": "Insecurity detected. Alerting hugbots.",
     "rarity": "RARE",
-    "text": "[x]Whenever this minion\ntakes damage, summon a\n2/3 Mech with <b>Taunt</b>.",
+    "text": "Whenever this minion\ntakes damage, summon a\n2/3 Mech with <b>Taunt</b>.",
     "type": "MINION"
   },
   {
@@ -370,7 +370,7 @@
     "id": "TB_BaconUps_041",
     "normalDbfId": 48100,
     "cardClass": "WARRIOR",
-    "text": "[x]Whenever this minion\ntakes damage, summon a\n4/6 Mech with <b>Taunt</b>.",
+    "text": "Whenever this minion\ntakes damage, summon a\n4/6 Mech with <b>Taunt</b>.",
     "type": "MINION"
   },
   {
@@ -620,6 +620,351 @@
     "elite": true,
     "rarity": "LEGENDARY",
     "text": "Also damages the minions next to whomever it attacks.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 41138,
+    "name": "Sated Threshadon",
+    "tier": 5,
+    "attack": 5,
+    "health": 7,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          41523,
+          41523,
+          41523
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "UNG_010",
+    "goldenDbfId": 58413,
+    "artist": "James Ryman",
+    "cardClass": "NEUTRAL",
+    "flavor": "Bet you can't eat just one murloc!",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon three 1/1 Murlocs.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58413,
+    "name": "Sated Threshadon",
+    "tier": 5,
+    "attack": 10,
+    "health": 14,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          41525,
+          41525,
+          41525
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "UNG_010G",
+    "goldenDbfId": 41138,
+    "artist": "James Ryman",
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon three 2/2 Murlocs.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 41523,
+    "name": "Primalfin",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "MURLOC"
+    ],
+    "id": "UNG_201t",
+    "goldenDbfId": 41525,
+    "artist": "Jakub Kasper",
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 41525,
+    "name": "Primalfin",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "MURLOC"
+    ],
+    "id": "UNG_201tg",
+    "goldenDbfId": 41523,
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96797,
+    "name": "Voidlord",
+    "tier": 5,
+    "attack": 3,
+    "health": 9,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96796,
+          96796,
+          96796
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG_LOOT_368",
+    "goldenDbfId": 58427,
+    "artist": "Jerry Mascho",
+    "cardClass": "WARLOCK",
+    "flavor": "Never let it hold your checkbook.",
+    "rarity": "EPIC",
+    "text": "<b>Taunt</b>\n <b>Deathrattle:</b> Summon three\n1/3 Demons with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58427,
+    "name": "Voidlord",
+    "tier": 5,
+    "attack": 6,
+    "health": 18,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          57299,
+          57299,
+          57299
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_059",
+    "normalDbfId": 96797,
+    "cardClass": "WARLOCK",
+    "rarity": "EPIC",
+    "text": "<b>Taunt</b>\n <b>Deathrattle:</b> Summon three\n2/6 Demons with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 122607,
+    "name": "Void Earl",
+    "tier": 3,
+    "attack": 6,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96796,
+          96796
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG33_157",
+    "goldenDbfId": 122608,
+    "cardClass": "WARLOCK",
+    "text": "<b>Taunt</b>\n <b>Deathrattle:</b> Summon two\n1/3 Demons with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 122608,
+    "name": "Void Earl",
+    "tier": 3,
+    "attack": 12,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96796,
+          96796,
+          96796,
+          96796
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG33_157_G",
+    "normalDbfId": 122607,
+    "cardClass": "WARLOCK",
+    "text": "<b>Taunt</b>\n <b>Deathrattle:</b> Summon four\n1/3 Demons with <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96796,
+    "name": "Voidwalker",
+    "tier": 1,
+    "attack": 1,
+    "health": 3,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG_CS2_065",
+    "goldenDbfId": 57299,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "WARLOCK",
+    "flavor": "No relation to \"The Voidsteppers\", the popular Void-based dance troupe.",
+    "rarity": "FREE",
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57299,
+    "name": "Voidwalker",
+    "tier": 1,
+    "attack": 2,
+    "health": 6,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_059t",
+    "normalDbfId": 96796,
+    "cardClass": "WARLOCK",
+    "rarity": "FREE",
+    "text": "<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96793,
+    "name": "Savannah Highmane",
+    "tier": 4,
+    "attack": 6,
+    "health": 5,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96795,
+          96795
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_EX1_534",
+    "goldenDbfId": 58409,
+    "artist": "Milivoj Ceran",
+    "cardClass": "HUNTER",
+    "flavor": "In the jungle, the mighty jungle, the lion gets slowly consumed by hyenas.",
+    "rarity": "RARE",
+    "text": "<b>Deathrattle:</b> Summon two 2/2 Hyenas.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58409,
+    "name": "Savannah Highmane",
+    "tier": 4,
+    "attack": 12,
+    "health": 10,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          58410,
+          58410
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_049",
+    "normalDbfId": 96793,
+    "cardClass": "HUNTER",
+    "rarity": "RARE",
+    "text": "<b>Deathrattle:</b> Summon two 4/4 Hyenas.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96795,
+    "name": "Hyena",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_EX1_534t",
+    "goldenDbfId": 58410,
+    "artist": "Andrew Robinson",
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58410,
+    "name": "Hyena",
+    "tier": 1,
+    "attack": 4,
+    "health": 4,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_049t",
+    "normalDbfId": 96795,
+    "cardClass": "HUNTER",
     "type": "MINION"
   }
 ]

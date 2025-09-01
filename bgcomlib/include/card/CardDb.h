@@ -32,6 +32,16 @@ public:
         CRACKLING_CYCLONE_G = 64055,
         FOE_REAPER_4000 = 96787,
         FOE_REAPER_4000_G = 63776,
+        SATED_THRESHADON = 41138,
+        SATED_THRESHADON_G = 58413,
+        VOIDLORD = 96797,
+        VOIDLORD_G = 58427,
+        VOID_EARL = 122607,
+        VOID_EARL_G = 122608,
+        VOIDWALKER = 96796,
+        VOIDWALKER_G = 57299,
+        SAVANNAH_HIGHMANE = 96793,
+        SAVANNAH_HIGHMANE_G = 58409,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -44,6 +54,10 @@ public:
         IMP_T_G = 58373,
         GUARD_BOT_T = 49278,
         GUARD_BOT_T_G = 58393,
+        PRIMALFIN_T = 41523,
+        PRIMALFIN_T_G = 41525,
+        HYENA_T = 96795,
+        HYENA_T_G = 58410,
     };
 
     Minion get_minion(int id);

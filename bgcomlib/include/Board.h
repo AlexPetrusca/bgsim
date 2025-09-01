@@ -17,9 +17,9 @@ public:
 
     std::list<Minion>& minions();
 
-    void summon_minion(const Minion& minion);
+    void summon_minion(const Minion& minion, bool post_death = false);
 
-    void summon_minion(const Minion& minion, MinionLoc loc);
+    void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
 
     void reap_minion(MinionLoc loc);
 
@@ -37,15 +37,17 @@ public:
 
     [[nodiscard]] int tier_total() const;
 
-    [[nodiscard]] std::string to_string() override;
+    [[nodiscard]] size_t size(bool include_zombies = false) const;
 
-    [[nodiscard]] size_t size() const;
+    [[nodiscard]] bool empty(bool include_zombies = false) const;
 
-    [[nodiscard]] bool empty() const;
-
-    [[nodiscard]] bool full() const;
+    [[nodiscard]] bool full(bool include_zombies = false) const;
 
     [[nodiscard]] int taunt_count() const;
+
+    [[nodiscard]] int zombie_count() const;
+
+    [[nodiscard]] std::string to_string() override;
 
 private:
     std::list<Minion> _minions;

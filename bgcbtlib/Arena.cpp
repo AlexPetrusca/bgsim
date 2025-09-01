@@ -67,10 +67,24 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
             } else {
                 std::cout << "[B -> A] ";
             }
-            // std::cout << atk_minion->name() << " (" << atk_minion_idx << ")"
-            //     << " -> "
-            //     << def_minion->name() << " (" << def_minion_idx << ")" << std::endl;
-            std::cout << "\"" << atk_minion->name() << "\"" << " -> " << "\"" << def_minion->name() << "\"" << std::endl;
+            int atk_minion_idx = -1;
+            for (auto m = attacking.minions().begin(); m != attacking.minions().end(); ++m) {
+                atk_minion_idx++;
+                if (m == atk_minion) {
+                    break;
+                }
+            }
+            int def_minion_idx = -1;
+            for (auto m = defending.minions().begin(); m != defending.minions().end(); ++m) {
+                def_minion_idx++;
+                if (m == def_minion) {
+                    break;
+                }
+            }
+            std::cout << "\"" << atk_minion->name() << "\"" << " (" << atk_minion_idx << ")";
+            std::cout << " -> ";
+            std::cout << "\"" << def_minion->name() << "\"" << " (" << def_minion_idx << ")";
+            std::cout << std::endl;
             std::cout << this->to_string();
         }
 
@@ -166,7 +180,7 @@ BattleReport Arena::battle(const bool debug) {
 AnalysisReport Arena::analyze(int iterations) {
     AnalysisReport analysis_report = AnalysisReport();
     for (int i = 0; i < iterations; i++) {
-        const BattleReport battle_report = battle();
+        const BattleReport battle_report = battle(true);
         analysis_report.add_battle_report(battle_report);
     }
     return analysis_report;

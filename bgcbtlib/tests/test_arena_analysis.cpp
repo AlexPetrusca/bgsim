@@ -14,7 +14,7 @@
 static const int ITERATIONS = 10000;
 static const float CI = 0.05;
 
-TEST(ArenaTest, AnalyzeSimpleOneSided) {
+TEST(ArenaAnalysisTest, AnalyzeSimpleOneSided) {
     Minion minionA1 = Minion("A1", 1, 2, 1);
     Minion minionA2 = Minion("A2", 1, 1, 1);
     Board boardA = Board({minionA1, minionA2});
@@ -39,7 +39,7 @@ TEST(ArenaTest, AnalyzeSimpleOneSided) {
     EXPECT_EQ(report.out_dmg_quart3(), 1);
 }
 
-TEST(ArenaTest, AnalyzeSimpleFiftyFifty) {
+TEST(ArenaAnalysisTest, AnalyzeSimpleFiftyFifty) {
     Minion minionA1 = Minion("A1", 1, 2, 1);
     Minion minionA2 = Minion("A2", 1, 1, 1);
     Board boardA = Board({minionA1, minionA2});
@@ -65,7 +65,7 @@ TEST(ArenaTest, AnalyzeSimpleFiftyFifty) {
     EXPECT_EQ(report.out_dmg_quart3(), 0);
 }
 
-TEST(ArenaTest, AnalyzeLongBattle) {
+TEST(ArenaAnalysisTest, AnalyzeLongBattle) {
     Board boardA;
     for (int i = 0; i < 7; i++) {
         Minion minion = Minion("A" + std::to_string(i), 1, 5, 150);
@@ -95,7 +95,7 @@ TEST(ArenaTest, AnalyzeLongBattle) {
     EXPECT_EQ(report.out_dmg_quart3(), 0);
 }
 
-TEST(ArenaTest, AnalyzeDeathrattle) {
+TEST(ArenaAnalysisTest, AnalyzeDeathrattle) {
     CardDb db;
     Board boardA = Board::from_ids({
         CardDb::Id::HARMLESS_BONEHEAD,
@@ -123,7 +123,7 @@ TEST(ArenaTest, AnalyzeDeathrattle) {
     EXPECT_EQ(report.out_dmg_quart3(), 3);
 }
 
-TEST(ArenaTest, AnalyzeDeathrattleOverflow) {
+TEST(ArenaAnalysisTest, AnalyzeDeathrattleOverflow) {
     CardDb db;
     Board boardA;
     for (int i = 0; i < 7; i++) {
@@ -154,7 +154,7 @@ TEST(ArenaTest, AnalyzeDeathrattleOverflow) {
     EXPECT_EQ(report.out_dmg_quart3(), 2);
 }
 
-TEST(ArenaTest, AnalyzeDivineShieldTaunt) {
+TEST(ArenaAnalysisTest, AnalyzeDivineShieldTaunt) {
     CardDb db;
     Board boardA = Board::from_ids({
         CardDb::Id::HARMLESS_BONEHEAD,
@@ -184,4 +184,32 @@ TEST(ArenaTest, AnalyzeDivineShieldTaunt) {
     EXPECT_EQ(report.out_dmg_quart1(), 1);
     EXPECT_EQ(report.out_dmg_median(), 2);
     EXPECT_EQ(report.out_dmg_quart3(), 2);
+}
+
+TEST(ArenaAnalysisTest, AnalyzeCleaveOverflow) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::SECURITY_ROVER,
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::SECURITY_ROVER,
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::VOIDLORD,
+    });
+
+    Arena arena = Arena(boardA, boardB);
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.in_dmg_quart1(), 1);
+    EXPECT_EQ(report.in_dmg_median(), 2);
+    EXPECT_EQ(report.in_dmg_quart3(), 3);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 6);
+    EXPECT_EQ(report.out_dmg_median(), 6);
+    EXPECT_EQ(report.out_dmg_quart3(), 6);
 }
