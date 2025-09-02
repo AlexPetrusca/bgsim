@@ -75,7 +75,6 @@ void Board::reap_minion(const MinionLoc loc) {
         increment_active();
     }
     _minions.erase(loc); // erase zombie
-
     _zombie_count--;
 }
 
@@ -124,7 +123,7 @@ void Board::prep_for_battle() {
 }
 
 void Board::increment_active() {
-    if (empty()) return;
+    if (empty(true)) return;
 
     ++_active;
     if (_active == _minions.end()) {
