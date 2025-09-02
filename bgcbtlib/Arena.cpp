@@ -180,7 +180,7 @@ BattleReport Arena::battle(const bool debug) {
 AnalysisReport Arena::analyze(int iterations) {
     AnalysisReport analysis_report = AnalysisReport();
     for (int i = 0; i < iterations; i++) {
-        const BattleReport battle_report = battle(true);
+        const BattleReport battle_report = battle();
         analysis_report.add_battle_report(battle_report);
     }
     return analysis_report;
