@@ -279,6 +279,7 @@ TEST(ArenaBattleTest, CleaveResolveActiveMinion2) {
     std::mt19937 rng(123456);
     Arena arena = Arena(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
+
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 6);
 }
@@ -309,4 +310,122 @@ TEST(ArenaBattleTest, CleaveOverflow) {
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output << std::endl;
     EXPECT_FALSE(output.contains("Guard Bot"));
+}
+
+TEST(ArenaBattleTest, Poisonous) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::TIDE_ORACLE_MORGL,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER,
+        CardDb::Id::SECURITY_ROVER,
+        CardDb::Id::FOE_REAPER_4000_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, Venomous) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::DEADLY_SPORE,
+        CardDb::Id::DEADLY_SPORE,
+        CardDb::Id::DEADLY_SPORE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, VenomousLostOnAttack) {
+    Minion deadlier_spore = Minion("Deadlier Spore", 1, 3, 10);
+    deadlier_spore.set(Keyword::VENOMOUS);
+    Board boardA = Board({
+        deadlier_spore
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, VenomousLostOnDefend) {
+    Minion deadlier_spore = Minion("Deadlier Spore", 1, 3, 13);
+    deadlier_spore.set(Keyword::VENOMOUS);
+    Board boardA = Board({
+        deadlier_spore
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::ALLEYCAT,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, CleaveDoesntProcPoison) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::TIDE_ORACLE_MORGL,
+        CardDb::Id::GUARD_BOT_T,
+        CardDb::Id::DEADLY_SPORE,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 6);
+}
+
+TEST(ArenaBattleTest, DivineShieldPoison) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::COLOSSUS_OF_THE_SUN_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::DEADLY_SPORE,
+        CardDb::Id::TIDE_ORACLE_MORGL,
+        CardDb::Id::TIDE_ORACLE_MORGL,
+        CardDb::Id::DEADLY_SPORE,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
 }

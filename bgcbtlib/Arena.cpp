@@ -25,6 +25,36 @@ BattleStatus Arena::get_battle_status() {
     return TIE;
 }
 
+void fight_minions(Board& attacking, Board& defending, MinionLoc atk, MinionLoc def) {
+    const bool def_poisoned = def->has(Keyword::POISONOUS) || def->has(Keyword::VENOMOUS);
+    const int def_damage_dealt = attacking.damage_minion(atk, def->attack(), def_poisoned);
+    if (def_damage_dealt > 0 && def->has(Keyword::VENOMOUS)) {
+        def->clear(Keyword::VENOMOUS);
+    }
+
+    const bool atk_poisoned = atk->has(Keyword::POISONOUS) || atk->has(Keyword::VENOMOUS);
+    int atk_damage_dealt = 0;
+    if (atk->has(Keyword::CLEAVE)) {
+        // attack left
+        if (def != defending.minions().begin()) { // if not attacking head
+            const auto ours_left = std::prev(def);
+            atk_damage_dealt += defending.damage_minion(ours_left, atk->attack(), atk_poisoned);
+        }
+        // attack middle
+        atk_damage_dealt += defending.damage_minion(def, atk->attack(), atk_poisoned);
+        // attack right
+        const auto ours_right = std::next(def);
+        if (ours_right != defending.minions().end()) { // if not attacking tail
+            atk_damage_dealt += defending.damage_minion(ours_right, atk->attack(), atk_poisoned);
+        }
+    } else {
+        atk_damage_dealt = defending.damage_minion(def, atk->attack(), atk_poisoned);
+    }
+    if (atk_damage_dealt > 0 && atk->has(Keyword::VENOMOUS)) {
+        atk->clear(Keyword::VENOMOUS);
+    }
+}
+
 void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debug) {
     Board& attacking = turn % 2 == 0 ? boardA : boardB;
     Board& defending = turn % 2 == 0 ? boardB : boardA;
@@ -89,23 +119,7 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
         }
 
         // resolve damage
-        attacking.damage_minion(atk_minion, def_minion->attack());
-        if (atk_minion->has(Keyword::CLEAVE)) {
-            // attack left
-            if (def_minion != defending.minions().begin()) { // if not attacking head
-                const MinionLoc left_def_minion = std::prev(def_minion);
-                defending.damage_minion(left_def_minion, atk_minion->attack());
-            }
-            // attack middle
-            defending.damage_minion(def_minion, atk_minion->attack());
-            // attack right
-            const MinionLoc right_def_minion = std::next(def_minion);
-            if (right_def_minion != defending.minions().end()) { // if not attacking tail
-                defending.damage_minion(right_def_minion, atk_minion->attack());
-            }
-        } else {
-            defending.damage_minion(def_minion, atk_minion->attack());
-        }
+        fight_minions(attacking, defending, atk_minion, def_minion);
 
         // resolve deaths
         const bool is_cleave = atk_minion->has(Keyword::CLEAVE);

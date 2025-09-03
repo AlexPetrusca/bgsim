@@ -78,20 +78,24 @@ void Board::reap_minion(const MinionLoc loc) {
     _zombie_count--;
 }
 
-void Board::damage_minion(const MinionLoc loc, const int damage) {
+int Board::damage_minion(const MinionLoc loc, const int damage, const bool poisoned) {
     Minion& minion = *loc;
     if (minion.has(Keyword::DIVINE_SHIELD)) {
         minion.clear(Keyword::DIVINE_SHIELD);
+        return 0;
     } else {
-        minion.deal_damage(damage);
+        const int damage_dealt = minion.deal_damage(damage);
         if (minion.has(Keyword::ON_DAMAGE_SELF)) {
             exec_effect(minion.get_effect(Keyword::ON_DAMAGE_SELF), loc);
         }
-    }
-
-    if (minion.health() <= 0) {
-        minion.set_zombie(true);
-        _zombie_count++;
+        if (minion.health() <= 0 || poisoned) {
+            minion.set_zombie(true);
+            if (poisoned) {
+                minion.set_poisoned(true);
+            }
+            _zombie_count++;
+        }
+        return damage_dealt;
     }
 }
 

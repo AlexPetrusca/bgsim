@@ -73,8 +73,16 @@ public:
         return _is_zombie;
     }
 
-    void set_zombie(bool is_zombie) {
+    void set_zombie(const bool is_zombie) {
         _is_zombie = is_zombie;
+    }
+
+    [[nodiscard]] bool is_poisoned() const {
+        return _is_poisoned;
+    }
+
+    void set_poisoned(const bool is_poisoned) {
+        _is_poisoned = is_poisoned;
     }
 
     [[nodiscard]] bool has(const Keyword keyword) const {
@@ -112,7 +120,8 @@ private:
     int _attack{};
     int _health{};
     BitVector<Keyword> _props;
-    bool _is_zombie{};
+    bool _is_zombie{}; // todo: this can be a prop?
+    bool _is_poisoned{}; // todo: this can be a prop?
 
     // vector<buff_t> buffs;
     // vector<buff_t> tempBuffs;

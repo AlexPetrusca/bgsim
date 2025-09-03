@@ -23,7 +23,7 @@ public:
 
     void reap_minion(MinionLoc loc);
 
-    void damage_minion(MinionLoc loc, int damage);
+    int damage_minion(MinionLoc loc, int damage, bool poisoned = false);
 
     bool try_reap_minion(MinionLoc loc);
 
