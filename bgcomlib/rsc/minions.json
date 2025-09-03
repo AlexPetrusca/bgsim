@@ -966,5 +966,73 @@
     "normalDbfId": 96795,
     "cardClass": "HUNTER",
     "type": "MINION"
+  },
+  {
+    "dbfId": 65031,
+    "name": "Deadly Spore",
+    "tier": 3,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "VENOMOUS"
+    ],
+    "id": "BGS_131",
+    "goldenDbfId": 65122,
+    "cardClass": "NEUTRAL",
+    "text": "<b>Venomous</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 65122,
+    "name": "Deadly Spore",
+    "tier": 3,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "VENOMOUS"
+    ],
+    "id": "TB_BaconUps_251",
+    "normalDbfId": 65031,
+    "cardClass": "NEUTRAL",
+    "text": "<b>Venomous</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 103047,
+    "name": "Tide Oracle Morgl",
+    "tier": 7,
+    "attack": 1,
+    "health": 10,
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG27_513",
+    "goldenDbfId": 103064,
+    "cardClass": "SHAMAN",
+    "elite": true,
+    "text": "[x]<b><b>Poisonous</b>.</b> When this\nattacks and kills a minion,\ngive its maximum stats to a\nminion in your hand.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 103064,
+    "name": "Tide Oracle Morgl",
+    "tier": 7,
+    "attack": 2,
+    "health": 20,
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG27_513_G",
+    "normalDbfId": 103047,
+    "cardClass": "SHAMAN",
+    "elite": true,
+    "text": "[x]<b><b>Poisonous</b>.</b> When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
+    "type": "MINION"
   }
 ]

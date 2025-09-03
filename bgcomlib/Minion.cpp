@@ -37,7 +37,12 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
 [[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";
-    if (has(Keyword::DIVINE_SHIELD) || has(Keyword::TAUNT) || has(Keyword::REBORN) || has(Keyword::DEATHRATTLE)) {
+    if (
+        has(Keyword::DIVINE_SHIELD) || has(Keyword::TAUNT) ||
+        has(Keyword::REBORN) || has(Keyword::DEATHRATTLE) ||
+        has(Keyword::POISONOUS) || has(Keyword::VENOMOUS) ||
+        has(Keyword::WINDFURY) || has(Keyword::MEGA_WINDFURY)
+    ) {
         oss << " ";
     }
     if (has(Keyword::DIVINE_SHIELD)) {
@@ -51,6 +56,18 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
     }
     if (has(Keyword::DEATHRATTLE)) {
         oss << "[D]";
+    }
+    if (has(Keyword::WINDFURY)) {
+        oss << "[W]";
+    }
+    if (has(Keyword::MEGA_WINDFURY)) {
+        oss << "[MW]";
+    }
+    if (has(Keyword::POISONOUS)) {
+        oss << "[P]";
+    }
+    if (has(Keyword::VENOMOUS)) {
+        oss << "[V]";
     }
     return oss.str();
 }

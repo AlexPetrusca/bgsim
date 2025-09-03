@@ -42,6 +42,10 @@ public:
         VOIDWALKER_G = 57299,
         SAVANNAH_HIGHMANE = 96793,
         SAVANNAH_HIGHMANE_G = 58409,
+        DEADLY_SPORE = 65031,
+        DEADLY_SPORE_G = 65122,
+        TIDE_ORACLE_MORGL = 103047, // todo: not fully implemented
+        TIDE_ORACLE_MORGL_G = 103064, // todo: not fully implemented
 
         // tokens
         TABBYCAT_T = 96759,
