@@ -5,6 +5,11 @@
     "id": "DS1_070o",
     "name": "Master's Presence",
     "target": "SINGLE",
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "TAUNT"
+    ],
     "set": "LEGACY",
     "text": "+2/+2 and <b>Taunt</b>.",
     "type": "ENCHANTMENT"
@@ -15,6 +20,11 @@
     "id": "TB_BaconUps_068e",
     "name": "Master's Presence",
     "target": "SINGLE",
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "TAUNT"
+    ],
     "set": "BATTLEGROUNDS",
     "text": "+4/+4 and <b>Taunt</b>.",
     "type": "ENCHANTMENT"

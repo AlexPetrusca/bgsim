@@ -8,6 +8,15 @@
     "mechanics": [
       "BATTLECRY"
     ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "SUMMON",
+        "args": [
+          96759
+        ]
+      }
+    ],
     "races": [
       "BEAST"
     ],
@@ -27,6 +36,15 @@
     "health": 2,
     "mechanics": [
       "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "SUMMON",
+        "args": [
+          60054
+        ]
+      }
     ],
     "races": [
       "BEAST"
@@ -205,6 +223,15 @@
     "mechanics": [
       "BATTLECRY"
     ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          722
+        ]
+      }
+    ],
     "id": "BG_DS1_070",
     "goldenDbfId": 59499,
     "artist": "Dan Brereton",
@@ -222,6 +249,15 @@
     "health": 6,
     "mechanics": [
       "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          59500
+        ]
+      }
     ],
     "id": "TB_BaconUps_068",
     "normalDbfId": 96778,
@@ -1249,6 +1285,58 @@
     "normalDbfId": 72059,
     "cardClass": "WARLOCK",
     "text": "<b>Deathrattle:</b> Give this\nminion's maximum Health\nto another friendly minion,\ntwice.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 98829,
+    "name": "Rylak Metalhead",
+    "tier": 4,
+    "attack": 5,
+    "health": 3,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "TRIGGER_ADJACENT_BATTLECRY"
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG26_801",
+    "goldenDbfId": 98830,
+    "artist": "Angelo Bortolini",
+    "cardClass": "HUNTER",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Trigger the\n<b>Battlecry</b> of an\nadjacent minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 98830,
+    "name": "Rylak Metalhead",
+    "tier": 4,
+    "attack": 10,
+    "health": 6,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "TRIGGER_ADJACENT_BATTLECRIES"
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG26_801_G",
+    "normalDbfId": 98829,
+    "artist": "Angelo Bortolini",
+    "cardClass": "HUNTER",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Trigger the\n<b>Battlecries</b> of adjacent\nminions.",
     "type": "MINION"
   }
 ]

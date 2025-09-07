@@ -22,6 +22,12 @@ public:
 
     MinionLoc get_random_minion_loc(const BitVector<Keyword>& exclude);
 
+    MinionLoc get_left_minion_loc(MinionLoc loc);
+
+    static MinionLoc get_right_minion_loc(MinionLoc loc);
+
+    bool is_minion(MinionLoc loc);
+
     void summon_minion(const Minion& minion, bool post_death = false);
 
     void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);

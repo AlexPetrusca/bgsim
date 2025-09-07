@@ -594,3 +594,66 @@ TEST(ArenaBattleTest, GoldenImpulsiveTricksterChain) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, RylakMetalheadProced) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, RylakMetalheadNotProced) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+        CardDb::Id::TABBYCAT_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, GoldenRylakMetalhead) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::TABBYCAT_T_G,
+        CardDb::Id::ALLEYCAT_G,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::ALLEYCAT_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

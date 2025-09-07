@@ -7,6 +7,7 @@
 using json = nlohmann::json;
 
 CardDb::CardDb() {
+    // todo: don't load data in constructor - do this in an init method instead
     std::ifstream minions_file(BGCOMLIB_DIR "/rsc/minions.json");
     if (!minions_file.is_open()) {
         throw std::runtime_error("Could not open file!");

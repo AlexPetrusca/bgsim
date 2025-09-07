@@ -64,6 +64,21 @@ MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
     return random_loc;
 }
 
+MinionLoc Board::get_left_minion_loc(const MinionLoc loc) {
+    if (loc == minions().begin()) {
+        return minions().end();
+    }
+    return std::prev(loc);
+}
+
+MinionLoc Board::get_right_minion_loc(const MinionLoc loc) {
+    return std::next(loc);
+}
+
+bool Board::is_minion(const MinionLoc loc) {
+    return loc != minions().end() && !loc->is_zombie();
+}
+
 void Board::summon_minion(const Minion& minion, const bool post_death) {
     summon_minion(minion, _minions.end(), post_death);
 }
@@ -201,6 +216,36 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
         }
         case Effect::Type::GEN_CARD: {
             // todo
+            break;
+        }
+        case Effect::Type::TRIGGER_ADJACENT_BATTLECRY: {
+            const auto l = get_left_minion_loc(loc);
+            const auto r = get_right_minion_loc(loc);
+            const bool is_battlecry_left = is_minion(l) && l->has(Keyword::BATTLECRY);
+            const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
+            if (is_battlecry_left && is_battlecry_right) {
+                std::uniform_int_distribution coin_flip(0, 1);
+                if (coin_flip(_rng)) {
+                    exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+                } else {
+                    exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+                }
+            } else if (is_battlecry_left) {
+                exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+            } else if (is_battlecry_right) {
+                exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+            }
+            break;
+        }
+        case Effect::Type::TRIGGER_ADJACENT_BATTLECRIES: {
+            const auto l = get_left_minion_loc(loc);
+            if (is_minion(l) && l->has(Keyword::BATTLECRY)) {
+                exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+            }
+            const auto r = get_right_minion_loc(loc);
+            if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
+                exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+            }
             break;
         }
     }

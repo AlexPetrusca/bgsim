@@ -13,7 +13,9 @@ public:
         SUMMON,
         REBORN_SUMMON,
         GEN_CARD,
-        ENCHANT
+        ENCHANT,
+        TRIGGER_ADJACENT_BATTLECRY,
+        TRIGGER_ADJACENT_BATTLECRIES,
     };
 
     class TypeUtil {
@@ -22,7 +24,9 @@ public:
             {"SUMMON", Type::SUMMON},
             {"REBORN_SUMMON", Type::REBORN_SUMMON},
             {"GEN_CARD", Type::GEN_CARD},
-            {"ENCHANT", Type::ENCHANT}
+            {"ENCHANT", Type::ENCHANT},
+            {"TRIGGER_ADJACENT_BATTLECRY", Type::TRIGGER_ADJACENT_BATTLECRY},
+            {"TRIGGER_ADJACENT_BATTLECRIES", Type::TRIGGER_ADJACENT_BATTLECRIES}
         };
 
         static Type fromString(const std::string& str) {

@@ -54,6 +54,8 @@ public:
         FIENDISH_SERVANT_G = 60671,
         IMPULSIVE_TRICKSTER = 72059,
         IMPULSIVE_TRICKSTER_G = 72922,
+        RYLAK_METALHEAD = 98829,
+        RYLAK_METALHEAD_G = 98830,
 
         // tokens
         TABBYCAT_T = 96759,

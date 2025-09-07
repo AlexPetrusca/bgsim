@@ -36,6 +36,7 @@ void fight_minions(Board& attacking, Board& defending, MinionLoc atk, MinionLoc 
 
     const bool atk_poisoned = atk->has(Keyword::POISONOUS) || atk->has(Keyword::VENOMOUS);
     int atk_damage_dealt = 0;
+    // todo: rewrite using `get_left_minion_loc` and `get_right_minion_loc`
     if (atk->has(Keyword::CLEAVE)) {
         // attack left
         if (def != defending.minions().begin()) { // if not attacking head
