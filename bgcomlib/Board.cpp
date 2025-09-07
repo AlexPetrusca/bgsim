@@ -128,6 +128,7 @@ void Board::enchant_random_minion(const Enchantment& enchantment) {
 }
 
 void Board::enchant_random_minion_by_race(const Enchantment& enchantment, const Race race) {
+    // todo: can we really ignore props here? answer is NO (lol)
     const auto minion = get_random_minion_loc_by_race(race);
     if (minion != minions().end()) {
         enchant_minion(*minion, enchantment);
@@ -222,6 +223,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
                 switch (enchantment.target()) {
                     case Target::SINGLE: {
                         if (enchantment.races().any()) {
+                            // todo: this is wrong - Target::SINGLE should mean single target enchants
                             for (const Race race: enchantment.races()) {
                                 enchant_random_minion_by_race(enchantment, race);
                             }

@@ -695,3 +695,23 @@ TEST(ArenaBattleTest, RaceSpecificEnchantNoProc) {
     EXPECT_EQ(report.result(), WIN_B);
     EXPECT_EQ(report.damage(), 2);
 }
+
+TEST(ArenaBattleTest, RaceSpecificEnchantProcSameProps) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HALF_SHELL_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
