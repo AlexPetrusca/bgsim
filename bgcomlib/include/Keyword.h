@@ -40,7 +40,7 @@ enum class Keyword : uint64_t {
 };
 
 namespace KeywordUtil {
-    inline std::map<std::string, Keyword> keyword_map = {
+    inline std::unordered_map<std::string, Keyword> keyword_map = {
         {"DEATHRATTLE", Keyword::DEATHRATTLE},
         {"REBORN", Keyword::REBORN},
         {"BATTLECRY", Keyword::BATTLECRY},
@@ -78,6 +78,7 @@ namespace KeywordUtil {
     }
 }
 
+// todo: extract this into its own file
 template <typename E>
 class BitVector {
     using U = std::underlying_type_t<E>;
@@ -124,6 +125,35 @@ public:
     [[nodiscard]] bool any() const {
         return bits != 0;
     }
+
+    class iterator {
+        U remaining;
+    public:
+        using value_type = E;
+        using reference = E;
+        using pointer = void;
+        using difference_type = std::ptrdiff_t;
+        using iterator_category = std::input_iterator_tag;
+
+        explicit iterator(U bits) : remaining(bits) {}
+
+        E operator*() const {
+            U lowest = remaining & -remaining;
+            return static_cast<E>(lowest);
+        }
+
+        iterator& operator++() {
+            remaining &= (remaining - 1);
+            return *this;
+        }
+
+        bool operator!=(const iterator& other) const {
+            return remaining != other.remaining;
+        }
+    };
+
+    iterator begin() const { return iterator(bits); }
+    iterator end() const { return iterator(0); }
 };
 
 #endif //KEYWORD_H

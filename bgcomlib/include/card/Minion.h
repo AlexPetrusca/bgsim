@@ -6,13 +6,14 @@
 
 #include "Effect.h"
 #include "Keyword.h"
+#include "Race.h"
 #include "../../IPrintable.h"
 
 class Minion : public IPrintable {
 public:
     Minion();
 
-    explicit Minion(const json& minion_json);
+    explicit Minion(const json& json);
 
     Minion(std::string name, int tier, int attack, int health); // todo: delete me
 
@@ -60,7 +61,11 @@ public:
 
     BitVector<Keyword>& props();
 
+    BitVector<Race>& races();
+
     [[nodiscard]] bool has(Keyword keyword) const;
+
+    [[nodiscard]] bool is(Race race) const;
 
     void set(Keyword keyword);
 
@@ -84,6 +89,7 @@ private:
     int _health{};
     int _max_health{};
     BitVector<Keyword> _props;
+    BitVector<Race> _races;
     bool _is_zombie{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?
 

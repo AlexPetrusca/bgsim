@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 
 #include "Keyword.h"
+#include "Race.h"
 #include "Target.h"
 
 using json = nlohmann::json;
@@ -20,6 +21,8 @@ public:
 
     [[nodiscard]] const BitVector<Keyword>& props() const;
 
+    [[nodiscard]] BitVector<Race> races() const;
+
     [[nodiscard]] int attack() const;
 
     void set_attack(int attack);
@@ -28,10 +31,15 @@ public:
 
     void set_health(int health);
 
+    [[nodiscard]] bool has(Keyword keyword) const;
+
+    [[nodiscard]] bool is(Race race) const;
+
 private:
     int _id{};
     Target _target{};
     BitVector<Keyword> _props;
+    BitVector<Race> _races;
     int _attack{};
     int _health{};
 };

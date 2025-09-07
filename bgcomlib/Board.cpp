@@ -38,13 +38,13 @@ std::list<Minion>& Board::minions() {
 MinionLoc Board::get_random_minion_loc() {
     MinionLoc random_loc;
     std::uniform_real_distribution<> dist(0, 1);
-    double count = 0;
+    double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
-        count++;
         if (dist(_rng) < 1 / count) {
             random_loc = m;
         }
+        count++;
     }
     return random_loc;
 }
@@ -52,14 +52,30 @@ MinionLoc Board::get_random_minion_loc() {
 MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
     auto random_loc = minions().end();
     std::uniform_real_distribution<> dist(0, 1);
-    double count = 0;
+    double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
         if (m->props() & exclude) continue;
-        count++;
         if (dist(_rng) < 1 / count) {
             random_loc = m;
         }
+        count++;
+
+    }
+    return random_loc;
+}
+
+MinionLoc Board::get_random_minion_loc_by_race(const Race race) {
+    auto random_loc = minions().end();
+    std::uniform_real_distribution<> dist(0, 1);
+    double count = 0;
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->is_zombie()) continue;
+        if (!m->races().has(race)) continue;
+        if (dist(_rng) < 1 / count) {
+            random_loc = m;
+        }
+        count++;
     }
     return random_loc;
 }
@@ -100,7 +116,19 @@ void Board::enchant_minion(Minion& minion, const Enchantment& enchantment) {
 }
 
 void Board::enchant_random_minion(const Enchantment& enchantment) {
+    // todo: hold on - its only a subset of props that I'm interested in filtering out, right?
+    //  - `divine shield` and `reborn` should go to units that don't have them
+    //  - but what about `taunt`... that shouldn't count right?
+    //  - Maybe we first try to give the buff to a minion without the prop;
+    //    Then if we can't, we just give it to any minion (even if it doesn't "do anything")
     const auto minion = get_random_minion_loc(enchantment.props());
+    if (minion != minions().end()) {
+        enchant_minion(*minion, enchantment);
+    }
+}
+
+void Board::enchant_random_minion_by_race(const Enchantment& enchantment, const Race race) {
+    const auto minion = get_random_minion_loc_by_race(race);
     if (minion != minions().end()) {
         enchant_minion(*minion, enchantment);
     }
@@ -193,20 +221,29 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
 
                 switch (enchantment.target()) {
                     case Target::SINGLE: {
-                        enchant_random_minion(enchantment);
+                        if (enchantment.races().any()) {
+                            for (const Race race: enchantment.races()) {
+                                enchant_random_minion_by_race(enchantment, race);
+                            }
+                        } else {
+                            enchant_random_minion(enchantment);
+                        }
                         break;
                     }
                     case Target::ALL: {
+                        // todo: take race into account
                         for (auto & m : minions()) {
                             enchant_minion(m, enchantment);
                         }
                         break;
                     }
                     case Target::LEFTMOST: {
+                        // todo: take race into account
                         enchant_minion(minions().front(), enchantment);
                         break;
                     }
                     case Target::RIGHTMOST: {
+                        // todo: take race into account
                         enchant_minion(minions().back(), enchantment);
                         break;
                     }

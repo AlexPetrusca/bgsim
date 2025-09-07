@@ -657,3 +657,41 @@ TEST(ArenaBattleTest, GoldenRylakMetalhead) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, RaceSpecificEnchantProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::TABBYCAT_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, RaceSpecificEnchantNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::PRIMALFIN_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 2);
+}

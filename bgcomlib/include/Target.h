@@ -12,7 +12,7 @@ enum class Target {
 };
 
 namespace TargetUtil {
-    inline std::map<std::string, Target> target_map = {
+    inline std::unordered_map<std::string, Target> target_map = {
         {"SINGLE", Target::SINGLE},
         {"ALL", Target::ALL},
         {"LEFTMOST", Target::LEFTMOST},

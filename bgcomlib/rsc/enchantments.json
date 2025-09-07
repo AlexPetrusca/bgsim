@@ -5,6 +5,9 @@
     "id": "DS1_070o",
     "name": "Master's Presence",
     "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
     "attack": 2,
     "health": 2,
     "mechanics": [
@@ -20,6 +23,9 @@
     "id": "TB_BaconUps_068e",
     "name": "Master's Presence",
     "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
     "attack": 4,
     "health": 4,
     "mechanics": [

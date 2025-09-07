@@ -22,6 +22,8 @@ public:
 
     MinionLoc get_random_minion_loc(const BitVector<Keyword>& exclude);
 
+    MinionLoc get_random_minion_loc_by_race(Race race);
+
     MinionLoc get_left_minion_loc(MinionLoc loc);
 
     static MinionLoc get_right_minion_loc(MinionLoc loc);
@@ -35,6 +37,8 @@ public:
     void enchant_minion(Minion& minion, const Enchantment& enchantment);
 
     void enchant_random_minion(const Enchantment& enchantment);
+
+    void enchant_random_minion_by_race(const Enchantment& enchantment, Race race);
 
     void reap_minion(MinionLoc loc);
 

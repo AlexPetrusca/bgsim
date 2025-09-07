@@ -19,6 +19,7 @@ add_library(bgcomlib STATIC
         include/Effect.h
         Effect.cpp
         include/Target.h
+        include/Race.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 

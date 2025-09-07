@@ -5,27 +5,32 @@
 
 Minion::Minion() = default;
 
-Minion::Minion(const json& minion_json) {
-    _name = minion_json["name"];
-    _tier = minion_json["tier"];
-    _attack = minion_json["attack"];
-    _health = minion_json["health"];
-    _max_health = minion_json["health"];
-    if (minion_json.contains("mechanics")) {
-        for (const auto& keyword_json : minion_json["mechanics"]) {
+Minion::Minion(const json& json) {
+    _name = json["name"];
+    _tier = json["tier"];
+    _attack = json["attack"];
+    _health = json["health"];
+    _max_health = json["health"];
+    if (json.contains("races")) {
+        for (const auto& race_json : json["races"]) {
+            _races.set(RaceUtil::fromString(race_json));
+        }
+    }
+    if (json.contains("mechanics")) {
+        for (const auto& keyword_json : json["mechanics"]) {
             set(KeywordUtil::fromString(keyword_json));
         }
     }
-    if (minion_json.contains("effects")) {
-        for (const auto& effect_json : minion_json["effects"]) {
+    if (json.contains("effects")) {
+        for (const auto& effect_json : json["effects"]) {
             Effect effect(effect_json);
             _effects.insert({effect.trigger(), effect});
         }
     }
 
-    _id = minion_json["dbfId"];
-    _is_golden = minion_json.contains("normalDbfId");
-    _alt_id = (_is_golden) ? minion_json["normalDbfId"] : minion_json["goldenDbfId"];
+    _id = json["dbfId"];
+    _is_golden = json.contains("normalDbfId");
+    _alt_id = (_is_golden) ? json["normalDbfId"] : json["goldenDbfId"];
 }
 
 Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
@@ -128,8 +133,16 @@ BitVector<Keyword>& Minion::props() {
     return _props;
 }
 
+BitVector<Race>& Minion::races() {
+    return _races;
+}
+
 bool Minion::has(const Keyword keyword) const {
     return _props.has(keyword);
+}
+
+bool Minion::is(const Race race) const {
+    return _races.has(race);
 }
 
 void Minion::set(const Keyword keyword) {

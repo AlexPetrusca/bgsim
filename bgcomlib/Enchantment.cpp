@@ -10,10 +10,12 @@ Enchantment::Enchantment(const json& enchant_json) {
             _props.set(KeywordUtil::fromString(keyword_json));
         }
     }
-    if (enchant_json.contains("attack")) {
-        if (enchant_json.is_string()) {
-
+    if (enchant_json.contains("races")) {
+        for (const auto& race_json : enchant_json["races"]) {
+            _races.set(RaceUtil::fromString(race_json));
         }
+    }
+    if (enchant_json.contains("attack")) {
         _attack = enchant_json["attack"];
     }
     if (enchant_json.contains("health")) {
@@ -33,6 +35,10 @@ const BitVector<Keyword>& Enchantment::props() const {
     return _props;
 }
 
+BitVector<Race> Enchantment::races() const {
+    return _races;
+}
+
 int Enchantment::attack() const {
     return _attack;
 }
@@ -47,4 +53,14 @@ int Enchantment::health() const {
 
 void Enchantment::set_health(const int health) {
     _health = health;
+}
+
+bool Enchantment::has(const Keyword keyword) const {
+    return _props.has(keyword);
+
+}
+
+bool Enchantment::is(const Race race) const {
+    return _races.has(race);
+
 }
