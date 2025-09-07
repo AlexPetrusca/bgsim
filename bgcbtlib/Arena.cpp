@@ -94,6 +94,7 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
         }
 
         if (debug) {
+            std::cout << "|Turn " << turn << "| ";
             if (turn % 2 == 0) {
                 std::cout << "[A -> B] ";
             } else {
@@ -163,6 +164,10 @@ BattleReport Arena::battle(const bool debug) {
     int turn = boardA.size() > boardB.size() ? 0 : 1;
     if (boardA.size() == boardB.size()) {
         turn = std::uniform_int_distribution(0, 1)(rng);
+    }
+
+    if (debug) {
+        std::cout << std::endl;
     }
 
     boardA.prep_for_battle();

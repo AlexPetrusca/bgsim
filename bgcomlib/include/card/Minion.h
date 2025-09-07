@@ -16,98 +16,53 @@ public:
 
     Minion(std::string name, int tier, int attack, int health); // todo: delete me
 
-    [[nodiscard]] std::string name() const {
-        return _name;
-    }
+    [[nodiscard]] std::string name() const;
 
-    void set_name(const std::string &name) {
-        _name = name;
-    }
+    void set_name(const std::string &name);
 
-    [[nodiscard]] int tier() const {
-        return _tier;
-    }
+    [[nodiscard]] int tier() const;
 
-    void set_tier(const int tier) {
-        _tier = tier;
-    }
+    void set_tier(int tier);
 
-    [[nodiscard]] int attack() const {
-        return _attack;
-    }
+    [[nodiscard]] int attack() const;
 
-    void set_attack(const int attack) {
-        _attack = attack;
-    }
+    void set_attack(int attack);
 
-    [[nodiscard]] int health() const {
-        return _health;
-    }
+    [[nodiscard]] int health() const;
 
-    void set_health(const int health) {
-        _health = health;
-    }
+    void set_health(int health);
 
-    int deal_damage(const int damage) {
-        _health -= damage;
-        return _health;
-    }
+    int deal_damage(int damage);
 
-    [[nodiscard]] const Effect& get_effect(const Keyword keyword) const {
-        return _effects.at(keyword);
-    }
+    int delta_attack(int delta);
 
-    [[nodiscard]] int id() const {
-        return _id;
-    }
+    int delta_health(int delta);
 
-    [[nodiscard]] int alt_id() const {
-        return _alt_id;
-    }
+    [[nodiscard]] const Effect& get_effect(Keyword keyword) const;
 
-    [[nodiscard]] bool is_golden() const {
-        return _is_golden;
-    }
+    [[nodiscard]] int id() const;
 
-    [[nodiscard]] bool is_zombie() const {
-        return _is_zombie;
-    }
+    [[nodiscard]] int alt_id() const;
 
-    void set_zombie(const bool is_zombie) {
-        _is_zombie = is_zombie;
-    }
+    [[nodiscard]] bool is_golden() const;
 
-    [[nodiscard]] bool is_poisoned() const {
-        return _is_poisoned;
-    }
+    [[nodiscard]] bool is_zombie() const;
 
-    void set_poisoned(const bool is_poisoned) {
-        _is_poisoned = is_poisoned;
-    }
+    void set_zombie(bool is_zombie);
 
-    BitVector<Keyword>& props() {
-        return _props;
-    }
+    [[nodiscard]] bool is_poisoned() const;
 
-    [[nodiscard]] bool has(const Keyword keyword) const {
-        return _props.has(keyword);
-    }
+    void set_poisoned(bool is_poisoned);
 
-    void set(const Keyword keyword) {
-        return _props.set(keyword);
-    }
+    BitVector<Keyword>& props();
 
-    void clear(const Keyword keyword) {
-        return _props.clear(keyword);
-    }
+    [[nodiscard]] bool has(Keyword keyword) const;
 
-    void toggle(const Keyword keyword) {
-        if (_props.has(keyword)) {
-            _props.clear(keyword);
-        } else {
-            _props.set(keyword);
-        }
-    }
+    void set(Keyword keyword);
+
+    void clear(Keyword keyword);
+
+    void toggle(Keyword keyword);
 
     [[nodiscard]] std::string to_string() override;
 

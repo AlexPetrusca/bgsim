@@ -26,10 +26,20 @@ public:
         return _props;
     }
 
+    [[nodiscard]] int attack() const {
+        return _attack;
+    }
+
+    [[nodiscard]] int health() const {
+        return _health;
+    }
+
 private:
     int _id{};
     Target _target{};
     BitVector<Keyword> _props;
+    int _attack{};
+    int _health{};
 };
 
 #endif //ENCHANTMENT_H

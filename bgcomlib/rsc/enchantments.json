@@ -28,5 +28,23 @@
     "target": "SINGLE",
     "text": "<b>Divine Shield</b>",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 3,
+    "name": "N'Zoth Blessing",
+    "target": "ALL",
+    "attack": 1,
+    "health": 1,
+    "text": "+1/+1",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 4,
+    "name": "N'Zoth Blessing",
+    "target": "ALL",
+    "attack": 2,
+    "health": 2,
+    "text": "+2/+2",
+    "type": "ENCHANTMENT"
   }
 ]

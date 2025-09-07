@@ -78,6 +78,8 @@ void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool 
 
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment) {
     minion.props() |= enchantment.props();
+    minion.delta_attack(enchantment.attack());
+    minion.delta_health(enchantment.health());
 }
 
 void Board::enchant_random_minion(const Enchantment& enchantment) {

@@ -10,4 +10,10 @@ Enchantment::Enchantment(const json& enchant_json) {
             _props.set(KeywordUtil::fromString(keyword_json));
         }
     }
+    if (enchant_json.contains("attack")) {
+        _attack = enchant_json["attack"];
+    }
+    if (enchant_json.contains("health")) {
+        _health = enchant_json["health"];
+    }
 }

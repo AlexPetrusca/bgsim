@@ -1085,5 +1085,57 @@
     "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Give 2 random friendly minions <b>Divine Shield</b>.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96772,
+    "name": "Spawn of N'Zoth",
+    "tier": 2,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          3
+        ]
+      }
+    ],
+    "id": "BG_OG_256",
+    "goldenDbfId": 58168,
+    "artist": "Peter Stapleton",
+    "cardClass": "NEUTRAL",
+    "flavor": "Who's a cute widdle N'Zoth? You are! Yes you are! Yes you're the cutest widdle N'Zoth in the whole world!!!",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Give your minions +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58168,
+    "name": "Spawn of N'Zoth",
+    "tier": 2,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          4
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_025",
+    "normalDbfId": 96772,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Give your minions +2/+2.",
+    "type": "MINION"
   }
 ]

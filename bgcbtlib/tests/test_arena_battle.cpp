@@ -466,3 +466,46 @@ TEST(ArenaBattleTest, SelflessHeroNoValidTarget) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, SpawnOfNzoth) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SPAWN_OF_NZOTH,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SEWER_RAT,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, SpawnOfNzothGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SPAWN_OF_NZOTH_G,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::ALLEYCAT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SEWER_RAT_G,
+        CardDb::Id::SEWER_RAT_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

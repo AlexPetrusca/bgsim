@@ -48,6 +48,8 @@ public:
         TIDE_ORACLE_MORGL_G = 103064, // todo: not fully implemented
         SELFLESS_HERO = 96769,
         SELFLESS_HERO_G = 58143,
+        SPAWN_OF_NZOTH = 96772,
+        SPAWN_OF_NZOTH_G = 58168,
 
         // tokens
         TABBYCAT_T = 96759,

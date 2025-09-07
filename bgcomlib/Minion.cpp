@@ -34,6 +34,108 @@ Minion::Minion(std::string name, int32_t tier, int32_t attack, int32_t health) {
     this->_health = health;
 }
 
+std::string Minion::name() const {
+    return _name;
+}
+
+void Minion::set_name(const std::string& name) {
+    _name = name;
+}
+
+int Minion::tier() const {
+    return _tier;
+}
+
+void Minion::set_tier(const int tier) {
+    _tier = tier;
+}
+
+int Minion::attack() const {
+    return _attack;
+}
+
+void Minion::set_attack(const int attack) {
+    _attack = attack;
+}
+
+int Minion::health() const {
+    return _health;
+}
+
+void Minion::set_health(const int health) {
+    _health = health;
+}
+
+int Minion::delta_attack(const int delta) {
+    _attack += delta;
+    return _attack;
+}
+
+int Minion::delta_health(const int delta) {
+    _health += delta;
+    return _health;
+}
+
+int Minion::deal_damage(const int damage) {
+    return delta_health(-damage);
+}
+
+const Effect& Minion::get_effect(const Keyword keyword) const {
+    return _effects.at(keyword);
+}
+
+int Minion::id() const {
+    return _id;
+}
+
+int Minion::alt_id() const {
+    return _alt_id;
+}
+
+bool Minion::is_golden() const {
+    return _is_golden;
+}
+
+bool Minion::is_zombie() const {
+    return _is_zombie;
+}
+
+void Minion::set_zombie(const bool is_zombie) {
+    _is_zombie = is_zombie;
+}
+
+bool Minion::is_poisoned() const {
+    return _is_poisoned;
+}
+
+void Minion::set_poisoned(const bool is_poisoned) {
+    _is_poisoned = is_poisoned;
+}
+
+BitVector<Keyword>& Minion::props() {
+    return _props;
+}
+
+bool Minion::has(const Keyword keyword) const {
+    return _props.has(keyword);
+}
+
+void Minion::set(const Keyword keyword) {
+    return _props.set(keyword);
+}
+
+void Minion::clear(const Keyword keyword) {
+    return _props.clear(keyword);
+}
+
+void Minion::toggle(const Keyword keyword) {
+    if (_props.has(keyword)) {
+        _props.clear(keyword);
+    } else {
+        _props.set(keyword);
+    }
+}
+
 [[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";
