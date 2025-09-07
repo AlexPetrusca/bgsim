@@ -1013,7 +1013,7 @@
     "goldenDbfId": 103064,
     "cardClass": "SHAMAN",
     "elite": true,
-    "text": "[x]<b><b>Poisonous</b>.</b> When this\nattacks and kills a minion,\ngive its maximum stats to a\nminion in your hand.",
+    "text": "<b>Poisonous</b>. When this\nattacks and kills a minion,\ngive its maximum stats to a\nminion in your hand.",
     "type": "MINION"
   },
   {
@@ -1032,7 +1032,7 @@
     "normalDbfId": 103047,
     "cardClass": "SHAMAN",
     "elite": true,
-    "text": "[x]<b><b>Poisonous</b>.</b> When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
+    "text": "<b>Poisonous</b>. When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
     "type": "MINION"
   },
   {
@@ -1136,6 +1136,119 @@
     "cardClass": "NEUTRAL",
     "rarity": "COMMON",
     "text": "<b>Deathrattle:</b> Give your minions +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 56112,
+    "name": "Fiendish Servant",
+    "tier": 1,
+    "attack": 2,
+    "health": 1,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          5
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "YOD_026",
+    "goldenDbfId": 60671,
+    "artist": "Mike Sass",
+    "cardClass": "WARLOCK",
+    "flavor": "Putting the \"r\" in fiend.",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Give this\nminion's Attack to a random\nfriendly minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60671,
+    "name": "Fiendish Servant",
+    "tier": 1,
+    "attack": 4,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          5,
+          5
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_112",
+    "normalDbfId": 56112,
+    "cardClass": "WARLOCK",
+    "text": "<b>Deathrattle:</b> Give this\nminion's Attack to a random\nfriendly minion, twice.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 72059,
+    "name": "Impulsive Trickster",
+    "tier": 2,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          6
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG21_006",
+    "goldenDbfId": 72922,
+    "cardClass": "WARLOCK",
+    "text": "<b>Deathrattle:</b> Give this\nminion's maximum Health\n  to another friendly minion. ",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 72922,
+    "name": "Impulsive Trickster",
+    "tier": 2,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          6,
+          6
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG21_006_G",
+    "normalDbfId": 72059,
+    "cardClass": "WARLOCK",
+    "text": "<b>Deathrattle:</b> Give this\nminion's maximum Health\nto another friendly minion,\ntwice.",
     "type": "MINION"
   }
 ]

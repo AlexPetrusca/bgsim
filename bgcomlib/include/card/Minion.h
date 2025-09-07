@@ -32,6 +32,10 @@ public:
 
     void set_health(int health);
 
+    [[nodiscard]] int max_health() const;
+
+    void set_max_health(int max_health);
+
     int deal_damage(int damage);
 
     int delta_attack(int delta);
@@ -78,6 +82,7 @@ private:
 
     int _attack{};
     int _health{};
+    int _max_health{};
     BitVector<Keyword> _props;
     bool _is_zombie{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?

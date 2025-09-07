@@ -10,6 +10,7 @@ Minion::Minion(const json& minion_json) {
     _tier = minion_json["tier"];
     _attack = minion_json["attack"];
     _health = minion_json["health"];
+    _max_health = minion_json["health"];
     if (minion_json.contains("mechanics")) {
         for (const auto& keyword_json : minion_json["mechanics"]) {
             set(KeywordUtil::fromString(keyword_json));
@@ -66,6 +67,14 @@ void Minion::set_health(const int health) {
     _health = health;
 }
 
+int Minion::max_health() const {
+    return _max_health;
+}
+
+void Minion::set_max_health(const int max_health) {
+    _max_health = max_health;
+}
+
 int Minion::delta_attack(const int delta) {
     _attack += delta;
     return _attack;
@@ -73,6 +82,9 @@ int Minion::delta_attack(const int delta) {
 
 int Minion::delta_health(const int delta) {
     _health += delta;
+    if (delta > 0) {
+        _max_health += delta;
+    }
     return _health;
 }
 

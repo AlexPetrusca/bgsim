@@ -46,5 +46,19 @@
     "health": 2,
     "text": "+2/+2",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 5,
+    "name": "Give Attack",
+    "target": "SINGLE",
+    "text": "Give this\nminion's Attack to a random\nfriendly minion",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 6,
+    "name": "Give Health",
+    "target": "SINGLE",
+    "text": "Give this\nminion's Health to a random\nfriendly minion",
+    "type": "ENCHANTMENT"
   }
 ]

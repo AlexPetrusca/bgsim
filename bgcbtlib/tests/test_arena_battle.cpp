@@ -509,3 +509,88 @@ TEST(ArenaBattleTest, SpawnOfNzothGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, FiendishServant) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::FIENDISH_SERVANT,
+        CardDb::Id::FIENDISH_SERVANT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ImpulsiveTrickster) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::FIENDISH_SERVANT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ImpulsiveTricksterChain) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+        CardDb::Id::IMPULSIVE_TRICKSTER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, GoldenImpulsiveTricksterChain) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMPULSIVE_TRICKSTER_G,
+        CardDb::Id::IMPULSIVE_TRICKSTER_G,
+        CardDb::Id::IMPULSIVE_TRICKSTER_G,
+        CardDb::Id::IMPULSIVE_TRICKSTER_G,
+        CardDb::Id::IMPULSIVE_TRICKSTER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000_G,
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

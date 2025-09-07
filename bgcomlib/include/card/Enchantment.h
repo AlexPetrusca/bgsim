@@ -14,25 +14,19 @@ public:
 
     explicit Enchantment(const json& enchant_json);
 
-    [[nodiscard]] int id() const {
-        return _id;
-    }
+    [[nodiscard]] int id() const;
 
-    [[nodiscard]] Target target() const {
-        return _target;
-    }
+    [[nodiscard]] Target target() const;
 
-    [[nodiscard]] const BitVector<Keyword>& props() const {
-        return _props;
-    }
+    [[nodiscard]] const BitVector<Keyword>& props() const;
 
-    [[nodiscard]] int attack() const {
-        return _attack;
-    }
+    [[nodiscard]] int attack() const;
 
-    [[nodiscard]] int health() const {
-        return _health;
-    }
+    void set_attack(int attack);
+
+    [[nodiscard]] int health() const;
+
+    void set_health(int health);
 
 private:
     int _id{};

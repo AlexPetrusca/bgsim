@@ -40,6 +40,7 @@ MinionLoc Board::get_random_minion_loc() {
     std::uniform_real_distribution<> dist(0, 1);
     double count = 0;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->is_zombie()) continue;
         count++;
         if (dist(_rng) < 1 / count) {
             random_loc = m;
@@ -53,6 +54,7 @@ MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
     std::uniform_real_distribution<> dist(0, 1);
     double count = 0;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->is_zombie()) continue;
         if (m->props() & exclude) continue;
         count++;
         if (dist(_rng) < 1 / count) {
@@ -161,6 +163,19 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
         case Effect::Type::ENCHANT: {
             for (const int enchantment_id: effect.args()) {
                 Enchantment enchantment = db.get_enchantment(enchantment_id);
+                switch (static_cast<CardDb::Id>(enchantment_id)) {
+                    case CardDb::Id::GIVE_ATTACK_E: {
+                        enchantment.set_attack(loc->attack());
+                        break;
+                    }
+                    case CardDb::Id::GIVE_HEALTH_E: {
+                        enchantment.set_health(loc->max_health());
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
                 switch (enchantment.target()) {
                     case Target::SINGLE: {
                         enchant_random_minion(enchantment);
@@ -180,13 +195,14 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
                         enchant_minion(minions().back(), enchantment);
                         break;
                     }
-                    default: ;
                 }
             }
             break;
         }
-        default:
+        case Effect::Type::GEN_CARD: {
+            // todo
             break;
+        }
     }
 }
 

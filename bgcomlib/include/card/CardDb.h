@@ -50,6 +50,10 @@ public:
         SELFLESS_HERO_G = 58143,
         SPAWN_OF_NZOTH = 96772,
         SPAWN_OF_NZOTH_G = 58168,
+        FIENDISH_SERVANT = 56112,
+        FIENDISH_SERVANT_G = 60671,
+        IMPULSIVE_TRICKSTER = 72059,
+        IMPULSIVE_TRICKSTER_G = 72922,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -66,6 +70,10 @@ public:
         PRIMALFIN_T_G = 41525,
         HYENA_T = 96795,
         HYENA_T_G = 58410,
+
+        // enchantments
+        GIVE_ATTACK_E = 5,
+        GIVE_HEALTH_E = 6,
     };
 
     [[nodiscard]] Minion get_minion(int id) const;
