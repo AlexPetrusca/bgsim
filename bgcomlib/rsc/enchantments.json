@@ -4,6 +4,7 @@
     "dbfId": 722,
     "id": "DS1_070o",
     "name": "Master's Presence",
+    "target": "SINGLE",
     "set": "LEGACY",
     "text": "+2/+2 and <b>Taunt</b>.",
     "type": "ENCHANTMENT"
@@ -13,8 +14,19 @@
     "dbfId": 59500,
     "id": "TB_BaconUps_068e",
     "name": "Master's Presence",
+    "target": "SINGLE",
     "set": "BATTLEGROUNDS",
     "text": "+4/+4 and <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 2,
+    "name": "Divine Shield",
+    "mechanics": [
+      "DIVINE_SHIELD"
+    ],
+    "target": "SINGLE",
+    "text": "<b>Divine Shield</b>",
     "type": "ENCHANTMENT"
   }
 ]

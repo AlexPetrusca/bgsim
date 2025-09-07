@@ -429,3 +429,40 @@ TEST(ArenaBattleTest, DivineShieldPoison) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, SelflessHero) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SELFLESS_HERO,
+        CardDb::Id::ALLEYCAT
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, SelflessHeroNoValidTarget) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SELFLESS_HERO,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::GUARD_BOT_T
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

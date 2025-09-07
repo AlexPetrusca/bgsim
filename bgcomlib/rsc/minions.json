@@ -1034,5 +1034,56 @@
     "elite": true,
     "text": "[x]<b><b>Poisonous</b>.</b> When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96769,
+    "name": "Selfless Hero",
+    "tier": 2,
+    "attack": 2,
+    "health": 1,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          2
+        ]
+      }
+    ],
+    "id": "BG_OG_221",
+    "goldenDbfId": 58143,
+    "artist": "Rafael Zanchetin",
+    "cardClass": "NEUTRAL",
+    "flavor": "\"Don't worry about me… I'll just be here... under these tentacles.\"",
+    "text": "<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58143,
+    "name": "Selfless Hero",
+    "tier": 2,
+    "attack": 4,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          2,
+          2
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_014",
+    "normalDbfId": 96769,
+    "cardClass": "NEUTRAL",
+    "text": "<b>Deathrattle:</b> Give 2 random friendly minions <b>Divine Shield</b>.",
+    "type": "MINION"
   }
 ]

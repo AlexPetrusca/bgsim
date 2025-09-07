@@ -15,7 +15,7 @@ TEST(CardDbTest, ResolveDeathrattles) {
     CardDb db;
     const Minion minion = db.get_minion(104551); // Harmless Bonehead
     EXPECT_EQ(minion.name(), "Harmless Bonehead");
-    // EXPECT_TRUE(minion.has_keyword(Keyword::DEATHRATTLE));
+    EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
 
     const Effect& deathrattle = minion.get_effect(Keyword::DEATHRATTLE);
     EXPECT_TRUE(deathrattle.type() == Effect::Type::SUMMON);
@@ -40,4 +40,20 @@ TEST(CardDbTest, ResolveGoldenVersion) {
     EXPECT_EQ(golden.health(), 2 * minion.health());
     EXPECT_EQ(golden.attack(), 2 * minion.attack());
     EXPECT_EQ(golden.tier(), minion.tier());
+}
+
+TEST(CardDbTest, ResolveEnchantment) {
+    CardDb db;
+    const Minion minion = db.get_minion(CardDb::Id::SELFLESS_HERO);
+    EXPECT_EQ(minion.name(), "Selfless Hero");
+    EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
+
+    const Effect& deathrattle = minion.get_effect(Keyword::DEATHRATTLE);
+    EXPECT_TRUE(deathrattle.type() == Effect::Type::ENCHANT);
+    EXPECT_EQ(deathrattle.args().size(), 1);
+    EXPECT_EQ(deathrattle.args().at(0), 2);
+
+    const Enchantment& enchant = db.get_enchantment(2);
+    EXPECT_TRUE(enchant.props().has(Keyword::DIVINE_SHIELD));
+    EXPECT_EQ(enchant.target(), Target::SINGLE);
 }

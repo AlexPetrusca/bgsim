@@ -1,5 +1,6 @@
 #include "include/Board.h"
 
+#include <random>
 #include <sstream>
 
 #include "card/CardDb.h"
@@ -34,6 +35,33 @@ std::list<Minion>& Board::minions() {
     return this->_minions;
 }
 
+MinionLoc Board::get_random_minion_loc() {
+    MinionLoc random_loc;
+    std::uniform_real_distribution<> dist(0, 1);
+    double count = 0;
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        count++;
+        if (dist(_rng) < 1 / count) {
+            random_loc = m;
+        }
+    }
+    return random_loc;
+}
+
+MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
+    auto random_loc = minions().end();
+    std::uniform_real_distribution<> dist(0, 1);
+    double count = 0;
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->props() & exclude) continue;
+        count++;
+        if (dist(_rng) < 1 / count) {
+            random_loc = m;
+        }
+    }
+    return random_loc;
+}
+
 void Board::summon_minion(const Minion& minion, const bool post_death) {
     summon_minion(minion, _minions.end(), post_death);
 }
@@ -45,6 +73,17 @@ void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool 
 
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
+    }
+}
+
+void Board::enchant_minion(Minion& minion, const Enchantment& enchantment) {
+    minion.props() |= enchantment.props();
+}
+
+void Board::enchant_random_minion(const Enchantment& enchantment) {
+    const auto minion = get_random_minion_loc(enchantment.props());
+    if (minion != minions().end()) {
+        enchant_minion(*minion, enchantment);
     }
 }
 
@@ -117,6 +156,33 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             summon_minion(minion, next_loc, true);
             break;
         }
+        case Effect::Type::ENCHANT: {
+            for (const int enchantment_id: effect.args()) {
+                Enchantment enchantment = db.get_enchantment(enchantment_id);
+                switch (enchantment.target()) {
+                    case Target::SINGLE: {
+                        enchant_random_minion(enchantment);
+                        break;
+                    }
+                    case Target::ALL: {
+                        for (auto & m : minions()) {
+                            enchant_minion(m, enchantment);
+                        }
+                        break;
+                    }
+                    case Target::LEFTMOST: {
+                        enchant_minion(minions().front(), enchantment);
+                        break;
+                    }
+                    case Target::RIGHTMOST: {
+                        enchant_minion(minions().back(), enchantment);
+                        break;
+                    }
+                    default: ;
+                }
+            }
+            break;
+        }
         default:
             break;
     }
@@ -161,6 +227,10 @@ bool Board::empty(const bool include_zombies) const {
 
 bool Board::full(const bool include_zombies) const {
     return size(include_zombies) >= 7;
+}
+
+void Board::set_rng(const std::mt19937& rng) {
+    _rng = rng;
 }
 
 int Board::taunt_count() const {

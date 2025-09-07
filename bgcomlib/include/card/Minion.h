@@ -85,6 +85,10 @@ public:
         _is_poisoned = is_poisoned;
     }
 
+    BitVector<Keyword>& props() {
+        return _props;
+    }
+
     [[nodiscard]] bool has(const Keyword keyword) const {
         return _props.has(keyword);
     }

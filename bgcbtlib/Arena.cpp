@@ -6,7 +6,9 @@
 
 Arena::Arena(const Board& boardA, const Board& boardB, std::mt19937 rng) {
     this->boardA = boardA;
+    this->boardA.set_rng(rng);
     this->boardB = boardB;
+    this->boardB.set_rng(rng);
     this->rng = rng;
 }
 

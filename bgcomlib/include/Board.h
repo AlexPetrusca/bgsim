@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include <list>
+#include <random>
 
 #include "card/Minion.h"
 #include "card/CardDb.h"
@@ -17,9 +18,17 @@ public:
 
     std::list<Minion>& minions();
 
+    MinionLoc get_random_minion_loc();
+
+    MinionLoc get_random_minion_loc(const BitVector<Keyword>& exclude);
+
     void summon_minion(const Minion& minion, bool post_death = false);
 
     void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
+
+    void enchant_minion(Minion& minion, const Enchantment& enchantment);
+
+    void enchant_random_minion(const Enchantment& enchantment);
 
     void reap_minion(MinionLoc loc);
 
@@ -43,6 +52,8 @@ public:
 
     [[nodiscard]] bool full(bool include_zombies = false) const;
 
+    void set_rng(const std::mt19937& rng);
+
     [[nodiscard]] int taunt_count() const;
 
     [[nodiscard]] int zombie_count() const;
@@ -54,7 +65,7 @@ private:
     MinionLoc _active; // todo: should the board really track this
     int _taunt_count;
     int _zombie_count;
-    // Aura auras[];
+    std::mt19937 _rng;
 };
 
 #endif //BOARD_H

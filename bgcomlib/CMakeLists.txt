@@ -18,6 +18,7 @@ add_library(bgcomlib STATIC
         include/Keyword.h
         include/Effect.h
         Effect.cpp
+        include/Target.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 

@@ -91,6 +91,24 @@ public:
         return bits & static_cast<U>(e);
     }
 
+    BitVector& operator|=(BitVector v) {
+        bits |= v.bits;
+        return *this;
+    }
+
+    BitVector& operator&=(BitVector v) {
+        bits &= v.bits;
+        return *this;
+    }
+
+    U operator|(BitVector v) {
+        return bits | v.bits;
+    }
+
+    U operator&(BitVector v) {
+        return bits & v.bits;
+    }
+
     bool has(E e) const {
         return bits & static_cast<U>(e);
     }

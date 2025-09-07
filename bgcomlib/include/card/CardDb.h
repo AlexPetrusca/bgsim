@@ -46,6 +46,8 @@ public:
         DEADLY_SPORE_G = 65122,
         TIDE_ORACLE_MORGL = 103047, // todo: not fully implemented
         TIDE_ORACLE_MORGL_G = 103064, // todo: not fully implemented
+        SELFLESS_HERO = 96769,
+        SELFLESS_HERO_G = 58143,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -64,11 +66,11 @@ public:
         HYENA_T_G = 58410,
     };
 
-    Minion get_minion(int id);
+    [[nodiscard]] Minion get_minion(int id) const;
 
-    Minion get_minion(Id id);
+    [[nodiscard]] Minion get_minion(Id id) const;
 
-    Enchantment get_enchantment(int id);
+    [[nodiscard]] const Enchantment& get_enchantment(int id) const;
 
 private:
     std::unordered_map<int, Minion> minions;
