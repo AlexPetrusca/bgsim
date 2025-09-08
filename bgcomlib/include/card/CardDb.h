@@ -56,6 +56,8 @@ public:
         IMPULSIVE_TRICKSTER_G = 72922,
         RYLAK_METALHEAD = 98829,
         RYLAK_METALHEAD_G = 98830,
+        KINDLY_GRANDMOTHER = 108851,
+        KINDLY_GRANDMOTHER_G = 57340,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -72,6 +74,8 @@ public:
         PRIMALFIN_T_G = 41525,
         HYENA_T = 96795,
         HYENA_T_G = 58410,
+        BIG_BAD_WOLF = 108852,
+        BIG_BAD_WOLF_G = 57341,
 
         // enchantments
         GIVE_ATTACK_E = 5,

@@ -1338,5 +1338,92 @@
     "cardClass": "HUNTER",
     "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Trigger the\n<b>Battlecries</b> of adjacent\nminions.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 108851,
+    "name": "Kindly Grandmother",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          108852
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_KAR_005",
+    "goldenDbfId": 57340,
+    "artist": "Matt Dixon",
+    "cardClass": "HUNTER",
+    "flavor": "\"Goodness! What… abundant drool you have.\"",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57340,
+    "name": "Kindly Grandmother",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          57341
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_004",
+    "normalDbfId": 108851,
+    "cardClass": "HUNTER",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a 6/4 Big Bad Wolf.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 108852,
+    "name": "Big Bad Wolf",
+    "tier": 1,
+    "attack": 3,
+    "health": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_KAR_005a",
+    "goldenDbfId": 57341,
+    "artist": "Matt Dixon",
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57341,
+    "name": "Big Bad Wolf",
+    "tier": 1,
+    "attack": 6,
+    "health": 4,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_004t",
+    "normalDbfId": 108852,
+    "cardClass": "HUNTER",
+    "type": "MINION"
   }
 ]
