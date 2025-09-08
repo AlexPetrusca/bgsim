@@ -58,6 +58,8 @@ public:
         RYLAK_METALHEAD_G = 98830,
         KINDLY_GRANDMOTHER = 108851,
         KINDLY_GRANDMOTHER_G = 57340,
+        SHIELDED_MINIBOT = 2026,
+        SHIELDED_MINIBOT_G = 2027,
 
         // tokens
         TABBYCAT_T = 96759,

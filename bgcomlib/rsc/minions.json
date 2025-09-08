@@ -1425,5 +1425,47 @@
     "normalDbfId": 108852,
     "cardClass": "HUNTER",
     "type": "MINION"
+  },
+  {
+    "dbfId": 2026,
+    "name": "Shielded Minibot",
+    "tier": 2,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DIVINE_SHIELD"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_058",
+    "goldenDbfId": 2027,
+    "artist": "Raymond Swanland",
+    "cardClass": "PALADIN",
+    "flavor": "He chooses to believe what he is programmed to believe!",
+    "rarity": "COMMON",
+    "text": "<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 2027,
+    "name": "Shielded Minibot",
+    "tier": 2,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "DIVINE_SHIELD"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_058_G",
+    "normalDbfId": 2026,
+    "artist": "Raymond Swanland",
+    "cardClass": "PALADIN",
+    "flavor": "He chooses to believe what he is programmed to believe!",
+    "rarity": "COMMON",
+    "text": "<b>Divine Shield</b>",
+    "type": "MINION"
   }
 ]
