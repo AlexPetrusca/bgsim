@@ -60,6 +60,8 @@ public:
         KINDLY_GRANDMOTHER_G = 57340,
         SHIELDED_MINIBOT = 2026,
         SHIELDED_MINIBOT_G = 2027,
+        ANNOY_O_TRON = 103652,
+        ANNOY_O_TRON_G = 103653,
 
         // tokens
         TABBYCAT_T = 96759,

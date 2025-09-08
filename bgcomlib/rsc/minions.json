@@ -1467,5 +1467,47 @@
     "rarity": "COMMON",
     "text": "<b>Divine Shield</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 103652,
+    "name": "Annoy-o-Tron",
+    "tier": 1,
+    "attack": 1,
+    "health": 2,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_GVG_085",
+    "goldenDbfId": 103653,
+    "artist": "Matt Dixon",
+    "cardClass": "PALADIN",
+    "flavor": "The inventor of the Annoy-o-Tron was immediately expelled from Tinkerschool, Tinkertown, and was eventually exiled from the Eastern Kingdoms altogether.",
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 103653,
+    "name": "Annoy-o-Tron",
+    "tier": 1,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_GVG_085_G",
+    "normalDbfId": 103652,
+    "artist": "Matt Dixon",
+    "cardClass": "PALADIN",
+    "flavor": "The inventor of the Annoy-o-Tron was immediately expelled from Tinkerschool, Tinkertown, and was eventually exiled from the Eastern Kingdoms altogether.",
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
   }
 ]
