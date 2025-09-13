@@ -76,5 +76,29 @@
     "target": "SINGLE",
     "text": "Give this\nminion's Health to a random\nfriendly minion",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 7,
+    "name": "Scavenge Beast",
+    "target": "SELF",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 2,
+    "health": 1,
+    "text": "+2/+1",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 8,
+    "name": "Scavenge Beast",
+    "target": "SELF",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 4,
+    "health": 2,
+    "text": "+4/+2",
+    "type": "ENCHANTMENT"
   }
 ]

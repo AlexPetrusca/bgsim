@@ -62,6 +62,8 @@ public:
         SHIELDED_MINIBOT_G = 2027,
         ANNOY_O_TRON = 103652,
         ANNOY_O_TRON_G = 103653,
+        SCAVENGING_HYENA = 96762,
+        SCAVENGING_HYENA_G = 58395,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -1509,5 +1509,65 @@
     "flavor": "The inventor of the Annoy-o-Tron was immediately expelled from Tinkerschool, Tinkertown, and was eventually exiled from the Eastern Kingdoms altogether.",
     "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96762,
+    "name": "Scavenging Hyena",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          7
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_EX1_531",
+    "goldenDbfId": 58395,
+    "artist": "Jim Nelson",
+    "cardClass": "HUNTER",
+    "flavor": "Hyenas prefer the bones of kodos or windserpents, but they'll eat pretty much anything.  Even Brussels sprouts.",
+    "rarity": "COMMON",
+    "text": "Whenever a friendly Beast dies, gain +2/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58395,
+    "name": "Scavenging Hyena",
+    "tier": 1,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          8
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_043",
+    "normalDbfId": 96762,
+    "cardClass": "HUNTER",
+    "rarity": "COMMON",
+    "text": "Whenever a friendly Beast dies, gain +4/+2.",
+    "type": "MINION"
   }
 ]

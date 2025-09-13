@@ -43,6 +43,8 @@ public:
 
     int delta_health(int delta);
 
+    [[nodiscard]] const std::unordered_map<Keyword, Effect>& effects() const;
+
     [[nodiscard]] const Effect& get_effect(Keyword keyword) const;
 
     [[nodiscard]] int id() const;

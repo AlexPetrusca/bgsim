@@ -715,3 +715,62 @@ TEST(ArenaBattleTest, RaceSpecificEnchantProcSameProps) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, ScavengingHyenaProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ALLEYCAT_G,
+        CardDb::Id::SCAVENGING_HYENA,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ScavengingHyenaNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_T_G,
+        CardDb::Id::SCAVENGING_HYENA,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 3);
+}
+
+TEST(ArenaBattleTest, ScavengingHyenaMultiple) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ALLEYCAT_G,
+        CardDb::Id::SCAVENGING_HYENA,
+        CardDb::Id::SCAVENGING_HYENA,
+        CardDb::Id::SCAVENGING_HYENA,
+        CardDb::Id::SCAVENGING_HYENA,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+

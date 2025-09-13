@@ -9,13 +9,8 @@ Board::Board(const std::vector<Minion>& minions) {
     if (minions.size() > 7) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minions.size()));
     }
-    this->_minions = std::list(minions.begin(), minions.end());
-    this->_zombie_count = 0;
-    this->_taunt_count = 0;
-    for (const Minion& minion: _minions) {
-        if (minion.has(Keyword::TAUNT)) {
-            _taunt_count++;
-        }
+    for (const Minion& minion : minions) {
+        add_minion(minion);
     }
 }
 
@@ -95,18 +90,29 @@ bool Board::is_minion(const MinionLoc loc) {
     return loc != minions().end() && !loc->is_zombie();
 }
 
+void Board::add_minion(const Minion& minion) {
+    add_minion(minion, _minions.end());
+}
+
+void Board::add_minion(const Minion& minion, const MinionLoc loc) {
+    const MinionLoc new_loc = _minions.insert(loc, minion);
+    if (minion.has(Keyword::TAUNT)) {
+        _taunt_count++;
+    }
+    for (const auto& keyword: minion.effects() | std::views::keys) {
+        if (KeywordUtil::isTrigger(keyword)) {
+            register_trigger(keyword, new_loc);
+        }
+    }
+}
+
 void Board::summon_minion(const Minion& minion, const bool post_death) {
     summon_minion(minion, _minions.end(), post_death);
 }
 
 void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
     if (full(!post_death)) return;
-
-    _minions.insert(loc, minion);
-
-    if (minion.has(Keyword::TAUNT)) {
-        _taunt_count++;
-    }
+    add_minion(minion, loc);
 }
 
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment) {
@@ -161,6 +167,9 @@ void Board::reap_minion(const MinionLoc loc) {
     if (_active == loc) {
         increment_active();
     }
+    deregister_triggers(loc);
+    proc_trigger(Keyword::ON_DEATH_OTHER, loc);
+
     _minions.erase(loc); // erase zombie
     _zombie_count--;
 }
@@ -239,6 +248,10 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
                         }
                         break;
                     }
+                    case Target::SELF: {
+                        enchant_minion(*loc, enchantment);
+                        break;
+                    }
                     case Target::LEFTMOST: {
                         // todo: take race into account
                         enchant_minion(minions().front(), enchantment);
@@ -292,6 +305,18 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
 
 void Board::prep_for_battle() {
     _active = _minions.begin();
+    // todo: when we clone the list, all of our iterators are invalidated - they point to the original list.
+    //  - so we have to recompute them.
+    //  - is there anything clever we can do about this?
+    //  - we coid: override the copy constructor to do this
+    _triggers.clear();
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        for (const auto& keyword: m->effects() | std::views::keys) {
+            if (KeywordUtil::isTrigger(keyword)) {
+                register_trigger(keyword, m);
+            }
+        }
+    }
 }
 
 void Board::increment_active() {
@@ -300,6 +325,31 @@ void Board::increment_active() {
     ++_active;
     if (_active == _minions.end()) {
         _active = _minions.begin(); // wraparound
+    }
+}
+
+void Board::proc_trigger(const Keyword trigger, MinionLoc source) {
+    for (const MinionLoc listener : _triggers[trigger]) {
+        const Effect& effect = listener->get_effect(trigger);
+        if (Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) {
+            exec_effect(effect, listener);
+        }
+    }
+}
+
+void Board::register_trigger(const Keyword trigger, const MinionLoc loc) {
+    _triggers[trigger].insert(loc);
+}
+
+void Board::deregister_trigger(const Keyword trigger, const MinionLoc loc) {
+    _triggers[trigger].erase(loc);
+}
+
+void Board::deregister_triggers(const MinionLoc loc) {
+    for (const auto& keyword: loc->effects() | std::views::keys) {
+        if (KeywordUtil::isTrigger(keyword)) {
+            deregister_trigger(keyword, loc);
+        }
     }
 }
 

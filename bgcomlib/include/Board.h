@@ -3,12 +3,28 @@
 
 #include <list>
 #include <random>
+#include <unordered_set>
 
 #include "card/Minion.h"
 #include "card/CardDb.h"
 #include "../IPrintable.h"
 
+// todo: move into separate file
 using MinionLoc = std::list<Minion>::iterator;
+
+struct MinionLocHash {
+    std::size_t operator()(const std::list<Minion>::iterator& it) const noexcept {
+        return std::hash<Minion*>{}(&*it); // hash the pointer to the element
+    }
+};
+
+struct MinionLocEq {
+    bool operator()(const std::list<Minion>::iterator& a, const std::list<Minion>::iterator& b) const noexcept {
+        return &*a == &*b;
+    }
+};
+
+using MinionLocSet = std::unordered_set<MinionLoc, MinionLocHash, MinionLocEq>;
 
 class Board : public IPrintable {
 public:
@@ -29,6 +45,10 @@ public:
     static MinionLoc get_right_minion_loc(MinionLoc loc);
 
     bool is_minion(MinionLoc loc);
+
+    void add_minion(const Minion& minion);
+
+    void add_minion(const Minion& minion, MinionLoc loc);
 
     void summon_minion(const Minion& minion, bool post_death = false);
 
@@ -52,6 +72,14 @@ public:
 
     void increment_active();
 
+    void proc_trigger(Keyword trigger, MinionLoc source);
+
+    void register_trigger(Keyword trigger, MinionLoc loc);
+
+    void deregister_trigger(Keyword trigger, MinionLoc loc);
+
+    void deregister_triggers(MinionLoc loc);
+
     [[nodiscard]] MinionLoc active() const;
 
     [[nodiscard]] int tier_total() const;
@@ -72,9 +100,10 @@ public:
 
 private:
     std::list<Minion> _minions;
-    MinionLoc _active; // todo: should the board really track this
-    int _taunt_count;
-    int _zombie_count;
+    MinionLoc _active;
+    std::unordered_map<Keyword, MinionLocSet> _triggers;
+    int _taunt_count{};
+    int _zombie_count{};
     std::mt19937 _rng;
 };
 

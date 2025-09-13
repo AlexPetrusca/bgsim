@@ -1,9 +1,7 @@
 #ifndef KEYWORD_H
 #define KEYWORD_H
 
-enum class Keyword : uint64_t {
-    None = 0,
-
+enum class Keyword {
     // Official
     DEATHRATTLE = 1ull << 0,
     REBORN = 1ull << 1,
@@ -24,19 +22,19 @@ enum class Keyword : uint64_t {
     CLEAVE = 1ull << 14,
     IMMUNE = 1ull << 15,
     AURA = 1ull << 16,
-    ADJACENT_BUFF = 1ull << 17,
-    START_OF_TURN = 1ull << 18,
-    END_OF_TURN = 1ull << 19,
-    ON_DAMAGE_SELF = 1ull << 20,
-    ON_DAMAGE_OTHER = 1ull << 21,
-    ON_DAMAGE_PLAYER = 1ull << 22,
-    ON_SUMMON = 1ull << 23,
-    ON_ATTACK = 1ull << 24,
-    ON_KILL = 1ull << 25,
-    ON_DEATH_OTHER = 1ull << 26,
+    ADJACENT_AURA = 1ull << 17,
+    ZAPP_SLYWICK = 1ull << 18,
 
-    // Card-Specific
-    ZAPP_SLYWICK = 1ull << 27,
+    // Triggers
+    ON_TURN_START = 1ull << 19,
+    ON_TURN_END = 1ull << 10,
+    ON_DAMAGE_SELF = 1ull << 21,
+    ON_DAMAGE_OTHER = 1ull << 22,
+    ON_DAMAGE_PLAYER = 1ull << 23,
+    ON_SUMMON = 1ull << 24,
+    ON_ATTACK = 1ull << 25,
+    ON_KILL = 1ull << 26,
+    ON_DEATH_OTHER = 1ull << 27,
 };
 
 namespace KeywordUtil {
@@ -59,9 +57,11 @@ namespace KeywordUtil {
         {"CLEAVE", Keyword::CLEAVE},
         {"IMMUNE", Keyword::IMMUNE},
         {"AURA", Keyword::AURA},
-        {"ADJACENT_BUFF", Keyword::ADJACENT_BUFF},
-        {"START_OF_TURN", Keyword::START_OF_TURN},
-        {"END_OF_TURN", Keyword::END_OF_TURN},
+        {"ADJACENT_AURA", Keyword::ADJACENT_AURA},
+        {"ZAPP_SLYWICK", Keyword::ZAPP_SLYWICK},
+
+        {"ON_TURN_START", Keyword::ON_TURN_START},
+        {"ON_TURN_END", Keyword::ON_TURN_END},
         {"ON_DAMAGE_SELF", Keyword::ON_DAMAGE_SELF},
         {"ON_DAMAGE_OTHER", Keyword::ON_DAMAGE_OTHER},
         {"ON_DAMAGE_PLAYER", Keyword::ON_DAMAGE_PLAYER},
@@ -69,12 +69,14 @@ namespace KeywordUtil {
         {"ON_ATTACK", Keyword::ON_ATTACK},
         {"ON_KILL", Keyword::ON_KILL},
         {"ON_DEATH_OTHER", Keyword::ON_DEATH_OTHER},
-
-        {"ZAPP_SLYWICK", Keyword::ZAPP_SLYWICK},
     };
 
     inline Keyword fromString(const std::string& str) {
         return keyword_map.find(str)->second;
+    }
+
+    inline bool isTrigger(Keyword keyword) {
+        return static_cast<int>(keyword) >= static_cast<int>(Keyword::ON_TURN_START);
     }
 }
 

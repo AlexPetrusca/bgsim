@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-enum class Race : uint64_t {
+enum class Race {
     NONE = 0,
 
     ALL = 1ull << 1,

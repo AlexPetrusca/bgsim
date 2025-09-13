@@ -97,6 +97,10 @@ int Minion::deal_damage(const int damage) {
     return delta_health(-damage);
 }
 
+const std::unordered_map<Keyword, Effect>& Minion::effects() const {
+    return _effects;
+}
+
 const Effect& Minion::get_effect(const Keyword keyword) const {
     return _effects.at(keyword);
 }
