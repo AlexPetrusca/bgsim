@@ -1569,5 +1569,65 @@
     "rarity": "COMMON",
     "text": "Whenever a friendly Beast dies, gain +4/+2.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 985,
+    "name": "Dire Wolf Alpha",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "ADJACENT_AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "ADJACENT_AURA",
+        "type": "ENCHANT",
+        "args": [
+          9
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "EX1_162",
+    "goldenDbfId": 60025,
+    "artist": "John Dickenson",
+    "cardClass": "NEUTRAL",
+    "flavor": "We are pretty excited about the upcoming release of Dire Wolf Beta, just repost this sign for a chance at a key.",
+    "rarity": "COMMON",
+    "text": "Adjacent minions have +1 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60025,
+    "name": "Dire Wolf Alpha",
+    "tier": 1,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ADJACENT_AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "ADJACENT_AURA",
+        "type": "ENCHANT",
+        "args": [
+          10
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "EX1_162_G",
+    "normalDbfId": 985,
+    "artist": "John Dickenson",
+    "cardClass": "NEUTRAL",
+    "flavor": "We are pretty excited about the upcoming release of Dire Wolf Beta, just repost this sign for a chance at a key.",
+    "rarity": "COMMON",
+    "text": "Adjacent minions have +2 Attack.",
+    "type": "MINION"
   }
 ]

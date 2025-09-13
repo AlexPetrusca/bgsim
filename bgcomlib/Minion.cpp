@@ -80,16 +80,46 @@ void Minion::set_max_health(const int max_health) {
     _max_health = max_health;
 }
 
-int Minion::delta_attack(const int delta) {
+int Minion::aura_attack() const {
+    return _aura_attack;
+}
+
+void Minion::set_aura_attack(const int aura_attack) {
+    _aura_attack = aura_attack;
+}
+
+int Minion::aura_health() const {
+    return _aura_health;
+}
+
+void Minion::set_aura_health(const int aura_health) {
+    _aura_health = aura_health;
+}
+
+void Minion::disable_aura(const bool permanent) {
+    delta_attack(-_aura_attack, true);
+    delta_health(-_aura_health, true);
+    if (permanent && _health <= 0) {
+        _health = 1; // minions can't die from losing aura
+    }
+}
+
+int Minion::delta_attack(const int delta, const bool aura) {
+    if (aura) {
+        _aura_attack += delta;
+    }
     _attack += delta;
     return _attack;
 }
 
-int Minion::delta_health(const int delta) {
-    _health += delta;
-    if (delta > 0) {
+int Minion::delta_health(const int delta, const bool aura) {
+    if (aura) {
+        _aura_health += delta;
+        _max_health += delta;
+    } else if (delta > 0) {
         _max_health += delta;
     }
+    _health += delta;
     return _health;
 }
 

@@ -100,5 +100,21 @@
     "health": 2,
     "text": "+4/+2",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 9,
+    "name": "Dire Wolf Buff",
+    "target": "SINGLE",
+    "attack": 1,
+    "text": "Adjacent minions have +1 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 10,
+    "name": "Dire Wolf Buff",
+    "target": "SINGLE",
+    "attack": 2,
+    "text": "Adjacent minions have +2 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

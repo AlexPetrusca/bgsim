@@ -64,6 +64,8 @@ public:
         ANNOY_O_TRON_G = 103653,
         SCAVENGING_HYENA = 96762,
         SCAVENGING_HYENA_G = 58395,
+        DIRE_WOLF_ALPHA = 985,
+        DIRE_WOLF_ALPHA_G = 60025,
 
         // tokens
         TABBYCAT_T = 96759,

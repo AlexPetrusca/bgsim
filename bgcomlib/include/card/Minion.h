@@ -37,11 +37,21 @@ public:
 
     void set_max_health(int max_health);
 
+    [[nodiscard]] int aura_attack() const;
+
+    void set_aura_attack(int aura_attack);
+
+    [[nodiscard]] int aura_health() const;
+
+    void set_aura_health(int aura_health);
+
+    void disable_aura(bool permanent = false);
+
     int deal_damage(int damage);
 
-    int delta_attack(int delta);
+    int delta_attack(int delta, bool aura = false);
 
-    int delta_health(int delta);
+    int delta_health(int delta, bool aura = false);
 
     [[nodiscard]] const std::unordered_map<Keyword, Effect>& effects() const;
 
@@ -89,6 +99,8 @@ private:
 
     int _attack{};
     int _health{};
+    int _aura_attack{};
+    int _aura_health{};
     int _max_health{};
     BitVector<Keyword> _props;
     BitVector<Race> _races;

@@ -27,7 +27,7 @@ BattleStatus Arena::get_battle_status() {
     return TIE;
 }
 
-void fight_minions(Board& attacking, Board& defending, MinionLoc atk, MinionLoc def) {
+void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, const MinionLoc def) {
     const bool def_poisoned = def->has(Keyword::POISONOUS) || def->has(Keyword::VENOMOUS);
     const int def_damage_dealt = attacking.damage_minion(atk, def->attack(), def_poisoned);
     if (def_damage_dealt > 0 && def->has(Keyword::VENOMOUS)) {
@@ -171,9 +171,11 @@ BattleReport Arena::battle(const bool debug) {
         std::cout << std::endl;
     }
 
-    boardA.prep_for_battle();
-    boardB.prep_for_battle();
+    boardA.pre_battle();
+    boardB.pre_battle();
     while (get_battle_status() == IN_PROGRESS) {
+        boardA.pre_combat();
+        boardB.pre_combat();
         combat(boardA, boardB, turn, debug);
         turn++;
     }

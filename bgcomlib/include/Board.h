@@ -48,13 +48,13 @@ public:
 
     void add_minion(const Minion& minion);
 
-    void add_minion(const Minion& minion, MinionLoc loc);
+    MinionLoc add_minion(const Minion& minion, MinionLoc loc);
 
     void summon_minion(const Minion& minion, bool post_death = false);
 
     void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
 
-    void enchant_minion(Minion& minion, const Enchantment& enchantment);
+    void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
     void enchant_random_minion(const Enchantment& enchantment);
 
@@ -68,7 +68,13 @@ public:
 
     void exec_effect(const Effect& effect, MinionLoc loc);
 
-    void prep_for_battle();
+    void apply_adjacent_aura(MinionLoc loc);
+
+    // void undo_adjacent_aura(MinionLoc loc);
+
+    void pre_combat();
+
+    void pre_battle();
 
     void increment_active();
 

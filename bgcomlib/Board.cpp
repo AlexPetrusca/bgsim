@@ -94,16 +94,17 @@ void Board::add_minion(const Minion& minion) {
     add_minion(minion, _minions.end());
 }
 
-void Board::add_minion(const Minion& minion, const MinionLoc loc) {
-    const MinionLoc new_loc = _minions.insert(loc, minion);
+MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
+    const MinionLoc spawn_loc = _minions.insert(loc, minion);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
-            register_trigger(keyword, new_loc);
+            register_trigger(keyword, spawn_loc);
         }
     }
+    return spawn_loc;
 }
 
 void Board::summon_minion(const Minion& minion, const bool post_death) {
@@ -112,13 +113,14 @@ void Board::summon_minion(const Minion& minion, const bool post_death) {
 
 void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
     if (full(!post_death)) return;
-    add_minion(minion, loc);
+    const MinionLoc spawn_loc = add_minion(minion, loc);
+    proc_trigger(Keyword::ON_SUMMON, spawn_loc);
 }
 
-void Board::enchant_minion(Minion& minion, const Enchantment& enchantment) {
+void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
     minion.props() |= enchantment.props();
-    minion.delta_attack(enchantment.attack());
-    minion.delta_health(enchantment.health());
+    minion.delta_attack(enchantment.attack(), aura);
+    minion.delta_health(enchantment.health(), aura);
 }
 
 void Board::enchant_random_minion(const Enchantment& enchantment) {
@@ -215,7 +217,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
         }
         case Effect::Type::ENCHANT: {
             for (const int enchantment_id: effect.args()) {
-                Enchantment enchantment = db.get_enchantment(enchantment_id);
+                Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
                 switch (static_cast<CardDb::Id>(enchantment_id)) {
                     case CardDb::Id::GIVE_ATTACK_E: {
                         enchantment.set_attack(loc->attack());
@@ -303,7 +305,49 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
     }
 }
 
-void Board::prep_for_battle() {
+void Board::apply_adjacent_aura(const MinionLoc loc) {
+    const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
+    for (const int enchantment_id: effect.args()) {
+        const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+        const MinionLoc left = get_left_minion_loc(loc);
+        if (left != minions().end()) {
+            enchant_minion(*left, enchantment, true);
+        }
+        MinionLoc right = get_right_minion_loc(loc);
+        if (right != minions().end()) {
+            enchant_minion(*right, enchantment, true);
+        }
+    }
+}
+
+// void Board::undo_adjacent_aura(const MinionLoc loc) {
+//     const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
+//     for (const int enchantment_id: effect.args()) {
+//         const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+//         const MinionLoc left = get_left_minion_loc(loc);
+//         if (left != minions().end()) {
+//             disenchant_minion(*left, enchantment);
+//         }
+//         MinionLoc right = get_right_minion_loc(loc);
+//         if (right != minions().end()) {
+//             disenchant_minion(*right, enchantment);
+//         }
+//     }
+// }
+
+void Board::pre_combat() {
+    // todo: optimize - takes a huge amount of time
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        m->disable_aura();
+    }
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->has(Keyword::ADJACENT_AURA)) {
+            apply_adjacent_aura(m);
+        }
+    }
+}
+
+void Board::pre_battle() {
     _active = _minions.begin();
     // todo: when we clone the list, all of our iterators are invalidated - they point to the original list.
     //  - so we have to recompute them.
@@ -328,7 +372,7 @@ void Board::increment_active() {
     }
 }
 
-void Board::proc_trigger(const Keyword trigger, MinionLoc source) {
+void Board::proc_trigger(const Keyword trigger, const MinionLoc source) {
     for (const MinionLoc listener : _triggers[trigger]) {
         const Effect& effect = listener->get_effect(trigger);
         if (Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) {

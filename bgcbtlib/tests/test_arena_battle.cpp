@@ -774,3 +774,64 @@ TEST(ArenaBattleTest, ScavengingHyenaMultiple) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, DireWolfAlphaLives) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::DIRE_WOLF_ALPHA,
+        CardDb::Id::ALLEYCAT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(123456);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, DireWolfAlphaDies) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ALLEYCAT,
+        CardDb::Id::DIRE_WOLF_ALPHA,
+        CardDb::Id::ALLEYCAT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 3);
+}
+
+TEST(ArenaBattleTest, DireWolfAlphaWithSummons) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_GANG_BOSS,
+        CardDb::Id::DIRE_WOLF_ALPHA,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::DIRE_WOLF_ALPHA,
+        CardDb::Id::SEWER_RAT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
