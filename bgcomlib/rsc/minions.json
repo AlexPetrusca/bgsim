@@ -1832,5 +1832,59 @@
     "normalDbfId": 48885,
     "cardClass": "PALADIN",
     "type": "MINION"
+  },
+  {
+    "dbfId": 60055,
+    "name": "Micro Machine",
+    "tier": 1,
+    "attack": 1,
+    "health": 2,
+    "mechanics": [
+      "ON_TURN_START"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_START",
+        "type": "ENCHANT",
+        "args": [
+          13
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BGS_027",
+    "goldenDbfId": 60056,
+    "cardClass": "PALADIN",
+    "text": "At the start of each turn, gain +1 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60056,
+    "name": "Micro Machine",
+    "tier": 1,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "ON_TURN_START"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_START",
+        "type": "ENCHANT",
+        "args": [
+          14
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_094",
+    "normalDbfId": 60055,
+    "cardClass": "PALADIN",
+    "text": "At the start of each turn, gain +2 Attack.",
+    "type": "MINION"
   }
 ]

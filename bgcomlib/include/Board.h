@@ -62,6 +62,10 @@ public:
 
     void undo_aura(MinionLoc loc);
 
+    void turn_start();
+
+    void turn_end();
+
     void pre_combat();
 
     void post_combat();

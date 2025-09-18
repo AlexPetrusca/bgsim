@@ -894,3 +894,41 @@ TEST(ArenaBattleTest, Mecharoo) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, MicroMachine) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MICRO_MACHINE,
+        CardDb::Id::MICRO_MACHINE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MicroMachineProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MICRO_MACHINE,
+        CardDb::Id::MICRO_MACHINE_G,
+    });
+    boardA.turn_start();
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

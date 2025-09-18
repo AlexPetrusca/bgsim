@@ -138,5 +138,21 @@
     "attack": 4,
     "text": "Your other Murlocs have +4 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 13,
+    "name": "Micro Machine Buff",
+    "target": "SELF",
+    "attack": 1,
+    "text": "Gain +1 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 14,
+    "name": "Micro Machine Buff",
+    "target": "SELF",
+    "attack": 2,
+    "text": "Gain +2 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

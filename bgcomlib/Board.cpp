@@ -397,6 +397,14 @@ void Board::undo_aura(const MinionLoc loc) {
     }
 }
 
+void Board::turn_start() {
+    proc_trigger(Keyword::ON_TURN_START);
+}
+
+void Board::turn_end() {
+    proc_trigger(Keyword::ON_TURN_END);
+}
+
 void Board::pre_combat() {
     proc_trigger(Keyword::ON_PRE_COMBAT);
 }
@@ -457,7 +465,9 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
             }
         } else {
             const Effect& effect = listener->get_effect(trigger);
-            if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition
+            if (effect.constraint() == Effect::Constraint::NONE) {
+                exec_effect(effect, listener);
+            } else if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition - rewrite
                 exec_effect(effect, listener);
             }
         }
