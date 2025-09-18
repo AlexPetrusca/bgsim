@@ -99,10 +99,10 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
-    // if (minion.has(Keyword::ADJACENT_AURA)) {
-    //     register_trigger(Keyword::ON_PRE_COMBAT, loc);
-    //     register_trigger(Keyword::ON_POST_COMBAT, loc);
-    // }
+    if (minion.has(Keyword::ADJACENT_AURA)) {
+        register_trigger(Keyword::ON_PRE_COMBAT, spawn_loc);
+        register_trigger(Keyword::ON_POST_COMBAT, spawn_loc);
+    }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             register_trigger(keyword, spawn_loc);
@@ -353,25 +353,11 @@ void Board::undo_adjacent_aura(const MinionLoc loc) {
 }
 
 void Board::pre_combat() {
-    // proc_trigger(Keyword::ON_PRE_COMBAT);
-
-    // todo: implement as a callback
-    for (auto m = minions().begin(); m != minions().end(); ++m) {
-        if (m->has(Keyword::ADJACENT_AURA)) {
-            apply_adjacent_aura(m);
-        }
-    }
+    proc_trigger(Keyword::ON_PRE_COMBAT);
 }
 
 void Board::post_combat() {
-    // proc_trigger(Keyword::ON_POST_COMBAT);
-
-    // todo: implement as a callback
-    for (auto m = minions().begin(); m != minions().end(); ++m) {
-        if (m->has(Keyword::ADJACENT_AURA)) {
-            undo_adjacent_aura(m);
-        }
-    }
+    proc_trigger(Keyword::ON_POST_COMBAT);
 }
 
 void Board::pre_battle() {
@@ -382,6 +368,10 @@ void Board::pre_battle() {
     //  - we coid: override the copy constructor to do this
     _triggers.clear();
     for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->has(Keyword::ADJACENT_AURA)) {
+            register_trigger(Keyword::ON_PRE_COMBAT, m);
+            register_trigger(Keyword::ON_POST_COMBAT, m);
+        }
         for (const auto& keyword: m->effects() | std::views::keys) {
             if (KeywordUtil::isTrigger(keyword)) {
                 register_trigger(keyword, m);
@@ -400,16 +390,25 @@ void Board::increment_active() {
 }
 
 void Board::proc_trigger(const Keyword trigger, Minion* source) {
-    for (const MinionLoc listener : _triggers[trigger]) { // todo: remove array indexing (inefficient)
-        const Effect& effect = listener->get_effect(trigger);
-        if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition
-            exec_effect(effect, listener);
+    if (!_triggers.contains(trigger)) return;
+
+    for (const MinionLoc listener : _triggers.at(trigger)) { // todo: remove array indexing (inefficient)
+        if (listener->has(Keyword::ADJACENT_AURA)) {
+            if (trigger == Keyword::ON_PRE_COMBAT) {
+                apply_adjacent_aura(listener);
+            } else if (trigger == Keyword::ON_POST_COMBAT) {
+                undo_adjacent_aura(listener);
+            }
+        } else {
+            const Effect& effect = listener->get_effect(trigger);
+            if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition
+                exec_effect(effect, listener);
+            }
         }
     }
 }
 
 void Board::register_trigger(const Keyword trigger, const MinionLoc loc) {
-    // loc->props().set(trigger);
     _triggers[trigger].insert(loc);
 }
 
@@ -418,6 +417,10 @@ void Board::deregister_trigger(const Keyword trigger, const MinionLoc loc) {
 }
 
 void Board::deregister_triggers(const MinionLoc loc) {
+    if (loc->has(Keyword::ADJACENT_AURA)) {
+        deregister_trigger(Keyword::ON_PRE_COMBAT, loc);
+        deregister_trigger(Keyword::ON_POST_COMBAT, loc);
+    }
     for (const auto& keyword: loc->effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             deregister_trigger(keyword, loc);
