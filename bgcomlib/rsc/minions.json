@@ -1743,5 +1743,94 @@
     "cardClass": "WARLOCK",
     "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 2/2 Imp.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 48886,
+    "name": "Mecharoo",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          48885
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "BOT_445",
+    "goldenDbfId": 57336,
+    "artist": "Eva Widermann",
+    "cardClass": "NEUTRAL",
+    "flavor": "Its project name was KAN-GA. The little one was R-00.",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57336,
+    "name": "Mecharoo",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          57337
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_002",
+    "normalDbfId": 48886,
+    "cardClass": "PALADIN",
+    "text": "<b>Deathrattle:</b> Summon a 2/2 Jo-E Bot.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 48885,
+    "name": "Jo-E Bot",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "BOT_445t",
+    "goldenDbfId": 57337,
+    "artist": "Eva Widermann",
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57337,
+    "name": "Jo-E Bot",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_002t",
+    "normalDbfId": 48885,
+    "cardClass": "PALADIN",
+    "type": "MINION"
   }
 ]

@@ -70,6 +70,8 @@ public:
         MURLOC_WARLEADER_G = 57403,
         IMPRISONER = 59937,
         IMPRISONER_G = 60676,
+        MECHAROO = 48886,
+        MECHAROO_G = 57336,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -86,8 +88,10 @@ public:
         PRIMALFIN_T_G = 41525,
         HYENA_T = 96795,
         HYENA_T_G = 58410,
-        BIG_BAD_WOLF = 108852,
-        BIG_BAD_WOLF_G = 57341,
+        BIG_BAD_WOLF_T = 108852,
+        BIG_BAD_WOLF_T_G = 57341,
+        JO_E_BOT_T = 48885,
+        JO_E_BOT_T_G = 57337,
 
         // enchantments
         GIVE_ATTACK_E = 5,

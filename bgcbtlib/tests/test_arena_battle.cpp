@@ -875,3 +875,22 @@ TEST(ArenaBattleTest, Imprisoner) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, Mecharoo) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MECHAROO,
+        CardDb::Id::MECHAROO_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
