@@ -96,12 +96,17 @@ void Board::add_minion(const Minion& minion) {
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     const MinionLoc spawn_loc = _minions.insert(loc, minion);
+    proc_trigger(Keyword::ON_ADD_MINION, &*spawn_loc);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
     if (minion.has(Keyword::ADJACENT_AURA)) {
         register_trigger(Keyword::ON_PRE_COMBAT, spawn_loc);
         register_trigger(Keyword::ON_POST_COMBAT, spawn_loc);
+    }
+    if (minion.has(Keyword::AURA)) {
+        apply_aura(spawn_loc);
+        register_trigger(Keyword::ON_ADD_MINION, spawn_loc);
     }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
@@ -174,6 +179,9 @@ void Board::reap_minion(const MinionLoc loc) {
     }
     if (minion.has(Keyword::ADJACENT_AURA)) {
         undo_adjacent_aura(loc);
+    }
+    if (minion.has(Keyword::AURA)) {
+        undo_aura(loc);
     }
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
@@ -277,6 +285,13 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
                         enchant_minion(minions().back(), enchantment);
                         break;
                     }
+                    case Target::ALL_OTHER:
+                        for (auto m = minions().begin(); m != minions().end(); ++m) {
+                            if (m != loc && (m->races() | enchantment.races()) > 0) {
+                                enchant_minion(*m, enchantment);
+                            }
+                        }
+                        break;
                 }
             }
             break;
@@ -352,6 +367,36 @@ void Board::undo_adjacent_aura(const MinionLoc loc) {
     }
 }
 
+void Board::apply_aura(const MinionLoc loc) {
+    const Effect& effect = loc->get_effect(Keyword::AURA);
+    for (const int enchantment_id: effect.args()) {
+        Enchantment enchantment = db.get_enchantment(enchantment_id);
+        for (auto m = minions().begin(); m != minions().end(); ++m) {
+            if (enchantment.races().any() && (m->races() | enchantment.races()) == 0) continue; // race doesn't match
+            if (enchantment.target() == Target::ALL) {
+                enchant_minion(*m, enchantment);
+            } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
+                enchant_minion(*m, enchantment);
+            }
+        }
+    }
+}
+
+void Board::undo_aura(const MinionLoc loc) {
+    const Effect& effect = loc->get_effect(Keyword::AURA);
+    for (const int enchantment_id: effect.args()) {
+        Enchantment enchantment = db.get_enchantment(enchantment_id);
+        for (auto m = minions().begin(); m != minions().end(); ++m) {
+            if (enchantment.races().any() && (m->races() | enchantment.races()) == 0) continue; // race doesn't match
+            if (enchantment.target() == Target::ALL) {
+                disenchant_minion(*m, enchantment);
+            } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
+                disenchant_minion(*m, enchantment);
+            }
+        }
+    }
+}
+
 void Board::pre_combat() {
     proc_trigger(Keyword::ON_PRE_COMBAT);
 }
@@ -371,6 +416,9 @@ void Board::pre_battle() {
         if (m->has(Keyword::ADJACENT_AURA)) {
             register_trigger(Keyword::ON_PRE_COMBAT, m);
             register_trigger(Keyword::ON_POST_COMBAT, m);
+        }
+        if (m->has(Keyword::AURA)) {
+            register_trigger(Keyword::ON_ADD_MINION, m);
         }
         for (const auto& keyword: m->effects() | std::views::keys) {
             if (KeywordUtil::isTrigger(keyword)) {
@@ -399,6 +447,14 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
             } else if (trigger == Keyword::ON_POST_COMBAT) {
                 undo_adjacent_aura(listener);
             }
+        } else if (listener->has(Keyword::AURA)) {
+            if (trigger == Keyword::ON_ADD_MINION) {
+                const Effect& effect = listener->get_effect(Keyword::AURA);
+                for (const int enchantment_id: effect.args()) {
+                    const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+                    enchant_minion(*source, enchantment, true);
+                }
+            }
         } else {
             const Effect& effect = listener->get_effect(trigger);
             if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition
@@ -421,6 +477,9 @@ void Board::deregister_triggers(const MinionLoc loc) {
         deregister_trigger(Keyword::ON_PRE_COMBAT, loc);
         deregister_trigger(Keyword::ON_POST_COMBAT, loc);
     }
+    if (loc->has(Keyword::AURA)) {
+        deregister_trigger(Keyword::ON_SUMMON, loc);
+    }
     for (const auto& keyword: loc->effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             deregister_trigger(keyword, loc);
@@ -441,11 +500,7 @@ int Board::tier_total() const {
 }
 
 size_t Board::size(const bool include_zombies) const {
-    if (include_zombies) {
-        return _minions.size();
-    } else {
-        return _minions.size() - _zombie_count;
-    }
+    return include_zombies ? _minions.size() : _minions.size() - _zombie_count;
 }
 
 bool Board::empty(const bool include_zombies) const {

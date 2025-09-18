@@ -58,6 +58,10 @@ public:
 
     void undo_adjacent_aura(MinionLoc loc);
 
+    void apply_aura(MinionLoc loc);
+
+    void undo_aura(MinionLoc loc);
+
     void pre_combat();
 
     void post_combat();

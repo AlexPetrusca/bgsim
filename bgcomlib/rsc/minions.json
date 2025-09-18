@@ -1629,5 +1629,63 @@
     "rarity": "COMMON",
     "text": "Adjacent minions have +2 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96768,
+    "name": "Murloc Warleader",
+    "tier": 2,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          11
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG_EX1_507",
+    "goldenDbfId": 57403,
+    "artist": "Tim McBurnie",
+    "cardClass": "NEUTRAL",
+    "flavor": "Do Murlocs ever get tired of making the same old sound?  Nope!  Mrglglrglglglglglglgl!",
+    "rarity": "EPIC",
+    "text": "Your other Murlocs have +2 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57403,
+    "name": "Murloc Warleader",
+    "tier": 2,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          12
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_008",
+    "normalDbfId": 96768,
+    "cardClass": "NEUTRAL",
+    "rarity": "EPIC",
+    "text": "Your other Murlocs have +4 Attack.",
+    "type": "MINION"
   }
 ]

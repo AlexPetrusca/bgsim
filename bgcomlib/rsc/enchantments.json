@@ -116,5 +116,27 @@
     "attack": 2,
     "text": "Adjacent minions have +2 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 11,
+    "name": "Murloc Warleader Buff",
+    "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 2,
+    "text": "Your other Murlocs have +2 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 12,
+    "name": "Murloc Warleader Buff",
+    "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 4,
+    "text": "Your other Murlocs have +4 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

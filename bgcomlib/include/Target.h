@@ -6,8 +6,9 @@
 
 enum class Target {
     SINGLE,
-    ALL,
     SELF,
+    ALL,
+    ALL_OTHER,
     LEFTMOST,
     RIGHTMOST,
 };
@@ -15,8 +16,9 @@ enum class Target {
 namespace TargetUtil {
     inline std::unordered_map<std::string, Target> target_map = {
         {"SINGLE", Target::SINGLE},
-        {"ALL", Target::ALL},
         {"SELF", Target::SELF},
+        {"ALL", Target::ALL},
+        {"ALL_OTHER", Target::ALL_OTHER},
         {"LEFTMOST", Target::LEFTMOST},
         {"RIGHTMOST", Target::RIGHTMOST},
     };

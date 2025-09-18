@@ -66,6 +66,8 @@ public:
         SCAVENGING_HYENA_G = 58395,
         DIRE_WOLF_ALPHA = 985,
         DIRE_WOLF_ALPHA_G = 60025,
+        MURLOC_WARLEADER = 96768,
+        MURLOC_WARLEADER_G = 57403,
 
         // tokens
         TABBYCAT_T = 96759,

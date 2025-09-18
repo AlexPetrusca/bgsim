@@ -31,12 +31,13 @@ enum class Keyword {
     ON_DAMAGE_SELF = 1ull << 21,
     ON_DAMAGE_OTHER = 1ull << 22,
     ON_DAMAGE_PLAYER = 1ull << 23,
-    ON_SUMMON = 1ull << 24,
-    ON_ATTACK = 1ull << 25,
-    ON_KILL = 1ull << 26,
-    ON_DEATH_OTHER = 1ull << 27,
-    ON_PRE_COMBAT = 1ull << 28,
-    ON_POST_COMBAT = 1ull << 29,
+    ON_ADD_MINION = 1ull << 24,
+    ON_SUMMON = 1ull << 25,
+    ON_ATTACK = 1ull << 26,
+    ON_KILL = 1ull << 27,
+    ON_DEATH_OTHER = 1ull << 28,
+    ON_PRE_COMBAT = 1ull << 29,
+    ON_POST_COMBAT = 1ull << 30,
 };
 
 namespace KeywordUtil {
@@ -130,6 +131,10 @@ public:
 
     [[nodiscard]] bool any() const {
         return bits != 0;
+    }
+
+    [[nodiscard]] bool empty() const {
+        return bits == 0;
     }
 
     class iterator {
