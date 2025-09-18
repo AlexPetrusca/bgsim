@@ -20,6 +20,7 @@ add_library(bgcomlib STATIC
         Effect.cpp
         include/Target.h
         include/Race.h
+        include/MinionLoc.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 

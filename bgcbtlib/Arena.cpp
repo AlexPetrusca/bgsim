@@ -177,6 +177,8 @@ BattleReport Arena::battle(const bool debug) {
         boardA.pre_combat();
         boardB.pre_combat();
         combat(boardA, boardB, turn, debug);
+        boardA.post_combat();
+        boardB.post_combat();
         turn++;
     }
 

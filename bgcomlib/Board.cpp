@@ -99,6 +99,10 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
+    // if (minion.has(Keyword::ADJACENT_AURA)) {
+    //     register_trigger(Keyword::ON_PRE_COMBAT, loc);
+    //     register_trigger(Keyword::ON_POST_COMBAT, loc);
+    // }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             register_trigger(keyword, spawn_loc);
@@ -114,13 +118,19 @@ void Board::summon_minion(const Minion& minion, const bool post_death) {
 void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
     if (full(!post_death)) return;
     const MinionLoc spawn_loc = add_minion(minion, loc);
-    proc_trigger(Keyword::ON_SUMMON, spawn_loc);
+    proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
 }
 
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
     minion.props() |= enchantment.props();
     minion.delta_attack(enchantment.attack(), aura);
     minion.delta_health(enchantment.health(), aura);
+}
+
+void Board::disenchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
+    // minion.props() |= enchantment.props(); // todo: implement later
+    minion.delta_attack(-enchantment.attack(), aura);
+    minion.delta_health(-enchantment.health(), aura);
 }
 
 void Board::enchant_random_minion(const Enchantment& enchantment) {
@@ -162,6 +172,9 @@ void Board::reap_minion(const MinionLoc loc) {
         const Effect reborn_effect(Keyword::REBORN, Effect::Type::REBORN_SUMMON, {minion.id()});
         exec_effect(reborn_effect, loc);
     }
+    if (minion.has(Keyword::ADJACENT_AURA)) {
+        undo_adjacent_aura(loc);
+    }
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
     }
@@ -170,7 +183,7 @@ void Board::reap_minion(const MinionLoc loc) {
         increment_active();
     }
     deregister_triggers(loc);
-    proc_trigger(Keyword::ON_DEATH_OTHER, loc);
+    proc_trigger(Keyword::ON_DEATH_OTHER, &*loc);
 
     _minions.erase(loc); // erase zombie
     _zombie_count--;
@@ -312,37 +325,51 @@ void Board::apply_adjacent_aura(const MinionLoc loc) {
         const MinionLoc left = get_left_minion_loc(loc);
         if (left != minions().end()) {
             enchant_minion(*left, enchantment, true);
+            loc->set_left_adjacent(&*left);
         }
         MinionLoc right = get_right_minion_loc(loc);
         if (right != minions().end()) {
             enchant_minion(*right, enchantment, true);
+            loc->set_right_adjacent(&*right);
         }
     }
 }
 
-// void Board::undo_adjacent_aura(const MinionLoc loc) {
-//     const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
-//     for (const int enchantment_id: effect.args()) {
-//         const Enchantment& enchantment = db.get_enchantment(enchantment_id);
-//         const MinionLoc left = get_left_minion_loc(loc);
-//         if (left != minions().end()) {
-//             disenchant_minion(*left, enchantment);
-//         }
-//         MinionLoc right = get_right_minion_loc(loc);
-//         if (right != minions().end()) {
-//             disenchant_minion(*right, enchantment);
-//         }
-//     }
-// }
+void Board::undo_adjacent_aura(const MinionLoc loc) {
+    const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
+    Minion* left_adjacent = loc->left_adjacent();
+    Minion* right_adjacent = loc->right_adjacent();
+    for (const int enchantment_id: effect.args()) {
+        const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+        if (left_adjacent != nullptr && !left_adjacent->is_zombie()) {
+            disenchant_minion(*left_adjacent, enchantment, true);
+            loc->set_left_adjacent(nullptr);
+        }
+        if (right_adjacent != nullptr && !right_adjacent->is_zombie()) {
+            disenchant_minion(*right_adjacent, enchantment, true);
+            loc->set_right_adjacent(nullptr);
+        }
+    }
+}
 
 void Board::pre_combat() {
-    // todo: optimize - takes a huge amount of time
-    for (auto m = minions().begin(); m != minions().end(); ++m) {
-        m->disable_aura();
-    }
+    // proc_trigger(Keyword::ON_PRE_COMBAT);
+
+    // todo: implement as a callback
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->has(Keyword::ADJACENT_AURA)) {
             apply_adjacent_aura(m);
+        }
+    }
+}
+
+void Board::post_combat() {
+    // proc_trigger(Keyword::ON_POST_COMBAT);
+
+    // todo: implement as a callback
+    for (auto m = minions().begin(); m != minions().end(); ++m) {
+        if (m->has(Keyword::ADJACENT_AURA)) {
+            undo_adjacent_aura(m);
         }
     }
 }
@@ -372,16 +399,17 @@ void Board::increment_active() {
     }
 }
 
-void Board::proc_trigger(const Keyword trigger, const MinionLoc source) {
-    for (const MinionLoc listener : _triggers[trigger]) {
+void Board::proc_trigger(const Keyword trigger, Minion* source) {
+    for (const MinionLoc listener : _triggers[trigger]) { // todo: remove array indexing (inefficient)
         const Effect& effect = listener->get_effect(trigger);
-        if (Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) {
+        if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition
             exec_effect(effect, listener);
         }
     }
 }
 
 void Board::register_trigger(const Keyword trigger, const MinionLoc loc) {
+    // loc->props().set(trigger);
     _triggers[trigger].insert(loc);
 }
 

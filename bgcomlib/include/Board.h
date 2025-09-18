@@ -5,26 +5,10 @@
 #include <random>
 #include <unordered_set>
 
+#include "MinionLoc.h"
 #include "card/Minion.h"
 #include "card/CardDb.h"
 #include "../IPrintable.h"
-
-// todo: move into separate file
-using MinionLoc = std::list<Minion>::iterator;
-
-struct MinionLocHash {
-    std::size_t operator()(const std::list<Minion>::iterator& it) const noexcept {
-        return std::hash<Minion*>{}(&*it); // hash the pointer to the element
-    }
-};
-
-struct MinionLocEq {
-    bool operator()(const std::list<Minion>::iterator& a, const std::list<Minion>::iterator& b) const noexcept {
-        return &*a == &*b;
-    }
-};
-
-using MinionLocSet = std::unordered_set<MinionLoc, MinionLocHash, MinionLocEq>;
 
 class Board : public IPrintable {
 public:
@@ -56,6 +40,8 @@ public:
 
     void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
+    void disenchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
+
     void enchant_random_minion(const Enchantment& enchantment);
 
     void enchant_random_minion_by_race(const Enchantment& enchantment, Race race);
@@ -70,15 +56,17 @@ public:
 
     void apply_adjacent_aura(MinionLoc loc);
 
-    // void undo_adjacent_aura(MinionLoc loc);
+    void undo_adjacent_aura(MinionLoc loc);
 
     void pre_combat();
+
+    void post_combat();
 
     void pre_battle();
 
     void increment_active();
 
-    void proc_trigger(Keyword trigger, MinionLoc source);
+    void proc_trigger(Keyword trigger, Minion* source = nullptr);
 
     void register_trigger(Keyword trigger, MinionLoc loc);
 

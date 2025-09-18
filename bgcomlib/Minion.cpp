@@ -195,6 +195,22 @@ void Minion::toggle(const Keyword keyword) {
     }
 }
 
+Minion* Minion::left_adjacent() const {
+    return _left;
+}
+
+void Minion::set_left_adjacent(Minion* left) {
+    _left = left;
+}
+
+Minion* Minion::right_adjacent() const {
+    return _right;
+}
+
+void Minion::set_right_adjacent(Minion* right) {
+    _right = right;
+}
+
 [[nodiscard]] std::string Minion::to_string() {
     std::ostringstream oss;
     oss << "\"" << _name << "\" (" << _attack << "/" << _health << ")";

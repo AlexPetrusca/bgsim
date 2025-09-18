@@ -85,6 +85,14 @@ public:
 
     void toggle(Keyword keyword);
 
+    [[nodiscard]] Minion* left_adjacent() const;
+
+    void set_left_adjacent(Minion* left);
+
+    [[nodiscard]] Minion* right_adjacent() const;
+
+    void set_right_adjacent(Minion* right);
+
     [[nodiscard]] std::string to_string() override;
 
 private:
@@ -107,10 +115,8 @@ private:
     bool _is_zombie{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?
 
-    // vector<buff_t> buffs;
-    // vector<buff_t> tempBuffs;
-    // vector<buff_t> auraBuffs;
-    // vector<effect_t> effects;
+    Minion* _left; // adjacency buff only
+    Minion* _right; // adjacency buff only
 };
 
 #endif //CARD_H

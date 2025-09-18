@@ -35,6 +35,8 @@ enum class Keyword {
     ON_ATTACK = 1ull << 25,
     ON_KILL = 1ull << 26,
     ON_DEATH_OTHER = 1ull << 27,
+    ON_PRE_COMBAT = 1ull << 28,
+    ON_POST_COMBAT = 1ull << 29,
 };
 
 namespace KeywordUtil {
@@ -69,6 +71,8 @@ namespace KeywordUtil {
         {"ON_ATTACK", Keyword::ON_ATTACK},
         {"ON_KILL", Keyword::ON_KILL},
         {"ON_DEATH_OTHER", Keyword::ON_DEATH_OTHER},
+        {"ON_PRE_COMBAT", Keyword::ON_PRE_COMBAT},
+        {"ON_POST_COMBAT", Keyword::ON_POST_COMBAT},
     };
 
     inline Keyword fromString(const std::string& str) {
