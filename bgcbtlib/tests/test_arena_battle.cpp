@@ -932,3 +932,41 @@ TEST(ArenaBattleTest, MicroMachineProc) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, MurlocTidecallerNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::MURLOC_TIDECALLER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 3);
+}
+
+TEST(ArenaBattleTest, MurlocTidecallerProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+        CardDb::Id::MURLOC_TIDECALLER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

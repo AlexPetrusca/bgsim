@@ -74,6 +74,8 @@ public:
         MECHAROO_G = 57336,
         MICRO_MACHINE = 60055,
         MICRO_MACHINE_G = 60056,
+        MURLOC_TIDECALLER = 475,
+        MURLOC_TIDECALLER_G = 58138,
 
         // tokens
         TABBYCAT_T = 96759,

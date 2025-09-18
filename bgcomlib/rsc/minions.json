@@ -1886,5 +1886,67 @@
     "cardClass": "PALADIN",
     "text": "At the start of each turn, gain +2 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 475,
+    "name": "Murloc Tidecaller",
+    "tier": 1,
+    "attack": 1,
+    "health": 2,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "MURLOC_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          13
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_509",
+    "goldenDbfId": 58138,
+    "artist": "Jaemin Kim",
+    "cardClass": "NEUTRAL",
+    "flavor": "This guy gets crazy strong at family reunions.",
+    "rarity": "RARE",
+    "text": "Whenever you summon a Murloc, gain +1 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58138,
+    "name": "Murloc Tidecaller",
+    "tier": 1,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "MURLOC_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          14
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_509_G",
+    "normalDbfId": 475,
+    "artist": "Jaemin Kim",
+    "cardClass": "NEUTRAL",
+    "flavor": "This guy gets crazy strong at family reunions.",
+    "rarity": "RARE",
+    "text": "Whenever you summon a Murloc, gain +2 Attack.",
+    "type": "MINION"
   }
 ]
