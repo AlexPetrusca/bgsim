@@ -1687,5 +1687,61 @@
     "rarity": "EPIC",
     "text": "Your other Murlocs have +4 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59937,
+    "name": "Imprisoner",
+    "tier": 1,
+    "attack": 3,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96788
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BGS_014",
+    "goldenDbfId": 60676,
+    "cardClass": "WARLOCK",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 1/1 Imp.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60676,
+    "name": "Imprisoner",
+    "tier": 1,
+    "attack": 6,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          58373
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_113",
+    "normalDbfId": 59937,
+    "cardClass": "WARLOCK",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 2/2 Imp.",
+    "type": "MINION"
   }
 ]

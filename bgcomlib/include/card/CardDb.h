@@ -68,6 +68,8 @@ public:
         DIRE_WOLF_ALPHA_G = 60025,
         MURLOC_WARLEADER = 96768,
         MURLOC_WARLEADER_G = 57403,
+        IMPRISONER = 59937,
+        IMPRISONER_G = 60676,
 
         // tokens
         TABBYCAT_T = 96759,
