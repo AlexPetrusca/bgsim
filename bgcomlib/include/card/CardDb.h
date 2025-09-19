@@ -78,6 +78,8 @@ public:
         MURLOC_TIDECALLER_G = 58138,
         MURLOC_TIDEHUNTER = 976,
         MURLOC_TIDEHUNTER_G = 57338,
+        RIGHTEOUS_PROTECTOR = 42467,
+        RIGHTEOUS_PROTECTOR_G = 63774,
 
         // tokens
         TABBYCAT_T = 96759,

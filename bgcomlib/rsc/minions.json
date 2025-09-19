@@ -2038,5 +2038,43 @@
     "cardClass": "NEUTRAL",
     "rarity": "COMMON",
     "type": "MINION"
+  },
+  {
+    "dbfId": 42467,
+    "name": "Righteous Protector",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "id": "ICC_038",
+    "goldenDbfId": 63774,
+    "artist": "Evgeniy Dlinnov",
+    "cardClass": "PALADIN",
+    "flavor": "Original name was Tubular Protector, but this seems more bodacious.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63774,
+    "name": "Righteous Protector",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "id": "ICC_038",
+    "normalDbfId": 42467,
+    "artist": "Evgeniy Dlinnov",
+    "cardClass": "PALADIN",
+    "flavor": "Original name was Tubular Protector, but this seems more bodacious.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+    "type": "MINION"
   }
 ]
