@@ -970,3 +970,23 @@ TEST(ArenaBattleTest, MurlocTidecallerProc) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, MurlocTidehunter) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::MURLOC_TIDEHUNTER_G,
+        CardDb::Id::MURLOC_SCOUT_T,
+        CardDb::Id::MURLOC_SCOUT_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

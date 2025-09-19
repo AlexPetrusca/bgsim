@@ -1948,5 +1948,95 @@
     "rarity": "RARE",
     "text": "Whenever you summon a Murloc, gain +2 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 976,
+    "name": "Murloc Tidehunter",
+    "tier": 1,
+    "attack": 2,
+    "health": 1,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "SUMMON",
+        "args": [
+          1078
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_506",
+    "goldenDbfId": 57338,
+    "artist": "Dan Scott",
+    "cardClass": "NEUTRAL",
+    "flavor": "\"Death will rise, from the tides!\"",
+    "rarity": "FREE",
+    "text": "<b>Battlecry:</b> Summon a 1/1 Murloc Scout.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57338,
+    "name": "Murloc Tidehunter",
+    "tier": 1,
+    "attack": 4,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "SUMMON",
+        "args": [
+          57339
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_506_G",
+    "normalDbfId": 976,
+    "artist": "Dan Scott",
+    "cardClass": "NEUTRAL",
+    "flavor": "\"Death will rise, from the tides!\"",
+    "rarity": "FREE",
+    "text": "<b>Battlecry:</b> Summon a 2/2 Murloc Scout.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 1078,
+    "name": "Murloc Scout",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_506a",
+    "goldenDbfId": 57339,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57339,
+    "name": "Murloc Scout",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_506a",
+    "normalDbfId": 1078,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "type": "MINION"
   }
 ]

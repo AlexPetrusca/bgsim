@@ -76,6 +76,8 @@ public:
         MICRO_MACHINE_G = 60056,
         MURLOC_TIDECALLER = 475,
         MURLOC_TIDECALLER_G = 58138,
+        MURLOC_TIDEHUNTER = 976,
+        MURLOC_TIDEHUNTER_G = 57338,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -96,8 +98,11 @@ public:
         BIG_BAD_WOLF_T_G = 57341,
         JO_E_BOT_T = 48885,
         JO_E_BOT_T_G = 57337,
+        MURLOC_SCOUT_T = 1078,
+        MURLOC_SCOUT_T_G = 57339,
 
         // enchantments
+        // todo: should these be here
         GIVE_ATTACK_E = 5,
         GIVE_HEALTH_E = 6,
     };
