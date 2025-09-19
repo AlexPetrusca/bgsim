@@ -2076,5 +2076,65 @@
     "rarity": "COMMON",
     "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96761,
+    "name": "Rockpool Hunter",
+    "tier": 1,
+    "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          15
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG_UNG_073",
+    "goldenDbfId": 59485,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "NEUTRAL",
+    "flavor": "Loves crab meat. Fears crabs.",
+    "rarity": "COMMON",
+    "targetingArrowText": "Give +1/+1.",
+    "text": "<b>Battlecry:</b> Give a friendly Murloc +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59485,
+    "name": "Rockpool Hunter",
+    "tier": 1,
+    "attack": 4,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          16
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_061",
+    "normalDbfId": 96761,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "targetingArrowText": "Give +2/+2.",
+    "text": "<b>Battlecry:</b> Give a friendly Murloc +2/+2.",
+    "type": "MINION"
   }
 ]

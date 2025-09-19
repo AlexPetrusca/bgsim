@@ -80,6 +80,8 @@ public:
         MURLOC_TIDEHUNTER_G = 57338,
         RIGHTEOUS_PROTECTOR = 42467,
         RIGHTEOUS_PROTECTOR_G = 63774,
+        ROCKPOOL_HUNTER = 96761,
+        ROCKPOOL_HUNTER_G = 59485,
 
         // tokens
         TABBYCAT_T = 96759,

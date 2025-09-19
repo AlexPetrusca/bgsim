@@ -154,5 +154,29 @@
     "attack": 2,
     "text": "+2 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 15,
+    "name": "+1/+1 Murloc Buff",
+    "target": "SINGLE",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 1,
+    "health": 1,
+    "text": "+1/+1",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 16,
+    "name": "+2/+2 Murloc Buff",
+    "target": "SINGLE",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "+2/+2",
+    "type": "ENCHANTMENT"
   }
 ]

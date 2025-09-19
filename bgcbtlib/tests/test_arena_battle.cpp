@@ -1009,3 +1009,41 @@ TEST(ArenaBattleTest, RighteousProtector) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, RockpoolHunterProcOnSelf) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::ROCKPOOL_HUNTER,
+        CardDb::Id::JO_E_BOT_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 1);
+}
+
+TEST(ArenaBattleTest, RockpoolHunterProcOnOther) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::ROCKPOOL_HUNTER,
+        CardDb::Id::MURLOC_SCOUT_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SATED_THRESHADON,
+    });
+
+    std::mt19937 rng(12345);
+    Arena arena = Arena(boardA, boardB, rng);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
