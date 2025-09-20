@@ -1,7 +1,7 @@
 #ifndef KEYWORD_H
 #define KEYWORD_H
 
-enum class Keyword {
+enum class Keyword: uint64_t {
     // Official
     DEATHRATTLE = 1ull << 0,
     REBORN = 1ull << 1,
@@ -27,7 +27,7 @@ enum class Keyword {
 
     // Triggers
     ON_TURN_START = 1ull << 19,
-    ON_TURN_END = 1ull << 10,
+    ON_TURN_END = 1ull << 20,
     ON_DAMAGE_SELF = 1ull << 21,
     ON_DAMAGE_OTHER = 1ull << 22,
     ON_DAMAGE_PLAYER = 1ull << 23,
@@ -81,7 +81,7 @@ namespace KeywordUtil {
     }
 
     inline bool isTrigger(Keyword keyword) {
-        return static_cast<int>(keyword) >= static_cast<int>(Keyword::ON_TURN_START);
+        return static_cast<uint64_t>(keyword) >= static_cast<uint64_t>(Keyword::ON_TURN_START);
     }
 }
 
