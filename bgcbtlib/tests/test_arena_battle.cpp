@@ -15,7 +15,7 @@ TEST(ArenaBattleTest, SimpleOneSided) {
     Board boardB = Board({minionB1});
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -32,7 +32,7 @@ TEST(ArenaBattleTest, SimpleFiftyFifty) {
     Board boardB = Board({minionB1, minionB2});
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -53,7 +53,7 @@ TEST(ArenaBattleTest, LongBattle) {
     }
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -72,7 +72,7 @@ TEST(ArenaBattleTest, Deathrattle) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -96,7 +96,7 @@ TEST(ArenaBattleTest, DeathrattleOverflow) {
     }
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -119,7 +119,7 @@ TEST(ArenaBattleTest, DivineShieldTaunt) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -141,7 +141,7 @@ TEST(ArenaBattleTest, DivineShieldReborn) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -161,7 +161,7 @@ TEST(ArenaBattleTest, TauntDeathrattle) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -180,7 +180,7 @@ TEST(ArenaBattleTest, OnDamageSummon) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -199,7 +199,7 @@ TEST(ArenaBattleTest, OnDamageSummonTaunt) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -216,7 +216,7 @@ TEST(ArenaBattleTest, WindfuryDivineShield) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -234,7 +234,7 @@ TEST(ArenaBattleTest, CleaveTaunt) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -255,7 +255,7 @@ TEST(ArenaBattleTest, CleaveResolveActiveMinion1) {
     });
 
     std::mt19937 rng(123456);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
@@ -277,7 +277,7 @@ TEST(ArenaBattleTest, CleaveResolveActiveMinion2) {
     });
 
     std::mt19937 rng(123456);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -302,7 +302,7 @@ TEST(ArenaBattleTest, CleaveOverflow) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 6);
@@ -324,7 +324,7 @@ TEST(ArenaBattleTest, Poisonous) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -344,7 +344,7 @@ TEST(ArenaBattleTest, Venomous) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -363,7 +363,7 @@ TEST(ArenaBattleTest, VenomousLostOnAttack) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -383,7 +383,7 @@ TEST(ArenaBattleTest, VenomousLostOnDefend) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -403,7 +403,7 @@ TEST(ArenaBattleTest, CleaveDoesntProcPoison) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -423,7 +423,7 @@ TEST(ArenaBattleTest, DivineShieldPoison) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -441,7 +441,7 @@ TEST(ArenaBattleTest, SelflessHero) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -460,7 +460,7 @@ TEST(ArenaBattleTest, SelflessHeroNoValidTarget) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -479,7 +479,7 @@ TEST(ArenaBattleTest, SpawnOfNzoth) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -503,7 +503,7 @@ TEST(ArenaBattleTest, SpawnOfNzothGolden) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -521,7 +521,7 @@ TEST(ArenaBattleTest, FiendishServant) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -539,7 +539,7 @@ TEST(ArenaBattleTest, ImpulsiveTrickster) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -562,7 +562,7 @@ TEST(ArenaBattleTest, ImpulsiveTricksterChain) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -588,7 +588,7 @@ TEST(ArenaBattleTest, GoldenImpulsiveTricksterChain) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -609,7 +609,7 @@ TEST(ArenaBattleTest, RylakMetalheadProced) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -631,7 +631,7 @@ TEST(ArenaBattleTest, RylakMetalheadNotProced) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -651,7 +651,7 @@ TEST(ArenaBattleTest, GoldenRylakMetalhead) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -670,7 +670,7 @@ TEST(ArenaBattleTest, RaceSpecificEnchantProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -689,7 +689,7 @@ TEST(ArenaBattleTest, RaceSpecificEnchantNoProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -708,7 +708,7 @@ TEST(ArenaBattleTest, RaceSpecificEnchantProcSameProps) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -726,7 +726,7 @@ TEST(ArenaBattleTest, ScavengingHyenaProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -744,7 +744,7 @@ TEST(ArenaBattleTest, ScavengingHyenaNoProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -767,7 +767,7 @@ TEST(ArenaBattleTest, ScavengingHyenaMultiple) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -786,7 +786,7 @@ TEST(ArenaBattleTest, DireWolfAlphaLives) {
     });
 
     std::mt19937 rng(123456);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -805,7 +805,7 @@ TEST(ArenaBattleTest, DireWolfAlphaDies) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -829,7 +829,7 @@ TEST(ArenaBattleTest, DireWolfAlphaWithSummons) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -849,7 +849,7 @@ TEST(ArenaBattleTest, MurlocWarleader) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -869,7 +869,7 @@ TEST(ArenaBattleTest, Imprisoner) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -888,7 +888,7 @@ TEST(ArenaBattleTest, Mecharoo) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -907,7 +907,7 @@ TEST(ArenaBattleTest, MicroMachine) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -926,7 +926,7 @@ TEST(ArenaBattleTest, MicroMachineProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -945,7 +945,7 @@ TEST(ArenaBattleTest, MurlocTidecallerNoProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -964,7 +964,7 @@ TEST(ArenaBattleTest, MurlocTidecallerProc) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -984,7 +984,7 @@ TEST(ArenaBattleTest, MurlocTidehunter) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -1003,7 +1003,7 @@ TEST(ArenaBattleTest, RighteousProtector) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -1022,7 +1022,7 @@ TEST(ArenaBattleTest, RockpoolHunterProcOnSelf) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -1041,7 +1041,7 @@ TEST(ArenaBattleTest, RockpoolHunterProcOnOther) {
     });
 
     std::mt19937 rng(12345);
-    Arena arena = Arena(boardA, boardB, rng);
+    Arena arena = Arena::from_boards(boardA, boardB, rng);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);

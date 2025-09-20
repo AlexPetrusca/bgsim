@@ -10,6 +10,8 @@
 #include "card/CardDb.h"
 #include "../IPrintable.h"
 
+class Player;
+
 class Board : public IPrintable {
 public:
     explicit Board(const std::vector<Minion>& minions = {});
@@ -98,6 +100,8 @@ public:
 
     [[nodiscard]] int zombie_count() const;
 
+    void bind_player(Player* player);
+
     [[nodiscard]] std::string to_string() override;
 
 private:
@@ -107,6 +111,7 @@ private:
     int _taunt_count{};
     int _zombie_count{};
     std::mt19937 _rng;
+    Player* _player;
 };
 
 #endif //BOARD_H

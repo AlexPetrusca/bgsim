@@ -22,7 +22,7 @@ TEST(ArenaAnalysisTest, SimpleOneSided) {
     Minion minionB1 = Minion("B1", 1, 2, 2);
     Board boardB = Board({minionB1});
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -48,7 +48,7 @@ TEST(ArenaAnalysisTest, SimpleFiftyFifty) {
     Minion minionB2 = Minion("B2", 1, 1, 1);
     Board boardB = Board({minionB1, minionB2});
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -78,7 +78,7 @@ TEST(ArenaAnalysisTest, LongBattle) {
         boardB.summon_minion(minion);
     }
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -106,7 +106,7 @@ TEST(ArenaAnalysisTest, Deathrattle) {
         CardDb::Id::HOUNDMASTER
     });
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -139,7 +139,7 @@ TEST(ArenaAnalysisTest, DeathrattleOverflow) {
         boardB.summon_minion(minion);
     }
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -169,7 +169,7 @@ TEST(ArenaAnalysisTest, DivineShieldTaunt) {
         CardDb::Id::PSYCH_O_TRON,
     });
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -201,7 +201,7 @@ TEST(ArenaAnalysisTest, CleaveOverflow) {
         CardDb::Id::VOIDLORD,
     });
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 
@@ -229,7 +229,7 @@ TEST(ArenaAnalysisTest, CleaveResolveActiveMinion) {
         CardDb::Id::VOIDLORD,
     });
 
-    Arena arena = Arena(boardA, boardB);
+    Arena arena = Arena::from_boards(boardA, boardB);
     AnalysisReport report = arena.analyze(ITERATIONS);
     std::cout << report << std::endl;
 

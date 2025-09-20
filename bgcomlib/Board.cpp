@@ -533,6 +533,10 @@ int Board::zombie_count() const {
     return _zombie_count;
 }
 
+void Board::bind_player(Player* player) {
+    _player = player;
+}
+
 [[nodiscard]] std::string Board::to_string() {
     std::ostringstream oss;
     oss << _minions.size() << " | ";

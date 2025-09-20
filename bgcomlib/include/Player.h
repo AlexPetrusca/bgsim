@@ -1,13 +1,32 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <cstdint>
+#include "Board.h"
+#include "Hand.h"
 
 class Player {
 public:
     Player();
+
+    [[nodiscard]] Board& board();
+
+    void set_board(const Board& board);
+
+    [[nodiscard]] Hand& hand();
+
+    [[nodiscard]] int health() const;
+
+    [[nodiscard]] int armor() const;
+
+    void set_health(int health);
+
+    void set_armor(int armor);
+
 private:
-    uint32_t health;
+    Board _board;
+    Hand _hand;
+    int _health{};
+    int _armor{};
 };
 
 #endif //PLAYER_H

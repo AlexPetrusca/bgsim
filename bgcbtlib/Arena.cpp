@@ -4,23 +4,33 @@
 #include <random>
 #include <sstream>
 
-Arena::Arena(const Board& boardA, const Board& boardB, std::mt19937 rng) {
-    this->boardA = boardA;
-    this->boardA.set_rng(rng);
-    this->boardB = boardB;
-    this->boardB.set_rng(rng);
+Arena::Arena(const Player& p1, const Player& p2, std::mt19937 rng) {
+    this->p1 = p1;
+    this->p1.board().set_rng(rng);
+    this->p2 = p2;
+    this->p2.board().set_rng(rng);
     this->rng = rng;
 }
 
-BattleStatus Arena::get_battle_status() {
-    if (boardA.empty() && boardB.empty()) return TIE;
-    if (boardA.empty()) return WIN_B;
-    if (boardB.empty()) return WIN_A;
+Arena Arena::from_boards(const Board& b1, const Board& b2, std::mt19937 rng) {
+    Player p1;
+    p1.set_board(b1);
+    p1.board().set_rng(rng);
+    Player p2;
+    p2.set_board(b2);
+    p2.board().set_rng(rng);
+    return Arena(p1, p2, rng);
+}
 
-    for (const auto& minion: boardA.minions()) {
+BattleStatus Arena::get_battle_status() {
+    if (p1.board().empty() && p2.board().empty()) return TIE;
+    if (p1.board().empty()) return WIN_B;
+    if (p2.board().empty()) return WIN_A;
+
+    for (const auto& minion: p1.board().minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
-    for (const auto& minion: boardB.minions()) {
+    for (const auto& minion: p2.board().minions()) {
         if (minion.attack() != 0) return IN_PROGRESS;
     }
 
@@ -58,9 +68,9 @@ void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, cons
     }
 }
 
-void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debug) {
-    Board& attacking = turn % 2 == 0 ? boardA : boardB;
-    Board& defending = turn % 2 == 0 ? boardB : boardA;
+void Arena::combat(const int turn, const bool debug) {
+    Board& attacking = turn % 2 == 0 ? p1.board() : p2.board();
+    Board& defending = turn % 2 == 0 ? p2.board() : p1.board();
 
     // select attacker
     const MinionLoc atk_minion = attacking.active();
@@ -159,11 +169,11 @@ void Arena::combat(Board& boardA, Board& boardB, const int turn, const bool debu
 
 BattleReport Arena::battle(const bool debug) {
     // save
-    Board saveA = boardA;
-    Board saveB = boardB;
+    Board saveA = p1.board();
+    Board saveB = p2.board();
 
-    int turn = boardA.size() > boardB.size() ? 0 : 1;
-    if (boardA.size() == boardB.size()) {
+    int turn = p1.board().size() > p2.board().size() ? 0 : 1;
+    if (p1.board().size() == p2.board().size()) {
         turn = std::uniform_int_distribution(0, 1)(rng);
     }
 
@@ -171,14 +181,14 @@ BattleReport Arena::battle(const bool debug) {
         std::cout << std::endl;
     }
 
-    boardA.pre_battle();
-    boardB.pre_battle();
+    p1.board().pre_battle();
+    p2.board().pre_battle();
     while (get_battle_status() == IN_PROGRESS) {
-        boardA.pre_combat();
-        boardB.pre_combat();
-        combat(boardA, boardB, turn, debug);
-        boardA.post_combat();
-        boardB.post_combat();
+        p1.board().pre_combat();
+        p2.board().pre_combat();
+        combat(turn, debug);
+        p1.board().post_combat();
+        p2.board().post_combat();
         turn++;
     }
 
@@ -190,15 +200,15 @@ BattleReport Arena::battle(const bool debug) {
     const BattleStatus status = get_battle_status();
     int damage = 0;
     if (status == WIN_A) {
-        damage = boardA.tier_total();
+        damage = p1.board().tier_total();
     } else if (status == WIN_B) {
-        damage = boardB.tier_total();
+        damage = p2.board().tier_total();
     }
     const BattleReport report = BattleReport(status, damage);
 
     // restore
-    boardA = std::move(saveA);
-    boardB = std::move(saveB);
+    p1.board() = std::move(saveA);
+    p2.board() = std::move(saveB);
 
     return report;
 }
@@ -215,8 +225,8 @@ AnalysisReport Arena::analyze(int iterations) {
 std::string Arena::to_string() {
     std::ostringstream oss;
     oss << "-------------------------------------------------------------" << std::endl;
-    oss << "[A] " << boardA << std::endl;
-    oss << "[B] " << boardB << std::endl;
+    oss << "[A] " << p1.board() << std::endl;
+    oss << "[B] " << p2.board() << std::endl;
     oss << "-------------------------------------------------------------" << std::endl;
     return oss.str();
 }
