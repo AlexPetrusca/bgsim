@@ -6,6 +6,7 @@
 #include "Keyword.h"
 #include "Race.h"
 #include "Target.h"
+#include "util/BitVector.h"
 
 using json = nlohmann::json;
 

@@ -21,6 +21,7 @@ add_library(bgcomlib STATIC
         include/Target.h
         include/Race.h
         include/MinionLoc.h
+        include/util/BitVector.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 
