@@ -14,7 +14,7 @@ public:
 
     Arena(const Player& p1, const Player& p2);
 
-    static Arena from_boards(const Board& b1, const Board& b2);
+    static Arena from_boards(Board& b1, Board& b2);
 
     BattleReport battle(bool debug = false, bool analysis = false);
 

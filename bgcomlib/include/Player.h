@@ -10,7 +10,7 @@ public:
 
     [[nodiscard]] Board& board();
 
-    void set_board(const Board& board);
+    void set_board(Board& board);
 
     [[nodiscard]] Hand& hand();
 

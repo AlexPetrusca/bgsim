@@ -17,6 +17,7 @@ public:
         GEN_CARD,
         ENCHANT,
         DEAL_DAMAGE_PLAYER,
+        DEAL_DAMAGE_PLAYER_AND_ENCHANT,
         DEAL_DAMAGE_OTHER,
         TRIGGER_ADJACENT_BATTLECRY,
         TRIGGER_ADJACENT_BATTLECRIES,
@@ -30,14 +31,13 @@ public:
             {"GEN_CARD", Type::GEN_CARD},
             {"ENCHANT", Type::ENCHANT},
             {"DEAL_DAMAGE_PLAYER", Type::DEAL_DAMAGE_PLAYER},
+            {"DEAL_DAMAGE_PLAYER_AND_ENCHANT", Type::DEAL_DAMAGE_PLAYER_AND_ENCHANT},
             {"DEAL_DAMAGE_OTHER", Type::DEAL_DAMAGE_OTHER},
             {"TRIGGER_ADJACENT_BATTLECRY", Type::TRIGGER_ADJACENT_BATTLECRY},
             {"TRIGGER_ADJACENT_BATTLECRIES", Type::TRIGGER_ADJACENT_BATTLECRIES}
         };
 
-        static Type fromString(const std::string& str) {
-            return type_map.find(str)->second;
-        }
+        static Type fromString(const std::string& str);
     };
 
     enum class Constraint {
@@ -69,65 +69,22 @@ public:
             { "UNDEAD_ONLY", Constraint::UNDEAD_ONLY },
         };
 
-        static Constraint fromString(const std::string& str) {
-            const auto pair = constraint_map.find(str);
-            if (pair != constraint_map.end()) {
-                return pair->second;
-            } else {
-                return Constraint::NONE;
-            }
-        }
+        static Constraint fromString(const std::string& str);
 
-        static bool matchesRace(const Constraint constraint, const BitVector<Race>& races) {
-            // todo: can we us this with some clever logic instead?
-            //  - Maybe you can just use bit manipulation
-            switch (constraint) {
-                case Constraint::NONE:
-                    return true;
-                case Constraint::BEAST_ONLY:
-                    return races.has(Race::BEAST);
-                case Constraint::DEMON_ONLY:
-                    return races.has(Race::DEMON);
-                case Constraint::DRAGON_ONLY:
-                    return races.has(Race::DRAGON);
-                case Constraint::ELEMENTAL_ONLY:
-                    return races.has(Race::ELEMENTAL);
-                case Constraint::MECHANICAL_ONLY:
-                    return races.has(Race::MECHANICAL);
-                case Constraint::MURLOC_ONLY:
-                    return races.has(Race::MURLOC);
-                case Constraint::NAGA_ONLY:
-                    return races.has(Race::NAGA);
-                case Constraint::PIRATE_ONLY:
-                    return races.has(Race::PIRATE);
-                case Constraint::QUILLBOAR_ONLY:
-                    return races.has(Race::QUILLBOAR);
-                case Constraint::UNDEAD_ONLY:
-                    return races.has(Race::UNDEAD);
-            }
-            return false;
-        }
+        static bool matchesRace(Constraint constraint, const BitVector<Race>& races);
     };
 
     explicit Effect(const json& json);
 
     Effect(Keyword trigger, Type type, const std::vector<int>& args);
 
-    [[nodiscard]] Keyword trigger() const {
-        return _trigger;
-    }
+    [[nodiscard]] Keyword trigger() const;
 
-    [[nodiscard]] Constraint constraint() const {
-        return _constraint;
-    }
+    [[nodiscard]] Constraint constraint() const;
 
-    [[nodiscard]] Type type() const {
-        return _type;
-    }
+    [[nodiscard]] Type type() const;
 
-    [[nodiscard]] const std::vector<int>& args() const {
-        return _args;
-    }
+    [[nodiscard]] const std::vector<int>& args() const;
 
 private:
     Keyword _trigger;

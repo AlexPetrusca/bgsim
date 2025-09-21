@@ -10,8 +10,8 @@ Board& Player::board() {
     return _board;
 }
 
-void Player::set_board(const Board& board) {
-    _board = board;
+void Player::set_board(Board& board) {
+    _board = std::move(board);
     _board.bind_player(this);
 }
 

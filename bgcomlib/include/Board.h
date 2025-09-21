@@ -40,6 +40,8 @@ public:
 
     void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
 
+    void proc_enchantment(int enchantment_id, MinionLoc loc);
+
     void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
     void disenchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);

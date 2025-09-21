@@ -84,6 +84,8 @@ public:
         ROCKPOOL_HUNTER_G = 59485,
         VULGAR_HOMUNCULUS = 43121,
         VULGAR_HOMUNCULUS_G = 63778,
+        WRATH_WEAVER = 59670,
+        WRATH_WEAVER_G = 59679,
 
         // tokens
         TABBYCAT_T = 96759,

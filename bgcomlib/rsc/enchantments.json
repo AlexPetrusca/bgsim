@@ -178,5 +178,14 @@
     "health": 2,
     "text": "+2/+2",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 17,
+    "name": "Weave Wrath",
+    "target": "SELF",
+    "attack": 2,
+    "health": 1,
+    "text": "+2/+1",
+    "type": "ENCHANTMENT"
   }
 ]

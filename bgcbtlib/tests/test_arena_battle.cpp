@@ -1094,3 +1094,57 @@ TEST(ArenaBattleTest, VulgarHomunculusProc) {
 
     EXPECT_EQ(health_before - health_after, 4);
 }
+
+TEST(ArenaBattleTest, WrathWeaverNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::WRATH_WEAVER,
+        CardDb::Id::WRATH_WEAVER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    int health_before = arena.playerA().total_health();
+
+    // simulate playing a non-demon minion
+    Minion minion = db.get_minion(CardDb::Id::HARMLESS_BONEHEAD);
+    boardA.proc_trigger(Keyword::ON_PLAY, &minion);
+
+    BattleReport report = arena.battle(true);
+    int health_after = arena.playerA().total_health();
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_EQ(health_before - health_after, 0);
+}
+
+TEST(ArenaBattleTest, WrathWeaverProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::WRATH_WEAVER,
+        CardDb::Id::WRATH_WEAVER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    int health_before = arena.playerA().total_health();
+
+    // simulate playing a demon minion
+    Minion minion = db.get_minion(CardDb::Id::VULGAR_HOMUNCULUS);
+    arena.playerA().board().proc_trigger(Keyword::ON_PLAY, &minion);
+
+    BattleReport report = arena.battle(true);
+    int health_after = arena.playerA().total_health();
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 1);
+
+    EXPECT_EQ(health_before - health_after, 3);
+}

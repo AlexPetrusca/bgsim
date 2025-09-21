@@ -14,7 +14,7 @@ Arena::Arena(const Player& p1, const Player& p2) {
     this->_p2 = p2;
 }
 
-Arena Arena::from_boards(const Board& b1, const Board& b2) {
+Arena Arena::from_boards(Board& b1, Board& b2) {
     Arena arena;
     arena.playerA().set_board(b1);
     arena.playerB().set_board(b2);

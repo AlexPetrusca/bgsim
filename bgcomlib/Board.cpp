@@ -96,7 +96,7 @@ void Board::add_minion(const Minion& minion) {
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     const MinionLoc spawn_loc = _minions.insert(loc, minion);
-    proc_trigger(Keyword::ON_ADD_MINION, &*spawn_loc);
+    proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
@@ -106,7 +106,7 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     }
     if (minion.has(Keyword::AURA)) {
         apply_aura(spawn_loc);
-        register_trigger(Keyword::ON_ADD_MINION, spawn_loc);
+        register_trigger(Keyword::ON_ADD, spawn_loc);
     }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
@@ -124,6 +124,64 @@ void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool 
     if (full(!post_death)) return;
     const MinionLoc spawn_loc = add_minion(minion, loc);
     proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
+}
+
+void Board::proc_enchantment(const int enchantment_id, const MinionLoc loc) {
+    Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
+    switch (static_cast<CardDb::Id>(enchantment_id)) {
+        case CardDb::Id::GIVE_ATTACK_E: {
+            enchantment.set_attack(loc->attack());
+            break;
+        }
+        case CardDb::Id::GIVE_HEALTH_E: {
+            enchantment.set_health(loc->max_health());
+            break;
+        }
+        default:
+            break;
+    }
+
+    switch (enchantment.target()) {
+        case Target::SINGLE: {
+            if (enchantment.races().any()) {
+                // todo: this is wrong - Target::SINGLE should mean single target enchants
+                for (const Race race: enchantment.races()) {
+                    enchant_random_minion_by_race(enchantment, race);
+                }
+            } else {
+                enchant_random_minion(enchantment);
+            }
+            break;
+        }
+        case Target::ALL: {
+            // todo: take race into account
+            for (auto & m : minions()) {
+                enchant_minion(m, enchantment);
+            }
+            break;
+        }
+        case Target::SELF: {
+            enchant_minion(*loc, enchantment);
+            break;
+        }
+        case Target::LEFTMOST: {
+            // todo: take race into account
+            enchant_minion(minions().front(), enchantment);
+            break;
+        }
+        case Target::RIGHTMOST: {
+            // todo: take race into account
+            enchant_minion(minions().back(), enchantment);
+            break;
+        }
+        case Target::ALL_OTHER:
+            for (auto m = minions().begin(); m != minions().end(); ++m) {
+                if (m != loc && (m->races() | enchantment.races()) > 0) {
+                    enchant_minion(*m, enchantment);
+                }
+            }
+            break;
+    }
 }
 
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
@@ -219,12 +277,11 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
 }
 
 void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
-    const auto next_loc = std::next(loc);
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
                 const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                summon_minion(db.get_minion(minion_id), next_loc, post_death);
+                summon_minion(db.get_minion(minion_id), get_right_minion_loc(loc), post_death);
             }
             break;
         }
@@ -233,66 +290,12 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, next_loc, true);
+            summon_minion(minion, get_right_minion_loc(loc), true);
             break;
         }
         case Effect::Type::ENCHANT: {
             for (const int enchantment_id: effect.args()) {
-                Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
-                switch (static_cast<CardDb::Id>(enchantment_id)) {
-                    case CardDb::Id::GIVE_ATTACK_E: {
-                        enchantment.set_attack(loc->attack());
-                        break;
-                    }
-                    case CardDb::Id::GIVE_HEALTH_E: {
-                        enchantment.set_health(loc->max_health());
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-                switch (enchantment.target()) {
-                    case Target::SINGLE: {
-                        if (enchantment.races().any()) {
-                            // todo: this is wrong - Target::SINGLE should mean single target enchants
-                            for (const Race race: enchantment.races()) {
-                                enchant_random_minion_by_race(enchantment, race);
-                            }
-                        } else {
-                            enchant_random_minion(enchantment);
-                        }
-                        break;
-                    }
-                    case Target::ALL: {
-                        // todo: take race into account
-                        for (auto & m : minions()) {
-                            enchant_minion(m, enchantment);
-                        }
-                        break;
-                    }
-                    case Target::SELF: {
-                        enchant_minion(*loc, enchantment);
-                        break;
-                    }
-                    case Target::LEFTMOST: {
-                        // todo: take race into account
-                        enchant_minion(minions().front(), enchantment);
-                        break;
-                    }
-                    case Target::RIGHTMOST: {
-                        // todo: take race into account
-                        enchant_minion(minions().back(), enchantment);
-                        break;
-                    }
-                    case Target::ALL_OTHER:
-                        for (auto m = minions().begin(); m != minions().end(); ++m) {
-                            if (m != loc && (m->races() | enchantment.races()) > 0) {
-                                enchant_minion(*m, enchantment);
-                            }
-                        }
-                        break;
-                }
+                proc_enchantment(enchantment_id, loc);
             }
             break;
         }
@@ -337,6 +340,15 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
         }
         case Effect::Type::DEAL_DAMAGE_OTHER: {
             // todo
+            break;
+        }
+        // todo: maybe replace this with some generalized "composite" effect
+        case Effect::Type::DEAL_DAMAGE_PLAYER_AND_ENCHANT: {
+            const std::vector<int>& args = effect.args();
+            for (int i = 0; i < args.size(); i += 2) {
+                _player->deal_damage(args[i]);
+                proc_enchantment(args[i + 1], loc);
+            }
             break;
         }
     }
@@ -435,7 +447,7 @@ void Board::pre_battle() {
             register_trigger(Keyword::ON_POST_COMBAT, m);
         }
         if (m->has(Keyword::AURA)) {
-            register_trigger(Keyword::ON_ADD_MINION, m);
+            register_trigger(Keyword::ON_ADD, m);
         }
         for (const auto& keyword: m->effects() | std::views::keys) {
             if (KeywordUtil::isTrigger(keyword)) {
@@ -465,7 +477,7 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                 undo_adjacent_aura(listener);
             }
         } else if (listener->has(Keyword::AURA)) {
-            if (trigger == Keyword::ON_ADD_MINION) {
+            if (trigger == Keyword::ON_ADD) {
                 const Effect& effect = listener->get_effect(Keyword::AURA);
                 for (const int enchantment_id: effect.args()) {
                     const Enchantment& enchantment = db.get_enchantment(enchantment_id);

@@ -2198,5 +2198,59 @@
     "rarity": "COMMON",
     "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59670,
+    "name": "Wrath Weaver",
+    "tier": 1,
+    "attack": 1,
+    "health": 4,
+    "mechanics": [
+      "ON_PLAY"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "DEAL_DAMAGE_PLAYER_AND_ENCHANT",
+        "args": [
+          1,
+          17
+        ]
+      }
+    ],
+    "id": "BGS_004",
+    "goldenDbfId": 59679,
+    "cardClass": "NEUTRAL",
+    "text": "After you play a Demon, deal 1 damage to your hero and gain +2/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59679,
+    "name": "Wrath Weaver",
+    "tier": 1,
+    "attack": 2,
+    "health": 8,
+    "mechanics": [
+      "ON_PLAY"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "DEAL_DAMAGE_PLAYER_AND_ENCHANT",
+        "args": [
+          1,
+          17,
+          1,
+          17
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_079",
+    "normalDbfId": 59670,
+    "cardClass": "NEUTRAL",
+    "text": "[x]After you play a Demon,\ndeal 1 damage to your hero\nand gain +2/+1, twice.",
+    "type": "MINION"
   }
 ]

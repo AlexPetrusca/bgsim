@@ -2,7 +2,6 @@
 #define CARD_H
 
 #include <string>
-#include <vector>
 
 #include "Effect.h"
 #include "Keyword.h"
