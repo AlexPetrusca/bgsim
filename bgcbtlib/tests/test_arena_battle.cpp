@@ -1148,3 +1148,25 @@ TEST(ArenaBattleTest, WrathWeaverProc) {
 
     EXPECT_EQ(health_before - health_after, 3);
 }
+
+TEST(ArenaBattleTest, ColdlightSeer) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::COLDLIGHT_SEER_G,
+        CardDb::Id::MURLOC_SCOUT_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -86,6 +86,8 @@ public:
         VULGAR_HOMUNCULUS_G = 63778,
         WRATH_WEAVER = 59670,
         WRATH_WEAVER_G = 59679,
+        COLDLIGHT_SEER = 96773,
+        COLDLIGHT_SEER_G = 59491,
 
         // tokens
         TABBYCAT_T = 96759,

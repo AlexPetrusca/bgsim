@@ -187,5 +187,21 @@
     "health": 1,
     "text": "+2/+1",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 18,
+    "name": "Coldlight",
+    "target": "ALL_OTHER",
+    "health": 2,
+    "text": "Give your other Murlocs +2 Health.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 19,
+    "name": "Coldlight",
+    "target": "ALL_OTHER",
+    "health": 4,
+    "text": "Give your other Murlocs +4 Health.",
+    "type": "ENCHANTMENT"
   }
 ]

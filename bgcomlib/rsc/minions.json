@@ -2252,5 +2252,61 @@
     "cardClass": "NEUTRAL",
     "text": "[x]After you play a Demon,\ndeal 1 damage to your hero\nand gain +2/+1, twice.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96773,
+    "name": "Coldlight Seer",
+    "tier": 2,
+    "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          18
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG_EX1_103",
+    "goldenDbfId": 59491,
+    "artist": "Arthur Gimaldinov",
+    "cardClass": "SHAMAN",
+    "flavor": "The Coldlight murlocs reside in the darkest pits of the Abyssal Depths.  So no, there's no getting away from murlocs.",
+    "text": "<b>Battlecry:</b> Give your other Murlocs +2 Health.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59491,
+    "name": "Coldlight Seer",
+    "tier": 2,
+    "attack": 4,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          19
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_064",
+    "normalDbfId": 96773,
+    "cardClass": "SHAMAN",
+    "text": "<b>Battlecry:</b> Give your other Murlocs +4 Health.",
+    "type": "MINION"
   }
 ]
