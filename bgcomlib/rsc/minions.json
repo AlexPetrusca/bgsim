@@ -2136,5 +2136,67 @@
     "targetingArrowText": "Give +2/+2.",
     "text": "<b>Battlecry:</b> Give a friendly Murloc +2/+2.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 43121,
+    "name": "Vulgar Homunculus",
+    "tier": 1,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "DEAL_DAMAGE_PLAYER",
+        "args": [
+          2
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "LOOT_013",
+    "goldenDbfId": 63778,
+    "artist": "Steve Prescott",
+    "cardClass": "WARLOCK",
+    "flavor": "Fortunately he has an even number of fingers.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63778,
+    "name": "Vulgar Homunculus",
+    "tier": 1,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "BATTLECRY",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "DEAL_DAMAGE_PLAYER",
+        "args": [
+          2
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "LOOT_013_G",
+    "normalDbfId": 43121,
+    "artist": "Steve Prescott",
+    "cardClass": "WARLOCK",
+    "flavor": "Fortunately he has an even number of fingers.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
+    "type": "MINION"
   }
 ]

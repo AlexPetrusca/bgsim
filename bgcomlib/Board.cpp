@@ -8,6 +8,7 @@
 #include "util/Random.h"
 
 Board::Board(const std::vector<Minion>& minions) {
+    _player = nullptr;
     if (minions.size() > 7) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minions.size()));
     }
@@ -326,6 +327,16 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
                 exec_effect(r->get_effect(Keyword::BATTLECRY), r);
             }
+            break;
+        }
+        case Effect::Type::DEAL_DAMAGE_PLAYER: {
+            for (const int damage : effect.args()) {
+                _player->deal_damage(damage);
+            }
+            break;
+        }
+        case Effect::Type::DEAL_DAMAGE_OTHER: {
+            // todo
             break;
         }
     }

@@ -88,12 +88,12 @@ std::string AnalysisReport::to_string() {
     oss << "\nAnalysis Report" << std::endl;
     oss << "-------------------------------------------------------------" << std::endl;
 
-    double win_percent = 100 * static_cast<double>(wins()) / _total;
-    double loss_percent = 100 * static_cast<double>(losses()) / _total;
-    double tie_percent = 100 * static_cast<double>(ties()) / _total;
+    const double win_percent = 100 * static_cast<double>(wins()) / _total;
+    const double tie_percent = 100 * static_cast<double>(ties()) / _total;
+    const double loss_percent = 100 * static_cast<double>(losses()) / _total;
     oss << "Winrate: \t\t";
     oss << wins() << " / " << losses() << " / " << ties();
-    oss << "  (" << win_percent << "% / " << loss_percent << "% / " << tie_percent << "%)" << std::endl;
+    oss << "  (" << win_percent << "% / " << tie_percent << "% / " << loss_percent << "%)" << std::endl;
 
     oss << "Avg Dmg Dealt: \t";
     int out_q1 = out_dmg_quart1();

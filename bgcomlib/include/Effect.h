@@ -16,6 +16,8 @@ public:
         REBORN_SUMMON,
         GEN_CARD,
         ENCHANT,
+        DEAL_DAMAGE_PLAYER,
+        DEAL_DAMAGE_OTHER,
         TRIGGER_ADJACENT_BATTLECRY,
         TRIGGER_ADJACENT_BATTLECRIES,
     };
@@ -27,6 +29,8 @@ public:
             {"REBORN_SUMMON", Type::REBORN_SUMMON},
             {"GEN_CARD", Type::GEN_CARD},
             {"ENCHANT", Type::ENCHANT},
+            {"DEAL_DAMAGE_PLAYER", Type::DEAL_DAMAGE_PLAYER},
+            {"DEAL_DAMAGE_OTHER", Type::DEAL_DAMAGE_OTHER},
             {"TRIGGER_ADJACENT_BATTLECRY", Type::TRIGGER_ADJACENT_BATTLECRY},
             {"TRIGGER_ADJACENT_BATTLECRIES", Type::TRIGGER_ADJACENT_BATTLECRIES}
         };

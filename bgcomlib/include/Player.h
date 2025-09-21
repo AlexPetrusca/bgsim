@@ -18,6 +18,10 @@ public:
 
     [[nodiscard]] int armor() const;
 
+    int total_health();
+
+    void deal_damage(int damage);
+
     void set_health(int health);
 
     void set_armor(int armor);

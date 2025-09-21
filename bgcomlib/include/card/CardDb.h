@@ -82,6 +82,8 @@ public:
         RIGHTEOUS_PROTECTOR_G = 63774,
         ROCKPOOL_HUNTER = 96761,
         ROCKPOOL_HUNTER_G = 59485,
+        VULGAR_HOMUNCULUS = 43121,
+        VULGAR_HOMUNCULUS_G = 63778,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -1046,3 +1046,51 @@ TEST(ArenaBattleTest, RockpoolHunterProcOnOther) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, VulgarHomunculusNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::VULGAR_HOMUNCULUS,
+        CardDb::Id::VULGAR_HOMUNCULUS_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, VulgarHomunculusProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::VULGAR_HOMUNCULUS_G,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::VULGAR_HOMUNCULUS,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    int health_before = arena.playerA().total_health();
+    BattleReport report = arena.battle(true);
+    int health_after = arena.playerA().total_health();
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_EQ(health_before - health_after, 4);
+}

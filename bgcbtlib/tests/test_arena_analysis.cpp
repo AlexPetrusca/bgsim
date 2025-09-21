@@ -245,3 +245,41 @@ TEST(ArenaAnalysisTest, CleaveResolveActiveMinion) {
     EXPECT_EQ(report.out_dmg_median(), 6);
     EXPECT_EQ(report.out_dmg_quart3(), 6);
 }
+
+// todo: should we include damage from vulgar homunculus + rylok in damage report?
+TEST(ArenaAnalysisTest, NoPlayerDamageOnAnalysis) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::VULGAR_HOMUNCULUS_G,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::VULGAR_HOMUNCULUS,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    int health_before = arena.playerA().total_health();
+    AnalysisReport report = arena.analyze(ITERATIONS);
+    int health_after = arena.playerA().total_health();
+    std::cout << report << std::endl;
+
+    EXPECT_EQ(report.wins(), 0);
+    EXPECT_APPROX_EQ(report.ties(), 0.055 * ITERATIONS, CI);
+    EXPECT_APPROX_EQ(report.losses(), 0.955 * ITERATIONS, CI);
+
+    EXPECT_EQ(report.in_dmg_quart1(), 1);
+    EXPECT_EQ(report.in_dmg_median(), 3);
+    EXPECT_EQ(report.in_dmg_quart3(), 4);
+
+    EXPECT_EQ(report.out_dmg_quart1(), 0);
+    EXPECT_EQ(report.out_dmg_median(), 0);
+    EXPECT_EQ(report.out_dmg_quart3(), 0);
+
+    EXPECT_EQ(health_before - health_after, 0);
+}

@@ -6,17 +6,19 @@
 
 #include "util/Random.h"
 
+Arena::Arena() {
+}
+
 Arena::Arena(const Player& p1, const Player& p2) {
     this->_p1 = p1;
     this->_p2 = p2;
 }
 
 Arena Arena::from_boards(const Board& b1, const Board& b2) {
-    Player p1;
-    Player p2;
-    p1.set_board(b1);
-    p2.set_board(b2);
-    return Arena(p1, p2);
+    Arena arena;
+    arena.playerA().set_board(b1);
+    arena.playerB().set_board(b2);
+    return arena;
 }
 
 BattleStatus Arena::get_battle_status() {
@@ -162,10 +164,10 @@ void Arena::combat(const int turn, const bool debug) {
     }
 }
 
-BattleReport Arena::battle(const bool debug) {
+BattleReport Arena::battle(const bool debug, const bool analysis) {
     // save
-    Board saveA = _p1.board();
-    Board saveB = _p2.board();
+    const Player player_save_a = playerA();
+    const Player player_save_b = playerB();
 
     int turn = _p1.board().size() > _p2.board().size() ? 0 : 1;
     if (_p1.board().size() == _p2.board().size()) {
@@ -202,8 +204,10 @@ BattleReport Arena::battle(const bool debug) {
     const BattleReport report = BattleReport(status, damage);
 
     // restore
-    _p1.board() = std::move(saveA);
-    _p2.board() = std::move(saveB);
+    if (analysis) {
+        _p1 = player_save_a;
+        _p2 = player_save_b;
+    }
 
     return report;
 }
@@ -211,10 +215,18 @@ BattleReport Arena::battle(const bool debug) {
 AnalysisReport Arena::analyze(int iterations) {
     AnalysisReport analysis_report = AnalysisReport();
     for (int i = 0; i < iterations; i++) {
-        const BattleReport battle_report = battle();
+        const BattleReport battle_report = battle(false, true);
         analysis_report.add_battle_report(battle_report);
     }
     return analysis_report;
+}
+
+Player& Arena::playerA() {
+    return _p1;
+}
+
+Player& Arena::playerB() {
+    return _p2;
 }
 
 std::string Arena::to_string() {

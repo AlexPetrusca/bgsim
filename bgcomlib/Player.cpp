@@ -1,9 +1,9 @@
 #include "include/Player.h"
 
 Player::Player() {
-    _board.bind_player(this);
     _health = 30;
     _armor = 10;
+    _board.bind_player(this);
 }
 
 Board& Player::board() {
@@ -12,6 +12,7 @@ Board& Player::board() {
 
 void Player::set_board(const Board& board) {
     _board = board;
+    _board.bind_player(this);
 }
 
 Hand& Player::hand() {
@@ -24,6 +25,19 @@ int Player::health() const {
 
 int Player::armor() const {
     return _armor;
+}
+
+int Player::total_health() {
+    return _health + _armor;
+}
+
+void Player::deal_damage(const int damage) {
+    if (damage < _armor) {
+        _armor -= damage;
+    } else {
+        _health -= damage - _armor;
+        _armor = 0;
+    }
 }
 
 void Player::set_health(const int health) {
