@@ -1294,3 +1294,23 @@ TEST(ArenaBattleTest, KaboomBotChainDivineShield) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, KaboomBotCleave) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000_G
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

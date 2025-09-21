@@ -133,8 +133,6 @@ void Arena::combat(const int turn, const bool debug) {
 
         // resolve deaths
         const bool is_cleave = atk_minion->has(Keyword::CLEAVE);
-        // todo: we should return something else from `reap` & `try_reap`
-        //  - certain effects like "blaster" and "the beast" need to be handled specially by it
         attacker_died = attacking.try_reap_minion(atk_minion);
         if (is_cleave) {
             // todo: trying to reap all is inefficient
