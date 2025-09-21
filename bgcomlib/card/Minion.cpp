@@ -1,4 +1,4 @@
-#include "include/card/Minion.h"
+#include "../include/card/Minion.h"
 
 #include <sstream>
 #include <utility>

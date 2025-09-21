@@ -1,4 +1,4 @@
-#include "include/card/Enchantment.h"
+#include "../include/card/Enchantment.h"
 
 Enchantment::Enchantment() = default;
 

@@ -4,12 +4,12 @@ project(bgcomlib)
 set(CMAKE_CXX_STANDARD 26)
 
 add_library(bgcomlib STATIC
-        Minion.cpp
+        card/Minion.cpp
         Player.cpp
         Board.cpp
         IPrintable.h
-        CardDB.cpp
-        Enchantment.cpp
+        card/CardDb.cpp
+        card/Enchantment.cpp
         include/card/Minion.h
         include/Player.h
         include/Board.h
@@ -25,7 +25,7 @@ add_library(bgcomlib STATIC
         include/Hand.h
         Hand.cpp
         include/util/Random.h
-        Random.cpp
+        util/Random.cpp
 )
 target_include_directories(bgcomlib PUBLIC include)
 
