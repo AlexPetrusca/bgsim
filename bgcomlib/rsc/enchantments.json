@@ -192,6 +192,9 @@
     "dbfId": 18,
     "name": "Coldlight",
     "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
     "health": 2,
     "text": "Give your other Murlocs +2 Health.",
     "type": "ENCHANTMENT"
@@ -200,8 +203,33 @@
     "dbfId": 19,
     "name": "Coldlight",
     "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
     "health": 4,
     "text": "Give your other Murlocs +4 Health.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 20,
+    "name": "Metalteeth",
+    "target": "ALL_OTHER",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 2,
+    "text": "Give your other Mechs +2 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 21,
+    "name": "Metalteeth",
+    "target": "ALL_OTHER",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 4,
+    "text": "Give your other Mechs +4 Attack.",
     "type": "ENCHANTMENT"
   }
 ]

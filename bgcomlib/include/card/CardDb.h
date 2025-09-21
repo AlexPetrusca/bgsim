@@ -92,6 +92,8 @@ public:
         HARVEST_GOLEM_G = 57401,
         KABOOM_BOT = 96766,
         KABOOM_BOT_G = 58369,
+        METALTOOTH_LEAPER = 96767,
+        METALTOOTH_LEAPER_G = 59495,
 
         // tokens
         TABBYCAT_T = 96759,

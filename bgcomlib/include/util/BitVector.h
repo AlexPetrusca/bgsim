@@ -55,6 +55,20 @@ public:
         return bits == 0;
     }
 
+    [[nodiscard]] bool intersects(BitVector v) const {
+        return bits & v.bits;
+    }
+
+    [[nodiscard]] int size() const {
+        int count = 0;
+        int n = bits;
+        while (n > 0) {
+            n &= n - 1;
+            count += 1;
+        }
+        return count;
+    }
+
     class iterator {
         U remaining;
     public:

@@ -687,7 +687,7 @@ TEST(ArenaBattleTest, RaceSpecificEnchantNoProc) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    rng.seed(12345);
+    rng.seed(123456);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -1311,6 +1311,30 @@ TEST(ArenaBattleTest, KaboomBotCleave) {
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MetaltoothLeaper) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::METALTOOTH_LEAPER_G,
+        CardDb::Id::DAMAGED_GOLEM_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::MURLOC_WARLEADER_G,
+        CardDb::Id::MURLOC_WARLEADER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    Minion& houndmaster = *arena.playerB().board().minions().begin();
+    EXPECT_EQ(houndmaster.attack(), 8);
+    EXPECT_EQ(houndmaster.health(), 6);
+
+    BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }

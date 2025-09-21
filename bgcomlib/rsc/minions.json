@@ -2453,5 +2453,63 @@
     "collectionText": "<b>Deathrattle:</b> Deal <b>4</b> damage to a random enemy minion, twice.",
     "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion, twice.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96767,
+    "name": "Metaltooth Leaper",
+    "tier": 2,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          20
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_GVG_048",
+    "goldenDbfId": 59495,
+    "artist": "Hideaki Takamura",
+    "cardClass": "HUNTER",
+    "flavor": "Don't leave them out in the rain. In Un'Goro Crater there is a whole colony of rust-tooth leapers.",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give your other Mechs +2 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59495,
+    "name": "Metaltooth Leaper",
+    "tier": 2,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          21
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_066",
+    "normalDbfId": 96767,
+    "cardClass": "HUNTER",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give your other Mechs +4 Attack.",
+    "type": "MINION"
   }
 ]
