@@ -26,10 +26,10 @@ int Player::armor() const {
     return _armor;
 }
 
-void Player::set_health(int health) {
+void Player::set_health(const int health) {
     _health = health;
 }
 
-void Player::set_armor(int armor) {
+void Player::set_armor(const int armor) {
     _armor = armor;
 }

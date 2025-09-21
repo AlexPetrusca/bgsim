@@ -24,6 +24,8 @@ add_library(bgcomlib STATIC
         include/util/BitVector.h
         include/Hand.h
         Hand.cpp
+        include/util/Random.h
+        Random.cpp
 )
 target_include_directories(bgcomlib PUBLIC include)
 

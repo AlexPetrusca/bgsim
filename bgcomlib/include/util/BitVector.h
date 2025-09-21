@@ -1,7 +1,6 @@
 #ifndef BITVECTOR_H
 #define BITVECTOR_H
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 

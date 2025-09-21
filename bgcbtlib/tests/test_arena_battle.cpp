@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "card/CardDb.h"
 #include "card/Minion.h"
+#include "util/Random.h"
 
 TEST(ArenaBattleTest, SimpleOneSided) {
     Minion minionA1 = Minion("A1", 1, 2, 1);
@@ -14,8 +15,8 @@ TEST(ArenaBattleTest, SimpleOneSided) {
     Minion minionB1 = Minion("B1", 1, 2, 2);
     Board boardB = Board({minionB1});
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -31,8 +32,8 @@ TEST(ArenaBattleTest, SimpleFiftyFifty) {
     Minion minionB2 = Minion("B2", 1, 1, 1);
     Board boardB = Board({minionB1, minionB2});
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -52,8 +53,8 @@ TEST(ArenaBattleTest, LongBattle) {
         boardB.summon_minion(minion);
     }
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -71,8 +72,8 @@ TEST(ArenaBattleTest, Deathrattle) {
         CardDb::Id::HOUNDMASTER
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -95,8 +96,8 @@ TEST(ArenaBattleTest, DeathrattleOverflow) {
         boardB.summon_minion(minion);
     }
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -118,8 +119,8 @@ TEST(ArenaBattleTest, DivineShieldTaunt) {
         CardDb::Id::PSYCH_O_TRON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -140,8 +141,8 @@ TEST(ArenaBattleTest, DivineShieldReborn) {
         CardDb::Id::PSYCH_O_TRON
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -160,8 +161,8 @@ TEST(ArenaBattleTest, TauntDeathrattle) {
         CardDb::Id::COLOSSUS_OF_THE_SUN,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -179,8 +180,8 @@ TEST(ArenaBattleTest, OnDamageSummon) {
         CardDb::Id::IMP_GANG_BOSS,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -198,8 +199,8 @@ TEST(ArenaBattleTest, OnDamageSummonTaunt) {
         CardDb::Id::SECURITY_ROVER,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -215,8 +216,8 @@ TEST(ArenaBattleTest, WindfuryDivineShield) {
         CardDb::Id::SECURITY_ROVER,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -233,8 +234,8 @@ TEST(ArenaBattleTest, CleaveTaunt) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -254,8 +255,8 @@ TEST(ArenaBattleTest, CleaveResolveActiveMinion1) {
         CardDb::Id::HOUNDMASTER,
     });
 
-    std::mt19937 rng(123456);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
@@ -276,8 +277,8 @@ TEST(ArenaBattleTest, CleaveResolveActiveMinion2) {
         CardDb::Id::VOIDLORD,
     });
 
-    std::mt19937 rng(123456);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -301,8 +302,8 @@ TEST(ArenaBattleTest, CleaveOverflow) {
         CardDb::Id::VOIDLORD,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 6);
@@ -323,8 +324,8 @@ TEST(ArenaBattleTest, Poisonous) {
         CardDb::Id::FOE_REAPER_4000_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -343,8 +344,8 @@ TEST(ArenaBattleTest, Venomous) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -362,8 +363,8 @@ TEST(ArenaBattleTest, VenomousLostOnAttack) {
         CardDb::Id::SECURITY_ROVER_G
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -382,8 +383,8 @@ TEST(ArenaBattleTest, VenomousLostOnDefend) {
         CardDb::Id::ALLEYCAT,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -402,8 +403,8 @@ TEST(ArenaBattleTest, CleaveDoesntProcPoison) {
         CardDb::Id::DEADLY_SPORE,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
@@ -422,8 +423,8 @@ TEST(ArenaBattleTest, DivineShieldPoison) {
         CardDb::Id::DEADLY_SPORE,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -440,8 +441,8 @@ TEST(ArenaBattleTest, SelflessHero) {
         CardDb::Id::HYENA_T_G
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -459,8 +460,8 @@ TEST(ArenaBattleTest, SelflessHeroNoValidTarget) {
         CardDb::Id::GUARD_BOT_T
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -478,8 +479,8 @@ TEST(ArenaBattleTest, SpawnOfNzoth) {
         CardDb::Id::SEWER_RAT,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -502,8 +503,8 @@ TEST(ArenaBattleTest, SpawnOfNzothGolden) {
         CardDb::Id::SEWER_RAT_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -520,8 +521,8 @@ TEST(ArenaBattleTest, FiendishServant) {
         CardDb::Id::PSYCH_O_TRON
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -538,8 +539,8 @@ TEST(ArenaBattleTest, ImpulsiveTrickster) {
         CardDb::Id::PSYCH_O_TRON
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -561,8 +562,8 @@ TEST(ArenaBattleTest, ImpulsiveTricksterChain) {
         CardDb::Id::FOE_REAPER_4000
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -580,15 +581,13 @@ TEST(ArenaBattleTest, GoldenImpulsiveTricksterChain) {
 
     Board boardB = Board::from_ids({
         CardDb::Id::FOE_REAPER_4000_G,
-        CardDb::Id::FOE_REAPER_4000,
-        CardDb::Id::FOE_REAPER_4000,
-        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::FOE_REAPER_4000_G,
         CardDb::Id::FOE_REAPER_4000,
         CardDb::Id::FOE_REAPER_4000,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -608,8 +607,8 @@ TEST(ArenaBattleTest, RylakMetalheadProced) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -630,8 +629,8 @@ TEST(ArenaBattleTest, RylakMetalheadNotProced) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -650,8 +649,8 @@ TEST(ArenaBattleTest, GoldenRylakMetalhead) {
         CardDb::Id::SATED_THRESHADON_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -669,8 +668,8 @@ TEST(ArenaBattleTest, RaceSpecificEnchantProc) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -688,8 +687,8 @@ TEST(ArenaBattleTest, RaceSpecificEnchantNoProc) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -707,8 +706,8 @@ TEST(ArenaBattleTest, RaceSpecificEnchantProcSameProps) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -725,8 +724,8 @@ TEST(ArenaBattleTest, ScavengingHyenaProc) {
         CardDb::Id::HOUNDMASTER_G
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -743,8 +742,8 @@ TEST(ArenaBattleTest, ScavengingHyenaNoProc) {
         CardDb::Id::HOUNDMASTER_G
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -766,8 +765,8 @@ TEST(ArenaBattleTest, ScavengingHyenaMultiple) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -785,8 +784,8 @@ TEST(ArenaBattleTest, DireWolfAlphaLives) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(123456);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -804,8 +803,8 @@ TEST(ArenaBattleTest, DireWolfAlphaDies) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -828,8 +827,8 @@ TEST(ArenaBattleTest, DireWolfAlphaWithSummons) {
         CardDb::Id::HOUNDMASTER,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -848,8 +847,8 @@ TEST(ArenaBattleTest, MurlocWarleader) {
         CardDb::Id::SAVANNAH_HIGHMANE,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -868,8 +867,8 @@ TEST(ArenaBattleTest, Imprisoner) {
         CardDb::Id::HARMLESS_BONEHEAD,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -887,8 +886,8 @@ TEST(ArenaBattleTest, Mecharoo) {
         CardDb::Id::HARMLESS_BONEHEAD,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -906,8 +905,8 @@ TEST(ArenaBattleTest, MicroMachine) {
         CardDb::Id::HARMLESS_BONEHEAD,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -925,8 +924,8 @@ TEST(ArenaBattleTest, MicroMachineProc) {
         CardDb::Id::HOUNDMASTER_G
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -944,8 +943,8 @@ TEST(ArenaBattleTest, MurlocTidecallerNoProc) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -963,8 +962,8 @@ TEST(ArenaBattleTest, MurlocTidecallerProc) {
         CardDb::Id::HOUNDMASTER_G,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -983,8 +982,8 @@ TEST(ArenaBattleTest, MurlocTidehunter) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -1002,8 +1001,8 @@ TEST(ArenaBattleTest, RighteousProtector) {
         CardDb::Id::HYENA_T,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
@@ -1021,8 +1020,8 @@ TEST(ArenaBattleTest, RockpoolHunterProcOnSelf) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
@@ -1040,8 +1039,8 @@ TEST(ArenaBattleTest, RockpoolHunterProcOnOther) {
         CardDb::Id::SATED_THRESHADON,
     });
 
-    std::mt19937 rng(12345);
-    Arena arena = Arena::from_boards(boardA, boardB, rng);
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);

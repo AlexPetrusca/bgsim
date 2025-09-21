@@ -3,7 +3,9 @@
 #include <random>
 #include <sstream>
 
+#include "Player.h"
 #include "card/CardDb.h"
+#include "util/Random.h"
 
 Board::Board(const std::vector<Minion>& minions) {
     if (minions.size() > 7) {
@@ -32,11 +34,10 @@ std::list<Minion>& Board::minions() {
 
 MinionLoc Board::get_random_minion_loc() {
     MinionLoc random_loc;
-    std::uniform_real_distribution<> dist(0, 1);
     double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
-        if (dist(_rng) < 1 / count) {
+        if (rng.rand_percent() < 1 / count) {
             random_loc = m;
         }
         count++;
@@ -46,12 +47,11 @@ MinionLoc Board::get_random_minion_loc() {
 
 MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
     auto random_loc = minions().end();
-    std::uniform_real_distribution<> dist(0, 1);
     double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
         if (m->props() & exclude) continue;
-        if (dist(_rng) < 1 / count) {
+        if (rng.rand_percent() < 1 / count) {
             random_loc = m;
         }
         count++;
@@ -62,12 +62,11 @@ MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
 
 MinionLoc Board::get_random_minion_loc_by_race(const Race race) {
     auto random_loc = minions().end();
-    std::uniform_real_distribution<> dist(0, 1);
     double count = 0;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
         if (!m->races().has(race)) continue;
-        if (dist(_rng) < 1 / count) {
+        if (rng.rand_percent() < 1 / count) {
             random_loc = m;
         }
         count++;
@@ -306,8 +305,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             const bool is_battlecry_left = is_minion(l) && l->has(Keyword::BATTLECRY);
             const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
             if (is_battlecry_left && is_battlecry_right) {
-                std::uniform_int_distribution coin_flip(0, 1);
-                if (coin_flip(_rng)) {
+                if (rng.coin_flip()) {
                     exec_effect(l->get_effect(Keyword::BATTLECRY), l);
                 } else {
                     exec_effect(r->get_effect(Keyword::BATTLECRY), r);
@@ -519,10 +517,6 @@ bool Board::empty(const bool include_zombies) const {
 
 bool Board::full(const bool include_zombies) const {
     return size(include_zombies) >= 7;
-}
-
-void Board::set_rng(const std::mt19937& rng) {
-    _rng = rng;
 }
 
 int Board::taunt_count() const {

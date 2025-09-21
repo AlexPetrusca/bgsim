@@ -94,8 +94,6 @@ public:
 
     [[nodiscard]] bool full(bool include_zombies = false) const;
 
-    void set_rng(const std::mt19937& rng);
-
     [[nodiscard]] int taunt_count() const;
 
     [[nodiscard]] int zombie_count() const;
@@ -110,7 +108,6 @@ private:
     std::unordered_map<Keyword, MinionLocSet> _triggers;
     int _taunt_count{};
     int _zombie_count{};
-    std::mt19937 _rng;
     Player* _player;
 };
 
