@@ -47,3 +47,15 @@ void Player::set_health(const int health) {
 void Player::set_armor(const int armor) {
     _armor = armor;
 }
+
+Player* Player::opponent() {
+    return _opponenet;
+}
+
+void Player::bind_opponent(Player* opponenet) {
+    _opponenet = opponenet;
+}
+
+void Player::unbind_opponent() {
+    _opponenet = nullptr;
+}

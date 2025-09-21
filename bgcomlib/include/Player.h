@@ -26,11 +26,19 @@ public:
 
     void set_armor(int armor);
 
+    Player* opponent();
+
+    void bind_opponent(Player* opponenet);
+
+    void unbind_opponent();
+
 private:
     Board _board;
     Hand _hand;
     int _health{};
     int _armor{};
+
+    Player* _opponenet;
 };
 
 #endif //PLAYER_H

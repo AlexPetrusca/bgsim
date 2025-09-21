@@ -2394,5 +2394,64 @@
     "normalDbfId": 96764,
     "cardClass": "NEUTRAL",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96766,
+    "name": "Kaboom Bot",
+    "tier": 2,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "DEAL_DAMAGE_OTHER",
+        "args": [
+          4
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_BOT_606",
+    "goldenDbfId": 58369,
+    "artist": "Tyler West Studio",
+    "cardClass": "PALADIN",
+    "collectionText": "<b>Deathrattle:</b> Deal <b>4</b> damage to a random enemy minion.",
+    "flavor": "More Boom for your buck.",
+    "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58369,
+    "name": "Kaboom Bot",
+    "tier": 2,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "DEAL_DAMAGE_OTHER",
+        "args": [
+          4,
+          4
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_028",
+    "normalDbfId": 96766,
+    "cardClass": "PALADIN",
+    "collectionText": "<b>Deathrattle:</b> Deal <b>4</b> damage to a random enemy minion, twice.",
+    "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion, twice.",
+    "type": "MINION"
   }
 ]

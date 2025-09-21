@@ -34,7 +34,7 @@ std::list<Minion>& Board::minions() {
 }
 
 MinionLoc Board::get_random_minion_loc() {
-    MinionLoc random_loc;
+    MinionLoc random_loc = minions().end();
     double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
@@ -255,7 +255,7 @@ void Board::reap_minion(const MinionLoc loc) {
     _zombie_count--;
 }
 
-int Board::damage_minion(const MinionLoc loc, const int damage, const bool poisoned) {
+int Board::damage_minion(const MinionLoc loc, const int damage, const bool poisoned, const bool reap) {
     Minion& minion = *loc;
     if (minion.has(Keyword::DIVINE_SHIELD)) {
         minion.clear(Keyword::DIVINE_SHIELD);
@@ -271,6 +271,9 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
                 minion.set_poisoned(true);
             }
             _zombie_count++;
+        }
+        if (reap) {
+            try_reap_minion(loc);
         }
         return damage_dealt;
     }
@@ -339,7 +342,13 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             break;
         }
         case Effect::Type::DEAL_DAMAGE_OTHER: {
-            // todo
+            Board& opp_board = _player->opponent()->board();
+            for (const int damage : effect.args()) {
+                const MinionLoc opp_loc = opp_board.get_random_minion_loc();
+                if (opp_loc != opp_board.minions().end()) {
+                    opp_board.damage_minion(opp_loc, damage, false, true);
+                }
+            }
             break;
         }
         // todo: maybe replace this with some generalized "composite" effect

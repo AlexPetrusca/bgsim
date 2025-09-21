@@ -1191,3 +1191,106 @@ TEST(ArenaBattleTest, HarvestGolem) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, KaboomBot) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KaboomBotGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KaboomBotChain) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KaboomBotChainLong) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KaboomBotChainDivineShield) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::KABOOM_BOT_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::KABOOM_BOT,
+        CardDb::Id::PSYCH_O_TRON
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

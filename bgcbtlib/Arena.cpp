@@ -1,7 +1,6 @@
 #include "include/Arena.h"
 
 #include <iostream>
-#include <random>
 #include <sstream>
 
 #include "util/Random.h"
@@ -165,6 +164,10 @@ void Arena::combat(const int turn, const bool debug) {
 }
 
 BattleReport Arena::battle(const bool debug, const bool analysis) {
+    // bind opponent
+    _p1.bind_opponent(&_p2);
+    _p2.bind_opponent(&_p1);
+
     // save
     const Player player_save_a = playerA();
     const Player player_save_b = playerB();
@@ -208,6 +211,10 @@ BattleReport Arena::battle(const bool debug, const bool analysis) {
         _p1 = player_save_a;
         _p2 = player_save_b;
     }
+
+    // unbind opponent
+    _p1.unbind_opponent();
+    _p2.unbind_opponent();
 
     return report;
 }

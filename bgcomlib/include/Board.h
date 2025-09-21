@@ -52,7 +52,7 @@ public:
 
     void reap_minion(MinionLoc loc);
 
-    int damage_minion(MinionLoc loc, int damage, bool poisoned = false);
+    int damage_minion(MinionLoc loc, int damage, bool poisoned = false, bool reap = false);
 
     bool try_reap_minion(MinionLoc loc);
 
@@ -110,6 +110,7 @@ private:
     std::unordered_map<Keyword, MinionLocSet> _triggers;
     int _taunt_count{};
     int _zombie_count{};
+
     Player* _player;
 };
 

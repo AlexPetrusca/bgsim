@@ -90,6 +90,8 @@ public:
         COLDLIGHT_SEER_G = 59491,
         HARVEST_GOLEM = 96763,
         HARVEST_GOLEM_G = 57401,
+        KABOOM_BOT = 96766,
+        KABOOM_BOT_G = 58369,
 
         // tokens
         TABBYCAT_T = 96759,
