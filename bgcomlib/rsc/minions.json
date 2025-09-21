@@ -2308,5 +2308,91 @@
     "cardClass": "SHAMAN",
     "text": "<b>Battlecry:</b> Give your other Murlocs +4 Health.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96763,
+    "name": "Harvest Golem",
+    "tier": 2,
+    "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96764
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_EX1_556",
+    "goldenDbfId": 57401,
+    "artist": "Brian Despain",
+    "cardClass": "NEUTRAL",
+    "flavor": "\"Overheat threshold exceeded. System failure. Wheat clog in port two. Shutting down.\"",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a 2/1 Damaged Golem.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57401,
+    "name": "Harvest Golem",
+    "tier": 2,
+    "attack": 4,
+    "health": 6,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          57408
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_006",
+    "normalDbfId": 96763,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a 4/2 Damaged Golem.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96764,
+    "name": "Damaged Golem",
+    "tier": 1,
+    "attack": 2,
+    "health": 1,
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_EX1_556t",
+    "goldenDbfId": 57408,
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57408,
+    "name": "Damaged Golem",
+    "tier": 1,
+    "attack": 4,
+    "health": 2,
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_006t",
+    "normalDbfId": 96764,
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
   }
 ]

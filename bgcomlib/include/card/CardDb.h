@@ -88,6 +88,8 @@ public:
         WRATH_WEAVER_G = 59679,
         COLDLIGHT_SEER = 96773,
         COLDLIGHT_SEER_G = 59491,
+        HARVEST_GOLEM = 96763,
+        HARVEST_GOLEM_G = 57401,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -110,6 +112,8 @@ public:
         JO_E_BOT_T_G = 57337,
         MURLOC_SCOUT_T = 1078,
         MURLOC_SCOUT_T_G = 57339,
+        DAMAGED_GOLEM_T = 96764,
+        DAMAGED_GOLEM_T_G = 57408,
 
         // enchantments
         // todo: should these be here
