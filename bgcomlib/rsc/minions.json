@@ -208,8 +208,8 @@
     "races": [
       "BEAST"
     ],
-    "normalDbfId": 70791,
     "id": "BG19_010_Gt",
+    "normalDbfId": 70791,
     "cardClass": "NEUTRAL",
     "text": "<b>Taunt</b>",
     "type": "MINION"
@@ -270,7 +270,7 @@
   {
     "dbfId": 115949,
     "name": "Imp Gang Boss",
-    "tier": 2,
+    "tier": 3,
     "attack": 2,
     "health": 4,
     "mechanics": [
@@ -300,7 +300,7 @@
   {
     "dbfId": 58372,
     "name": "Imp Gang Boss",
-    "tier": 2,
+    "tier": 3,
     "attack": 4,
     "health": 8,
     "mechanics": [
@@ -1342,7 +1342,7 @@
   {
     "dbfId": 108851,
     "name": "Kindly Grandmother",
-    "tier": 1,
+    "tier": 2,
     "attack": 1,
     "health": 1,
     "mechanics": [
@@ -1372,7 +1372,7 @@
   {
     "dbfId": 57340,
     "name": "Kindly Grandmother",
-    "tier": 1,
+    "tier": 2,
     "attack": 2,
     "health": 2,
     "mechanics": [

@@ -26,6 +26,8 @@ add_library(bgcomlib STATIC
         Hand.cpp
         include/util/Random.h
         util/Random.cpp
+        Pool.cpp
+        include/Pool.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 

@@ -114,8 +114,8 @@ private:
     bool _is_zombie{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?
 
-    Minion* _left; // adjacency buff only
-    Minion* _right; // adjacency buff only
+    Minion* _left{}; // adjacency buff only
+    Minion* _right{}; // adjacency buff only
 };
 
 #endif //CARD_H

@@ -129,11 +129,15 @@ public:
 
     [[nodiscard]] Minion get_minion(Id id) const;
 
+    [[nodiscard]] std::unordered_map<int, Minion> minions() const;
+
+    [[nodiscard]] std::unordered_map<int, Enchantment> enchantments() const;
+
     [[nodiscard]] const Enchantment& get_enchantment(int id) const;
 
 private:
-    std::unordered_map<int, Minion> minions;
-    std::unordered_map<int, Enchantment> enchantments;
+    std::unordered_map<int, Minion> _minions;
+    std::unordered_map<int, Enchantment> _enchantments;
 };
 
 extern CardDb db;

@@ -1,6 +1,7 @@
 add_executable(bgcomlib_tests test_board.cpp
         test_minion.cpp
-        test_carddb.cpp)
+        test_carddb.cpp
+        test_pool.cpp)
 
 target_link_libraries(bgcomlib_tests
         PRIVATE

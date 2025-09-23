@@ -31,9 +31,6 @@ Minion::Minion(const json& json) {
     _id = json["dbfId"];
     _is_golden = json.contains("normalDbfId");
     _alt_id = (_is_golden) ? json["normalDbfId"] : json["goldenDbfId"];
-
-    _left = nullptr;
-    _right = nullptr;
 }
 
 Minion::Minion(std::string name, const int tier, const int attack, const int health) {
@@ -41,9 +38,6 @@ Minion::Minion(std::string name, const int tier, const int attack, const int hea
     this->_tier = tier;
     this->_attack = attack;
     this->_health = health;
-
-    _left = nullptr;
-    _right = nullptr;
 }
 
 std::string Minion::name() const {
