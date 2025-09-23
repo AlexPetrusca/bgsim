@@ -1,6 +1,7 @@
 #include "../include/util/Random.h"
 
 Random::Random() {
+    _rng.seed(std::random_device()());
 }
 
 int Random::rand_int(const int min, const int max) {

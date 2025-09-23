@@ -5,8 +5,7 @@
 
 #include "util/Random.h"
 
-Arena::Arena() {
-}
+Arena::Arena() = default;
 
 Arena::Arena(const Player& p1, const Player& p2) {
     this->_p1 = p1;
