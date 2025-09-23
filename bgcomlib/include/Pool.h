@@ -9,10 +9,20 @@ class Pool {
 public:
     Pool();
 
+    [[nodiscard]] CardDb::Id get_random_minionid_by_tier(int tier) const;
+
     [[nodiscard]] const std::unordered_map<CardDb::Id, int>& get_tier(int tier) const;
+
+    [[nodiscard]] int total_count() const;
+
+    [[nodiscard]] int tier_count(int tier) const;
+
+    [[nodiscard]] const std::vector<int>& tier_counts() const;
 
 private:
     std::unordered_map<int, std::unordered_map<CardDb::Id, int>> _pool; // tier -> id -> count
+    int _total_count{};
+    std::vector<int> _tier_counts;
 
     inline static std::vector<CardDb::Id> _tier1 {
         CardDb::Id::ALLEYCAT,
@@ -128,7 +138,7 @@ private:
         _tier1, _tier2, _tier3, _tier4, _tier5, _tier6, _tier7,
     };
 
-    inline static std::vector<int> _counts {
+    inline static std::vector<int> _copies_by_tier {
         15, 15, 13, 11, 9, 7, 5,
     };
 };
