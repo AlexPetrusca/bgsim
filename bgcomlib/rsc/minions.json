@@ -2626,5 +2626,49 @@
     "cardClass": "WARLOCK",
     "text": "<b>Battlecry:</b> Give a friendly Demon +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 736,
+    "name": "Old Murk-Eye",
+    "tier": 2,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_062",
+    "goldenDbfId": 58382,
+    "artist": "Dan Scott",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "He's a legend among murlocs.  \"Mrghllghghllghg!\", they say.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58382,
+    "name": "Old Murk-Eye",
+    "tier": 2,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "EX1_062",
+    "goldenDbfId": 736,
+    "artist": "Dan Scott",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "He's a legend among murlocs.  \"Mrghllghghllghg!\", they say.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Charge</b>. Has +2 Attack for each other Murloc on the battlefield.",
+    "type": "MINION"
   }
 ]

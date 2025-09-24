@@ -98,6 +98,8 @@ public:
         MOUNTED_RAPTOR_G = 86541,
         NATHREZIM_OVERSEER = 59186,
         NATHREZIM_OVERSEER_G = 59487,
+        OLD_MURK_EYE = 736,
+        OLD_MURK_EYE_G = 58382,
 
         // tokens
         TABBYCAT_T = 96759,

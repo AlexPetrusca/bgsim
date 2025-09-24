@@ -108,6 +108,21 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
         apply_aura(spawn_loc);
         register_trigger(Keyword::ON_ADD, spawn_loc);
     }
+    if (minion.has(Keyword::SPECIAL)) {
+        switch (static_cast<CardDb::Id>(minion.id())) {
+            case CardDb::Id::OLD_MURK_EYE: {
+                const int buff = minion.is_golden() ? 2 : 1;
+                for (auto m = minions().begin(); m != minions().end(); ++m) {
+                    if (m != spawn_loc && m->is(Race::MURLOC)) {
+                        spawn_loc->delta_attack(buff);
+                    }
+                }
+                register_trigger(Keyword::ON_ADD, spawn_loc);
+                register_trigger(Keyword::ON_DEATH_OTHER, spawn_loc);
+            }
+            default: break;
+        }
+    }
     for (const auto& keyword: minion.effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             register_trigger(keyword, spawn_loc);
@@ -519,7 +534,20 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
     if (!_triggers.contains(trigger)) return;
 
     for (const MinionLoc listener : _triggers.at(trigger)) { // todo: remove array indexing (inefficient)
-        if (listener->has(Keyword::ADJACENT_AURA)) {
+        if (listener->has(Keyword::SPECIAL)) {
+            switch (static_cast<CardDb::Id>(listener->id())) {
+                case CardDb::Id::OLD_MURK_EYE: {
+                    if (source->is(Race::MURLOC)) {
+                        int buff = listener->is_golden() ? 2 : 1;
+                        if (trigger == Keyword::ON_DEATH_OTHER) {
+                            buff = -buff;
+                        }
+                        listener->delta_attack(buff);
+                    }
+                }
+                default: break;
+            }
+        } else if (listener->has(Keyword::ADJACENT_AURA)) {
             if (trigger == Keyword::ON_PRE_COMBAT) {
                 apply_adjacent_aura(listener);
             } else if (trigger == Keyword::ON_POST_COMBAT) {

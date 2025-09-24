@@ -27,7 +27,7 @@ enum class Keyword: uint64_t {
     IMMUNE = 1ull << 15,
     AURA = 1ull << 16,
     ADJACENT_AURA = 1ull << 17,
-    ZAPP_SLYWICK = 1ull << 18,
+    SPECIAL = 1ull << 18,
 
     // Triggers
     ON_TURN_START = 1ull << 19,
@@ -66,7 +66,7 @@ namespace KeywordUtil {
         {"IMMUNE", Keyword::IMMUNE},
         {"AURA", Keyword::AURA},
         {"ADJACENT_AURA", Keyword::ADJACENT_AURA},
-        {"ZAPP_SLYWICK", Keyword::ZAPP_SLYWICK},
+        {"SPECIAL", Keyword::SPECIAL},
 
         {"ON_TURN_START", Keyword::ON_TURN_START},
         {"ON_TURN_END", Keyword::ON_TURN_END},
