@@ -96,6 +96,8 @@ public:
         METALTOOTH_LEAPER_G = 59495,
         MOUNTED_RAPTOR = 2922,
         MOUNTED_RAPTOR_G = 86541,
+        NATHREZIM_OVERSEER = 59186,
+        NATHREZIM_OVERSEER_G = 59487,
 
         // tokens
         TABBYCAT_T = 96759,

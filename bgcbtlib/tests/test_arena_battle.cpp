@@ -1361,3 +1361,48 @@ TEST(ArenaBattleTest, MountedRaptor) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, NathrezimOverseerNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, NathrezimOverseerProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::IMP_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

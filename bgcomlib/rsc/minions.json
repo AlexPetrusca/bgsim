@@ -2572,5 +2572,59 @@
     "rarity": "COMMON",
     "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59186,
+    "name": "Nathrezim Overseer",
+    "tier": 2,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          22
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BGS_001",
+    "goldenDbfId": 59487,
+    "cardClass": "WARLOCK",
+    "text": "<b>Battlecry:</b> Give a friendly Demon +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59487,
+    "name": "Nathrezim Overseer",
+    "tier": 2,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          23
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_062",
+    "normalDbfId": 59186,
+    "cardClass": "WARLOCK",
+    "text": "<b>Battlecry:</b> Give a friendly Demon +4/+4.",
+    "type": "MINION"
   }
 ]

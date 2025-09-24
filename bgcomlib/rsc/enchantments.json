@@ -231,5 +231,29 @@
     "attack": 4,
     "text": "Give your other Mechs +4 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 22,
+    "name": "Nathrezim Oversight",
+    "target": "SINGLE",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a friendly Demon +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 23,
+    "name": "Nathrezim Oversight",
+    "target": "SINGLE",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give a friendly Demon +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

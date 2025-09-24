@@ -62,7 +62,7 @@ private:
         CardDb::Id::METALTOOTH_LEAPER,
         CardDb::Id::MOUNTED_RAPTOR,
         CardDb::Id::MURLOC_WARLEADER,
-        // CardDb::Id::NATHREZIM_OVERSEER,
+        CardDb::Id::NATHREZIM_OVERSEER,
         // CardDb::Id::OLD_MURK_EYE,
         // CardDb::Id::PACK_LEADER,
         // CardDb::Id::POGO_HOPPER,
