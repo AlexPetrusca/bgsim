@@ -2662,7 +2662,7 @@
       "MURLOC"
     ],
     "id": "EX1_062",
-    "goldenDbfId": 736,
+    "normalDbfId": 736,
     "artist": "Dan Scott",
     "cardClass": "NEUTRAL",
     "elite": true,
@@ -2719,6 +2719,64 @@
     "normalDbfId": 59940,
     "cardClass": "NEUTRAL",
     "text": "Whenever you summon a Beast, give it +4 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60122,
+    "name": "Pogo-Hopper",
+    "tier": 2,
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "BATTLECRY",
+      "SPECIAL"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          26
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "BGS_028",
+    "goldenDbfId": 59664,
+    "cardClass": "PALADIN",
+    "text": "[x]<b>Battlecry:</b> Gain +2/+2 for\neach other Pogo-Hopper\nyou played this game.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59664,
+    "name": "Pogo-Hopper",
+    "tier": 2,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY",
+      "SPECIAL"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          27
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_077",
+    "normalDbfId": 60122,
+    "cardClass": "PALADIN",
+    "text": "[x]<b>Battlecry:</b> Gain +4/+4 for\neach other Pogo-Hopper\nyou played this game.",
     "type": "MINION"
   }
 ]

@@ -48,6 +48,14 @@ void Player::set_armor(const int armor) {
     _armor = armor;
 }
 
+void Player::increment_pogo_counter() {
+    _pogo_counter++;
+}
+
+int Player::pogo_counter() {
+    return _pogo_counter;
+}
+
 Player* Player::opponent() {
     return _opponenet;
 }

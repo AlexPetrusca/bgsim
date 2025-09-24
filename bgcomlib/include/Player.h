@@ -27,6 +27,10 @@ public:
 
     void set_armor(int armor);
 
+    void increment_pogo_counter();
+
+    int pogo_counter();
+
     Player* opponent();
 
     Pool* pool();
@@ -45,6 +49,7 @@ private:
 
     Player* _opponenet{};
     Pool* _pool{};
+    int _pogo_counter{};
 };
 
 #endif //PLAYER_H

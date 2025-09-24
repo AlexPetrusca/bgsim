@@ -65,7 +65,7 @@ private:
         CardDb::Id::NATHREZIM_OVERSEER,
         CardDb::Id::OLD_MURK_EYE,
         CardDb::Id::PACK_LEADER,
-        // CardDb::Id::POGO_HOPPER,
+        CardDb::Id::POGO_HOPPER,
         CardDb::Id::SELFLESS_HERO,
         CardDb::Id::SPAWN_OF_NZOTH,
         // CardDb::Id::ZOOBOT,

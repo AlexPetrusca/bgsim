@@ -98,10 +98,12 @@ public:
         MOUNTED_RAPTOR_G = 86541,
         NATHREZIM_OVERSEER = 59186,
         NATHREZIM_OVERSEER_G = 59487,
-        OLD_MURK_EYE = 736,
-        OLD_MURK_EYE_G = 58382,
+        OLD_MURK_EYE = 736, // todo: can we make this implementation more general?
+        OLD_MURK_EYE_G = 58382, // todo: can we make this implementation more general?
         PACK_LEADER = 59940,
         PACK_LEADER_G = 59969,
+        POGO_HOPPER = 60122,
+        POGO_HOPPER_G = 59664,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -131,6 +133,8 @@ public:
         // todo: should these be here
         GIVE_ATTACK_E = 5,
         GIVE_HEALTH_E = 6,
+        POGO_HOP_E = 26,
+        POGO_HOP_G_E = 27,
     };
 
     [[nodiscard]] Minion get_minion(int id) const;

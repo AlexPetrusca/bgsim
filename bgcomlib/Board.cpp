@@ -110,7 +110,8 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     }
     if (minion.has(Keyword::SPECIAL)) {
         switch (static_cast<CardDb::Id>(minion.id())) {
-            case CardDb::Id::OLD_MURK_EYE: {
+            case CardDb::Id::OLD_MURK_EYE:
+            case CardDb::Id::OLD_MURK_EYE_G: {
                 const int buff = minion.is_golden() ? 2 : 1;
                 for (auto m = minions().begin(); m != minions().end(); ++m) {
                     if (m != spawn_loc && m->is(Race::MURLOC)) {
@@ -119,6 +120,12 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
                 }
                 register_trigger(Keyword::ON_ADD, spawn_loc);
                 register_trigger(Keyword::ON_DEATH_OTHER, spawn_loc);
+                break;
+            }
+            case CardDb::Id::POGO_HOPPER:
+            case CardDb::Id::POGO_HOPPER_G: {
+                _player->increment_pogo_counter();
+                break;
             }
             default: break;
         }
@@ -131,14 +138,25 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     return spawn_loc;
 }
 
-void Board::summon_minion(const Minion& minion, const bool post_death) {
-    summon_minion(minion, _minions.end(), post_death);
+MinionLoc Board::play_minion(const Minion& minion) {
+    return play_minion(minion, _minions.end());
 }
 
-void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
-    if (full(!post_death)) return;
+MinionLoc Board::play_minion(const Minion& minion, const MinionLoc loc) {
+    const MinionLoc spawn_loc = summon_minion(minion, loc);
+    exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
+    return spawn_loc;
+}
+
+MinionLoc Board::summon_minion(const Minion& minion, const bool post_death) {
+    return summon_minion(minion, _minions.end(), post_death);
+}
+
+MinionLoc Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
+    if (full(!post_death)) return minions().end();
     const MinionLoc spawn_loc = add_minion(minion, loc);
     proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
+    return spawn_loc;
 }
 
 void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, Minion* target) {
@@ -150,6 +168,12 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
         }
         case CardDb::Id::GIVE_HEALTH_E: {
             enchantment.set_health(source->max_health());
+            break;
+        }
+        case CardDb::Id::POGO_HOP_E:
+        case CardDb::Id::POGO_HOP_G_E: {
+            enchantment.set_attack((_player->pogo_counter() - 1) * enchantment.attack());
+            enchantment.set_health((_player->pogo_counter() - 1) * enchantment.health());
             break;
         }
         default: {
@@ -543,7 +567,8 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
     for (const MinionLoc listener : _triggers.at(trigger)) { // todo: remove array indexing (inefficient)
         if (listener->has(Keyword::SPECIAL)) {
             switch (static_cast<CardDb::Id>(listener->id())) {
-                case CardDb::Id::OLD_MURK_EYE: {
+                case CardDb::Id::OLD_MURK_EYE:
+                case CardDb::Id::OLD_MURK_EYE_G: {
                     if (source->is(Race::MURLOC)) {
                         int buff = listener->is_golden() ? 2 : 1;
                         if (trigger == Keyword::ON_DEATH_OTHER) {

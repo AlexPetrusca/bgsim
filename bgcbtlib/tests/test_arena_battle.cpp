@@ -1445,6 +1445,24 @@ TEST(ArenaBattleTest, OldMurkEyeBuffed) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, OldMurkEyeGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::OLD_MURK_EYE_G,
+        CardDb::Id::PRIMALFIN_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 1);
+}
+
 TEST(ArenaBattleTest, PackLeaderNoProc) {
     Board boardA = Board::from_ids({
         CardDb::Id::HARMLESS_BONEHEAD,
@@ -1495,6 +1513,46 @@ TEST(ArenaBattleTest, PackLeaderProcOnSummon) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PogoHopperNoProc) {
+    Board boardA = Board();
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().board().add_minion(db.get_minion(CardDb::Id::POGO_HOPPER));
+    arena.playerA().board().add_minion(db.get_minion(CardDb::Id::POGO_HOPPER_G));
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PogoHopperProcOnBattlecry) {
+    Board boardA = Board();
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::POGO_HOPPER)); // 1/1
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::POGO_HOPPER)); // 3/3
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::POGO_HOPPER_G)); // 10/10
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);

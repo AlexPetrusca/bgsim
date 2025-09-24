@@ -36,9 +36,13 @@ public:
 
     MinionLoc add_minion(const Minion& minion, MinionLoc loc);
 
-    void summon_minion(const Minion& minion, bool post_death = false);
+    MinionLoc play_minion(const Minion& minion);
 
-    void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
+    MinionLoc play_minion(const Minion& minion, MinionLoc loc);
+
+    MinionLoc summon_minion(const Minion& minion, bool post_death = false);
+
+    MinionLoc summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
 
     void proc_enchantment(int enchantment_id, MinionLoc source, Minion* target = nullptr);
 

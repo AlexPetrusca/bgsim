@@ -277,5 +277,23 @@
     "attack": 4,
     "text": "+4 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 26,
+    "name": "Pogo-Hop",
+    "target": "SELF",
+    "attack": 2,
+    "health": 2,
+    "text": "Gain +2/+2 for each other Pogo-Hopper you played this game.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 27,
+    "name": "Pogo-Hop",
+    "target": "SELF",
+    "attack": 4,
+    "health": 4,
+    "text": "Gain +4/+4 for each other Pogo-Hopper you played this game.",
+    "type": "ENCHANTMENT"
   }
 ]
