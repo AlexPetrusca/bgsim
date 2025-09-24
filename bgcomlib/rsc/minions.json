@@ -2670,5 +2670,55 @@
     "rarity": "LEGENDARY",
     "text": "<b>Charge</b>. Has +2 Attack for each other Murloc on the battlefield.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59940,
+    "name": "Pack Leader",
+    "tier": 2,
+    "attack": 3,
+    "health": 4,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          24
+        ]
+      }
+    ],
+    "id": "BGS_017",
+    "goldenDbfId": 59969,
+    "cardClass": "NEUTRAL",
+    "text": "Whenever you summon a Beast, give it +2 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59969,
+    "name": "Pack Leader",
+    "tier": 2,
+    "attack": 6,
+    "health": 8,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          25
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_086",
+    "normalDbfId": 59940,
+    "cardClass": "NEUTRAL",
+    "text": "Whenever you summon a Beast, give it +4 Attack.",
+    "type": "MINION"
   }
 ]

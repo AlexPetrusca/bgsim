@@ -64,7 +64,7 @@ private:
         CardDb::Id::MURLOC_WARLEADER,
         CardDb::Id::NATHREZIM_OVERSEER,
         CardDb::Id::OLD_MURK_EYE,
-        // CardDb::Id::PACK_LEADER,
+        CardDb::Id::PACK_LEADER,
         // CardDb::Id::POGO_HOPPER,
         CardDb::Id::SELFLESS_HERO,
         CardDb::Id::SPAWN_OF_NZOTH,

@@ -255,5 +255,27 @@
     "health": 4,
     "text": "Give a friendly Demon +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 24,
+    "name": "Pack Lead",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 2,
+    "text": "+2 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 25,
+    "name": "Pack Lead",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 4,
+    "text": "+4 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

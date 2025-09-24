@@ -141,15 +141,15 @@ void Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool 
     proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
 }
 
-void Board::proc_enchantment(const int enchantment_id, const MinionLoc loc) {
+void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, Minion* target) {
     Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
     switch (static_cast<CardDb::Id>(enchantment_id)) {
         case CardDb::Id::GIVE_ATTACK_E: {
-            enchantment.set_attack(loc->attack());
+            enchantment.set_attack(source->attack());
             break;
         }
         case CardDb::Id::GIVE_HEALTH_E: {
-            enchantment.set_health(loc->max_health());
+            enchantment.set_health(source->max_health());
             break;
         }
         default: {
@@ -159,19 +159,26 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc loc) {
 
     switch (enchantment.target()) {
         case Target::SINGLE: {
-            if (enchantment.races().any()) {
-                // select random race
-                Race race = Race::NONE;
-                double count = 1;
-                for (const Race r : enchantment.races()) {
-                    if (rng.rand_percent() < 1 / count) {
-                        race = r;
-                    }
-                    count++;
+            if (target != nullptr) {
+                // apply enchantment to target
+                if (enchantment.races().empty() || enchantment.races().intersects(target->races())) {
+                    enchant_minion(*target, enchantment);
                 }
-                enchant_random_minion_by_race(enchantment, race);
             } else {
-                enchant_random_minion(enchantment);
+                // apply enchantment randomly
+                if (enchantment.races().any()) {
+                    Race race = Race::NONE;
+                    double count = 1;
+                    for (const Race r : enchantment.races()) {
+                        if (rng.rand_percent() < 1 / count) {
+                            race = r;
+                        }
+                        count++;
+                    }
+                    enchant_random_minion_by_race(enchantment, race);
+                } else {
+                    enchant_random_minion(enchantment);
+                }
             }
             break;
         }
@@ -183,7 +190,7 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc loc) {
             break;
         }
         case Target::SELF: {
-            enchant_minion(*loc, enchantment);
+            enchant_minion(*source, enchantment);
             break;
         }
         case Target::LEFTMOST: {
@@ -198,7 +205,7 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc loc) {
         }
         case Target::ALL_OTHER: {
             for (auto m = minions().begin(); m != minions().end(); ++m) {
-                if (m == loc) continue;
+                if (m == source) continue;
                 if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
                 enchant_minion(*m, enchantment);
             }
@@ -303,12 +310,12 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
     }
 }
 
-void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
+void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* target) {
     switch (effect.type()) {
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
                 const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                summon_minion(db.get_minion(minion_id), get_right_minion_loc(loc), post_death);
+                summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
             }
             break;
         }
@@ -328,7 +335,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
                         const CardDb::Id id = _player->pool()->get_random_minionid_from_tier(arg);
                         const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        summon_minion(db.get_minion(id), get_right_minion_loc(loc), post_death);
+                        summon_minion(db.get_minion(id), get_right_minion_loc(source), post_death);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
@@ -348,12 +355,12 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, get_right_minion_loc(loc), true);
+            summon_minion(minion, get_right_minion_loc(source), true);
             break;
         }
         case Effect::Type::ENCHANT: {
             for (const int enchantment_id: effect.args()) {
-                proc_enchantment(enchantment_id, loc);
+                proc_enchantment(enchantment_id, source, target);
             }
             break;
         }
@@ -362,8 +369,8 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             break;
         }
         case Effect::Type::TRIGGER_ADJACENT_BATTLECRY: {
-            const auto l = get_left_minion_loc(loc);
-            const auto r = get_right_minion_loc(loc);
+            const auto l = get_left_minion_loc(source);
+            const auto r = get_right_minion_loc(source);
             const bool is_battlecry_left = is_minion(l) && l->has(Keyword::BATTLECRY);
             const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
             if (is_battlecry_left && is_battlecry_right) {
@@ -380,11 +387,11 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             break;
         }
         case Effect::Type::TRIGGER_ADJACENT_BATTLECRIES: {
-            const auto l = get_left_minion_loc(loc);
+            const auto l = get_left_minion_loc(source);
             if (is_minion(l) && l->has(Keyword::BATTLECRY)) {
                 exec_effect(l->get_effect(Keyword::BATTLECRY), l);
             }
-            const auto r = get_right_minion_loc(loc);
+            const auto r = get_right_minion_loc(source);
             if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
                 exec_effect(r->get_effect(Keyword::BATTLECRY), r);
             }
@@ -411,7 +418,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             const std::vector<int>& args = effect.args();
             for (int i = 0; i < args.size(); i += 2) {
                 _player->deal_damage(args[i]);
-                proc_enchantment(args[i + 1], loc);
+                proc_enchantment(args[i + 1], source);
             }
             break;
         }
@@ -564,9 +571,9 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
         } else {
             const Effect& effect = listener->get_effect(trigger);
             if (effect.constraint() == Effect::Constraint::NONE) {
-                exec_effect(effect, listener);
+                exec_effect(effect, listener, source);
             } else if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition - rewrite
-                exec_effect(effect, listener);
+                exec_effect(effect, listener, source);
             }
         }
     }

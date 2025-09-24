@@ -100,6 +100,8 @@ public:
         NATHREZIM_OVERSEER_G = 59487,
         OLD_MURK_EYE = 736,
         OLD_MURK_EYE_G = 58382,
+        PACK_LEADER = 59940,
+        PACK_LEADER_G = 59969,
 
         // tokens
         TABBYCAT_T = 96759,

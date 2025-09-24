@@ -40,7 +40,7 @@ public:
 
     void summon_minion(const Minion& minion, MinionLoc loc, bool post_death = false);
 
-    void proc_enchantment(int enchantment_id, MinionLoc loc);
+    void proc_enchantment(int enchantment_id, MinionLoc source, Minion* target = nullptr);
 
     void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
@@ -56,7 +56,7 @@ public:
 
     bool try_reap_minion(MinionLoc loc);
 
-    void exec_effect(const Effect& effect, MinionLoc loc);
+    void exec_effect(const Effect& effect, MinionLoc source, Minion* target = nullptr);
 
     void apply_adjacent_aura(MinionLoc loc);
 
