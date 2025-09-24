@@ -94,6 +94,8 @@ public:
         KABOOM_BOT_G = 58369,
         METALTOOTH_LEAPER = 96767,
         METALTOOTH_LEAPER_G = 59495,
+        MOUNTED_RAPTOR = 2922,
+        MOUNTED_RAPTOR_G = 86541,
 
         // tokens
         TABBYCAT_T = 96759,

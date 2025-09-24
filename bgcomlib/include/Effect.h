@@ -13,6 +13,7 @@ class Effect {
 public:
     enum class Type {
         SUMMON,
+        SUMMON_SPECIAL,
         REBORN_SUMMON,
         GEN_CARD,
         ENCHANT,
@@ -27,6 +28,7 @@ public:
     public:
         inline static std::unordered_map<std::string, Type> type_map{
             {"SUMMON", Type::SUMMON},
+            {"SUMMON_SPECIAL", Type::SUMMON_SPECIAL},
             {"REBORN_SUMMON", Type::REBORN_SUMMON},
             {"GEN_CARD", Type::GEN_CARD},
             {"ENCHANT", Type::ENCHANT},
@@ -72,6 +74,19 @@ public:
         static Constraint fromString(const std::string& str);
 
         static bool matchesRace(Constraint constraint, const BitVector<Race>& races);
+    };
+
+    enum class SpecialSummon {
+        FIRST_TWO_DEAD_MECHS,
+        RANDOM_TIER_1,
+        RANDOM_TIER_2,
+        RANDOM_TIER_3,
+        RANDOM_TIER_4,
+        RANDOM_TIER_5,
+        RANDOM_TIER_6,
+        RANDOM_TIER_7,
+        RANDOM_DEATHRATTLE,
+        RANDOM_LEGENDARY,
     };
 
     explicit Effect(const json& json);

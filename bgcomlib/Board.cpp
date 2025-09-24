@@ -297,6 +297,37 @@ void Board::exec_effect(const Effect& effect, const MinionLoc loc) {
             }
             break;
         }
+        case Effect::Type::SUMMON_SPECIAL: {
+            for (const int arg: effect.args()) {
+                switch (static_cast<Effect::SpecialSummon>(arg)) {
+                    case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
+                        // todo
+                        break;
+                    }
+                    case Effect::SpecialSummon::RANDOM_TIER_1:
+                    case Effect::SpecialSummon::RANDOM_TIER_2:
+                    case Effect::SpecialSummon::RANDOM_TIER_3:
+                    case Effect::SpecialSummon::RANDOM_TIER_4:
+                    case Effect::SpecialSummon::RANDOM_TIER_5:
+                    case Effect::SpecialSummon::RANDOM_TIER_6:
+                    case Effect::SpecialSummon::RANDOM_TIER_7: {
+                        const CardDb::Id id = _player->pool()->get_random_minionid_from_tier(arg);
+                        const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
+                        summon_minion(db.get_minion(id), get_right_minion_loc(loc), post_death);
+                        break;
+                    }
+                    case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
+                        // todo
+                        break;
+                    }
+                    case Effect::SpecialSummon::RANDOM_LEGENDARY: {
+                        // todo
+                        break;
+                    }
+                }
+            }
+            break;
+        }
         case Effect::Type::REBORN_SUMMON: {
             const int minion_id = effect.args()[0];
             Minion minion = db.get_minion(minion_id);

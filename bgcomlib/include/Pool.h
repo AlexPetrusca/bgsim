@@ -60,7 +60,7 @@ private:
         CardDb::Id::HARVEST_GOLEM,
         CardDb::Id::KABOOM_BOT,
         CardDb::Id::METALTOOTH_LEAPER,
-        // CardDb::Id::MOUNTED_RAPTOR,
+        CardDb::Id::MOUNTED_RAPTOR,
         CardDb::Id::MURLOC_WARLEADER,
         // CardDb::Id::NATHREZIM_OVERSEER,
         // CardDb::Id::OLD_MURK_EYE,

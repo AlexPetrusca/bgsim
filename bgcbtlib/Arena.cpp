@@ -225,6 +225,11 @@ AnalysisReport Arena::analyze(int iterations) {
     return analysis_report;
 }
 
+void Arena::bind_pool(Pool* pool) {
+    _p1.bind_pool(pool);
+    _p2.bind_pool(pool);
+}
+
 Player& Arena::playerA() {
     return _p1;
 }

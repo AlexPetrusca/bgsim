@@ -714,7 +714,7 @@
       "BEAST"
     ],
     "id": "UNG_010G",
-    "goldenDbfId": 41138,
+    "normalDbfId": 41138,
     "artist": "James Ryman",
     "cardClass": "NEUTRAL",
     "rarity": "COMMON",
@@ -746,7 +746,7 @@
       "MURLOC"
     ],
     "id": "UNG_201tg",
-    "goldenDbfId": 41523,
+    "normalDbfId": 41523,
     "cardClass": "NEUTRAL",
     "type": "MINION"
   },
@@ -2510,6 +2510,67 @@
     "cardClass": "HUNTER",
     "rarity": "RARE",
     "text": "<b>Battlecry:</b> Give your other Mechs +4 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 2922,
+    "name": "Mounted Raptor",
+    "tier": 2,
+    "attack": 3,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          1
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "CORE_LOE_050",
+    "goldenDbfId": 86541,
+    "artist": "Ben Zhang",
+    "cardClass": "DRUID",
+    "flavor": "Clever girl!",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 86541,
+    "name": "Mounted Raptor",
+    "tier": 2,
+    "attack": 6,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          1,
+          1
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "CORE_LOE_050_G",
+    "normalDbfId": 2922,
+    "artist": "Ben Zhang",
+    "cardClass": "DRUID",
+    "flavor": "Clever girl!",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
     "type": "MINION"
   }
 ]

@@ -28,6 +28,8 @@ add_library(bgcomlib STATIC
         util/Random.cpp
         Pool.cpp
         include/Pool.h
+        Game.cpp
+        include/Game.h
 )
 target_include_directories(bgcomlib PUBLIC include)
 

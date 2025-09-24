@@ -21,4 +21,5 @@ add_compile_definitions(
 
 add_subdirectory(bgcomlib)
 add_subdirectory(bgcbtlib)
+add_subdirectory(bgsim-client)
 add_subdirectory(bgsim-server)

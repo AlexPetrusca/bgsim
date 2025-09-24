@@ -1,9 +1,6 @@
-#include <Game.h>
 #include <iostream>
 
 int main() {
-    Game game;
-
     auto lang = "C++";
     std::cout << "Hello and welcome to " << lang << "!\n";
 

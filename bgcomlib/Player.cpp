@@ -52,8 +52,16 @@ Player* Player::opponent() {
     return _opponenet;
 }
 
+Pool* Player::pool() {
+    return _pool;
+}
+
 void Player::bind_opponent(Player* opponenet) {
     _opponenet = opponenet;
+}
+
+void Player::bind_pool(Pool* pool) {
+    _pool = pool;
 }
 
 void Player::unbind_opponent() {

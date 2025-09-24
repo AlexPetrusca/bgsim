@@ -20,6 +20,8 @@ public:
 
     AnalysisReport analyze(int iterations = 10000);
 
+    void bind_pool(Pool* pool);
+
     [[nodiscard]] Player& playerA();
 
     [[nodiscard]] Player& playerB();

@@ -3,6 +3,7 @@
 
 #include "Board.h"
 #include "Hand.h"
+#include "Pool.h"
 
 class Player {
 public:
@@ -28,7 +29,11 @@ public:
 
     Player* opponent();
 
+    Pool* pool();
+
     void bind_opponent(Player* opponenet);
+
+    void bind_pool(Pool* pool);
 
     void unbind_opponent();
 
@@ -38,7 +43,8 @@ private:
     int _health{};
     int _armor{};
 
-    Player* _opponenet;
+    Player* _opponenet{};
+    Pool* _pool{};
 };
 
 #endif //PLAYER_H
