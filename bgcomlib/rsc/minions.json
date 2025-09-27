@@ -2778,5 +2778,99 @@
     "cardClass": "PALADIN",
     "text": "[x]<b>Battlecry:</b> Gain +4/+4 for\neach other Pogo-Hopper\nyou played this game.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 39839,
+    "name": "Zoobot",
+    "tier": 2,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          28
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "KAR_095",
+    "goldenDbfId": 59489,
+    "artist": "Matt Dixon",
+    "cardClass": "NEUTRAL",
+    "flavor": "The Murloc is taking the picture.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59489,
+    "name": "Zoobot",
+    "tier": 2,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          29
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "KAR_095_G",
+    "goldenDbfId": 39839,
+    "artist": "Matt Dixon",
+    "cardClass": "NEUTRAL",
+    "flavor": "The Murloc is taking the picture.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96780,
+    "name": "Nightmare Amalgam",
+    "tier": 2,
+    "attack": 3,
+    "health": 4,
+    "races": [
+      "ALL"
+    ],
+    "id": "BG_GIL_681",
+    "goldenDbfId": 91216,
+    "artist": "Andrew Hou",
+    "cardClass": "NEUTRAL",
+    "flavor": "Be all that you can be.",
+    "text": "<i>This has all minion types.</i>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 91216,
+    "name": "Nightmare Amalgam",
+    "tier": 2,
+    "attack": 6,
+    "health": 8,
+    "races": [
+      "ALL"
+    ],
+    "id": "BG_GIL_681_G",
+    "normalDbfId": 96780,
+    "artist": "Andrew Hou",
+    "cardClass": "NEUTRAL",
+    "flavor": "Be all that you can be.",
+    "text": "<i>This has all minion types.</i>",
+    "type": "MINION"
   }
 ]

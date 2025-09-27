@@ -68,7 +68,9 @@ private:
         CardDb::Id::POGO_HOPPER,
         CardDb::Id::SELFLESS_HERO,
         CardDb::Id::SPAWN_OF_NZOTH,
-        // CardDb::Id::ZOOBOT,
+        CardDb::Id::ZOOBOT,
+
+        CardDb::Id::NIGHTMARE_AMALGAM,
     };
 
     inline static std::vector<CardDb::Id> _tier3 {
@@ -92,8 +94,6 @@ private:
         // CardDb::Id::SOUL_JUGGLER,
         // CardDb::Id::THE_BEAST,
         // CardDb::Id::TORTOLLAN_SHELLRAISER,
-
-        // CardDb::Id::NIGHTMARE_AMALGAM,
     };
 
     inline static std::vector<CardDb::Id> _tier4 {

@@ -8,6 +8,7 @@ template <typename E>
 class BitVector {
     using U = std::underlying_type_t<E>;
     U bits;
+
 public:
     BitVector() : bits(0) {}
     explicit BitVector(E e) : bits(static_cast<U>(e)) {}
@@ -22,8 +23,18 @@ public:
         return *this;
     }
 
+    BitVector& operator|=(U v) {
+        bits |= v;
+        return *this;
+    }
+
     BitVector& operator&=(BitVector v) {
         bits &= v.bits;
+        return *this;
+    }
+
+    BitVector& operator&=(U v) {
+        bits &= v;
         return *this;
     }
 
@@ -95,8 +106,13 @@ public:
         }
     };
 
-    iterator begin() const { return iterator(bits); }
-    iterator end() const { return iterator(0); }
+    iterator begin() const {
+        return iterator(bits);
+    }
+
+    iterator end() const {
+        return iterator(0);
+    }
 };
 
 #endif //BITVECTOR_H

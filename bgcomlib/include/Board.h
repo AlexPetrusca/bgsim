@@ -50,9 +50,9 @@ public:
 
     void disenchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
-    void enchant_random_minion(const Enchantment& enchantment);
+    MinionLoc enchant_random_minion(const Enchantment& enchantment);
 
-    void enchant_random_minion_by_race(const Enchantment& enchantment, Race race);
+    MinionLoc enchant_random_minion_by_race(const Enchantment& enchantment, Race race);
 
     void reap_minion(MinionLoc loc);
 

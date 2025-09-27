@@ -13,7 +13,14 @@ Minion::Minion(const json& json) {
     _max_health = json["health"];
     if (json.contains("races")) {
         for (const auto& race_json : json["races"]) {
-            _races.set(RaceUtil::fromString(race_json));
+            if (race_json == "ALL") {
+                _races.set(Race::ALL);
+                for (const Race race : RaceUtil::races) {
+                    _races.set(race);
+                }
+            } else {
+                _races.set(RaceUtil::fromString(race_json));
+            }
         }
     }
     if (json.contains("mechanics")) {

@@ -6,23 +6,21 @@
 
 enum class Race {
     NONE = 0,
-
-    ALL = 1ull << 1,
-    BEAST = 1ull << 2,
-    DEMON = 1ull << 3,
-    DRAGON = 1ull << 4,
-    ELEMENTAL = 1ull << 5,
-    MECHANICAL = 1ull << 6,
-    MURLOC = 1ull << 7,
-    NAGA = 1ull << 8,
-    PIRATE = 1ull << 9,
-    QUILLBOAR = 1ull << 10,
-    UNDEAD = 1ull << 11,
+    BEAST = 1 << 0,
+    DEMON = 1 << 1,
+    DRAGON = 1 << 2,
+    ELEMENTAL = 1 << 3,
+    MECHANICAL = 1 << 4,
+    MURLOC = 1 << 5,
+    NAGA = 1 << 6,
+    PIRATE = 1 << 7,
+    QUILLBOAR = 1 << 8,
+    UNDEAD = 1 << 9,
+    ALL = 1 << 10,
 };
 
 namespace RaceUtil {
     inline std::unordered_map<std::string, Race> race_map = {
-        {"ALL", Race::ALL},
         {"BEAST", Race::BEAST},
         {"DEMON", Race::DEMON},
         {"DRAGON", Race::DRAGON},
@@ -33,6 +31,20 @@ namespace RaceUtil {
         {"PIRATE", Race::PIRATE},
         {"QUILLBOAR", Race::QUILLBOAR},
         {"UNDEAD", Race::UNDEAD},
+        {"ALL", Race::ALL},
+    };
+
+    inline std::vector races = {
+        Race::BEAST,
+        Race::DEMON,
+        Race::DRAGON,
+        Race::ELEMENTAL,
+        Race::MECHANICAL,
+        Race::MURLOC,
+        Race::NAGA,
+        Race::PIRATE,
+        Race::QUILLBOAR,
+        Race::UNDEAD,
     };
 
     inline Race fromString(const std::string& str) {

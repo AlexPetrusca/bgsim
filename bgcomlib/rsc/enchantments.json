@@ -295,5 +295,33 @@
     "health": 4,
     "text": "Gain +4/+4 for each other Pogo-Hopper you played this game.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 28,
+    "name": "Zoobot Menagerie",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "BEAST",
+      "DRAGON",
+      "MURLOC"
+    ],
+    "attack": 1,
+    "health": 1,
+    "text": "Give a random friendly Beast, Dragon, and Murloc +1/+1.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 29,
+    "name": "Zoobot Menagerie",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "BEAST",
+      "DRAGON",
+      "MURLOC"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a random friendly Beast, Dragon, and Murloc +2/+2.",
+    "type": "ENCHANTMENT"
   }
 ]

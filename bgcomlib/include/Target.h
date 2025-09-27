@@ -11,6 +11,7 @@ enum class Target {
     ALL_OTHER,
     LEFTMOST,
     RIGHTMOST,
+    ONE_OF_EACH,
 };
 
 namespace TargetUtil {
@@ -21,6 +22,7 @@ namespace TargetUtil {
         {"ALL_OTHER", Target::ALL_OTHER},
         {"LEFTMOST", Target::LEFTMOST},
         {"RIGHTMOST", Target::RIGHTMOST},
+        {"ONE_OF_EACH", Target::ONE_OF_EACH},
     };
 
     inline Target fromString(const std::string& str) {

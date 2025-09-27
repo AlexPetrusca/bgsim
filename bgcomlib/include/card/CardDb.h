@@ -104,6 +104,10 @@ public:
         PACK_LEADER_G = 59969,
         POGO_HOPPER = 60122,
         POGO_HOPPER_G = 59664,
+        ZOOBOT = 39839,
+        ZOOBOT_G = 59489,
+        NIGHTMARE_AMALGAM = 96780,
+        NIGHTMARE_AMALGAM_G = 91216,
 
         // tokens
         TABBYCAT_T = 96759,
