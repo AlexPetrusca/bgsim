@@ -9,36 +9,6 @@ Effect::Constraint Effect::ConstraintUtil::fromString(const std::string& str) {
     return pair != constraint_map.end() ? pair->second : Constraint::NONE;
 }
 
-bool Effect::ConstraintUtil::matchesRace(const Constraint constraint, const BitVector<Race>& races) {
-    // todo: can we us this with some clever logic instead?
-    //  - Maybe you can just use bit manipulation
-    switch (constraint) {
-        case Constraint::NONE:
-            return true;
-        case Constraint::BEAST_ONLY:
-            return races.has(Race::BEAST);
-        case Constraint::DEMON_ONLY:
-            return races.has(Race::DEMON);
-        case Constraint::DRAGON_ONLY:
-            return races.has(Race::DRAGON);
-        case Constraint::ELEMENTAL_ONLY:
-            return races.has(Race::ELEMENTAL);
-        case Constraint::MECHANICAL_ONLY:
-            return races.has(Race::MECHANICAL);
-        case Constraint::MURLOC_ONLY:
-            return races.has(Race::MURLOC);
-        case Constraint::NAGA_ONLY:
-            return races.has(Race::NAGA);
-        case Constraint::PIRATE_ONLY:
-            return races.has(Race::PIRATE);
-        case Constraint::QUILLBOAR_ONLY:
-            return races.has(Race::QUILLBOAR);
-        case Constraint::UNDEAD_ONLY:
-            return races.has(Race::UNDEAD);
-    }
-    return false;
-}
-
 Effect::Effect(const json& json) {
     _trigger = KeywordUtil::fromString(json["trigger"]);
     _type = TypeUtil::fromString(json["type"]);

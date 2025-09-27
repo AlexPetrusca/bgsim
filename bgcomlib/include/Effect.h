@@ -4,8 +4,6 @@
 #include <nlohmann/json.hpp>
 
 #include "Keyword.h"
-#include "Race.h"
-#include "util/BitVector.h"
 
 using json = nlohmann::json;
 
@@ -44,6 +42,7 @@ public:
 
     enum class Constraint {
         NONE,
+
         BEAST_ONLY,
         DEMON_ONLY,
         DRAGON_ONLY,
@@ -54,6 +53,9 @@ public:
         PIRATE_ONLY,
         QUILLBOAR_ONLY,
         UNDEAD_ONLY,
+
+        BATTLECRY_ONLY,
+        DEATHRATTLE_ONLY,
     };
 
     class ConstraintUtil {
@@ -69,11 +71,12 @@ public:
             { "PIRATE_ONLY", Constraint::PIRATE_ONLY },
             { "QUILLBOAR_ONLY", Constraint::QUILLBOAR_ONLY },
             { "UNDEAD_ONLY", Constraint::UNDEAD_ONLY },
+
+            { "BATTLECRY_ONLY", Constraint::BATTLECRY_ONLY },
+            { "DEATHRATTLE_ONLY", Constraint::DEATHRATTLE_ONLY },
         };
 
         static Constraint fromString(const std::string& str);
-
-        static bool matchesRace(Constraint constraint, const BitVector<Race>& races);
     };
 
     enum class SpecialSummon {

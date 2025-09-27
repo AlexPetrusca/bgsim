@@ -1784,3 +1784,27 @@ TEST(ArenaBattleTest, CobaltGuardianGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, CrowdFavorite) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::CROWD_FAVORITE,
+        CardDb::Id::CROWD_FAVORITE_G,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ALLEYCAT_G));
+    boardA.play_minion(db.get_minion(CardDb::Id::ALLEYCAT_G));
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

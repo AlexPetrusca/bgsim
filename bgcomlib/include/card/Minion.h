@@ -6,6 +6,7 @@
 #include "Effect.h"
 #include "Keyword.h"
 #include "Race.h"
+#include "util/BitVector.h"
 #include "../../IPrintable.h"
 
 class Minion : public IPrintable {
@@ -83,6 +84,8 @@ public:
     void clear(Keyword keyword);
 
     void toggle(Keyword keyword);
+
+    bool satisfiesConstraint(Effect::Constraint constraint) const;
 
     [[nodiscard]] Minion* left_adjacent() const;
 

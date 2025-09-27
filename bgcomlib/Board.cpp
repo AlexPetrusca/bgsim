@@ -90,8 +90,8 @@ bool Board::is_minion(const MinionLoc loc) {
     return loc != minions().end() && !loc->is_zombie();
 }
 
-void Board::add_minion(const Minion& minion) {
-    add_minion(minion, _minions.end());
+MinionLoc Board::add_minion(const Minion& minion) {
+    return add_minion(minion, _minions.end());
 }
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
@@ -138,11 +138,13 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     return spawn_loc;
 }
 
-MinionLoc Board::play_minion(const Minion& minion) {
+MinionLoc Board::play_minion(Minion minion) {
     return play_minion(minion, _minions.end());
 }
 
-MinionLoc Board::play_minion(const Minion& minion, const MinionLoc loc) {
+MinionLoc Board::play_minion(Minion minion, MinionLoc loc) {
+    proc_trigger(Keyword::ON_PLAY, &minion);
+
     if (minion.has(Keyword::MAGNETIC) && loc != minions().end() && loc->is(Race::MECHANICAL)) {
         for (const int enchantment_id: minion.get_effect(Keyword::MAGNETIC).args()) {
             enchant_minion(*loc, db.get_enchantment(enchantment_id));
@@ -640,7 +642,7 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
             const Effect& effect = listener->get_effect(trigger);
             if (effect.constraint() == Effect::Constraint::NONE) {
                 exec_effect(effect, listener, source);
-            } else if (source != nullptr && Effect::ConstraintUtil::matchesRace(effect.constraint(), source->races())) { // todo: confusing condition - rewrite
+            } else if (source != nullptr && source->satisfiesConstraint(effect.constraint())) {
                 exec_effect(effect, listener, source);
             }
         }

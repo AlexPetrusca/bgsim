@@ -365,5 +365,23 @@
     "target": "SELF",
     "text": "<b>Divine Shield</b>",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 33,
+    "name": "Crowd Praise",
+    "target": "SELF",
+    "attack": 1,
+    "health": 1,
+    "text": "Whenever you play a card with <b>Battlecry</b>, gain +1/+1.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 34,
+    "name": "Crowd Praise",
+    "target": "SELF",
+    "attack": 2,
+    "health": 2,
+    "text": "Whenever you play a card with <b>Battlecry</b>, gain +2/+2.",
+    "type": "ENCHANTMENT"
   }
 ]

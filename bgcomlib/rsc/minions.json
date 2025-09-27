@@ -2994,5 +2994,61 @@
     "rarity": "RARE",
     "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 2518,
+    "name": "Crowd Favorite",
+    "tier": 3,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ON_PLAY"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "BATTLECRY_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          33
+        ]
+      }
+    ],
+    "id": "AT_121",
+    "goldenDbfId": 58383,
+    "artist": "Jakub Kasper",
+    "cardClass": "NEUTRAL",
+    "flavor": "The crowd ALWAYS yells lethal.",
+    "rarity": "EPIC",
+    "text": "Whenever you play a card with <b>Battlecry</b>, gain +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58383,
+    "name": "Crowd Favorite",
+    "tier": 3,
+    "attack": 8,
+    "health": 8,
+    "mechanics": [
+      "ON_PLAY"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "BATTLECRY_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          34
+        ]
+      }
+    ],
+    "id": "AT_121_G",
+    "goldenDbfId": 2518,
+    "artist": "Jakub Kasper",
+    "cardClass": "NEUTRAL",
+    "flavor": "The crowd ALWAYS yells lethal.",
+    "rarity": "EPIC",
+    "text": "Whenever you play a card with <b>Battlecry</b>, gain +2/+2.",
+    "type": "MINION"
   }
 ]

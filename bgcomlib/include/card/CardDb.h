@@ -112,6 +112,8 @@ public:
         ANNOY_O_MODULE_G = 60327,
         COBALT_GUARDIAN = 2030,
         COBALT_GUARDIAN_G = 96813,
+        CROWD_FAVORITE = 2518,
+        CROWD_FAVORITE_G = 58383,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -77,7 +77,7 @@ private:
         CardDb::Id::IMP_GANG_BOSS,
         CardDb::Id::ANNOY_O_MODULE,
         CardDb::Id::COBALT_GUARDIAN,
-        // CardDb::Id::CROWD_FAVORITE,
+        CardDb::Id::CROWD_FAVORITE,
         // CardDb::Id::CRYSTALWEAVER,
         // CardDb::Id::FLOATING_WATCHER,
         CardDb::Id::HOUNDMASTER,

@@ -202,6 +202,38 @@ void Minion::toggle(const Keyword keyword) {
     }
 }
 
+bool Minion::satisfiesConstraint(const Effect::Constraint constraint) const {
+    switch (constraint) {
+        case Effect::Constraint::NONE:
+            return true;
+        case Effect::Constraint::BEAST_ONLY:
+            return is(Race::BEAST);
+        case Effect::Constraint::DEMON_ONLY:
+            return is(Race::DEMON);
+        case Effect::Constraint::DRAGON_ONLY:
+            return is(Race::DRAGON);
+        case Effect::Constraint::ELEMENTAL_ONLY:
+            return is(Race::ELEMENTAL);
+        case Effect::Constraint::MECHANICAL_ONLY:
+            return is(Race::MECHANICAL);
+        case Effect::Constraint::MURLOC_ONLY:
+            return is(Race::MURLOC);
+        case Effect::Constraint::NAGA_ONLY:
+            return is(Race::NAGA);
+        case Effect::Constraint::PIRATE_ONLY:
+            return is(Race::PIRATE);
+        case Effect::Constraint::QUILLBOAR_ONLY:
+            return is(Race::QUILLBOAR);
+        case Effect::Constraint::UNDEAD_ONLY:
+            return is(Race::UNDEAD);
+        case Effect::Constraint::BATTLECRY_ONLY:
+            return has(Keyword::BATTLECRY);
+        case Effect::Constraint::DEATHRATTLE_ONLY:
+            return has(Keyword::DEATHRATTLE);
+    }
+    return false;
+}
+
 Minion* Minion::left_adjacent() const {
     return _left;
 }
