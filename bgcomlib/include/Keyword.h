@@ -38,11 +38,12 @@ enum class Keyword: uint64_t {
     ON_ADD = 1ull << 24,
     ON_PLAY = 1ull << 25,
     ON_SUMMON = 1ull << 26,
-    ON_ATTACK = 1ull << 27,
-    ON_KILL = 1ull << 28,
-    ON_DEATH_OTHER = 1ull << 29,
-    ON_PRE_COMBAT = 1ull << 30,
-    ON_POST_COMBAT = 1ull << 31,
+    ON_SUMMON_FROM_CARD = 1ull << 27,
+    ON_ATTACK = 1ull << 28,
+    ON_KILL = 1ull << 29,
+    ON_DEATH_OTHER = 1ull << 30,
+    ON_PRE_COMBAT = 1ull << 31,
+    ON_POST_COMBAT = 1ull << 32,
 };
 
 namespace KeywordUtil {

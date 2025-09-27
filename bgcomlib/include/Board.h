@@ -94,7 +94,11 @@ public:
 
     void deregister_trigger(Keyword trigger, MinionLoc loc);
 
+    void register_triggers(MinionLoc loc);
+
     void deregister_triggers(MinionLoc loc);
+
+    [[nodiscard]] std::unordered_map<Keyword, MinionLocSet> triggers() const;
 
     [[nodiscard]] MinionLoc active() const;
 

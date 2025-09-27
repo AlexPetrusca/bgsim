@@ -122,6 +122,8 @@ public:
         INFESTED_WOLF_G = 58365,
         IRON_SENSEI = 97423,
         IRON_SENSEI_G = 58397,
+        KHADGAR = 96779,
+        KHADGAR_G = 58380,
 
         // tokens
         TABBYCAT_T = 96759,

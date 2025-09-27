@@ -1420,10 +1420,15 @@ TEST(ArenaBattleTest, OldMurkEyeUnbuffed) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_B);
     EXPECT_EQ(report.damage(), 3);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, OldMurkEyeBuffed) {
@@ -1439,10 +1444,18 @@ TEST(ArenaBattleTest, OldMurkEyeBuffed) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+    for (const auto& [keyword, effect]: arena.playerA().board().triggers()) {
+        std::cout << static_cast<int>(keyword) << std::endl;
+    }
 }
 
 TEST(ArenaBattleTest, OldMurkEyeGolden) {
@@ -1457,10 +1470,15 @@ TEST(ArenaBattleTest, OldMurkEyeGolden) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), WIN_A);
     EXPECT_EQ(report.damage(), 1);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, PackLeaderNoProc) {
@@ -1938,3 +1956,146 @@ TEST(ArenaBattleTest, IronSenseiNoSelfBuff) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, Khadgar) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::KHADGAR,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+}
+
+TEST(ArenaBattleTest, GoldenKhadgar) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::KHADGAR_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+}
+
+TEST(ArenaBattleTest, KhadgarNoProcOnPlay) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KHADGAR,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::HARMLESS_BONEHEAD), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+}
+
+TEST(ArenaBattleTest, KhadgarProcOnBattlecry) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::KHADGAR,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ALLEYCAT), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+}
+
+TEST(ArenaBattleTest, KhadgarSecurityRoverOverflow) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::KHADGAR_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    EXPECT_FALSE(arena.playerA().board().triggers().empty());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+}
+
+

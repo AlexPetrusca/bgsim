@@ -1068,7 +1068,7 @@
     "normalDbfId": 103047,
     "cardClass": "SHAMAN",
     "elite": true,
-    "text": "<b>Poisonous</b>. When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
+    "text": "<b>Poisonous</b>. When this attacks\nand kills a minion, give\ndouble its maximum stats\n  to a minion in your hand.",
     "type": "MINION"
   },
   {
@@ -1256,7 +1256,7 @@
     "id": "BG21_006",
     "goldenDbfId": 72922,
     "cardClass": "WARLOCK",
-    "text": "<b>Deathrattle:</b> Give this\nminion's maximum Health\n  to another friendly minion. ",
+    "text": "<b>Deathrattle:</b> Give this\nminion's maximum Health\n  to another friendly minion. ",
     "type": "MINION"
   },
   {
@@ -3309,6 +3309,42 @@
     "cardClass": "ROGUE",
     "rarity": "RARE",
     "text": "At the end of your turn, give another friendly Mech +4/+4.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96779,
+    "name": "Khadgar",
+    "tier": 3,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "BG_DAL_575",
+    "goldenDbfId": 58380,
+    "artist": "Evgeniy Zagumennyy",
+    "cardClass": "MAGE",
+    "elite": true,
+    "flavor": "\"What do you call two minions summoned at once? Twinions, haha! Wait... where are you going?\"",
+    "rarity": "LEGENDARY",
+    "text": "Your cards that summon minions summon twice as many.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58380,
+    "name": "Khadgar",
+    "tier": 3,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "TB_BaconUps_034",
+    "normalDbfId": 96779,
+    "cardClass": "MAGE",
+    "elite": true,
+    "rarity": "LEGENDARY",
+    "text": "Your cards that summon minions summon three times as many.",
     "type": "MINION"
   }
 ]

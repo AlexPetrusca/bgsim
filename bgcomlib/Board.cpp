@@ -1,5 +1,6 @@
 #include "include/Board.h"
 
+#include <iostream>
 #include <random>
 #include <sstream>
 
@@ -131,13 +132,8 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
-    if (minion.has(Keyword::ADJACENT_AURA)) {
-        register_trigger(Keyword::ON_PRE_COMBAT, spawn_loc);
-        register_trigger(Keyword::ON_POST_COMBAT, spawn_loc);
-    }
     if (minion.has(Keyword::AURA)) {
         apply_aura(spawn_loc);
-        register_trigger(Keyword::ON_ADD, spawn_loc);
     }
     if (minion.has(Keyword::SPECIAL)) {
         switch (static_cast<CardDb::Id>(minion.id())) {
@@ -149,8 +145,6 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
                         spawn_loc->delta_attack(buff);
                     }
                 }
-                register_trigger(Keyword::ON_ADD, spawn_loc);
-                register_trigger(Keyword::ON_DEATH_OTHER, spawn_loc);
                 break;
             }
             case CardDb::Id::POGO_HOPPER:
@@ -161,11 +155,7 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
             default: break;
         }
     }
-    for (const auto& keyword: minion.effects() | std::views::keys) {
-        if (KeywordUtil::isTrigger(keyword)) {
-            register_trigger(keyword, spawn_loc);
-        }
-    }
+    register_triggers(spawn_loc);
     return spawn_loc;
 }
 
@@ -417,12 +407,16 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
                 const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
+                MinionLoc spawn_loc = summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
+                if (spawn_loc != minions().end()) {
+                    proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
+                }
             }
             break;
         }
         case Effect::Type::SUMMON_SPECIAL: {
             for (const int arg: effect.args()) {
+                MinionLoc spawn_loc = minions().end();
                 switch (static_cast<Effect::SpecialSummon>(arg)) {
                     case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
                         // todo
@@ -437,7 +431,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
                         const CardDb::Id id = _player->pool()->get_random_minionid_from_tier(arg);
                         const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        summon_minion(db.get_minion(id), get_right_minion_loc(source), post_death);
+                        spawn_loc = summon_minion(db.get_minion(id), get_right_minion_loc(source), post_death);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
@@ -449,6 +443,9 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         break;
                     }
                 }
+                if (spawn_loc != minions().end()) {
+                    proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
+                }
             }
             break;
         }
@@ -457,7 +454,10 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            summon_minion(minion, get_right_minion_loc(source), true);
+            const MinionLoc spawn_loc = summon_minion(minion, get_right_minion_loc(source), true);
+            if (spawn_loc != minions().end()) {
+                proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
+            }
             break;
         }
         case Effect::Type::ENCHANT: {
@@ -617,18 +617,7 @@ void Board::pre_battle() {
     //  - we coid: override the copy constructor to do this
     _triggers.clear();
     for (auto m = minions().begin(); m != minions().end(); ++m) {
-        if (m->has(Keyword::ADJACENT_AURA)) {
-            register_trigger(Keyword::ON_PRE_COMBAT, m);
-            register_trigger(Keyword::ON_POST_COMBAT, m);
-        }
-        if (m->has(Keyword::AURA)) {
-            register_trigger(Keyword::ON_ADD, m);
-        }
-        for (const auto& keyword: m->effects() | std::views::keys) {
-            if (KeywordUtil::isTrigger(keyword)) {
-                register_trigger(keyword, m);
-            }
-        }
+        register_triggers(m);
     }
 }
 
@@ -656,6 +645,21 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                         }
                         listener->delta_attack(buff);
                     }
+                    break;
+                }
+                case CardDb::Id::KHADGAR:
+                case CardDb::Id::KHADGAR_G: {
+                    MinionLoc loc = minions().begin();
+                    while (&*loc != source) {
+                        ++loc;
+                    }
+                    const int clone_count = listener->is_golden() ? 2 : 1;
+                    for (int i = 0; i < clone_count; i++) {
+                        if (loc != minions().end()) {
+                            loc = summon_minion(*source, get_right_minion_loc(loc), true);
+                        }
+                    }
+                    break;
                 }
                 default: break;
             }
@@ -690,6 +694,40 @@ void Board::register_trigger(const Keyword trigger, const MinionLoc loc) {
 
 void Board::deregister_trigger(const Keyword trigger, const MinionLoc loc) {
     _triggers[trigger].erase(loc);
+    if (_triggers[trigger].empty()) {
+        _triggers.erase(trigger);
+    }
+}
+
+void Board::register_triggers(const MinionLoc loc) {
+    if (loc->has(Keyword::ADJACENT_AURA)) {
+        register_trigger(Keyword::ON_PRE_COMBAT, loc);
+        register_trigger(Keyword::ON_POST_COMBAT, loc);
+    }
+    if (loc->has(Keyword::AURA)) {
+        register_trigger(Keyword::ON_ADD, loc);
+    }
+    if (loc->has(Keyword::SPECIAL)) {
+        switch (static_cast<CardDb::Id>(loc->id())) {
+            case CardDb::Id::OLD_MURK_EYE:
+            case CardDb::Id::OLD_MURK_EYE_G: {
+                register_trigger(Keyword::ON_ADD, loc);
+                register_trigger(Keyword::ON_DEATH_OTHER, loc);
+                break;
+            }
+            case CardDb::Id::KHADGAR:
+            case CardDb::Id::KHADGAR_G: {
+                register_trigger(Keyword::ON_SUMMON_FROM_CARD, loc);
+                break;
+            }
+            default: break;
+        }
+    }
+    for (const auto& keyword: loc->effects() | std::views::keys) {
+        if (KeywordUtil::isTrigger(keyword)) {
+            register_trigger(keyword, loc);
+        }
+    }
 }
 
 void Board::deregister_triggers(const MinionLoc loc) {
@@ -700,11 +738,31 @@ void Board::deregister_triggers(const MinionLoc loc) {
     if (loc->has(Keyword::AURA)) {
         deregister_trigger(Keyword::ON_SUMMON, loc);
     }
+    if (loc->has(Keyword::SPECIAL)) {
+        switch (static_cast<CardDb::Id>(loc->id())) {
+            case CardDb::Id::OLD_MURK_EYE:
+            case CardDb::Id::OLD_MURK_EYE_G: {
+                deregister_trigger(Keyword::ON_ADD, loc);
+                deregister_trigger(Keyword::ON_DEATH_OTHER, loc);
+                break;
+            }
+            case CardDb::Id::KHADGAR:
+            case CardDb::Id::KHADGAR_G: {
+                deregister_trigger(Keyword::ON_SUMMON_FROM_CARD, loc);
+                break;
+            }
+            default: break;
+        }
+    }
     for (const auto& keyword: loc->effects() | std::views::keys) {
         if (KeywordUtil::isTrigger(keyword)) {
             deregister_trigger(keyword, loc);
         }
     }
+}
+
+std::unordered_map<Keyword, MinionLocSet> Board::triggers() const {
+    return _triggers;
 }
 
 MinionLoc Board::active() const {
