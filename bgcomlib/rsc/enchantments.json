@@ -383,5 +383,29 @@
     "health": 2,
     "text": "Whenever you play a card with <b>Battlecry</b>, gain +2/+2.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 35,
+    "name": "Crystalweave",
+    "target": "ALL",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 1,
+    "health": 1,
+    "text": "Give your Demons +1/+1.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 36,
+    "name": "Crystalweave",
+    "target": "ALL",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give your Demons +2/+2.",
+    "type": "ENCHANTMENT"
   }
 ]

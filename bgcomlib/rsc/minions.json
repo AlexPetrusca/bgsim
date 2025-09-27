@@ -3050,5 +3050,59 @@
     "rarity": "EPIC",
     "text": "Whenever you play a card with <b>Battlecry</b>, gain +2/+2.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 40391,
+    "name": "Crystalweaver",
+    "tier": 3,
+    "attack": 5,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          35
+        ]
+      }
+    ],
+    "id": "CFM_610",
+    "goldenDbfId": 59504,
+    "artist": "Arthur Gimaldinov",
+    "cardClass": "WARLOCK",
+    "flavor": "The trick is soaking the crystals in warm milk to soften them up.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give your Demons +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59504,
+    "name": "Crystalweaver",
+    "tier": 3,
+    "attack": 10,
+    "health": 8,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          36
+        ]
+      }
+    ],
+    "id": "CFM_610_G",
+    "goldenDbfId": 40391,
+    "artist": "Arthur Gimaldinov",
+    "cardClass": "WARLOCK",
+    "flavor": "The trick is soaking the crystals in warm milk to soften them up.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give your Demons +2/+2.",
+    "type": "MINION"
   }
 ]

@@ -114,6 +114,8 @@ public:
         COBALT_GUARDIAN_G = 96813,
         CROWD_FAVORITE = 2518,
         CROWD_FAVORITE_G = 58383,
+        CRYSTALWEAVER = 40391,
+        CRYSTALWEAVER_G = 59504,
 
         // tokens
         TABBYCAT_T = 96759,
