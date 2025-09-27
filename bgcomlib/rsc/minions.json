@@ -3160,5 +3160,97 @@
     "cardClass": "WARLOCK",
     "text": "Whenever your hero takes damage on your turn, gain +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 38734,
+    "name": "Infested Wolf",
+    "tier": 3,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          38735,
+          38735
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "OG_216",
+    "goldenDbfId": 58365,
+    "artist": "E. Guiton & A. Bozonnet",
+    "cardClass": "HUNTER",
+    "flavor": "A little flea powder will fix that right up.",
+    "rarity": "RARE",
+    "text": "<b>Deathrattle:</b> Summon two 1/1 Spiders.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58365,
+    "name": "Infested Wolf",
+    "tier": 3,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          38736,
+          38736
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "OG_216_G",
+    "goldenDbfId": 38734,
+    "artist": "E. Guiton & A. Bozonnet",
+    "cardClass": "HUNTER",
+    "flavor": "A little flea powder will fix that right up.",
+    "rarity": "RARE",
+    "text": "<b>Deathrattle:</b> Summon two 2/2 Spiders.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 38735,
+    "name": "Spider",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "BEAST"
+    ],
+    "id": "OG_216a",
+    "goldenDbfId": 38736,
+    "artist": "Luca Zontini",
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 38736,
+    "name": "Spider",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "OG_216a_G",
+    "normalDbfId": 38736,
+    "artist": "Luca Zontini",
+    "cardClass": "HUNTER",
+    "type": "MINION"
   }
 ]

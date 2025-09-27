@@ -81,7 +81,7 @@ private:
         CardDb::Id::CRYSTALWEAVER,
         CardDb::Id::FLOATING_WATCHER,
         CardDb::Id::HOUNDMASTER,
-        // CardDb::Id::INFESTED_WOLF,
+        CardDb::Id::INFESTED_WOLF,
         // CardDb::Id::IRON_SENSEI,
         // CardDb::Id::KHADGAR,
         // CardDb::Id::PHALANX_COMMANDER,

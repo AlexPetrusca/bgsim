@@ -118,6 +118,8 @@ public:
         CRYSTALWEAVER_G = 59504,
         FLOATING_WATCHER = 105208,
         FLOATING_WATCHER_G = 60403,
+        INFESTED_WOLF = 38734,
+        INFESTED_WOLF_G = 58365,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -142,6 +144,8 @@ public:
         MURLOC_SCOUT_T_G = 57339,
         DAMAGED_GOLEM_T = 96764,
         DAMAGED_GOLEM_T_G = 57408,
+        SPIDER_T = 38735,
+        SPIDER_T_G = 38736,
 
         // enchantments
         // todo: should these be here
