@@ -42,8 +42,29 @@ public:
         return bits | v.bits;
     }
 
+    BitVector<Keyword>& operator|(U v) {
+        bits |= v;
+        return *this;
+    }
+
     U operator&(BitVector v) {
         return bits & v.bits;
+    }
+
+    BitVector<Keyword>& operator&(U v) {
+        bits &= v;
+        return *this;
+    }
+
+    U operator~() const {
+        return ~bits;
+    }
+
+    BitVector& operator=(const BitVector& other) {
+        if (this != &other) {
+            bits = other.bits;
+        }
+        return *this;
     }
 
     bool has(E e) const {

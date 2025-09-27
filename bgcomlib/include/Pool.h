@@ -75,7 +75,7 @@ private:
 
     inline static std::vector<CardDb::Id> _tier3 {
         CardDb::Id::IMP_GANG_BOSS,
-        // CardDb::Id::ANNOY_O_MODULE,
+        CardDb::Id::ANNOY_O_MODULE,
         // CardDb::Id::COBALT_GUARDIAN,
         // CardDb::Id::CROWD_FAVORITE,
         // CardDb::Id::CRYSTALWEAVER,

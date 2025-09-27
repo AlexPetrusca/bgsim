@@ -2872,5 +2872,65 @@
     "flavor": "Be all that you can be.",
     "text": "<i>This has all minion types.</i>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96812,
+    "name": "Annoy-o-Module",
+    "tier": 3,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "MAGNETIC",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "MAGNETIC",
+        "type": "ENCHANT",
+        "args": [
+          30
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_BOT_911",
+    "goldenDbfId": 60327,
+    "artist": "Matt Dixon",
+    "cardClass": "PALADIN",
+    "flavor": "Every ten seconds it asks if you want to update.",
+    "text": "<b>Magnetic</b>\n<b>Divine Shield</b>\n<b>Taunt</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60327,
+    "name": "Annoy-o-Module",
+    "tier": 3,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "MAGNETIC",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "MAGNETIC",
+        "type": "ENCHANT",
+        "args": [
+          31
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_099",
+    "normalDbfId": 96812,
+    "cardClass": "PALADIN",
+    "text": "<b>Magnetic</b>\n<b>Divine Shield</b>\n<b>Taunt</b>",
+    "type": "MINION"
   }
 ]

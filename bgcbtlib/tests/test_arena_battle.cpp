@@ -1651,3 +1651,91 @@ TEST(ArenaBattleTest, ZoobotShouldBuffAmalgamLast) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, AnnoyOModule) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ANNOY_O_MODULE,
+        CardDb::Id::ANNOY_O_MODULE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, AnnoyOModulePlayNoMagnetize) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::JO_E_BOT_T_G
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ANNOY_O_MODULE));
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, AnnoyOModulePlayMagnetize) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::JO_E_BOT_T_G
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ANNOY_O_MODULE), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, AnnoyOModulePlayMagnetizeFullBoard) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ANNOY_O_MODULE), ++boardA.minions().begin());
+
+    EXPECT_EQ(boardA.taunt_count(), 1);
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

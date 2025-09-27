@@ -323,5 +323,37 @@
     "health": 2,
     "text": "Give a random friendly Beast, Dragon, and Murloc +2/+2.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 30,
+    "name": "Annoy-o-Module",
+    "target": "SINGLE",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 2,
+    "health": 4,
+    "text": "+2/+4 <b>Divine Shield</b> <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 31,
+    "name": "Annoy-o-Module",
+    "target": "SINGLE",
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "TAUNT"
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 4,
+    "health": 8,
+    "text": "+4/+8 <b>Divine Shield</b> <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
   }
 ]

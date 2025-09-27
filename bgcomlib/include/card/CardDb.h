@@ -108,6 +108,8 @@ public:
         ZOOBOT_G = 59489,
         NIGHTMARE_AMALGAM = 96780,
         NIGHTMARE_AMALGAM_G = 91216,
+        ANNOY_O_MODULE = 96812,
+        ANNOY_O_MODULE_G = 60327,
 
         // tokens
         TABBYCAT_T = 96759,

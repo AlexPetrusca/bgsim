@@ -143,8 +143,19 @@ MinionLoc Board::play_minion(const Minion& minion) {
 }
 
 MinionLoc Board::play_minion(const Minion& minion, const MinionLoc loc) {
+    if (minion.has(Keyword::MAGNETIC) && loc != minions().end() && loc->is(Race::MECHANICAL)) {
+        for (const int enchantment_id: minion.get_effect(Keyword::MAGNETIC).args()) {
+            enchant_minion(*loc, db.get_enchantment(enchantment_id));
+        }
+        return loc;
+    }
+
     const MinionLoc spawn_loc = summon_minion(minion, loc);
-    exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
+    if (spawn_loc != minions().end()) {
+        if (minion.has(Keyword::BATTLECRY)) {
+            exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
+        }
+    }
     return spawn_loc;
 }
 
@@ -263,13 +274,19 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
 }
 
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
+    if (enchantment.has(Keyword::TAUNT) && !minion.has(Keyword::TAUNT)) {
+        _taunt_count++;
+    }
     minion.props() |= enchantment.props();
     minion.delta_attack(enchantment.attack(), aura);
     minion.delta_health(enchantment.health(), aura);
 }
 
 void Board::disenchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
-    // minion.props() |= enchantment.props(); // todo: implement later
+    if (enchantment.has(Keyword::TAUNT) && minion.has(Keyword::TAUNT)) {
+        _taunt_count--;
+    }
+    minion.props() = minion.props() & ~enchantment.props();
     minion.delta_attack(-enchantment.attack(), aura);
     minion.delta_health(-enchantment.health(), aura);
 }
