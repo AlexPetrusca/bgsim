@@ -1834,3 +1834,39 @@ TEST(ArenaBattleTest, Crystalweaver) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, FloatingWatcher) {
+    Board boardA;
+    boardA = Board::from_ids({
+        CardDb::Id::WRATH_WEAVER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::FLOATING_WATCHER_G));
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::FLOATING_WATCHER));
+
+    MinionLoc golden = ++arena.playerA().board().minions().begin();
+    EXPECT_EQ(golden->attack(), 16);
+    EXPECT_EQ(golden->health(), 16);
+
+    MinionLoc normal = ++golden;
+    EXPECT_EQ(normal->attack(), 6);
+    EXPECT_EQ(normal->health(), 6);
+
+    EXPECT_EQ(arena.playerA().total_health(), 38);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

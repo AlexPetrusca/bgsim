@@ -96,7 +96,6 @@ MinionLoc Board::add_minion(const Minion& minion) {
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     const MinionLoc spawn_loc = _minions.insert(loc, minion);
-    proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
@@ -135,6 +134,7 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
             register_trigger(keyword, spawn_loc);
         }
     }
+    proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     return spawn_loc;
 }
 
@@ -143,12 +143,11 @@ MinionLoc Board::play_minion(Minion minion) {
 }
 
 MinionLoc Board::play_minion(Minion minion, MinionLoc loc) {
-    proc_trigger(Keyword::ON_PLAY, &minion);
-
     if (minion.has(Keyword::MAGNETIC) && loc != minions().end() && loc->is(Race::MECHANICAL)) {
         for (const int enchantment_id: minion.get_effect(Keyword::MAGNETIC).args()) {
             enchant_minion(*loc, db.get_enchantment(enchantment_id));
         }
+        proc_trigger(Keyword::ON_PLAY, &minion);
         return loc;
     }
 
@@ -158,6 +157,7 @@ MinionLoc Board::play_minion(Minion minion, MinionLoc loc) {
             exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
         }
     }
+    proc_trigger(Keyword::ON_PLAY, &minion);
     return spawn_loc;
 }
 
@@ -469,6 +469,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         case Effect::Type::DEAL_DAMAGE_PLAYER: {
             for (const int damage : effect.args()) {
                 _player->deal_damage(damage);
+                proc_trigger(Keyword::ON_DAMAGE_PLAYER);
             }
             break;
         }
@@ -487,6 +488,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             const std::vector<int>& args = effect.args();
             for (int i = 0; i < args.size(); i += 2) {
                 _player->deal_damage(args[i]);
+                proc_trigger(Keyword::ON_DAMAGE_PLAYER);
                 proc_enchantment(args[i + 1], source);
             }
             break;

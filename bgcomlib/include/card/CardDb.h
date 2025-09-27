@@ -116,6 +116,8 @@ public:
         CROWD_FAVORITE_G = 58383,
         CRYSTALWEAVER = 40391,
         CRYSTALWEAVER_G = 59504,
+        FLOATING_WATCHER = 105208,
+        FLOATING_WATCHER_G = 60403,
 
         // tokens
         TABBYCAT_T = 96759,

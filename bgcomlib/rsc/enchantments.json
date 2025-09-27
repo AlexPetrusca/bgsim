@@ -407,5 +407,23 @@
     "health": 2,
     "text": "Give your Demons +2/+2.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 37,
+    "name": "Floating Watch",
+    "target": "SELF",
+    "attack": 2,
+    "health": 2,
+    "text": "+2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 38,
+    "name": "Floating Watch",
+    "target": "SELF",
+    "attack": 4,
+    "health": 4,
+    "text": "+4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -3104,5 +3104,61 @@
     "rarity": "COMMON",
     "text": "<b>Battlecry:</b> Give your Demons +2/+2.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 105208,
+    "name": "Floating Watcher",
+    "tier": 3,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ON_DAMAGE_PLAYER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_PLAYER",
+        "type": "ENCHANT",
+        "args": [
+          37
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BG_GVG_100",
+    "goldenDbfId": 60403,
+    "artist": "Todd Lockwood",
+    "cardClass": "WARLOCK",
+    "flavor": "\"Evil Eye Watcher of Doom\" was the original name, but marketing felt it was a bit too aggressive.",
+    "text": "Whenever your hero takes damage on your turn, gain +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60403,
+    "name": "Floating Watcher",
+    "tier": 3,
+    "attack": 8,
+    "health": 8,
+    "mechanics": [
+      "ON_DAMAGE_PLAYER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DAMAGE_PLAYER",
+        "type": "ENCHANT",
+        "args": [
+          38
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "TB_BaconUps_101",
+    "normalDbfId": 105208,
+    "cardClass": "WARLOCK",
+    "text": "Whenever your hero takes damage on your turn, gain +4/+4.",
+    "type": "MINION"
   }
 ]
