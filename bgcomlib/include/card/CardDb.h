@@ -110,6 +110,8 @@ public:
         NIGHTMARE_AMALGAM_G = 91216,
         ANNOY_O_MODULE = 96812,
         ANNOY_O_MODULE_G = 60327,
+        COBALT_GUARDIAN = 2030,
+        COBALT_GUARDIAN_G = 96813,
 
         // tokens
         TABBYCAT_T = 96759,

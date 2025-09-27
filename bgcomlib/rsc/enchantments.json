@@ -37,7 +37,7 @@
   },
   {
     "dbfId": 2,
-    "name": "Divine Shield",
+    "name": "Selfless Shield",
     "mechanics": [
       "DIVINE_SHIELD"
     ],
@@ -354,6 +354,16 @@
     "attack": 4,
     "health": 8,
     "text": "+4/+8 <b>Divine Shield</b> <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 32,
+    "name": "Cobalt Shield",
+    "mechanics": [
+      "DIVINE_SHIELD"
+    ],
+    "target": "SELF",
+    "text": "<b>Divine Shield</b>",
     "type": "ENCHANTMENT"
   }
 ]

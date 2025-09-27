@@ -2932,5 +2932,67 @@
     "cardClass": "PALADIN",
     "text": "<b>Magnetic</b>\n<b>Divine Shield</b>\n<b>Taunt</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 2030,
+    "name": "Cobalt Guardian",
+    "tier": 3,
+    "attack": 6,
+    "health": 3,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "MECHANICAL_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          32
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_062",
+    "goldenDbfId": 96813,
+    "artist": "Jim Nelson",
+    "cardClass": "PALADIN",
+    "flavor": "Guardians used to be built out of Adamantium, but production got moved to Gadgetzan and Cobalt was cheap.",
+    "rarity": "RARE",
+    "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96813,
+    "name": "Cobalt Guardian",
+    "tier": 3,
+    "attack": 12,
+    "health": 6,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "MECHANICAL_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          32
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_062_G",
+    "goldenDbfId": 2030,
+    "artist": "Jim Nelson",
+    "cardClass": "PALADIN",
+    "flavor": "Guardians used to be built out of Adamantium, but production got moved to Gadgetzan and Cobalt was cheap.",
+    "rarity": "RARE",
+    "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
+    "type": "MINION"
   }
 ]

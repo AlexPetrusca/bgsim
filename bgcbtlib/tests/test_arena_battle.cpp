@@ -1739,3 +1739,48 @@ TEST(ArenaBattleTest, AnnoyOModulePlayMagnetizeFullBoard) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, CobaltGuardian) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::COBALT_GUARDIAN,
+
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::MECHAROO_G));
+    boardA.play_minion(db.get_minion(CardDb::Id::ANNOY_O_MODULE), ++boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, CobaltGuardianGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::COBALT_GUARDIAN_G,
+
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::MECHAROO));
+    boardA.play_minion(db.get_minion(CardDb::Id::ANNOY_O_MODULE), ++boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PACK_LEADER_G,
+        CardDb::Id::PACK_LEADER_G,
+        CardDb::Id::PACK_LEADER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
