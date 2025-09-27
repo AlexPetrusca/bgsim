@@ -33,11 +33,40 @@ std::list<Minion>& Board::minions() {
     return this->_minions;
 }
 
-MinionLoc Board::get_random_minion_loc() {
+Race Board::get_random_race() {
+    return get_random_race(RaceUtil::races);
+}
+
+Race Board::get_random_race(const std::vector<Race>& races) {
+    Race race = Race::NONE;
+    double count = 1;
+    for (const Race r : races) {
+        if (rng.rand_percent() < 1 / count) {
+            race = r;
+        }
+        count++;
+    }
+    return race;
+}
+
+Race Board::get_random_race(const BitVector<Race>& races) {
+    Race race = Race::NONE;
+    double count = 1;
+    for (const Race r : races) {
+        if (rng.rand_percent() < 1 / count) {
+            race = r;
+        }
+        count++;
+    }
+    return race;
+}
+
+MinionLoc Board::get_random_minion_loc(Minion* exclude) {
     MinionLoc random_loc = minions().end();
     double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
+        if (&*m == exclude) continue;
         if (rng.rand_percent() < 1 / count) {
             random_loc = m;
         }
@@ -46,12 +75,13 @@ MinionLoc Board::get_random_minion_loc() {
     return random_loc;
 }
 
-MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
+MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& excludeProps, Minion* exclude) {
     auto random_loc = minions().end();
     double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
-        if (m->props().intersects(exclude)) continue;
+        if (&*m == exclude) continue;
+        if (m->props().intersects(excludeProps)) continue;
         if (rng.rand_percent() < 1 / count) {
             random_loc = m;
         }
@@ -61,11 +91,12 @@ MinionLoc Board::get_random_minion_loc(const BitVector<Keyword>& exclude) {
     return random_loc;
 }
 
-MinionLoc Board::get_random_minion_loc_by_race(const Race race) {
+MinionLoc Board::get_random_minion_loc_by_race(const Race race, Minion* exclude) {
     auto random_loc = minions().end();
-    double count = 0;
+    double count = 1;
     for (auto m = minions().begin(); m != minions().end(); ++m) {
         if (m->is_zombie()) continue;
+        if (&*m == exclude) continue;
         if (!m->is(race)) continue;
         if (rng.rand_percent() < 1 / count) {
             random_loc = m;
@@ -204,14 +235,7 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             } else {
                 // apply enchantment randomly
                 if (enchantment.races().any()) {
-                    Race race = Race::NONE;
-                    double count = 1;
-                    for (const Race r : enchantment.races()) {
-                        if (rng.rand_percent() < 1 / count) {
-                            race = r;
-                        }
-                        count++;
-                    }
+                    const Race race = get_random_race(enchantment.races());
                     enchant_random_minion_by_race(enchantment, race);
                 } else {
                     enchant_random_minion(enchantment);
@@ -219,10 +243,27 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             }
             break;
         }
+        case Target::SINGLE_OTHER: {
+            if (enchantment.races().any()) {
+                const Race race = get_random_race(enchantment.races());
+                enchant_random_minion_by_race(enchantment, race, &*source);
+            } else {
+                enchant_random_minion(enchantment, &*source);
+            }
+            break;
+        }
         case Target::ALL: {
             for (Minion& m: minions()) {
                 if (enchantment.races().any() && !m.races().intersects(enchantment.races())) continue;
                 enchant_minion(m, enchantment);
+            }
+            break;
+        }
+        case Target::ALL_OTHER: {
+            for (auto m = minions().begin(); m != minions().end(); ++m) {
+                if (m == source) continue;
+                if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
+                enchant_minion(*m, enchantment);
             }
             break;
         }
@@ -240,20 +281,12 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             enchant_minion(minions().back(), enchantment);
             break;
         }
-        case Target::ALL_OTHER: {
-            for (auto m = minions().begin(); m != minions().end(); ++m) {
-                if (m == source) continue;
-                if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
-                enchant_minion(*m, enchantment);
-            }
-            break;
-        }
         case Target::ONE_OF_EACH: {
             MinionLocSet selections;
             // todo: pretty inefficient - we have to loop through all races once and all minions multiple times
             for (const Race race : enchantment.races()) {
                 auto random_loc = minions().end();
-                double count = 0;
+                double count = 1;
                 for (auto m = minions().begin(); m != minions().end(); ++m) {
                     if (m->is_zombie()) continue; // skip, is zombie
                     if (selections.contains(m)) continue; // skip, we've already selected
@@ -293,23 +326,23 @@ void Board::disenchant_minion(Minion& minion, const Enchantment& enchantment, co
     minion.delta_health(-enchantment.health(), aura);
 }
 
-MinionLoc Board::enchant_random_minion(const Enchantment& enchantment) {
+MinionLoc Board::enchant_random_minion(const Enchantment& enchantment, Minion* exclude) {
     // todo: hold on - its only a subset of props that I'm interested in filtering out, right?
     //  - `divine shield` and `reborn` should go to units that don't have them
     //  - but what about `taunt`... that shouldn't count right?
     //  - Maybe we first try to give the buff to a minion without the prop;
     //    Then if we can't, we just give it to any minion (even if it doesn't "do anything")
-    const auto minion = get_random_minion_loc(enchantment.props());
+    const auto minion = get_random_minion_loc(enchantment.props(), exclude);
     if (minion != minions().end()) {
         enchant_minion(*minion, enchantment);
     }
     return minion;
 }
 
-MinionLoc Board::enchant_random_minion_by_race(const Enchantment& enchantment, const Race race) {
+MinionLoc Board::enchant_random_minion_by_race(const Enchantment& enchantment, const Race race, Minion* exclude) {
     // todo: can we really ignore props here? answer is NO (lol)
     //  - check above todo
-    const auto minion = get_random_minion_loc_by_race(race);
+    const auto minion = get_random_minion_loc_by_race(race, exclude);
     if (minion != minions().end()) {
         enchant_minion(*minion, enchantment);
     }

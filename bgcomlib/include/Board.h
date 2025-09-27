@@ -20,11 +20,21 @@ public:
 
     std::list<Minion>& minions();
 
-    MinionLoc get_random_minion_loc();
+    Race get_random_race();
 
-    MinionLoc get_random_minion_loc(const BitVector<Keyword>& exclude);
+    Race get_random_race(const std::vector<Race>& races);
 
-    MinionLoc get_random_minion_loc_by_race(Race race);
+    Race get_random_race(const BitVector<Race>& races);
+
+    MinionLoc get_random_minion_loc(Minion* exclude = nullptr);
+
+    MinionLoc get_random_minion_loc(const BitVector<Keyword>& excludeProps, Minion* exclude = nullptr);
+
+    MinionLoc get_random_minion_loc_by_race(Race race, Minion* exclude = nullptr);
+
+    MinionLoc enchant_random_minion(const Enchantment& enchantment, Minion* exclude = nullptr);
+
+    MinionLoc enchant_random_minion_by_race(const Enchantment& enchantment, Race race, Minion* exclude = nullptr);
 
     MinionLoc get_left_minion_loc(MinionLoc loc);
 
@@ -49,10 +59,6 @@ public:
     void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
 
     void disenchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
-
-    MinionLoc enchant_random_minion(const Enchantment& enchantment);
-
-    MinionLoc enchant_random_minion_by_race(const Enchantment& enchantment, Race race);
 
     void reap_minion(MinionLoc loc);
 

@@ -120,6 +120,8 @@ public:
         FLOATING_WATCHER_G = 60403,
         INFESTED_WOLF = 38734,
         INFESTED_WOLF_G = 58365,
+        IRON_SENSEI = 97423,
+        IRON_SENSEI_G = 58397,
 
         // tokens
         TABBYCAT_T = 96759,

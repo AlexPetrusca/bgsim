@@ -3252,5 +3252,63 @@
     "artist": "Luca Zontini",
     "cardClass": "HUNTER",
     "type": "MINION"
+  },
+  {
+    "dbfId": 97423,
+    "name": "Iron Sensei",
+    "tier": 3,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "ON_TURN_END"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_END",
+        "type": "ENCHANT",
+        "args": [
+          39
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_GVG_027",
+    "goldenDbfId": 58397,
+    "artist": "Brian Despain",
+    "cardClass": "ROGUE",
+    "flavor": "Mechs like learning from him because he really speaks their language.\n0110100001101001",
+    "rarity": "RARE",
+    "text": "At the end of your turn, give another friendly Mech +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58397,
+    "name": "Iron Sensei",
+    "tier": 3,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ON_TURN_END"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_END",
+        "type": "ENCHANT",
+        "args": [
+          40
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_044",
+    "normalDbfId": 97423,
+    "cardClass": "ROGUE",
+    "rarity": "RARE",
+    "text": "At the end of your turn, give another friendly Mech +4/+4.",
+    "type": "MINION"
   }
 ]

@@ -425,5 +425,29 @@
     "health": 4,
     "text": "+4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 39,
+    "name": "Iron Jutsu",
+    "target": "SINGLE_OTHER",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "+2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 40,
+    "name": "Iron Jutsu",
+    "target": "SINGLE_OTHER",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "+4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -1893,3 +1893,48 @@ TEST(ArenaBattleTest, InfestedWolf) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, IronSensei) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IRON_SENSEI,
+        CardDb::Id::IRON_SENSEI_G,
+    });
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, IronSenseiNoSelfBuff) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IRON_SENSEI,
+        CardDb::Id::MECHAROO_G,
+    });
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
