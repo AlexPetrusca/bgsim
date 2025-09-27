@@ -96,6 +96,7 @@ MinionLoc Board::add_minion(const Minion& minion) {
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     const MinionLoc spawn_loc = _minions.insert(loc, minion);
+    proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
@@ -134,7 +135,6 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
             register_trigger(keyword, spawn_loc);
         }
     }
-    proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     return spawn_loc;
 }
 
@@ -157,7 +157,7 @@ MinionLoc Board::play_minion(Minion minion, MinionLoc loc) {
             exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
         }
     }
-    proc_trigger(Keyword::ON_PLAY, &minion);
+    proc_trigger(Keyword::ON_PLAY, &*spawn_loc);
     return spawn_loc;
 }
 
