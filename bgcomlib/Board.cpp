@@ -569,6 +569,7 @@ void Board::apply_aura(const MinionLoc loc) {
         Enchantment enchantment = db.get_enchantment(enchantment_id);
         for (auto m = minions().begin(); m != minions().end(); ++m) {
             if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
+            if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
             if (enchantment.target() == Target::ALL) {
                 enchant_minion(*m, enchantment);
             } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
@@ -584,6 +585,8 @@ void Board::undo_aura(const MinionLoc loc) {
         Enchantment enchantment = db.get_enchantment(enchantment_id);
         for (auto m = minions().begin(); m != minions().end(); ++m) {
             if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
+            // todo: [BUG] handle case where we disenchant taunt, so we need to unapply the aura for "Phalanx Commander"
+            if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
             if (enchantment.target() == Target::ALL) {
                 disenchant_minion(*m, enchantment);
             } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {

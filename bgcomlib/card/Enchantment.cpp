@@ -15,6 +15,11 @@ Enchantment::Enchantment(const json& enchant_json) {
             _races.set(RaceUtil::fromString(race_json));
         }
     }
+    if (enchant_json.contains("constraints")) {
+        for (const auto& keyword_json : enchant_json["constraints"]) {
+            _constraints.set(KeywordUtil::fromString(keyword_json));
+        }
+    }
     if (enchant_json.contains("attack")) {
         _attack = enchant_json["attack"];
     }
@@ -35,8 +40,12 @@ const BitVector<Keyword>& Enchantment::props() const {
     return _props;
 }
 
-BitVector<Race> Enchantment::races() const {
+const BitVector<Race>& Enchantment::races() const {
     return _races;
+}
+
+const BitVector<Keyword>& Enchantment::constraints() const {
+    return _constraints;
 }
 
 int Enchantment::attack() const {

@@ -124,6 +124,8 @@ public:
         IRON_SENSEI_G = 58397,
         KHADGAR = 96779,
         KHADGAR_G = 58380,
+        PHALANX_COMMANDER = 54153,
+        PHALANX_COMMANDER_G = 58385,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -22,7 +22,9 @@ public:
 
     [[nodiscard]] const BitVector<Keyword>& props() const;
 
-    [[nodiscard]] BitVector<Race> races() const;
+    [[nodiscard]] const BitVector<Race>& races() const;
+
+    [[nodiscard]] const BitVector<Keyword>& constraints() const;
 
     [[nodiscard]] int attack() const;
 
@@ -41,6 +43,7 @@ private:
     Target _target{};
     BitVector<Keyword> _props;
     BitVector<Race> _races;
+    BitVector<Keyword> _constraints;
     int _attack{};
     int _health{};
 };

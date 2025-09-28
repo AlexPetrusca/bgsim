@@ -449,5 +449,27 @@
     "health": 4,
     "text": "+4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 41,
+    "name": "Phalanx Command",
+    "target": "ALL_OTHER",
+    "constraints": [
+      "TAUNT"
+    ],
+    "attack": 2,
+    "text": "Your <b>Taunt</b> minions have +2 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 42,
+    "name": "Phalanx Command",
+    "target": "ALL_OTHER",
+    "constraints": [
+      "TAUNT"
+    ],
+    "attack": 4,
+    "text": "Your <b>Taunt</b> minions have +4 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

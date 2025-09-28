@@ -2098,4 +2098,48 @@ TEST(ArenaBattleTest, KhadgarSecurityRoverOverflow) {
     EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
+TEST(ArenaBattleTest, PhalanxCommanderNoProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ALLEYCAT_G,
+        CardDb::Id::ALLEYCAT_G,
+        CardDb::Id::PHALANX_COMMANDER_G,
+    });
 
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_B);
+    EXPECT_EQ(report.damage(), 1);
+}
+
+TEST(ArenaBattleTest, PhalanxCommanderProc) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::PHALANX_COMMANDER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -84,7 +84,7 @@ private:
         CardDb::Id::INFESTED_WOLF,
         CardDb::Id::IRON_SENSEI,
         CardDb::Id::KHADGAR,
-        // CardDb::Id::PHALANX_COMMANDER,
+        CardDb::Id::PHALANX_COMMANDER,
         // CardDb::Id::PILOTED_SHREDDER,
         CardDb::Id::PSYCH_O_TRON,
         // CardDb::Id::RAT_PACK,

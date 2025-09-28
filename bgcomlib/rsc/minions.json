@@ -3346,5 +3346,59 @@
     "rarity": "LEGENDARY",
     "text": "Your cards that summon minions summon three times as many.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 54153,
+    "name": "Phalanx Commander",
+    "tier": 3,
+    "attack": 4,
+    "health": 5,
+    "mechanics": [
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          41
+        ]
+      }
+    ],
+    "id": "ULD_179",
+    "goldenDbfId": 58385,
+    "artist": "Anton Zemskov",
+    "cardClass": "NEUTRAL",
+    "flavor": "Turns out he's really good at herding cats.",
+    "rarity": "COMMON",
+    "text": "Your <b>Taunt</b> minions\nhave +2 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58385,
+    "name": "Phalanx Commander",
+    "tier": 3,
+    "attack": 8,
+    "health": 10,
+    "mechanics": [
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          42
+        ]
+      }
+    ],
+    "id": "ULD_179_G",
+    "normalDbfId": 54153,
+    "artist": "Anton Zemskov",
+    "cardClass": "NEUTRAL",
+    "flavor": "Turns out he's really good at herding cats.",
+    "rarity": "COMMON",
+    "text": "Your <b>Taunt</b> minions\nhave +4 Attack.",
+    "type": "MINION"
   }
 ]
