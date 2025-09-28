@@ -3461,5 +3461,90 @@
     "rarity": "COMMON",
     "text": "<b>Deathrattle:</b> Summon two random 2-Cost minion.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96789,
+    "name": "Rat Pack",
+    "tier": 3,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          10
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_CFM_316",
+    "goldenDbfId": 58367,
+    "artist": "Ozhill Studio",
+    "cardClass": "HUNTER",
+    "flavor": "He's gonna do it his way.",
+    "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58367,
+    "name": "Rat Pack",
+    "tier": 3,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          11
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_027",
+    "normalDbfId": 96789,
+    "cardClass": "HUNTER",
+    "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 2/2 Rats equal\n to this minion's Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96790,
+    "name": "Rat",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_CFM_316t",
+    "goldenDbfId": 58368,
+    "artist": "L. Lullabi & A. Bozonnet",
+    "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58368,
+    "name": "Rat",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_027t",
+    "normalDbfId": 96790,
+    "cardClass": "HUNTER",
+    "type": "MINION"
   }
 ]

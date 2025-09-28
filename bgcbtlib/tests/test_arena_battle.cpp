@@ -2149,6 +2149,7 @@ TEST(ArenaBattleTest, PilotedShredder) {
         CardDb::Id::PILOTED_SHREDDER,
         CardDb::Id::PILOTED_SHREDDER_G
     });
+
     Board boardB = Board::from_ids({
         CardDb::Id::HYENA_T_G,
         CardDb::Id::HYENA_T_G,
@@ -2158,7 +2159,6 @@ TEST(ArenaBattleTest, PilotedShredder) {
         CardDb::Id::HYENA_T,
         CardDb::Id::HYENA_T,
     });
-
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
@@ -2171,3 +2171,42 @@ TEST(ArenaBattleTest, PilotedShredder) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, RatPack) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RAT_PACK,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, RatPackGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RAT_PACK_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+

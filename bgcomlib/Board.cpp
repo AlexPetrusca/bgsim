@@ -416,7 +416,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         }
         case Effect::Type::SUMMON_SPECIAL: {
             for (const int arg: effect.args()) {
-                MinionLoc spawn_loc = minions().end();
+                std::vector<MinionLoc> spawn_locs;
                 switch (static_cast<Effect::SpecialSummon>(arg)) {
                     case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
                         // todo
@@ -429,9 +429,9 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_5:
                     case Effect::SpecialSummon::RANDOM_TIER_6:
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
-                        const CardDb::Id id = _player->pool()->get_random_minionid_from_tier(arg);
+                        const Minion& minion = db.get_minion(_player->pool()->get_random_minionid_from_tier(arg));
                         const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        spawn_loc = summon_minion(db.get_minion(id), get_right_minion_loc(source), post_death);
+                        spawn_locs.push_back(summon_minion(minion, get_right_minion_loc(source), post_death));
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
@@ -442,8 +442,22 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         // todo
                         break;
                     }
+                    case Effect::SpecialSummon::RAT_PACK: {
+                        const Minion& rat = db.get_minion(CardDb::Id::RAT_T);
+                        for (int i = 0; i < source->attack(); i++) {
+                            spawn_locs.push_back(summon_minion(rat, get_right_minion_loc(source), true));
+                        }
+                        break;
+                    }
+                    case Effect::SpecialSummon::RAT_PACK_GOLDEN: {
+                        const Minion& rat = db.get_minion(CardDb::Id::RAT_T_G);
+                        for (int i = 0; i < source->attack(); i++) {
+                            spawn_locs.push_back(summon_minion(rat, get_right_minion_loc(source), true));
+                        }
+                        break;
+                    }
                 }
-                if (spawn_loc != minions().end()) {
+                for (const MinionLoc spawn_loc : spawn_locs) {
                     proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
                 }
             }

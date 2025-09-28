@@ -80,16 +80,18 @@ public:
     };
 
     enum class SpecialSummon {
-        FIRST_TWO_DEAD_MECHS,
-        RANDOM_TIER_1,
-        RANDOM_TIER_2,
-        RANDOM_TIER_3,
-        RANDOM_TIER_4,
-        RANDOM_TIER_5,
-        RANDOM_TIER_6,
-        RANDOM_TIER_7,
-        RANDOM_DEATHRATTLE,
-        RANDOM_LEGENDARY,
+        FIRST_TWO_DEAD_MECHS = 0,
+        RANDOM_TIER_1 = 1,
+        RANDOM_TIER_2 = 2,
+        RANDOM_TIER_3 = 3,
+        RANDOM_TIER_4 = 4,
+        RANDOM_TIER_5 = 5,
+        RANDOM_TIER_6 = 6,
+        RANDOM_TIER_7 = 7,
+        RANDOM_DEATHRATTLE = 8,
+        RANDOM_LEGENDARY = 9,
+        RAT_PACK = 10,
+        RAT_PACK_GOLDEN = 11,
     };
 
     explicit Effect(const json& json);

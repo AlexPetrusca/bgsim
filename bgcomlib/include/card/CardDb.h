@@ -128,6 +128,8 @@ public:
         PHALANX_COMMANDER_G = 58385,
         PILOTED_SHREDDER = 2064,
         PILOTED_SHREDDER_G = 2065,
+        RAT_PACK = 96789,
+        RAT_PACK_G = 58367,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -154,6 +156,8 @@ public:
         DAMAGED_GOLEM_T_G = 57408,
         SPIDER_T = 38735,
         SPIDER_T_G = 38736,
+        RAT_T = 96790,
+        RAT_T_G = 58368,
 
         // enchantments
         // todo: should these be here
