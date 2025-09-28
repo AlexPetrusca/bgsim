@@ -126,6 +126,8 @@ public:
         KHADGAR_G = 58380,
         PHALANX_COMMANDER = 54153,
         PHALANX_COMMANDER_G = 58385,
+        PILOTED_SHREDDER = 2064,
+        PILOTED_SHREDDER_G = 2065,
 
         // tokens
         TABBYCAT_T = 96759,

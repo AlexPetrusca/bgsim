@@ -85,7 +85,7 @@ private:
         CardDb::Id::IRON_SENSEI,
         CardDb::Id::KHADGAR,
         CardDb::Id::PHALANX_COMMANDER,
-        // CardDb::Id::PILOTED_SHREDDER,
+        CardDb::Id::PILOTED_SHREDDER,
         CardDb::Id::PSYCH_O_TRON,
         // CardDb::Id::RAT_PACK,
         // CardDb::Id::REPLICATING_MENACE,
