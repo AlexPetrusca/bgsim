@@ -2744,3 +2744,52 @@ TEST(ArenaBattleTest, KingBagurgleGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, MamaBear) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MAMA_BEAR,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::SEWER_RAT), boardA.minions().begin());
+    boardA.play_minion(db.get_minion(CardDb::Id::SEWER_RAT), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MamaBearGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MAMA_BEAR_G,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::NIGHTMARE_AMALGAM), boardA.minions().begin());
+    boardA.play_minion(db.get_minion(CardDb::Id::SEWER_RAT), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

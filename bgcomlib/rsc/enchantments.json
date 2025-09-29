@@ -579,5 +579,29 @@
     "health": 4,
     "text": "Give your other Murlocs +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 55,
+    "name": "Mama Bear",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 5,
+    "health": 5,
+    "text": "Whenever you summon a Beast, give it +5/+5.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 56,
+    "name": "Mama Bear",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 10,
+    "health": 10,
+    "text": "Whenever you summon a Beast, give it +10/+10.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -4274,5 +4274,61 @@
     "elite": true,
     "text": "<b>Battlecry</b> and <b>Deathrattle</b>: Give your other Murlocs +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 60036,
+    "name": "Mama Bear",
+    "tier": 6,
+    "attack": 5,
+    "health": 5,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          55
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BGS_021",
+    "goldenDbfId": 60038,
+    "cardClass": "HUNTER",
+    "text": "Whenever you summon a Beast, give it +5/+5.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60038,
+    "name": "Mama Bear",
+    "tier": 6,
+    "attack": 10,
+    "health": 10,
+    "mechanics": [
+      "ON_SUMMON"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_SUMMON",
+        "constraint": "BEAST_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          56
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_090",
+    "normalDbfId": 60036,
+    "cardClass": "HUNTER",
+    "text": "Whenever you summon a Beast, give it +10/+10.",
+    "type": "MINION"
   }
 ]

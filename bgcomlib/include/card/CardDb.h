@@ -154,6 +154,8 @@ public:
         JUNKBOT_G = 58402,
         KING_BAGURGLE = 60247,
         KING_BAGURGLE_G = 60396,
+        MAMA_BEAR = 60036,
+        MAMA_BEAR_G = 60038,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -102,7 +102,6 @@ private:
         CardDb::Id::DEFENDER_OF_ARGUS,
         CardDb::Id::JUNKBOT,
         CardDb::Id::KING_BAGURGLE,
-        // CardDb::Id::MAMA_BEAR,
         // CardDb::Id::MECHANO_EGG,
         // CardDb::Id::MENAGERIE_MAGICIAN,
         // CardDb::Id::PILOTED_SKY_GOLEM,
@@ -132,6 +131,7 @@ private:
 
     inline static std::vector<CardDb::Id> _tier6 {
         CardDb::Id::FOE_REAPER_4000,
+        CardDb::Id::MAMA_BEAR,
         // CardDb::Id::GENTLE_MEGASAUR,
         // CardDb::Id::GHASTCOILER,
         // CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
