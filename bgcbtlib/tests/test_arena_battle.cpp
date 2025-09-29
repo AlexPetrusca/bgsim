@@ -2419,3 +2419,22 @@ TEST(ArenaBattleTest, TheBeastGoldenMirror) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, TheBeastInteractKhadgar) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BEAST,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::KHADGAR
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

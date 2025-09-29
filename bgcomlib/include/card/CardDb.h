@@ -138,8 +138,8 @@ public:
         SHIFTER_ZERUS_G = 60233, // todo: not fully implemented (change in hand)
         SOUL_JUGGLER = 59660,
         SOUL_JUGGLER_G = 59661,
-        THE_BEAST = 962, // todo: not fully implemented (khadgar interaction)
-        THE_BEAST_G = 58394, // todo: not fully implemented (khadgar interaction)
+        THE_BEAST = 962,
+        THE_BEAST_G = 58394,
 
         // tokens
         TABBYCAT_T = 96759,
