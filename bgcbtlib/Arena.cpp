@@ -181,14 +181,14 @@ BattleReport Arena::battle(const bool debug, const bool analysis) {
         std::cout << std::endl;
     }
 
-    _p1.board().pre_battle();
-    _p2.board().pre_battle();
+    _p1.board().start_of_combat();
+    _p2.board().start_of_combat();
     while (get_battle_status() == IN_PROGRESS) {
-        _p1.board().pre_combat();
-        _p2.board().pre_combat();
+        _p1.board().pre_attack();
+        _p2.board().pre_attack();
         combat(turn, debug);
-        _p1.board().post_combat();
-        _p2.board().post_combat();
+        _p1.board().post_attack();
+        _p2.board().post_attack();
         turn++;
     }
 

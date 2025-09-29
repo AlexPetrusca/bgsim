@@ -14,9 +14,17 @@ class Player;
 
 class Board : public IPrintable {
 public:
-    explicit Board(const std::vector<Minion>& minions = {});
+    explicit Board(const std::vector<Minion>& minions = {}); // constructor
 
     static Board from_ids(const std::vector<CardDb::Id>& minionIds);
+
+    Board(const Board& other); // copy constructor
+
+    Board(Board&& other) noexcept; // move constructor
+
+    Board& operator=(const Board& other); // copy assignment
+
+    Board& operator=(Board&& other) noexcept; // move assignment
 
     std::list<Minion>& minions();
 
@@ -84,11 +92,11 @@ public:
 
     void turn_end();
 
-    void pre_combat();
+    void start_of_combat();
 
-    void post_combat();
+    void pre_attack();
 
-    void pre_battle();
+    void post_attack();
 
     void increment_active();
 
@@ -129,7 +137,7 @@ private:
     int _taunt_count{};
     int _zombie_count{};
 
-    int _summon_multiplier = 1;
+    int _summon_multiplier{};
 
     Player* _player;
 };

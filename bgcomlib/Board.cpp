@@ -8,8 +8,10 @@
 #include "card/CardDb.h"
 #include "util/Random.h"
 
-Board::Board(const std::vector<Minion>& minions) {
-    _player = nullptr;
+Board::Board(const std::vector<Minion>& minions):
+    _summon_multiplier(1),
+    _player(nullptr)
+{
     if (minions.size() > 7) {
         throw std::invalid_argument("Too many minions: " + std::to_string(minions.size()));
     }
@@ -29,6 +31,37 @@ Board Board::from_ids(const std::vector<CardDb::Id>& minionIds) {
     }
     return Board(minions);
 }
+
+Board::Board(const Board& other):
+    _minions(other._minions),
+    _taunt_count(other._taunt_count),
+    _zombie_count(other._zombie_count),
+    _summon_multiplier(other._summon_multiplier),
+    _player(other._player)
+{
+    _triggers.clear();
+    for (auto m = _minions.begin(); m != _minions.end(); ++m) {
+        register_triggers(m);
+    }
+}
+
+Board::Board(Board&& other) noexcept = default;
+
+Board& Board::operator=(const Board& other) {
+    _minions = other._minions;
+    _taunt_count = other._taunt_count;
+    _zombie_count = other._zombie_count;
+    _summon_multiplier = other._summon_multiplier;
+    _player = other._player;
+
+    _triggers.clear();
+    for (auto m = _minions.begin(); m != _minions.end(); ++m) {
+        register_triggers(m);
+    }
+    return *this;
+}
+
+Board& Board::operator=(Board&& other) noexcept = default;
 
 std::list<Minion>& Board::minions() {
     return this->_minions;
@@ -418,7 +451,7 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
         proc_trigger(Keyword::ON_LOSE_DIVINE_SHIELD);
         return 0;
     } else {
-        const int damage_dealt = minion.deal_damage(damage);
+        minion.deal_damage(damage);
         if (minion.has(Keyword::ON_DAMAGE_SELF)) {
             exec_effects(minion.get_effects(Keyword::ON_DAMAGE_SELF), loc);
         }
@@ -429,7 +462,7 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
             }
             _zombie_count++;
         }
-        return damage_dealt;
+        return damage;
     }
 }
 
@@ -657,24 +690,17 @@ void Board::turn_end() {
     proc_trigger(Keyword::ON_TURN_END);
 }
 
-void Board::pre_combat() {
-    proc_trigger(Keyword::ON_PRE_COMBAT);
+void Board::start_of_combat() {
+    _active = minions().begin();
+    proc_trigger(Keyword::ON_START_OF_COMBAT);
 }
 
-void Board::post_combat() {
-    proc_trigger(Keyword::ON_POST_COMBAT);
+void Board::pre_attack() {
+    proc_trigger(Keyword::ON_PRE_ATTACK);
 }
 
-void Board::pre_battle() {
-    _active = _minions.begin();
-    // todo: when we clone the list, all of our iterators are invalidated - they point to the original list.
-    //  - so we have to recompute them.
-    //  - is there anything clever we can do about this?
-    //  - we coid: override the copy constructor to do this
-    _triggers.clear();
-    for (auto m = minions().begin(); m != minions().end(); ++m) {
-        register_triggers(m);
-    }
+void Board::post_attack() {
+    proc_trigger(Keyword::ON_POST_ATTACK);
 }
 
 void Board::increment_active() {
@@ -706,9 +732,9 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                 default: break;
             }
         } else if (listener->has(Keyword::ADJACENT_AURA)) {
-            if (trigger == Keyword::ON_PRE_COMBAT) {
+            if (trigger == Keyword::ON_PRE_ATTACK) {
                 apply_adjacent_aura(listener);
-            } else if (trigger == Keyword::ON_POST_COMBAT) {
+            } else if (trigger == Keyword::ON_POST_ATTACK) {
                 undo_adjacent_aura(listener);
             }
         } else if (listener->has(Keyword::AURA)) {
@@ -747,8 +773,8 @@ void Board::deregister_trigger(const Keyword trigger, const MinionLoc loc) {
 
 void Board::register_triggers(const MinionLoc loc) {
     if (loc->has(Keyword::ADJACENT_AURA)) {
-        register_trigger(Keyword::ON_PRE_COMBAT, loc);
-        register_trigger(Keyword::ON_POST_COMBAT, loc);
+        register_trigger(Keyword::ON_PRE_ATTACK, loc);
+        register_trigger(Keyword::ON_POST_ATTACK, loc);
     }
     if (loc->has(Keyword::AURA)) {
         register_trigger(Keyword::ON_ADD, loc);
@@ -773,8 +799,8 @@ void Board::register_triggers(const MinionLoc loc) {
 
 void Board::deregister_triggers(const MinionLoc loc) {
     if (loc->has(Keyword::ADJACENT_AURA)) {
-        deregister_trigger(Keyword::ON_PRE_COMBAT, loc);
-        deregister_trigger(Keyword::ON_POST_COMBAT, loc);
+        deregister_trigger(Keyword::ON_PRE_ATTACK, loc);
+        deregister_trigger(Keyword::ON_POST_ATTACK, loc);
     }
     if (loc->has(Keyword::AURA)) {
         deregister_trigger(Keyword::ON_SUMMON, loc);

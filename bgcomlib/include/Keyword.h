@@ -41,9 +41,10 @@ enum class Keyword: uint64_t {
     ON_ATTACK = 1ull << 27,
     ON_KILL = 1ull << 28,
     ON_DEATH_OTHER = 1ull << 29,
-    ON_PRE_COMBAT = 1ull << 30,
-    ON_POST_COMBAT = 1ull << 31,
+    ON_PRE_ATTACK = 1ull << 30,
+    ON_POST_ATTACK = 1ull << 31,
     ON_LOSE_DIVINE_SHIELD = 1ull << 32,
+    ON_START_OF_COMBAT = 1ull << 33,
 };
 
 namespace KeywordUtil {
@@ -80,8 +81,8 @@ namespace KeywordUtil {
         {"ON_ATTACK", Keyword::ON_ATTACK},
         {"ON_KILL", Keyword::ON_KILL},
         {"ON_DEATH_OTHER", Keyword::ON_DEATH_OTHER},
-        {"ON_PRE_COMBAT", Keyword::ON_PRE_COMBAT},
-        {"ON_POST_COMBAT", Keyword::ON_POST_COMBAT},
+        {"ON_PRE_ATTACK", Keyword::ON_PRE_ATTACK},
+        {"ON_POST_ATTACK", Keyword::ON_POST_ATTACK},
         {"ON_LOSE_DIVINE_SHIELD", Keyword::ON_LOSE_DIVINE_SHIELD},
     };
 

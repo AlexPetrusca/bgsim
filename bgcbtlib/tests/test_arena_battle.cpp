@@ -1854,8 +1854,7 @@ TEST(ArenaBattleTest, Crystalweaver) {
 }
 
 TEST(ArenaBattleTest, FloatingWatcher) {
-    Board boardA;
-    boardA = Board::from_ids({
+    Board boardA = Board::from_ids({
         CardDb::Id::WRATH_WEAVER,
     });
 
