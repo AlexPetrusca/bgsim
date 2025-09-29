@@ -3647,5 +3647,67 @@
     "normalDbfId": 96810,
     "cardClass": "PALADIN",
     "type": "MINION"
+  },
+  {
+    "dbfId": 2023,
+    "name": "Screwjank Clunker",
+    "tier": 3,
+    "attack": 2,
+    "health": 5,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          30
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_055",
+    "goldenDbfId": 59501,
+    "artist": "Jesper Ejsing",
+    "cardClass": "WARRIOR",
+    "flavor": "If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
+    "rarity": "RARE",
+    "targetingArrowText": "Give +2/+2.",
+    "text": "<b>Battlecry:</b> Give a friendly Mech +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59501,
+    "name": "Screwjank Clunker",
+    "tier": 3,
+    "attack": 4,
+    "health": 10,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          31
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_055_G",
+    "goldenDbfId": 2023,
+    "artist": "Jesper Ejsing",
+    "cardClass": "WARRIOR",
+    "flavor": "If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
+    "rarity": "RARE",
+    "targetingArrowText": "Give +4/+4.",
+    "text": "<b>Battlecry:</b> Give a friendly Mech +4/+4.",
+    "type": "MINION"
   }
 ]

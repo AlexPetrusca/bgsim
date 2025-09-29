@@ -325,6 +325,30 @@
     "type": "ENCHANTMENT"
   },
   {
+    "dbfId": 30,
+    "name": "Screwjank Clunking",
+    "target": "SINGLE",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a friendly Mech +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 31,
+    "name": "Screwjank Clunking",
+    "target": "SINGLE",
+    "races": [
+      "MECHANICAL"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give a friendly Mech +4/+4.",
+    "type": "ENCHANTMENT"
+  },
+  {
     "dbfId": 32,
     "name": "Cobalt Shield",
     "mechanics": [

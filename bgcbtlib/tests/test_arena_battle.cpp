@@ -2278,3 +2278,24 @@ TEST(ArenaBattleTest, ReplicatingMenaceMagnetizeMultipleDeathrattle) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, ScrewjankClunker) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SCREWJANK_CLUNKER,
+        CardDb::Id::RYLAK_METALHEAD,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

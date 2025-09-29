@@ -132,6 +132,8 @@ public:
         RAT_PACK_G = 58367,
         REPLICATING_MENACE = 89724,
         REPLICATING_MENACE_G = 58376,
+        SCREWJANK_CLUNKER = 2023,
+        SCREWJANK_CLUNKER_G = 59501,
 
         // tokens
         TABBYCAT_T = 96759,
