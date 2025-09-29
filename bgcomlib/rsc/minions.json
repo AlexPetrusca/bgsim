@@ -4330,5 +4330,93 @@
     "cardClass": "HUNTER",
     "text": "Whenever you summon a Beast, give it +10/+10.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 49169,
+    "name": "Mechano-Egg",
+    "tier": 4,
+    "attack": 0,
+    "health": 5,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          49168
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BOT_537",
+    "goldenDbfId": 58387,
+    "artist": "Hideaki Takamura",
+    "cardClass": "PALADIN",
+    "flavor": "When you need more iron in your diet.",
+    "rarity": "COMMON",
+    "text": "<b>Deathrattle:</b> Summon an 8/8 Robosaur.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58387,
+    "name": "Mechano-Egg",
+    "tier": 4,
+    "attack": 0,
+    "health": 10,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          58389
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_039",
+    "normalDbfId": 49169,
+    "cardClass": "PALADIN",
+    "text": "<b>Deathrattle:</b> Summon a 16/16 Robosaur.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 49168,
+    "name": "Robosaur",
+    "tier": 1,
+    "attack": 8,
+    "health": 8,
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "BOT_537t",
+    "goldenDbfId": 58389,
+    "artist": "Hideaki Takamura",
+    "cardClass": "PALADIN",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58389,
+    "name": "Robosaur",
+    "tier": 1,
+    "attack": 16,
+    "health": 16,
+    "races": [
+      "MECHANICAL",
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_039t",
+    "normalDbfId": 49168,
+    "cardClass": "PALADIN",
+    "type": "MINION"
   }
 ]

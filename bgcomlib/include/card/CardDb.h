@@ -156,6 +156,8 @@ public:
         KING_BAGURGLE_G = 60396,
         MAMA_BEAR = 60036,
         MAMA_BEAR_G = 60038,
+        MECHANO_EGG = 49169,
+        MECHANO_EGG_G = 58387,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -186,7 +188,10 @@ public:
         RAT_T_G = 58368,
         MICROBOT_T = 96810,
         MICROBOT_T_G = 58377,
-        PIP_QUICKWIT = 70064,
+        PIP_QUICKWIT_T = 70064,
+        PIP_QUICKWIT_T_G = 70065,
+        ROBOSAUR = 49168,
+        ROBOSAUR_G = 58389,
 
         // enchantments
         // todo: should these be here

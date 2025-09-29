@@ -534,7 +534,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         break;
                     }
                     case Effect::SpecialSummon::THE_BEAST: {
-                        const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT);
+                        const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT_T);
                         for (int i = 0; i < _summon_multiplier; i++) {
                             _player->opponent()->board().summon_minion(pip);
                         }
