@@ -537,5 +537,23 @@
     ],
     "text": "Give adjacent minions +2/+2 and <b>Taunt</b>.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 51,
+    "name": "Junkbot Buff",
+    "target": "SELF",
+    "attack": 2,
+    "health": 2,
+    "text": "Whenever a friendly Mech dies, gain +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 52,
+    "name": "Junkbot Buff",
+    "target": "SELF",
+    "attack": 4,
+    "health": 4,
+    "text": "Whenever a friendly Mech dies, gain +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

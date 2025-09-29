@@ -150,6 +150,8 @@ public:
         CAVE_HYDRA_G = 63794,
         DEFENDER_OF_ARGUS = 763,
         DEFENDER_OF_ARGUS_G = 57404,
+        JUNKBOT = 2074,
+        JUNKBOT_G = 58402,
 
         // tokens
         TABBYCAT_T = 96759,

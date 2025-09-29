@@ -100,7 +100,7 @@ private:
         CardDb::Id::BOLVAR_FIREBLOOD,
         CardDb::Id::CAVE_HYDRA,
         CardDb::Id::DEFENDER_OF_ARGUS,
-        // CardDb::Id::JUNKBOT,
+        CardDb::Id::JUNKBOT,
         // CardDb::Id::KING_BAGURGLE,
         // CardDb::Id::MAMA_BEAR,
         // CardDb::Id::MECHANO_EGG,

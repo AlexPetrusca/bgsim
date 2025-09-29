@@ -4132,13 +4132,75 @@
       }
     ],
     "id": "EX1_093_G",
-    "goldenDbfId": 763,
+    "normalDbfId": 763,
     "artist": "Alex Horley Orlandelli",
     "cardClass": "NEUTRAL",
     "faction": "ALLIANCE",
     "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
     "rarity": "RARE",
     "text": "<b>Battlecry:</b> Give adjacent minions +2/+2 and <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 2074,
+    "name": "Junkbot",
+    "tier": 4,
+    "attack": 1,
+    "health": 5,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "MECHANICAL_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          51
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_106",
+    "goldenDbfId": 58402,
+    "artist": "Zoltan Boros",
+    "cardClass": "NEUTRAL",
+    "flavor": "One bot's junk is another bot's AWESOME UPGRADE!",
+    "rarity": "EPIC",
+    "text": "Whenever a friendly Mech dies, gain +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58402,
+    "name": "Junkbot",
+    "tier": 4,
+    "attack": 2,
+    "health": 10,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "MECHANICAL_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          52
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_106_G",
+    "normalDbfId": 2074,
+    "artist": "Zoltan Boros",
+    "cardClass": "NEUTRAL",
+    "flavor": "One bot's junk is another bot's AWESOME UPGRADE!",
+    "rarity": "EPIC",
+    "text": "Whenever a friendly Mech dies, gain +4/+4.",
     "type": "MINION"
   }
 ]
