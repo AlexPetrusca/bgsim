@@ -470,6 +470,19 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         }
                         break;
                     }
+                    case Effect::SpecialSummon::THE_BEAST: {
+                        const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT);
+                        _player->opponent()->board().summon_minion(pip);
+
+                        // todo: how does this interact with Khadgar?
+                        //  - I guess its supposed to summon two Pips for the opponnent.
+
+                        // todo: do we need to trigger "Keyword::ON_SUMMON_FROM_CARD" for the opponent?
+                        //  - But what if they have a Khadgar?
+                        //  - Man... what a problematic card!
+
+                        break;
+                    }
                 }
                 for (const MinionLoc spawn_loc : spawn_locs) {
                     proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);

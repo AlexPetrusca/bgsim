@@ -3792,5 +3792,91 @@
     "cardClass": "WARLOCK",
     "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion, twice.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 962,
+    "name": "The Beast",
+    "tier": 3,
+    "attack": 9,
+    "health": 7,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          12
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "EX1_577",
+    "goldenDbfId": 58394,
+    "artist": "Glenn Rane",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "He lives in Blackrock Mountain. He eats Gnomes. That's pretty much it.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58394,
+    "name": "The Beast",
+    "tier": 3,
+    "attack": 18,
+    "health": 14,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          12
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "EX1_577_G",
+    "goldenDbfId": 962,
+    "artist": "Glenn Rane",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "He lives in Blackrock Mountain. He eats Gnomes. That's pretty much it.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 70064,
+    "name": "Pip Quickwit",
+    "tier": 1,
+    "attack": 3,
+    "health": 3,
+    "id": "VAN_EX1_finkle",
+    "goldenDbfId": 70065,
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "type": "MINION"
+  },
+  {
+    "dbfId": 70065,
+    "name": "Pip Quickwit",
+    "tier": 1,
+    "attack": 3,
+    "health": 3,
+    "id": "VAN_EX1_finkle",
+    "normalDbfId": 70064,
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "type": "MINION"
   }
 ]

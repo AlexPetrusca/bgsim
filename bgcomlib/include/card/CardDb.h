@@ -138,6 +138,8 @@ public:
         SHIFTER_ZERUS_G = 60233, // todo: not fully implemented (change in hand)
         SOUL_JUGGLER = 59660,
         SOUL_JUGGLER_G = 59661,
+        THE_BEAST = 962, // todo: not fully implemented (khadgar interaction)
+        THE_BEAST_G = 58394, // todo: not fully implemented (khadgar interaction)
 
         // tokens
         TABBYCAT_T = 96759,
@@ -168,6 +170,7 @@ public:
         RAT_T_G = 58368,
         MICROBOT_T = 96810,
         MICROBOT_T_G = 58377,
+        PIP_QUICKWIT = 70064,
 
         // enchantments
         // todo: should these be here

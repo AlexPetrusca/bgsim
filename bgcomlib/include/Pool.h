@@ -92,7 +92,7 @@ private:
         CardDb::Id::SCREWJANK_CLUNKER,
         CardDb::Id::SHIFTER_ZERUS,
         CardDb::Id::SOUL_JUGGLER,
-        // CardDb::Id::THE_BEAST,
+        CardDb::Id::THE_BEAST,
         // CardDb::Id::TORTOLLAN_SHELLRAISER,
     };
 

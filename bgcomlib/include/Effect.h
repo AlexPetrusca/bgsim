@@ -90,6 +90,7 @@ public:
         RANDOM_LEGENDARY = 9,
         RAT_PACK = 10,
         RAT_PACK_GOLDEN = 11,
+        THE_BEAST = 12,
     };
 
     explicit Effect(const json& json);

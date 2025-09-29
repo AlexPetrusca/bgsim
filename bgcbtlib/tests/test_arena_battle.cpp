@@ -2362,3 +2362,56 @@ TEST(ArenaBattleTest, SoulJugglerGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, TheBeast) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BEAST_G,
+        CardDb::Id::THE_BEAST,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBeastMirror) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BEAST,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::THE_BEAST,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBeastGoldenMirror) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BEAST_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::THE_BEAST_G,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
