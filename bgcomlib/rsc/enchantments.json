@@ -603,5 +603,33 @@
     "health": 10,
     "text": "Whenever you summon a Beast, give it +10/+10.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 57,
+    "name": "Menagerie Magic",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "BEAST",
+      "DRAGON",
+      "MURLOC"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a random friendly Beast, Dragon, and Murloc +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 58,
+    "name": "Menagerie Magic",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "BEAST",
+      "DRAGON",
+      "MURLOC"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give a random friendly Beast, Dragon, and Murloc +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

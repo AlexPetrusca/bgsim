@@ -2845,3 +2845,55 @@ TEST(ArenaBattleTest, MechanoEggMirroTie) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, MenagerieMagician) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::MENAGERIE_MAGICIAN,
+        CardDb::Id::NIGHTMARE_AMALGAM,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MenagerieMagicianGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::MENAGERIE_MAGICIAN_G,
+        CardDb::Id::NIGHTMARE_AMALGAM,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

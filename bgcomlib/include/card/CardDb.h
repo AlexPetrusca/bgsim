@@ -158,6 +158,8 @@ public:
         MAMA_BEAR_G = 60038,
         MECHANO_EGG = 49169,
         MECHANO_EGG_G = 58387,
+        MENAGERIE_MAGICIAN = 39269,
+        MENAGERIE_MAGICIAN_G = 59510,
 
         // tokens
         TABBYCAT_T = 96759,

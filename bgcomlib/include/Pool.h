@@ -103,7 +103,7 @@ private:
         CardDb::Id::JUNKBOT,
         CardDb::Id::KING_BAGURGLE,
         CardDb::Id::MECHANO_EGG,
-        // CardDb::Id::MENAGERIE_MAGICIAN,
+        CardDb::Id::MENAGERIE_MAGICIAN,
         // CardDb::Id::PILOTED_SKY_GOLEM,
         CardDb::Id::SAVANNAH_HIGHMANE,
         CardDb::Id::SECURITY_ROVER,

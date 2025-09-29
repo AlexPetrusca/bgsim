@@ -4418,5 +4418,63 @@
     "normalDbfId": 49168,
     "cardClass": "PALADIN",
     "type": "MINION"
+  },
+  {
+    "dbfId": 39269,
+    "name": "Menagerie Magician",
+    "tier": 4,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          57
+        ]
+      }
+    ],
+    "id": "KAR_702",
+    "goldenDbfId": 59510,
+    "artist": "Garrett Hanna",
+    "cardClass": "NEUTRAL",
+    "flavor": "Just between us, if things get tight the Menagerie Magician position will probably be the first to go.",
+    "howToEarn": "Unlocked in the Menagerie, in One Night in Karazhan.",
+    "howToEarnGolden": "Crafting unlocked in the Menagerie, in One Night in Karazhan.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59510,
+    "name": "Menagerie Magician",
+    "tier": 4,
+    "attack": 8,
+    "health": 8,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          58
+        ]
+      }
+    ],
+    "id": "KAR_702_G",
+    "normalDbfId": 39269,
+    "artist": "Garrett Hanna",
+    "cardClass": "NEUTRAL",
+    "flavor": "Just between us, if things get tight the Menagerie Magician position will probably be the first to go.",
+    "howToEarn": "Unlocked in the Menagerie, in One Night in Karazhan.",
+    "howToEarnGolden": "Crafting unlocked in the Menagerie, in One Night in Karazhan.",
+    "rarity": "COMMON",
+    "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +4/+4.",
+    "type": "MINION"
   }
 ]
