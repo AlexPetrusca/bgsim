@@ -44,13 +44,13 @@ TEST(ArenaBattleTest, LongBattle) {
     Board boardA;
     for (int i = 0; i < 7; i++) {
         Minion minion = Minion("A" + std::to_string(i), 1, 5, 150);
-        boardA.summon_minion(minion);
+        boardA.play_minion(minion);
     }
 
     Board boardB;
     for (int i = 0; i < 7; i++) {
         Minion minion = Minion("B" + std::to_string(i), 1, 5, 150);
-        boardB.summon_minion(minion);
+        boardB.play_minion(minion);
     }
 
     rng.seed(12345);

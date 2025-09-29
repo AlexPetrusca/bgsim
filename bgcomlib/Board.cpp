@@ -188,12 +188,13 @@ MinionLoc Board::play_minion(const Minion& minion, MinionLoc loc) {
         return loc;
     }
 
-    const MinionLoc spawn_loc = summon_minion(minion, loc);
-    if (spawn_loc != minions().end()) {
-        if (minion.has(Keyword::BATTLECRY)) {
-            exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
-        }
+    if (full()) return minions().end();
+
+    const MinionLoc spawn_loc = add_minion(minion, loc);
+    if (minion.has(Keyword::BATTLECRY)) {
+        exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
     }
+    proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
     proc_trigger(Keyword::ON_PLAY, &*spawn_loc);
     return spawn_loc;
 }
@@ -203,9 +204,12 @@ MinionLoc Board::summon_minion(const Minion& minion, const bool post_death) {
 }
 
 MinionLoc Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
-    if (full(!post_death)) return minions().end();
-    const MinionLoc spawn_loc = add_minion(minion, loc);
-    proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
+    MinionLoc spawn_loc;
+    for (int i = 0; i < _summon_multiplier; i++) {
+        if (full(!post_death)) return minions().end();
+        spawn_loc = add_minion(minion, loc);
+        proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
+    }
     return spawn_loc;
 }
 
@@ -436,9 +440,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
                 const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                for (int i = 0; i < _summon_multiplier; i++) {
-                    summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
-                }
+                summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
             }
             break;
         }
@@ -458,9 +460,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
                         const Minion& minion = db.get_minion(_player->pool()->get_random_minionid_from_tier(arg));
                         const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        for (int i = 0; i < _summon_multiplier; i++) {
-                            summon_minion(minion, get_right_minion_loc(source), post_death);
-                        }
+                        summon_minion(minion, get_right_minion_loc(source), post_death);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
@@ -474,26 +474,20 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RAT_PACK: {
                         const Minion& rat = db.get_minion(CardDb::Id::RAT_T);
                         for (int j = 0; j < source->attack(); j++) {
-                            for (int i = 0; i < _summon_multiplier; i++) {
-                                summon_minion(rat, get_right_minion_loc(source), true);
-                            }
+                            summon_minion(rat, get_right_minion_loc(source), true);
                         }
                         break;
                     }
                     case Effect::SpecialSummon::RAT_PACK_GOLDEN: {
                         const Minion& rat = db.get_minion(CardDb::Id::RAT_T_G);
                         for (int j = 0; j < source->attack(); j++) {
-                            for (int i = 0; i < _summon_multiplier; i++) {
-                                summon_minion(rat, get_right_minion_loc(source), true);
-                            }
+                            summon_minion(rat, get_right_minion_loc(source), true);
                         }
                         break;
                     }
                     case Effect::SpecialSummon::THE_BEAST: {
                         const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT);
-                        for (int i = 0; i < _summon_multiplier; i++) {
-                            _player->opponent()->board().summon_minion(pip);
-                        }
+                        _player->opponent()->board().summon_minion(pip);
                         break;
                     }
                 }
@@ -505,9 +499,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            for (int i = 0; i < _summon_multiplier; i++) {
-                summon_minion(minion, get_right_minion_loc(source), true);
-            }
+            summon_minion(minion, get_right_minion_loc(source), true);
             break;
         }
         case Effect::Type::ENCHANT: {
