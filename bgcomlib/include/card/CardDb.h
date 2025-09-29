@@ -160,6 +160,8 @@ public:
         MECHANO_EGG_G = 58387,
         MENAGERIE_MAGICIAN = 39269,
         MENAGERIE_MAGICIAN_G = 59510,
+        PILOTED_SKY_GOLEM = 2073,
+        PILOTED_SKY_GOLEM_G = 12073,
 
         // tokens
         TABBYCAT_T = 96759,

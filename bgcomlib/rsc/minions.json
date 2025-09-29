@@ -4476,5 +4476,66 @@
     "rarity": "COMMON",
     "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 2073,
+    "name": "Piloted Sky Golem",
+    "tier": 4,
+    "attack": 6,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          4
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_105",
+    "goldenDbfId": 12073,
+    "artist": "Michael Phillippi",
+    "cardClass": "NEUTRAL",
+    "flavor": "The pinnacle of goblin engineering. Includes an espresso machine and foot massager.",
+    "rarity": "EPIC",
+    "text": "<b>Deathrattle:</b> Summon a random 4-Cost minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 12073,
+    "name": "Piloted Sky Golem",
+    "tier": 4,
+    "attack": 12,
+    "health": 8,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          4,
+          4
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "GVG_105",
+    "normalDbfId": 2073,
+    "artist": "Michael Phillippi",
+    "cardClass": "NEUTRAL",
+    "flavor": "The pinnacle of goblin engineering. Includes an espresso machine and foot massager.",
+    "rarity": "EPIC",
+    "text": "<b>Deathrattle:</b> Summon two random 4-Cost minion.",
+    "type": "MINION"
   }
 ]
