@@ -3878,5 +3878,61 @@
     "cardClass": "NEUTRAL",
     "elite": true,
     "type": "MINION"
+  },
+  {
+    "dbfId": 41180,
+    "name": "Tortollan Shellraiser",
+    "tier": 3,
+    "attack": 2,
+    "health": 5,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          43
+        ]
+      }
+    ],
+    "id": "UNG_037",
+    "goldenDbfId": 58374,
+    "artist": "Garrett Hanna",
+    "cardClass": "PRIEST",
+    "flavor": "A hero... In a half-shell.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58374,
+    "name": "Tortollan Shellraiser",
+    "tier": 3,
+    "attack": 4,
+    "health": 10,
+    "mechanics": [
+      "DEATHRATTLE",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          44
+        ]
+      }
+    ],
+    "id": "UNG_037_G",
+    "goldenDbfId": 41180,
+    "artist": "Garrett Hanna",
+    "cardClass": "PRIEST",
+    "flavor": "A hero... In a half-shell.",
+    "rarity": "COMMON",
+    "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +2/+2.",
+    "type": "MINION"
   }
 ]

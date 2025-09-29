@@ -140,6 +140,8 @@ public:
         SOUL_JUGGLER_G = 59661,
         THE_BEAST = 962,
         THE_BEAST_G = 58394,
+        TORTOLLAN_SHELLRAISER = 41180,
+        TORTOLLAN_SHELLRAISER_G = 58374,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -93,7 +93,7 @@ private:
         CardDb::Id::SHIFTER_ZERUS,
         CardDb::Id::SOUL_JUGGLER,
         CardDb::Id::THE_BEAST,
-        // CardDb::Id::TORTOLLAN_SHELLRAISER,
+        CardDb::Id::TORTOLLAN_SHELLRAISER,
     };
 
     inline static std::vector<CardDb::Id> _tier4 {

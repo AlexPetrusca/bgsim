@@ -2438,3 +2438,21 @@ TEST(ArenaBattleTest, TheBeastInteractKhadgar) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, TortollanShellraiser) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::TORTOLLAN_SHELLRAISER,
+        CardDb::Id::MURLOC_WARLEADER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -463,5 +463,23 @@
     "attack": 4,
     "text": "Your <b>Taunt</b> minions have +4 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 43,
+    "name": "Tortollan Shellraise",
+    "target": "SINGLE",
+    "attack": 1,
+    "health": 1,
+    "text": "Give a random friendly minion +1/+1.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 44,
+    "name": "Tortollan Shellraise",
+    "target": "SINGLE",
+    "attack": 2,
+    "health": 2,
+    "text": "Give a random friendly minion +1/+1.",
+    "type": "ENCHANTMENT"
   }
 ]
