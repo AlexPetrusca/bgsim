@@ -152,6 +152,8 @@ public:
         DEFENDER_OF_ARGUS_G = 57404,
         JUNKBOT = 2074,
         JUNKBOT_G = 58402,
+        KING_BAGURGLE = 60247,
+        KING_BAGURGLE_G = 60396,
 
         // tokens
         TABBYCAT_T = 96759,

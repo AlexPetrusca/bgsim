@@ -555,5 +555,29 @@
     "health": 4,
     "text": "Whenever a friendly Mech dies, gain +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 53,
+    "name": "Bagurgle",
+    "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give your other Murlocs +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 54,
+    "name": "Bagurgle",
+    "target": "ALL_OTHER",
+    "races": [
+      "MURLOC"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give your other Murlocs +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

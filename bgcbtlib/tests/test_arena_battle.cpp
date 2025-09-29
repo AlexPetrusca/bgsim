@@ -2695,3 +2695,52 @@ TEST(ArenaBattleTest, JunkbotProc) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, KingBagurgle) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::KING_BAGURGLE), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KingBagurgleGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::KING_BAGURGLE_G), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

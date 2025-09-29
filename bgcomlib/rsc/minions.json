@@ -4202,5 +4202,77 @@
     "rarity": "EPIC",
     "text": "Whenever a friendly Mech dies, gain +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 60247,
+    "name": "King Bagurgle",
+    "tier": 4,
+    "attack": 6,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY",
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          53
+        ]
+      },
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          53
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BGS_030",
+    "goldenDbfId": 60396,
+    "cardClass": "SHAMAN",
+    "elite": true,
+    "text": "<b>Battlecry</b> and <b>Deathrattle</b>: Give your other Murlocs +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60396,
+    "name": "King Bagurgle",
+    "tier": 4,
+    "attack": 12,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY",
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          54
+        ]
+      },
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          54
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_100",
+    "normalDbfId": 60247,
+    "cardClass": "SHAMAN",
+    "elite": true,
+    "text": "<b>Battlecry</b> and <b>Deathrattle</b>: Give your other Murlocs +4/+4.",
+    "type": "MINION"
   }
 ]
