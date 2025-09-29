@@ -97,7 +97,6 @@ private:
     };
 
     inline static std::vector<CardDb::Id> _tier4 {
-        CardDb::Id::ANNIHILAN_BATTLEMASTER,
         // CardDb::Id::BOLVAR_FIREBLOOD,
         // CardDb::Id::CAVE_HYDRA,
         // CardDb::Id::DEFENDER_OF_ARGUS,
@@ -116,6 +115,7 @@ private:
     };
 
     inline static std::vector<CardDb::Id> _tier5 {
+        CardDb::Id::ANNIHILAN_BATTLEMASTER,
         // CardDb::Id::BARON_RIVENDARE,
         // CardDb::Id::BRANN_BRONZEBEARD,
         // CardDb::Id::FESTERROOT_HULK,

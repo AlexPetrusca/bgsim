@@ -235,9 +235,7 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             enchantment.set_health(_player->missing_health() * enchantment.health());
             break;
         }
-        default: {
-            break;
-        }
+        default: break;
     }
 
     switch (enchantment.target()) {

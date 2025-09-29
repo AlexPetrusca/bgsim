@@ -3938,7 +3938,7 @@
   {
     "dbfId": 59714,
     "name": "Annihilan Battlemaster",
-    "tier": 4,
+    "tier": 5,
     "attack": 3,
     "health": 1,
     "mechanics": [
@@ -3965,7 +3965,7 @@
   {
     "dbfId": 59716,
     "name": "Annihilan Battlemaster",
-    "tier": 4,
+    "tier": 5,
     "attack": 6,
     "health": 2,
     "mechanics": [
