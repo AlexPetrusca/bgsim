@@ -129,6 +129,8 @@ private:
     int _taunt_count{};
     int _zombie_count{};
 
+    int _summon_multiplier = 1;
+
     Player* _player;
 };
 

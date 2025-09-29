@@ -152,6 +152,11 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
                 _player->increment_pogo_counter();
                 break;
             }
+            case CardDb::Id::KHADGAR:
+            case CardDb::Id::KHADGAR_G: {
+                _summon_multiplier += minion.is_golden() ? 2 : 1;
+                break;
+            }
             default: break;
         }
     }
@@ -375,6 +380,16 @@ void Board::reap_minion(const MinionLoc loc) {
     if (minion.has(Keyword::AURA)) {
         undo_aura(loc);
     }
+    if (minion.has(Keyword::SPECIAL)) {
+        switch (static_cast<CardDb::Id>(minion.id())) {
+            case CardDb::Id::KHADGAR:
+            case CardDb::Id::KHADGAR_G: {
+                _summon_multiplier -= loc->is_golden() ? 2 : 1;
+                break;
+            }
+            default: break;
+        }
+    }
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
     }
@@ -421,16 +436,14 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         case Effect::Type::SUMMON: {
             for (const int minion_id: effect.args()) {
                 const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                MinionLoc spawn_loc = summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
-                if (spawn_loc != minions().end()) {
-                    proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
+                for (int i = 0; i < _summon_multiplier; i++) {
+                    summon_minion(db.get_minion(minion_id), get_right_minion_loc(source), post_death);
                 }
             }
             break;
         }
         case Effect::Type::SUMMON_SPECIAL: {
             for (const int arg: effect.args()) {
-                std::vector<MinionLoc> spawn_locs;
                 switch (static_cast<Effect::SpecialSummon>(arg)) {
                     case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
                         // todo
@@ -445,7 +458,9 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
                         const Minion& minion = db.get_minion(_player->pool()->get_random_minionid_from_tier(arg));
                         const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        spawn_locs.push_back(summon_minion(minion, get_right_minion_loc(source), post_death));
+                        for (int i = 0; i < _summon_multiplier; i++) {
+                            summon_minion(minion, get_right_minion_loc(source), post_death);
+                        }
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
@@ -458,34 +473,29 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     }
                     case Effect::SpecialSummon::RAT_PACK: {
                         const Minion& rat = db.get_minion(CardDb::Id::RAT_T);
-                        for (int i = 0; i < source->attack(); i++) {
-                            spawn_locs.push_back(summon_minion(rat, get_right_minion_loc(source), true));
+                        for (int j = 0; j < source->attack(); j++) {
+                            for (int i = 0; i < _summon_multiplier; i++) {
+                                summon_minion(rat, get_right_minion_loc(source), true);
+                            }
                         }
                         break;
                     }
                     case Effect::SpecialSummon::RAT_PACK_GOLDEN: {
                         const Minion& rat = db.get_minion(CardDb::Id::RAT_T_G);
-                        for (int i = 0; i < source->attack(); i++) {
-                            spawn_locs.push_back(summon_minion(rat, get_right_minion_loc(source), true));
+                        for (int j = 0; j < source->attack(); j++) {
+                            for (int i = 0; i < _summon_multiplier; i++) {
+                                summon_minion(rat, get_right_minion_loc(source), true);
+                            }
                         }
                         break;
                     }
                     case Effect::SpecialSummon::THE_BEAST: {
                         const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT);
-                        _player->opponent()->board().summon_minion(pip);
-
-                        // todo: how does this interact with Khadgar?
-                        //  - I guess its supposed to summon two Pips for the opponnent.
-
-                        // todo: do we need to trigger "Keyword::ON_SUMMON_FROM_CARD" for the opponent?
-                        //  - But what if they have a Khadgar?
-                        //  - Man... what a problematic card!
-
+                        for (int i = 0; i < _summon_multiplier; i++) {
+                            _player->opponent()->board().summon_minion(pip);
+                        }
                         break;
                     }
-                }
-                for (const MinionLoc spawn_loc : spawn_locs) {
-                    proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
                 }
             }
             break;
@@ -495,9 +505,8 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             Minion minion = db.get_minion(minion_id);
             minion.set_health(1);
             minion.clear(Keyword::REBORN);
-            const MinionLoc spawn_loc = summon_minion(minion, get_right_minion_loc(source), true);
-            if (spawn_loc != minions().end()) {
-                proc_trigger(Keyword::ON_SUMMON_FROM_CARD, &*spawn_loc);
+            for (int i = 0; i < _summon_multiplier; i++) {
+                summon_minion(minion, get_right_minion_loc(source), true);
             }
             break;
         }
@@ -696,20 +705,6 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                     }
                     break;
                 }
-                case CardDb::Id::KHADGAR:
-                case CardDb::Id::KHADGAR_G: {
-                    MinionLoc loc = minions().begin();
-                    while (&*loc != source) {
-                        ++loc;
-                    }
-                    const int clone_count = listener->is_golden() ? 2 : 1;
-                    for (int i = 0; i < clone_count; i++) {
-                        if (loc != minions().end()) {
-                            loc = summon_minion(*source, get_right_minion_loc(loc), true);
-                        }
-                    }
-                    break;
-                }
                 default: break;
             }
         } else if (listener->has(Keyword::ADJACENT_AURA)) {
@@ -768,11 +763,6 @@ void Board::register_triggers(const MinionLoc loc) {
                 register_trigger(Keyword::ON_DEATH_OTHER, loc);
                 break;
             }
-            case CardDb::Id::KHADGAR:
-            case CardDb::Id::KHADGAR_G: {
-                register_trigger(Keyword::ON_SUMMON_FROM_CARD, loc);
-                break;
-            }
             default: break;
         }
     }
@@ -797,11 +787,6 @@ void Board::deregister_triggers(const MinionLoc loc) {
             case CardDb::Id::OLD_MURK_EYE_G: {
                 deregister_trigger(Keyword::ON_ADD, loc);
                 deregister_trigger(Keyword::ON_DEATH_OTHER, loc);
-                break;
-            }
-            case CardDb::Id::KHADGAR:
-            case CardDb::Id::KHADGAR_G: {
-                deregister_trigger(Keyword::ON_SUMMON_FROM_CARD, loc);
                 break;
             }
             default: break;

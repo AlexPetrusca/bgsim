@@ -1975,15 +1975,10 @@ TEST(ArenaBattleTest, Khadgar) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
-
-    EXPECT_FALSE(arena.playerA().board().triggers().empty());
-
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
-
-    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, GoldenKhadgar) {
@@ -2002,15 +1997,34 @@ TEST(ArenaBattleTest, GoldenKhadgar) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
-
-    EXPECT_FALSE(arena.playerA().board().triggers().empty());
-
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
+}
 
-    EXPECT_TRUE(arena.playerA().board().triggers().empty());
+TEST(ArenaBattleTest, DoubleKhadgar) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::KHADGAR,
+        CardDb::Id::KHADGAR,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
 }
 
 TEST(ArenaBattleTest, KhadgarNoProcOnPlay) {
@@ -2031,15 +2045,10 @@ TEST(ArenaBattleTest, KhadgarNoProcOnPlay) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
-
-    EXPECT_FALSE(arena.playerA().board().triggers().empty());
-
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
-
-    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, KhadgarProcOnBattlecry) {
@@ -2058,15 +2067,10 @@ TEST(ArenaBattleTest, KhadgarProcOnBattlecry) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
-
-    EXPECT_FALSE(arena.playerA().board().triggers().empty());
-
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
-
-    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, KhadgarSecurityRoverOverflow) {
@@ -2087,15 +2091,10 @@ TEST(ArenaBattleTest, KhadgarSecurityRoverOverflow) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
-
-    EXPECT_FALSE(arena.playerA().board().triggers().empty());
-
     BattleReport report = arena.battle(true);
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
-
-    EXPECT_TRUE(arena.playerA().board().triggers().empty());
 }
 
 TEST(ArenaBattleTest, PhalanxCommanderNoProc) {
@@ -2322,7 +2321,6 @@ TEST(ArenaBattleTest, SoulJuggler) {
     Board boardA = Board::from_ids({
         CardDb::Id::VOIDLORD,
         CardDb::Id::VOIDWALKER,
-        CardDb::Id::VOIDWALKER,
         CardDb::Id::SOUL_JUGGLER,
     });
 
@@ -2334,6 +2332,7 @@ TEST(ArenaBattleTest, SoulJuggler) {
         CardDb::Id::HYENA_T,
     });
 
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -2356,6 +2355,7 @@ TEST(ArenaBattleTest, SoulJugglerGolden) {
         CardDb::Id::HYENA_T,
     });
 
+    rng.seed(123456);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -2370,8 +2370,10 @@ TEST(ArenaBattleTest, TheBeast) {
         CardDb::Id::HARMLESS_BONEHEAD_G,
         CardDb::Id::HARMLESS_BONEHEAD_G,
         CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
     });
 
+    rng.seed(123456);
     Board boardB = Board::from_ids({
         CardDb::Id::SAVANNAH_HIGHMANE_G,
         CardDb::Id::SAVANNAH_HIGHMANE_G,
@@ -2393,6 +2395,7 @@ TEST(ArenaBattleTest, TheBeastMirror) {
         CardDb::Id::THE_BEAST,
     });
 
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -2409,6 +2412,7 @@ TEST(ArenaBattleTest, TheBeastGoldenMirror) {
         CardDb::Id::THE_BEAST_G,
     });
 
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
