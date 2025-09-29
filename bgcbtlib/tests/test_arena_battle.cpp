@@ -2456,3 +2456,45 @@ TEST(ArenaBattleTest, TortollanShellraiser) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, AnnihilanBattlemaster) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ANNIHILAN_BATTLEMASTER,
+        CardDb::Id::ANNIHILAN_BATTLEMASTER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, AnnihilanBattlemasterProcBattlecry) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ANNIHILAN_BATTLEMASTER,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::ANNIHILAN_BATTLEMASTER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_health(15);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

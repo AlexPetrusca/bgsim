@@ -2,6 +2,7 @@
 
 Player::Player() {
     _health = 30;
+    _max_health = _health;
     _armor = 10;
     _board.bind_player(this);
 }
@@ -25,6 +26,10 @@ int Player::health() const {
 
 int Player::armor() const {
     return _armor;
+}
+
+int Player::missing_health() const {
+    return _max_health - _health;
 }
 
 int Player::total_health() {

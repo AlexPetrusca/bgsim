@@ -19,6 +19,8 @@ public:
 
     [[nodiscard]] int armor() const;
 
+    int missing_health() const;
+
     int total_health();
 
     void deal_damage(int damage);
@@ -45,6 +47,7 @@ private:
     Board _board;
     Hand _hand;
     int _health{};
+    int _max_health{};
     int _armor{};
 
     Player* _opponenet{};

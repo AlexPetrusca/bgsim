@@ -3934,5 +3934,59 @@
     "rarity": "COMMON",
     "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +2/+2.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59714,
+    "name": "Annihilan Battlemaster",
+    "tier": 4,
+    "attack": 3,
+    "health": 1,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          45
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BGS_010",
+    "goldenDbfId": 59716,
+    "cardClass": "WARLOCK",
+    "text": "<b>Battlecry:</b> Gain +1 Health.\n<i>(Improved by each Health\nyour hero is missing!)</i>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59716,
+    "name": "Annihilan Battlemaster",
+    "tier": 4,
+    "attack": 6,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          46
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "BGS_010_G",
+    "goldenDbfId": 59714,
+    "cardClass": "WARLOCK",
+    "text": "<b>Battlecry:</b> Gain +2 Health.\n<i>(Improved by each Health\nyour hero is missing!)</i>",
+    "type": "MINION"
   }
 ]

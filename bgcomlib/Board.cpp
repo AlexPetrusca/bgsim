@@ -224,10 +224,9 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             enchantment.set_health(source->max_health());
             break;
         }
-        case CardDb::Id::POGO_HOP_E:
-        case CardDb::Id::POGO_HOP_G_E: {
-            enchantment.set_attack((_player->pogo_counter() - 1) * enchantment.attack());
-            enchantment.set_health((_player->pogo_counter() - 1) * enchantment.health());
+        case CardDb::Id::ANNIHILAN_MIGHT_E:
+        case CardDb::Id::ANNIHILAN_MIGHT_G_E: {
+            enchantment.set_health(_player->missing_health() * enchantment.health());
             break;
         }
         default: {

@@ -481,5 +481,21 @@
     "health": 2,
     "text": "Give a random friendly minion +1/+1.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 45,
+    "name": "Annihilan Battlemaster",
+    "target": "SELF",
+    "health": 1,
+    "text": "Gain +1 Health. (Improved by each Health your hero is missing!)",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 46,
+    "name": "Annihilan Battlemaster",
+    "target": "SELF",
+    "health": 2,
+    "text": "Gain +2 Health. (Improved by each Health your hero is missing!)",
+    "type": "ENCHANTMENT"
   }
 ]

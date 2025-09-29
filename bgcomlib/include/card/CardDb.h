@@ -142,6 +142,8 @@ public:
         THE_BEAST_G = 58394,
         TORTOLLAN_SHELLRAISER = 41180,
         TORTOLLAN_SHELLRAISER_G = 58374,
+        ANNIHILAN_BATTLEMASTER = 59714,
+        ANNIHILAN_BATTLEMASTER_G = 59716,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -180,6 +182,8 @@ public:
         GIVE_HEALTH_E = 6,
         POGO_HOP_E = 26,
         POGO_HOP_G_E = 27,
+        ANNIHILAN_MIGHT_E = 45,
+        ANNIHILAN_MIGHT_G_E = 46,
     };
 
     [[nodiscard]] Minion get_minion(int id) const;
