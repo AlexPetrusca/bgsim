@@ -146,6 +146,8 @@ public:
         ANNIHILAN_BATTLEMASTER_G = 59716,
         BOLVAR_FIREBLOOD = 45392,
         BOLVAR_FIREBLOOD_G = 58405,
+        CAVE_HYDRA = 96782,
+        CAVE_HYDRA_G = 63794,
 
         // tokens
         TABBYCAT_T = 96759,

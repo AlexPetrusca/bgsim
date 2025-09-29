@@ -4046,5 +4046,43 @@
     "rarity": "LEGENDARY",
     "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +4 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96782,
+    "name": "Cave Hydra",
+    "tier": 4,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "CLEAVE"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BG_LOOT_078",
+    "goldenDbfId": 63794,
+    "artist": "Peter Stapleton",
+    "cardClass": "HUNTER",
+    "flavor": "Can be upgraded into a Cave Lurker.",
+    "text": "Also damages the minions next to whomever\nthis attacks.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63794,
+    "name": "Cave Hydra",
+    "tier": 4,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "CLEAVE"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_151",
+    "normalDbfId": 96782,
+    "cardClass": "HUNTER",
+    "text": "Also damages the minions next to whomever\nthis attacks.",
+    "type": "MINION"
   }
 ]

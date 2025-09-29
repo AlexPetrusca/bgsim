@@ -2551,3 +2551,42 @@ TEST(ArenaBattleTest, BolvarFirebloodProcOther) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, CaveHydra) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::CAVE_HYDRA,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, CaveHydraGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::CAVE_HYDRA_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::IMP_GANG_BOSS,
+        CardDb::Id::SEWER_RAT,
+        CardDb::Id::IMP_GANG_BOSS,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
