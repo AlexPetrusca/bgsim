@@ -2212,9 +2212,16 @@
       {
         "trigger": "ON_PLAY",
         "constraint": "DEMON_ONLY",
-        "type": "DEAL_DAMAGE_PLAYER_AND_ENCHANT",
+        "type": "DEAL_DAMAGE_PLAYER",
         "args": [
-          1,
+          1
+        ]
+      },
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "ENCHANT",
+        "args": [
           17
         ]
       }
@@ -2238,11 +2245,32 @@
       {
         "trigger": "ON_PLAY",
         "constraint": "DEMON_ONLY",
-        "type": "DEAL_DAMAGE_PLAYER_AND_ENCHANT",
+        "type": "DEAL_DAMAGE_PLAYER",
         "args": [
-          1,
-          17,
-          1,
+          1
+        ]
+      },
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "ENCHANT",
+        "args": [
+          17
+        ]
+      },
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "DEAL_DAMAGE_PLAYER",
+        "args": [
+          1
+        ]
+      },
+      {
+        "trigger": "ON_PLAY",
+        "constraint": "DEMON_ONLY",
+        "type": "ENCHANT",
+        "args": [
           17
         ]
       }

@@ -547,16 +547,6 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             }
             break;
         }
-        // todo: maybe replace this with some generalized "composite" effect
-        case Effect::Type::DEAL_DAMAGE_PLAYER_AND_ENCHANT: {
-            const std::vector<int>& args = effect.args();
-            for (int i = 0; i < args.size(); i += 2) {
-                _player->deal_damage(args[i]);
-                proc_trigger(Keyword::ON_DAMAGE_PLAYER);
-                proc_enchantment(args[i + 1], source);
-            }
-            break;
-        }
     }
 }
 
