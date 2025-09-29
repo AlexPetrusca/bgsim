@@ -159,23 +159,34 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     return spawn_loc;
 }
 
-MinionLoc Board::play_minion(Minion minion) {
+void Board::magnetize_minion(MinionLoc minion, const Minion& other) {
+    if (other.has(Keyword::TAUNT)) {
+        _taunt_count++;
+    }
+    minion->magnetize(other);
+    for (const auto& trigger: other.effects() | std::views::keys) {
+        if (!minion->effects().contains(trigger)) {
+            register_trigger(trigger, minion);
+        }
+    }
+}
+
+MinionLoc Board::play_minion(const Minion& minion) {
     return play_minion(minion, _minions.end());
 }
 
-MinionLoc Board::play_minion(Minion minion, MinionLoc loc) {
+MinionLoc Board::play_minion(const Minion& minion, MinionLoc loc) {
     if (minion.has(Keyword::MAGNETIC) && loc != minions().end() && loc->is(Race::MECHANICAL)) {
-        for (const int enchantment_id: minion.get_effect(Keyword::MAGNETIC).args()) {
-            enchant_minion(*loc, db.get_enchantment(enchantment_id));
-        }
-        proc_trigger(Keyword::ON_PLAY, &minion);
+        Minion clone = minion;
+        magnetize_minion(loc, clone);
+        proc_trigger(Keyword::ON_PLAY, &clone);
         return loc;
     }
 
     const MinionLoc spawn_loc = summon_minion(minion, loc);
     if (spawn_loc != minions().end()) {
         if (minion.has(Keyword::BATTLECRY)) {
-            exec_effect(minion.get_effect(Keyword::BATTLECRY), spawn_loc);
+            exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
         }
     }
     proc_trigger(Keyword::ON_PLAY, &*spawn_loc);
@@ -351,7 +362,7 @@ bool Board::try_reap_minion(const MinionLoc loc) {
 void Board::reap_minion(const MinionLoc loc) {
     const Minion& minion = *loc;
     if (minion.has(Keyword::DEATHRATTLE)) {
-        exec_effect(minion.get_effect(Keyword::DEATHRATTLE), loc);
+        exec_effects(minion.get_effects(Keyword::DEATHRATTLE), loc);
     }
     if (minion.has(Keyword::REBORN)) {
         // todo: [optimize] so inefficient (maybe don't handle with effect)
@@ -386,7 +397,7 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
     } else {
         const int damage_dealt = minion.deal_damage(damage);
         if (minion.has(Keyword::ON_DAMAGE_SELF)) {
-            exec_effect(minion.get_effect(Keyword::ON_DAMAGE_SELF), loc);
+            exec_effects(minion.get_effects(Keyword::ON_DAMAGE_SELF), loc);
         }
         if (minion.health() <= 0 || poisoned) {
             minion.set_zombie(true);
@@ -399,6 +410,12 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
             try_reap_minion(loc);
         }
         return damage_dealt;
+    }
+}
+
+void Board::exec_effects(const std::vector<Effect>& effects, MinionLoc source, Minion* target) {
+    for (const Effect& effect : effects) {
+        exec_effect(effect, source, target);
     }
 }
 
@@ -491,25 +508,25 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
             if (is_battlecry_left && is_battlecry_right) {
                 if (rng.coin_flip()) {
-                    exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+                    exec_effects(l->get_effects(Keyword::BATTLECRY), l);
                 } else {
-                    exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+                    exec_effects(r->get_effects(Keyword::BATTLECRY), r);
                 }
             } else if (is_battlecry_left) {
-                exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+                exec_effects(l->get_effects(Keyword::BATTLECRY), l);
             } else if (is_battlecry_right) {
-                exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+                exec_effects(r->get_effects(Keyword::BATTLECRY), r);
             }
             break;
         }
         case Effect::Type::TRIGGER_ADJACENT_BATTLECRIES: {
             const auto l = get_left_minion_loc(source);
             if (is_minion(l) && l->has(Keyword::BATTLECRY)) {
-                exec_effect(l->get_effect(Keyword::BATTLECRY), l);
+                exec_effects(l->get_effects(Keyword::BATTLECRY), l);
             }
             const auto r = get_right_minion_loc(source);
             if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
-                exec_effect(r->get_effect(Keyword::BATTLECRY), r);
+                exec_effects(r->get_effects(Keyword::BATTLECRY), r);
             }
             break;
         }
@@ -544,67 +561,75 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
 }
 
 void Board::apply_adjacent_aura(const MinionLoc loc) {
-    const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
-    for (const int enchantment_id: effect.args()) {
-        const Enchantment& enchantment = db.get_enchantment(enchantment_id);
-        const MinionLoc left = get_left_minion_loc(loc);
-        if (left != minions().end()) {
-            enchant_minion(*left, enchantment, true);
-            loc->set_left_adjacent(&*left);
-        }
-        MinionLoc right = get_right_minion_loc(loc);
-        if (right != minions().end()) {
-            enchant_minion(*right, enchantment, true);
-            loc->set_right_adjacent(&*right);
+    const std::vector<Effect>& effects = loc->get_effects(Keyword::ADJACENT_AURA);
+    for (const Effect& effect : effects) {
+        for (const int enchantment_id: effect.args()) {
+            const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+            const MinionLoc left = get_left_minion_loc(loc);
+            if (left != minions().end()) {
+                enchant_minion(*left, enchantment, true);
+                loc->set_left_adjacent(&*left);
+            }
+            MinionLoc right = get_right_minion_loc(loc);
+            if (right != minions().end()) {
+                enchant_minion(*right, enchantment, true);
+                loc->set_right_adjacent(&*right);
+            }
         }
     }
 }
 
 void Board::undo_adjacent_aura(const MinionLoc loc) {
-    const Effect& effect = loc->get_effect(Keyword::ADJACENT_AURA);
     Minion* left_adjacent = loc->left_adjacent();
     Minion* right_adjacent = loc->right_adjacent();
-    for (const int enchantment_id: effect.args()) {
-        const Enchantment& enchantment = db.get_enchantment(enchantment_id);
-        if (left_adjacent != nullptr && !left_adjacent->is_zombie()) {
-            disenchant_minion(*left_adjacent, enchantment, true);
-            loc->set_left_adjacent(nullptr);
-        }
-        if (right_adjacent != nullptr && !right_adjacent->is_zombie()) {
-            disenchant_minion(*right_adjacent, enchantment, true);
-            loc->set_right_adjacent(nullptr);
+    const std::vector<Effect>& effects = loc->get_effects(Keyword::ADJACENT_AURA);
+    for (const Effect& effect : effects) {
+        for (const int enchantment_id: effect.args()) {
+            const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+            if (left_adjacent != nullptr && !left_adjacent->is_zombie()) {
+                disenchant_minion(*left_adjacent, enchantment, true);
+                loc->set_left_adjacent(nullptr);
+            }
+            if (right_adjacent != nullptr && !right_adjacent->is_zombie()) {
+                disenchant_minion(*right_adjacent, enchantment, true);
+                loc->set_right_adjacent(nullptr);
+            }
         }
     }
 }
 
 void Board::apply_aura(const MinionLoc loc) {
-    const Effect& effect = loc->get_effect(Keyword::AURA);
-    for (const int enchantment_id: effect.args()) {
-        Enchantment enchantment = db.get_enchantment(enchantment_id);
-        for (auto m = minions().begin(); m != minions().end(); ++m) {
-            if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
-            if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
-            if (enchantment.target() == Target::ALL) {
-                enchant_minion(*m, enchantment);
-            } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
-                enchant_minion(*m, enchantment);
+    const std::vector<Effect>& effects = loc->get_effects(Keyword::AURA);
+    for (const Effect& effect : effects) {
+        for (const int enchantment_id: effect.args()) {
+            Enchantment enchantment = db.get_enchantment(enchantment_id);
+            for (auto m = minions().begin(); m != minions().end(); ++m) {
+                if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
+                if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
+                if (enchantment.target() == Target::ALL) {
+                    enchant_minion(*m, enchantment);
+                } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
+                    enchant_minion(*m, enchantment);
+                }
             }
         }
     }
 }
 
 void Board::undo_aura(const MinionLoc loc) {
-    const Effect& effect = loc->get_effect(Keyword::AURA);
-    for (const int enchantment_id: effect.args()) {
-        Enchantment enchantment = db.get_enchantment(enchantment_id);
-        for (auto m = minions().begin(); m != minions().end(); ++m) {
-            if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
-            // todo: [BUG] handle case where we disenchant taunt, so we need to unapply the aura for "Phalanx Commander"
-            if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
-            if (enchantment.target() == Target::ALL) {
-                disenchant_minion(*m, enchantment);
-            } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
-                disenchant_minion(*m, enchantment);
+    const std::vector<Effect>& effects = loc->get_effects(Keyword::AURA);
+    for (const Effect& effect : effects) {
+        for (const int enchantment_id: effect.args()) {
+            Enchantment enchantment = db.get_enchantment(enchantment_id);
+            for (auto m = minions().begin(); m != minions().end(); ++m) {
+                if (enchantment.races().any() && !m->races().intersects(enchantment.races())) continue;
+                // todo: [BUG] handle case where we disenchant taunt, so we need to unapply the aura for "Phalanx Commander"
+                if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
+                if (enchantment.target() == Target::ALL) {
+                    disenchant_minion(*m, enchantment);
+                } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
+                    disenchant_minion(*m, enchantment);
+                }
             }
         }
     }
@@ -688,18 +713,22 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
             }
         } else if (listener->has(Keyword::AURA)) {
             if (trigger == Keyword::ON_ADD) {
-                const Effect& effect = listener->get_effect(Keyword::AURA);
-                for (const int enchantment_id: effect.args()) {
-                    const Enchantment& enchantment = db.get_enchantment(enchantment_id);
-                    enchant_minion(*source, enchantment, true);
+                const std::vector<Effect>& effects = listener->get_effects(Keyword::AURA);
+                for (const Effect& effect : effects) {
+                    for (const int enchantment_id: effect.args()) {
+                        const Enchantment& enchantment = db.get_enchantment(enchantment_id);
+                        enchant_minion(*source, enchantment, true);
+                    }
                 }
             }
         } else {
-            const Effect& effect = listener->get_effect(trigger);
-            if (effect.constraint() == Effect::Constraint::NONE) {
-                exec_effect(effect, listener, source);
-            } else if (source != nullptr && source->satisfiesConstraint(effect.constraint())) {
-                exec_effect(effect, listener, source);
+            const std::vector<Effect>& effects = listener->get_effects(trigger);
+            for (const Effect& effect : effects) {
+                if (effect.constraint() == Effect::Constraint::NONE) {
+                    exec_effect(effect, listener, source);
+                } else if (source != nullptr && source->satisfiesConstraint(effect.constraint())) {
+                    exec_effect(effect, listener, source);
+                }
             }
         }
     }

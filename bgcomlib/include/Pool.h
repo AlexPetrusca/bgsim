@@ -88,7 +88,7 @@ private:
         CardDb::Id::PILOTED_SHREDDER,
         CardDb::Id::PSYCH_O_TRON,
         CardDb::Id::RAT_PACK,
-        // CardDb::Id::REPLICATING_MENACE,
+        CardDb::Id::REPLICATING_MENACE,
         // CardDb::Id::SCREWJANK_CLUNKER,
         // CardDb::Id::SHIFTER_ZERUS,
         // CardDb::Id::SOUL_JUGGLER,

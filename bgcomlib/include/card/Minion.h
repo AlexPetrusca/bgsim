@@ -53,9 +53,11 @@ public:
 
     int delta_health(int delta, bool aura = false);
 
-    [[nodiscard]] const std::unordered_map<Keyword, Effect>& effects() const;
+    void magnetize(const Minion &other);
 
-    [[nodiscard]] const Effect& get_effect(Keyword keyword) const;
+    [[nodiscard]] const std::unordered_map<Keyword, std::vector<Effect>>& effects() const;
+
+    [[nodiscard]] const std::vector<Effect>& get_effects(Keyword keyword) const;
 
     [[nodiscard]] int id() const;
 
@@ -101,8 +103,6 @@ private:
     // todo: how many of these fields can you get rid of
     std::string _name;
     int _tier{};
-    std::unordered_map<Keyword, Effect> _effects;
-
     int _id{};
     int _alt_id{};
     bool _is_golden{};
@@ -114,6 +114,7 @@ private:
     int _max_health{};
     BitVector<Keyword> _props;
     BitVector<Race> _races;
+    std::unordered_map<Keyword, std::vector<Effect>> _effects;
     bool _is_zombie{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?
 

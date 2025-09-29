@@ -31,7 +31,7 @@ Minion::Minion(const json& json) {
     if (json.contains("effects")) {
         for (const auto& effect_json : json["effects"]) {
             Effect effect(effect_json);
-            _effects.insert({effect.trigger(), effect});
+            _effects[effect.trigger()].push_back(effect);
         }
     }
 
@@ -130,15 +130,25 @@ int Minion::delta_health(const int delta, const bool aura) {
     return _health;
 }
 
+void Minion::magnetize(const Minion& other) {
+    delta_attack(other.attack());
+    delta_health(other.health());
+    _props |= other._props;
+    for (const auto& [trigger, effects] : other.effects()) {
+        std::vector<Effect>& this_effects = _effects[trigger];
+        this_effects.insert(this_effects.end(), effects.begin(), effects.end());
+    }
+}
+
 int Minion::deal_damage(const int damage) {
     return delta_health(-damage);
 }
 
-const std::unordered_map<Keyword, Effect>& Minion::effects() const {
+const std::unordered_map<Keyword, std::vector<Effect>>& Minion::effects() const {
     return _effects;
 }
 
-const Effect& Minion::get_effect(const Keyword keyword) const {
+const std::vector<Effect>& Minion::get_effects(const Keyword keyword) const {
     return _effects.at(keyword);
 }
 

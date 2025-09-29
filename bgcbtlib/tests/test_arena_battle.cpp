@@ -2210,3 +2210,71 @@ TEST(ArenaBattleTest, RatPackGolden) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, ReplicatingMenace) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::REPLICATING_MENACE,
+        CardDb::Id::REPLICATING_MENACE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ReplicatingMenaceMagnetize) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::JO_E_BOT_T
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::REPLICATING_MENACE), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ReplicatingMenaceMagnetizeMultipleDeathrattle) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MECHAROO
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::REPLICATING_MENACE), boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

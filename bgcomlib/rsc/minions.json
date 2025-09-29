@@ -2884,15 +2884,6 @@
       "MAGNETIC",
       "TAUNT"
     ],
-    "effects": [
-      {
-        "trigger": "MAGNETIC",
-        "type": "ENCHANT",
-        "args": [
-          30
-        ]
-      }
-    ],
     "races": [
       "MECHANICAL"
     ],
@@ -2914,15 +2905,6 @@
       "DIVINE_SHIELD",
       "MAGNETIC",
       "TAUNT"
-    ],
-    "effects": [
-      {
-        "trigger": "MAGNETIC",
-        "type": "ENCHANT",
-        "args": [
-          31
-        ]
-      }
     ],
     "races": [
       "MECHANICAL"
@@ -3545,6 +3527,97 @@
     "id": "TB_BaconUps_027t",
     "normalDbfId": 96790,
     "cardClass": "HUNTER",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 89724,
+    "name": "Replicating Menace",
+    "tier": 3,
+    "attack": 3,
+    "health": 2,
+    "mechanics": [
+      "DEATHRATTLE",
+      "MAGNETIC"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          96810,
+          96810,
+          96810
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_BOT_312",
+    "goldenDbfId": 58376,
+    "artist": "Vladimir Kafanov",
+    "cardClass": "PALADIN",
+    "flavor": "It's a car!\n*Whomp whomp whomp*\nIt's a robot!\n*Whomp whom-CRUNCH*\nIt's… three.. smaller robots!",
+    "text": "<b>Magnetic</b>\n<b>Deathrattle:</b> Summon three 1/1 Microbots.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58376,
+    "name": "Replicating Menace",
+    "tier": 3,
+    "attack": 6,
+    "health": 4,
+    "mechanics": [
+      "DEATHRATTLE",
+      "MAGNETIC"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          58377,
+          58377,
+          58377
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_032",
+    "normalDbfId": 89724,
+    "cardClass": "PALADIN",
+    "text": "<b>Magnetic</b>\n<b>Deathrattle:</b> Summon three 2/2 Microbots.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96810,
+    "name": "Microbot",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BG_BOT_312t",
+    "goldenDbfId": 58377,
+    "artist": "Vladimir Kafanov",
+    "cardClass": "PALADIN",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58377,
+    "name": "Microbot",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "TB_BaconUps_032t",
+    "normalDbfId": 96810,
+    "cardClass": "PALADIN",
     "type": "MINION"
   }
 ]

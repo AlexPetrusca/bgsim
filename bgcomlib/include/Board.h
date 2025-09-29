@@ -42,9 +42,9 @@ public:
 
     bool is_minion(MinionLoc loc);
 
-    MinionLoc play_minion(Minion minion);
+    MinionLoc play_minion(const Minion& minion);
 
-    MinionLoc play_minion(Minion minion, MinionLoc loc);
+    MinionLoc play_minion(const Minion& minion, MinionLoc loc);
 
     MinionLoc summon_minion(const Minion& minion, bool post_death = false);
 
@@ -53,6 +53,8 @@ public:
     MinionLoc add_minion(const Minion& minion);
 
     MinionLoc add_minion(const Minion& minion, MinionLoc loc);
+
+    void magnetize_minion(MinionLoc minion, const Minion& other);
 
     void proc_enchantment(int enchantment_id, MinionLoc source, Minion* target = nullptr);
 
@@ -65,6 +67,8 @@ public:
     int damage_minion(MinionLoc loc, int damage, bool poisoned = false, bool reap = false);
 
     bool try_reap_minion(MinionLoc loc);
+
+    void exec_effects(const std::vector<Effect>& effects, MinionLoc source, Minion* target = nullptr);
 
     void exec_effect(const Effect& effect, MinionLoc source, Minion* target = nullptr);
 

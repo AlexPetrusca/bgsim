@@ -17,7 +17,7 @@ TEST(CardDbTest, ResolveDeathrattles) {
     EXPECT_EQ(minion.name(), "Harmless Bonehead");
     EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
 
-    const Effect& deathrattle = minion.get_effect(Keyword::DEATHRATTLE);
+    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).at(0);
     EXPECT_TRUE(deathrattle.type() == Effect::Type::SUMMON);
     EXPECT_EQ(deathrattle.args().size(), 2);
     EXPECT_EQ(deathrattle.args().at(0), 99629);
@@ -48,7 +48,7 @@ TEST(CardDbTest, ResolveEnchantment) {
     EXPECT_EQ(minion.name(), "Selfless Hero");
     EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
 
-    const Effect& deathrattle = minion.get_effect(Keyword::DEATHRATTLE);
+    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).at(0);
     EXPECT_TRUE(deathrattle.type() == Effect::Type::ENCHANT);
     EXPECT_EQ(deathrattle.args().size(), 1);
     EXPECT_EQ(deathrattle.args().at(0), 2);
