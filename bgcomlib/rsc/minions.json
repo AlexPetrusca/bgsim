@@ -2859,7 +2859,7 @@
       "MECHANICAL"
     ],
     "id": "KAR_095_G",
-    "goldenDbfId": 39839,
+    "normalDbfId": 39839,
     "artist": "Matt Dixon",
     "cardClass": "NEUTRAL",
     "flavor": "The Murloc is taking the picture.",
@@ -2997,7 +2997,7 @@
       "MECHANICAL"
     ],
     "id": "GVG_062_G",
-    "goldenDbfId": 2030,
+    "normalDbfId": 2030,
     "artist": "Jim Nelson",
     "cardClass": "PALADIN",
     "flavor": "Guardians used to be built out of Adamantium, but production got moved to Gadgetzan and Cobalt was cheap.",
@@ -3053,7 +3053,7 @@
       }
     ],
     "id": "AT_121_G",
-    "goldenDbfId": 2518,
+    "normalDbfId": 2518,
     "artist": "Jakub Kasper",
     "cardClass": "NEUTRAL",
     "flavor": "The crowd ALWAYS yells lethal.",
@@ -3107,7 +3107,7 @@
       }
     ],
     "id": "CFM_610_G",
-    "goldenDbfId": 40391,
+    "normalDbfId": 40391,
     "artist": "Arthur Gimaldinov",
     "cardClass": "WARLOCK",
     "flavor": "The trick is soaking the crystals in warm milk to soften them up.",
@@ -3225,7 +3225,7 @@
       "BEAST"
     ],
     "id": "OG_216_G",
-    "goldenDbfId": 38734,
+    "normalDbfId": 38734,
     "artist": "E. Guiton & A. Bozonnet",
     "cardClass": "HUNTER",
     "flavor": "A little flea powder will fix that right up.",
@@ -3258,7 +3258,7 @@
       "BEAST"
     ],
     "id": "OG_216a_G",
-    "normalDbfId": 38736,
+    "normalDbfId": 38735,
     "artist": "Luca Zontini",
     "cardClass": "HUNTER",
     "type": "MINION"
@@ -3701,7 +3701,7 @@
       "MECHANICAL"
     ],
     "id": "GVG_055_G",
-    "goldenDbfId": 2023,
+    "normalDbfId": 2023,
     "artist": "Jesper Ejsing",
     "cardClass": "WARRIOR",
     "flavor": "If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
@@ -3846,7 +3846,7 @@
       "BEAST"
     ],
     "id": "EX1_577_G",
-    "goldenDbfId": 962,
+    "normalDbfId": 962,
     "artist": "Glenn Rane",
     "cardClass": "NEUTRAL",
     "elite": true,
@@ -3927,7 +3927,7 @@
       }
     ],
     "id": "UNG_037_G",
-    "goldenDbfId": 41180,
+    "normalDbfId": 41180,
     "artist": "Garrett Hanna",
     "cardClass": "PRIEST",
     "flavor": "A hero... In a half-shell.",
@@ -3984,9 +3984,67 @@
       "DEMON"
     ],
     "id": "BGS_010_G",
-    "goldenDbfId": 59714,
+    "normalDbfId": 59714,
     "cardClass": "WARLOCK",
     "text": "<b>Battlecry:</b> Gain +2 Health.\n<i>(Improved by each Health\nyour hero is missing!)</i>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 45392,
+    "name": "Bolvar, Fireblood",
+    "tier": 4,
+    "attack": 1,
+    "health": 7,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "ON_LOSE_DIVINE_SHIELD"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_LOSE_DIVINE_SHIELD",
+        "type": "ENCHANT",
+        "args": [
+          47
+        ]
+      }
+    ],
+    "id": "ICC_858",
+    "goldenDbfId": 58405,
+    "artist": "Tooth",
+    "cardClass": "PALADIN",
+    "elite": true,
+    "flavor": "He's so hot right now.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58405,
+    "name": "Bolvar, Fireblood",
+    "tier": 4,
+    "attack": 2,
+    "health": 14,
+    "mechanics": [
+      "DIVINE_SHIELD",
+      "ON_LOSE_DIVINE_SHIELD"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_LOSE_DIVINE_SHIELD",
+        "type": "ENCHANT",
+        "args": [
+          48
+        ]
+      }
+    ],
+    "id": "ICC_858_G",
+    "normalDbfId": 45392,
+    "artist": "Tooth",
+    "cardClass": "PALADIN",
+    "elite": true,
+    "flavor": "He's so hot right now.",
+    "rarity": "LEGENDARY",
+    "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +4 Attack.",
     "type": "MINION"
   }
 ]

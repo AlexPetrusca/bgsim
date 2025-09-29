@@ -35,8 +35,11 @@ BattleStatus Arena::get_battle_status() {
 }
 
 void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, const MinionLoc def) {
+    const int def_attack = def->attack();
+    const int atk_attack = atk->attack();
+
     const bool def_poisoned = def->has(Keyword::POISONOUS) || def->has(Keyword::VENOMOUS);
-    const int def_damage_dealt = attacking.damage_minion(atk, def->attack(), def_poisoned);
+    const int def_damage_dealt = attacking.damage_minion(atk, def_attack, def_poisoned);
     if (def_damage_dealt > 0 && def->has(Keyword::VENOMOUS)) {
         def->clear(Keyword::VENOMOUS);
     }
@@ -48,17 +51,17 @@ void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, cons
         // attack left
         if (def != defending.minions().begin()) { // if not attacking head
             const auto ours_left = std::prev(def);
-            atk_damage_dealt += defending.damage_minion(ours_left, atk->attack(), atk_poisoned);
+            atk_damage_dealt += defending.damage_minion(ours_left, atk_attack, atk_poisoned);
         }
         // attack middle
-        atk_damage_dealt += defending.damage_minion(def, atk->attack(), atk_poisoned);
+        atk_damage_dealt += defending.damage_minion(def, atk_attack, atk_poisoned);
         // attack right
         const auto ours_right = std::next(def);
         if (ours_right != defending.minions().end()) { // if not attacking tail
-            atk_damage_dealt += defending.damage_minion(ours_right, atk->attack(), atk_poisoned);
+            atk_damage_dealt += defending.damage_minion(ours_right, atk_attack, atk_poisoned);
         }
     } else {
-        atk_damage_dealt = defending.damage_minion(def, atk->attack(), atk_poisoned);
+        atk_damage_dealt = defending.damage_minion(def, atk_attack, atk_poisoned);
     }
     if (atk_damage_dealt > 0 && atk->has(Keyword::VENOMOUS)) {
         atk->clear(Keyword::VENOMOUS);

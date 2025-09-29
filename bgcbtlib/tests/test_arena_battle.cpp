@@ -2498,3 +2498,56 @@ TEST(ArenaBattleTest, AnnihilanBattlemasterProcBattlecry) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, BolvarFireblood) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::BOLVAR_FIREBLOOD,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PHALANX_COMMANDER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BolvarFirebloodGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::BOLVAR_FIREBLOOD_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BolvarFirebloodProcOther) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SHIELDED_MINIBOT,
+        CardDb::Id::BOLVAR_FIREBLOOD,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::PHALANX_COMMANDER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -57,3 +57,14 @@ TEST(CardDbTest, ResolveEnchantment) {
     EXPECT_TRUE(enchant.props().has(Keyword::DIVINE_SHIELD));
     EXPECT_EQ(enchant.target(), Target::SINGLE);
 }
+
+TEST(CardDbTest, VerifyResolveGoldenAll) {
+    CardDb db;
+    for (const auto& [id, minion] : db.minions()) {
+        if (!minion.is_golden()) {
+            const Minion golden = db.get_minion(minion.alt_id());
+            EXPECT_TRUE(golden.is_golden()) << "(id: " << id << ", name: "<< minion.name() << ")";
+            EXPECT_EQ(golden.alt_id(), id) << "(id: " << id << ", name: "<< minion.name() << ")";
+        }
+    }
+}

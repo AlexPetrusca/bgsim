@@ -497,5 +497,21 @@
     "health": 2,
     "text": "Gain +2 Health. (Improved by each Health your hero is missing!)",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 47,
+    "name": "Fireblood",
+    "target": "SELF",
+    "attack": 2,
+    "text": "After a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 48,
+    "name": "Fireblood",
+    "target": "SELF",
+    "attack": 4,
+    "text": "After a friendly minion loses <b>Divine Shield</b>, gain +4 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

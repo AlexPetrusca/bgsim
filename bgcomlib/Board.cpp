@@ -415,6 +415,7 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
     Minion& minion = *loc;
     if (minion.has(Keyword::DIVINE_SHIELD)) {
         minion.clear(Keyword::DIVINE_SHIELD);
+        proc_trigger(Keyword::ON_LOSE_DIVINE_SHIELD);
         return 0;
     } else {
         const int damage_dealt = minion.deal_damage(damage);
