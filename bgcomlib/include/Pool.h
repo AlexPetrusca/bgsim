@@ -99,7 +99,7 @@ private:
     inline static std::vector<CardDb::Id> _tier4 {
         CardDb::Id::BOLVAR_FIREBLOOD,
         CardDb::Id::CAVE_HYDRA,
-        // CardDb::Id::DEFENDER_OF_ARGUS,
+        CardDb::Id::DEFENDER_OF_ARGUS,
         // CardDb::Id::JUNKBOT,
         // CardDb::Id::KING_BAGURGLE,
         // CardDb::Id::MAMA_BEAR,

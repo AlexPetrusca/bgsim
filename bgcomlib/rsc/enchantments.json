@@ -513,5 +513,29 @@
     "attack": 4,
     "text": "After a friendly minion loses <b>Divine Shield</b>, gain +4 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 49,
+    "name": "Argus",
+    "target": "ADJACENT",
+    "attack": 1,
+    "health": 1,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "text": "Give adjacent minions +1/+1 and <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 50,
+    "name": "Argus",
+    "target": "ADJACENT",
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "TAUNT"
+    ],
+    "text": "Give adjacent minions +2/+2 and <b>Taunt</b>.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -4084,5 +4084,61 @@
     "cardClass": "HUNTER",
     "text": "Also damages the minions next to whomever\nthis attacks.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 763,
+    "name": "Defender of Argus",
+    "tier": 4,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          49
+        ]
+      }
+    ],
+    "id": "EX1_093",
+    "goldenDbfId": 57404,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "NEUTRAL",
+    "faction": "ALLIANCE",
+    "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 57404,
+    "name": "Defender of Argus",
+    "tier": 4,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          50
+        ]
+      }
+    ],
+    "id": "EX1_093_G",
+    "goldenDbfId": 763,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "NEUTRAL",
+    "faction": "ALLIANCE",
+    "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give adjacent minions +2/+2 and <b>Taunt</b>.",
+    "type": "MINION"
   }
 ]

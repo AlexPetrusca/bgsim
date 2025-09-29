@@ -2589,3 +2589,67 @@ TEST(ArenaBattleTest, CaveHydraGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, DefenderOfArgus) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::DEFENDER_OF_ARGUS), ++boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, DefenderOfArgusGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::DEFENDER_OF_ARGUS_G), ++boardA.minions().begin());
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, DefenderOfArgusWithRylakMetalhead) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::DEFENDER_OF_ARGUS,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::BIG_BAD_WOLF_T,
+        CardDb::Id::BIG_BAD_WOLF_T,
+        CardDb::Id::BIG_BAD_WOLF_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

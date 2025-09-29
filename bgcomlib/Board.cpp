@@ -317,6 +317,17 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
             enchant_minion(*source, enchantment);
             break;
         }
+        case Target::ADJACENT: {
+            const MinionLoc left = get_left_minion_loc(source);
+            if (left != minions().end()) {
+                enchant_minion(*left, enchantment);
+            }
+            const MinionLoc right = get_right_minion_loc(source);
+            if (right != minions().end()) {
+                enchant_minion(*right, enchantment);
+            }
+            break;
+        }
         case Target::LEFTMOST: {
             // todo: take race into account
             enchant_minion(minions().front(), enchantment);

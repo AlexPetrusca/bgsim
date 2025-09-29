@@ -148,6 +148,8 @@ public:
         BOLVAR_FIREBLOOD_G = 58405,
         CAVE_HYDRA = 96782,
         CAVE_HYDRA_G = 63794,
+        DEFENDER_OF_ARGUS = 763,
+        DEFENDER_OF_ARGUS_G = 57404,
 
         // tokens
         TABBYCAT_T = 96759,
