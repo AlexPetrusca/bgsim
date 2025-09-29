@@ -2299,3 +2299,21 @@ TEST(ArenaBattleTest, ScrewjankClunker) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, ShifterZerus) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SHIFTER_ZERUS,
+        CardDb::Id::SHIFTER_ZERUS_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

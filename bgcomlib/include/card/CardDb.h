@@ -44,8 +44,8 @@ public:
         SAVANNAH_HIGHMANE_G = 58409,
         DEADLY_SPORE = 65031,
         DEADLY_SPORE_G = 65122,
-        TIDE_ORACLE_MORGL = 103047, // todo: not fully implemented
-        TIDE_ORACLE_MORGL_G = 103064, // todo: not fully implemented
+        TIDE_ORACLE_MORGL = 103047, // todo: not fully implemented (hand buff missing)
+        TIDE_ORACLE_MORGL_G = 103064, // todo: not fully implemented (hand buff missing)
         SELFLESS_HERO = 96769,
         SELFLESS_HERO_G = 58143,
         SPAWN_OF_NZOTH = 96772,
@@ -134,6 +134,8 @@ public:
         REPLICATING_MENACE_G = 58376,
         SCREWJANK_CLUNKER = 2023,
         SCREWJANK_CLUNKER_G = 59501,
+        SHIFTER_ZERUS = 57742, // todo: not fully implemented (change in hand)
+        SHIFTER_ZERUS_G = 60233, // todo: not fully implemented (change in hand)
 
         // tokens
         TABBYCAT_T = 96759,
