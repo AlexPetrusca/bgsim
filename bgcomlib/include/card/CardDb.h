@@ -136,6 +136,8 @@ public:
         SCREWJANK_CLUNKER_G = 59501,
         SHIFTER_ZERUS = 57742, // todo: not fully implemented (change in hand)
         SHIFTER_ZERUS_G = 60233, // todo: not fully implemented (change in hand)
+        SOUL_JUGGLER = 59660,
+        SOUL_JUGGLER_G = 59661,
 
         // tokens
         TABBYCAT_T = 96759,

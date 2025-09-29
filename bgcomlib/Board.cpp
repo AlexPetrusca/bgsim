@@ -389,7 +389,7 @@ void Board::reap_minion(const MinionLoc loc) {
     _zombie_count--;
 }
 
-int Board::damage_minion(const MinionLoc loc, const int damage, const bool poisoned, const bool reap) {
+int Board::damage_minion(const MinionLoc loc, const int damage, const bool poisoned) {
     Minion& minion = *loc;
     if (minion.has(Keyword::DIVINE_SHIELD)) {
         minion.clear(Keyword::DIVINE_SHIELD);
@@ -405,9 +405,6 @@ int Board::damage_minion(const MinionLoc loc, const int damage, const bool poiso
                 minion.set_poisoned(true);
             }
             _zombie_count++;
-        }
-        if (reap) {
-            try_reap_minion(loc);
         }
         return damage_dealt;
     }
@@ -539,11 +536,18 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         }
         case Effect::Type::DEAL_DAMAGE_OTHER: {
             Board& opp_board = _player->opponent()->board();
+            MinionLocSet zombies;
             for (const int damage : effect.args()) {
                 const MinionLoc opp_loc = opp_board.get_random_minion_loc();
                 if (opp_loc != opp_board.minions().end()) {
-                    opp_board.damage_minion(opp_loc, damage, false, true);
+                    opp_board.damage_minion(opp_loc, damage);
+                    if (opp_loc->is_zombie()) {
+                        zombies.insert(opp_loc);
+                    }
                 }
+            }
+            for (const MinionLoc minion_loc : zombies) {
+                opp_board.reap_minion(minion_loc);
             }
             break;
         }

@@ -64,7 +64,7 @@ public:
 
     void reap_minion(MinionLoc loc);
 
-    int damage_minion(MinionLoc loc, int damage, bool poisoned = false, bool reap = false);
+    int damage_minion(MinionLoc loc, int damage, bool poisoned = false);
 
     bool try_reap_minion(MinionLoc loc);
 

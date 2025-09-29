@@ -3741,5 +3741,56 @@
     "elite": true,
     "text": "Each turn this is in your\nhand, transform it into a\n random Golden minion.\n It keeps enchantments.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59660,
+    "name": "Soul Juggler",
+    "tier": 3,
+    "attack": 3,
+    "health": 3,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "DEMON_ONLY",
+        "type": "DEAL_DAMAGE_OTHER",
+        "args": [
+          3
+        ]
+      }
+    ],
+    "id": "BGS_002",
+    "goldenDbfId": 59661,
+    "cardClass": "WARLOCK",
+    "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59661,
+    "name": "Soul Juggler",
+    "tier": 3,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "ON_DEATH_OTHER"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_DEATH_OTHER",
+        "constraint": "DEMON_ONLY",
+        "type": "DEAL_DAMAGE_OTHER",
+        "args": [
+          3,
+          3
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_075",
+    "normalDbfId": 59660,
+    "cardClass": "WARLOCK",
+    "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion, twice.",
+    "type": "MINION"
   }
 ]

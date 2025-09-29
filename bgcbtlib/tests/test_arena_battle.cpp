@@ -2317,3 +2317,48 @@ TEST(ArenaBattleTest, ShifterZerus) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, SoulJuggler) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::VOIDWALKER,
+        CardDb::Id::VOIDWALKER,
+        CardDb::Id::SOUL_JUGGLER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, SoulJugglerGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::VOIDLORD,
+        CardDb::Id::VOIDWALKER,
+        CardDb::Id::SOUL_JUGGLER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T,
+    });
+
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
