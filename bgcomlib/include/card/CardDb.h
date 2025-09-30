@@ -162,6 +162,8 @@ public:
         MENAGERIE_MAGICIAN_G = 59510,
         PILOTED_SKY_GOLEM = 2073,
         PILOTED_SKY_GOLEM_G = 12073,
+        SIEGEBREAKER = 54835,
+        SIEGEBREAKER_G = 58418,
 
         // tokens
         TABBYCAT_T = 96759,

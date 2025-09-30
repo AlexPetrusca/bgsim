@@ -631,5 +631,27 @@
     "health": 4,
     "text": "Give a random friendly Beast, Dragon, and Murloc +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 59,
+    "name": "Siegebreak",
+    "target": "ALL_OTHER",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 1,
+    "text": "Your other Demons have +1 Attack.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 60,
+    "name": "Siegebreak",
+    "target": "ALL_OTHER",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 2,
+    "text": "Your other Demons have +2 Attack.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -2923,3 +2923,61 @@ TEST(ArenaBattleTest, PilotedSkyGolem) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, Siegebreaker) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_T,
+        CardDb::Id::IMP_T,
+        CardDb::Id::IMP_T,
+        CardDb::Id::IMP_T,
+        CardDb::Id::IMP_T,
+        CardDb::Id::IMP_T,
+        CardDb::Id::SIEGEBREAKER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, SiegebreakerGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::IMPRISONER_G,
+        CardDb::Id::SIEGEBREAKER_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -4537,5 +4537,71 @@
     "rarity": "EPIC",
     "text": "<b>Deathrattle:</b> Summon two random 4-Cost minion.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 54835,
+    "name": "Siegebreaker",
+    "tier": 4,
+    "attack": 5,
+    "health": 8,
+    "mechanics": [
+      "AURA",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          59
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "EX1_185",
+    "goldenDbfId": 58418,
+    "artist": "James Ryman",
+    "cardClass": "WARLOCK",
+    "flavor": "Has a side hustle as a siegebroker.",
+    "howToEarn": "Not available in packs, must be crafted.",
+    "howToEarnGolden": "Not available in packs, must be crafted.",
+    "rarity": "RARE",
+    "text": "<b>Taunt</b>\nYour other Demons have +1 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58418,
+    "name": "Siegebreaker",
+    "tier": 4,
+    "attack": 10,
+    "health": 16,
+    "mechanics": [
+      "AURA",
+      "TAUNT"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          60
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "EX1_185_G",
+    "normalDbfId": 54835,
+    "artist": "James Ryman",
+    "cardClass": "WARLOCK",
+    "flavor": "Has a side hustle as a siegebroker.",
+    "howToEarn": "Not available in packs, must be crafted.",
+    "howToEarnGolden": "Not available in packs, must be crafted.",
+    "rarity": "RARE",
+    "text": "<b>Taunt</b>\nYour other Demons have +2 Attack.",
+    "type": "MINION"
   }
 ]
