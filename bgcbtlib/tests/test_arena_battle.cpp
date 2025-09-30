@@ -3197,3 +3197,60 @@ TEST(ArenaBattleTest, IronhideDirehornGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, FesterootHulk) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::FESTEROOT_HULK,
+        CardDb::Id::SKELETON_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, FesterootHulkOtherAttacks) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::FESTEROOT_HULK,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, FesterootHulkGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::FESTEROOT_HULK_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

@@ -4855,5 +4855,63 @@
     "artist": "Luca Zontini",
     "cardClass": "DRUID",
     "type": "MINION"
+  },
+  {
+    "dbfId": 47516,
+    "name": "Festeroot Hulk",
+    "tier": 4,
+    "attack": 2,
+    "health": 7,
+    "mechanics": [
+      "ON_ATTACK"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_ATTACK",
+        "type": "ENCHANT",
+        "args": [
+          13
+        ]
+      }
+    ],
+    "races": [
+      "UNDEAD"
+    ],
+    "id": "BG_GIL_655",
+    "goldenDbfId": 99157,
+    "artist": "Evgeniy Dlinnov",
+    "cardClass": "DEATHKNIGHT",
+    "flavor": "Tree puns arboring.",
+    "text": "After a friendly minion attacks, gain +1 Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 99157,
+    "name": "Festeroot Hulk",
+    "tier": 4,
+    "attack": 4,
+    "health": 14,
+    "mechanics": [
+      "ON_ATTACK"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_ATTACK",
+        "type": "ENCHANT",
+        "args": [
+          14
+        ]
+      }
+    ],
+    "races": [
+      "UNDEAD"
+    ],
+    "id": "BG_GIL_655_G",
+    "normalDbfId": 47516,
+    "artist": "Evgeniy Dlinnov",
+    "cardClass": "DEATHKNIGHT",
+    "flavor": "Tree puns arboring.",
+    "text": "After a friendly minion attacks, gain +2 Attack.",
+    "type": "MINION"
   }
 ]

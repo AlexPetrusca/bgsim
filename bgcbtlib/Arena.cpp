@@ -36,6 +36,8 @@ BattleStatus Arena::get_battle_status() {
 
 // todo: refactor this code out to Board
 void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, const MinionLoc def) {
+    attacking.proc_trigger(Keyword::ON_ATTACK, &*atk);
+
     const int def_attack = def->attack();
     const int atk_attack = atk->attack();
 
