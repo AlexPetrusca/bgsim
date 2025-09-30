@@ -4765,5 +4765,95 @@
     "rarity": "RARE",
     "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 49973,
+    "name": "Ironhide Direhorn",
+    "tier": 5,
+    "attack": 7,
+    "health": 7,
+    "mechanics": [
+      "OVERKILL"
+    ],
+    "effects": [
+      {
+        "trigger": "OVERKILL",
+        "type": "SUMMON",
+        "args": [
+          50359
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TRL_232",
+    "goldenDbfId": 58412,
+    "artist": "Luca Zontini",
+    "cardClass": "DRUID",
+    "flavor": "\"Boy! Bring me my masks and skull rams.\"",
+    "rarity": "COMMON",
+    "text": "<b>Overkill:</b> Summon a 5/5 Ironhide Runt.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58412,
+    "name": "Ironhide Direhorn",
+    "tier": 5,
+    "attack": 14,
+    "health": 14,
+    "mechanics": [
+      "OVERKILL"
+    ],
+    "effects": [
+      {
+        "trigger": "OVERKILL",
+        "type": "SUMMON",
+        "args": [
+          50360
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TRL_232",
+    "normalDbfId": 49973,
+    "artist": "Luca Zontini",
+    "cardClass": "DRUID",
+    "flavor": "\"Boy! Bring me my masks and skull rams.\"",
+    "rarity": "COMMON",
+    "text": "<b>Overkill:</b> Summon a 10/10 Ironhide Runt.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 50359,
+    "name": "Ironhide Runt",
+    "tier": 1,
+    "attack": 5,
+    "health": 5,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TRL_232t",
+    "goldenDbfId": 50360,
+    "artist": "Luca Zontini",
+    "cardClass": "DRUID",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 50360,
+    "name": "Ironhide Runt",
+    "tier": 1,
+    "attack": 10,
+    "health": 10,
+    "races": [
+      "BEAST"
+    ],
+    "id": "TRL_232t_G",
+    "normalDbfId": 50359,
+    "artist": "Luca Zontini",
+    "cardClass": "DRUID",
+    "type": "MINION"
   }
 ]

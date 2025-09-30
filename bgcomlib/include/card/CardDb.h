@@ -170,6 +170,8 @@ public:
         THE_BOOGEYMONSTER_G = 58425,
         VIRMEN_SENSEI = 40641,
         VIRMEN_SENSEI_G = 59512,
+        IRONHIDE_DIREHORN = 49973,
+        IRONHIDE_DIREHORN_G = 58412,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -204,6 +206,8 @@ public:
         PIP_QUICKWIT_T_G = 70065,
         ROBOSAUR = 49168,
         ROBOSAUR_G = 58389,
+        IRONHIDE_RUNT = 50359,
+        IRONHIDE_RUNT_G = 50360,
 
         // enchantments
         // todo: should these be here

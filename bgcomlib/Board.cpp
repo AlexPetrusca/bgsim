@@ -372,6 +372,10 @@ void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const
     minion.props() |= enchantment.props();
     minion.delta_attack(enchantment.attack(), aura);
     minion.delta_health(enchantment.health(), aura);
+    if (minion.is_zombie() && !minion.is_reaped() && minion.health() > 0) { // todo: logic is pretty confusing here - refactor?
+        minion.set_zombie(false); // saved
+        _zombie_count--;
+    }
 }
 
 void Board::disenchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
@@ -416,6 +420,7 @@ bool Board::try_reap_minion(const MinionLoc loc) {
 }
 
 void Board::reap_minion(const MinionLoc loc) {
+    loc->set_reaped(true);
     const Minion& minion = *loc;
     if (minion.has(Keyword::DEATHRATTLE)) {
         exec_effects(minion.get_effects(Keyword::DEATHRATTLE), loc);
@@ -727,6 +732,7 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
     if (!_triggers.contains(trigger)) return;
 
     for (const MinionLoc listener : _triggers.at(trigger)) { // todo: remove array indexing (inefficient)
+        // todo: replace this if-else chain with switch
         if (listener->has(Keyword::SPECIAL)) {
             switch (static_cast<CardDb::Id>(listener->id())) {
                 case CardDb::Id::OLD_MURK_EYE:
@@ -759,6 +765,9 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                 }
             }
         } else {
+            if (listener->has(Keyword::ON_KILL) || listener->has(Keyword::OVERKILL)) {
+                if (&*listener != source) return; // not this listener's kill
+            }
             const std::vector<Effect>& effects = listener->get_effects(trigger);
             for (const Effect& effect : effects) {
                 if (effect.constraint() == Effect::Constraint::NONE) {

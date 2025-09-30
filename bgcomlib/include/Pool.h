@@ -49,7 +49,6 @@ private:
         CardDb::Id::SCAVENGING_HYENA,
         CardDb::Id::VULGAR_HOMUNCULUS,
         CardDb::Id::WRATH_WEAVER,
-
         CardDb::Id::VOIDWALKER,
     };
 
@@ -69,7 +68,6 @@ private:
         CardDb::Id::SELFLESS_HERO,
         CardDb::Id::SPAWN_OF_NZOTH,
         CardDb::Id::ZOOBOT,
-
         CardDb::Id::NIGHTMARE_AMALGAM,
     };
 
@@ -118,7 +116,7 @@ private:
         // CardDb::Id::BARON_RIVENDARE,
         // CardDb::Id::BRANN_BRONZEBEARD,
         // CardDb::Id::FESTERROOT_HULK,
-        // CardDb::Id::IRONHIDE_DIREHORN,
+        CardDb::Id::IRONHIDE_DIREHORN,
         // CardDb::Id::KANGORS_APPRENTICE,
         // CardDb::Id::LIGHTFANG_ENFORCER,
         // CardDb::Id::MALGANIS,

@@ -172,6 +172,14 @@ void Minion::set_zombie(const bool is_zombie) {
     _is_zombie = is_zombie;
 }
 
+bool Minion::is_reaped() const {
+    return _is_reaped;
+}
+
+void Minion::set_reaped(const bool is_reaped) {
+    _is_reaped = is_reaped;
+}
+
 bool Minion::is_poisoned() const {
     return _is_poisoned;
 }

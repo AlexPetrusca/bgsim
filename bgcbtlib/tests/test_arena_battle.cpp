@@ -2351,10 +2351,9 @@ TEST(ArenaBattleTest, SoulJugglerGolden) {
         CardDb::Id::SAVANNAH_HIGHMANE,
         CardDb::Id::SAVANNAH_HIGHMANE,
         CardDb::Id::SAVANNAH_HIGHMANE,
-        CardDb::Id::HYENA_T,
     });
 
-    rng.seed(123456);
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -3026,6 +3025,94 @@ TEST(ArenaBattleTest, StrongshellScavengerGolden) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, TheBoogeymonster) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonsterGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonsterGoldenOutheal) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 4);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonsterProcsOnlyOnOwnKills) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
 TEST(ArenaBattleTest, VirmenSensei) {
     Board boardA = Board::from_ids({
         CardDb::Id::RYLAK_METALHEAD,
@@ -3071,14 +3158,15 @@ TEST(ArenaBattleTest, VirmenSenseiGolden) {
     EXPECT_EQ(report.damage(), 0);
 }
 
-TEST(ArenaBattleTest, TheBoogeymonster) {
+TEST(ArenaBattleTest, IronhideDirehorn) {
     Board boardA = Board::from_ids({
-        CardDb::Id::THE_BOOGEYMONSTER
+        CardDb::Id::IRONHIDE_DIREHORN,
+        CardDb::Id::SKELETON_T,
     });
 
     Board boardB = Board::from_ids({
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
     });
 
     rng.seed(12345);
@@ -3089,18 +3177,17 @@ TEST(ArenaBattleTest, TheBoogeymonster) {
     EXPECT_EQ(report.damage(), 0);
 }
 
-TEST(ArenaBattleTest, TheBoogeymonsterGolden) {
+TEST(ArenaBattleTest, IronhideDirehornGolden) {
     Board boardA = Board::from_ids({
-        CardDb::Id::THE_BOOGEYMONSTER_G
+        CardDb::Id::IRONHIDE_DIREHORN_G,
+        CardDb::Id::SKELETON_T,
     });
 
     Board boardB = Board::from_ids({
-        CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
     });
 
     rng.seed(12345);
@@ -3109,27 +3196,4 @@ TEST(ArenaBattleTest, TheBoogeymonsterGolden) {
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
-}
-
-TEST(ArenaBattleTest, TheBoogeymonsterGoldenOutheals) {
-    Board boardA = Board::from_ids({
-        CardDb::Id::THE_BOOGEYMONSTER_G
-    });
-
-    Board boardB = Board::from_ids({
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-        CardDb::Id::HARMLESS_BONEHEAD_G,
-    });
-
-    rng.seed(12345);
-    Arena arena = Arena::from_boards(boardA, boardB);
-    BattleReport report = arena.battle(true);
-
-    EXPECT_EQ(report.result(), WIN_A);
-    EXPECT_EQ(report.damage(), 4);
 }

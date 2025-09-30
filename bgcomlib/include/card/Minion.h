@@ -69,6 +69,10 @@ public:
 
     void set_zombie(bool is_zombie);
 
+    bool is_reaped() const;
+
+    void set_reaped(bool is_reaped);
+
     [[nodiscard]] bool is_poisoned() const;
 
     void set_poisoned(bool is_poisoned);
@@ -116,6 +120,7 @@ private:
     BitVector<Race> _races;
     std::unordered_map<Keyword, std::vector<Effect>> _effects;
     bool _is_zombie{}; // todo: this can be a prop?
+    bool _is_reaped{}; // todo: this can be a prop?
     bool _is_poisoned{}; // todo: this can be a prop?
 
     Minion* _left{}; // adjacency buff only

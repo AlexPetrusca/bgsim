@@ -34,6 +34,7 @@ BattleStatus Arena::get_battle_status() {
     return TIE;
 }
 
+// todo: refactor this code out to Board
 void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, const MinionLoc def) {
     const int def_attack = def->attack();
     const int atk_attack = atk->attack();
@@ -68,6 +69,7 @@ void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, cons
     }
 }
 
+// todo: refactor most of this code out to Board
 void Arena::combat(const int turn, const bool debug) {
     Board& attacking = turn % 2 == 0 ? _p1.board() : _p2.board();
     Board& defending = turn % 2 == 0 ? _p2.board() : _p1.board();
@@ -135,23 +137,31 @@ void Arena::combat(const int turn, const bool debug) {
 
         // resolve deaths
         const bool is_cleave = atk_minion->has(Keyword::CLEAVE);
-        attacker_died = attacking.try_reap_minion(atk_minion);
         if (is_cleave) {
             // todo: trying to reap all is inefficient
             auto m = defending.minions().begin();
             while (m != defending.minions().end()) {
                 const auto m_next = std::next(m);
-                if (defending.try_reap_minion(m)) {
-                    attacking.proc_trigger(Keyword::ON_KILL);
+                if (m->is_zombie()) {
+                    attacking.proc_trigger(Keyword::ON_KILL, &*atk_minion);
+                    if (m->health() < 0) {
+                        attacking.proc_trigger(Keyword::OVERKILL, &*atk_minion);
+                    }
                 }
+                defending.try_reap_minion(m);
                 m = m_next;
             }
         } else {
-            if (defending.try_reap_minion(def_minion)) {
-                attacking.proc_trigger(Keyword::ON_KILL);
+            if (def_minion->is_zombie()) {
+                attacking.proc_trigger(Keyword::ON_KILL, &*atk_minion);
+                if (def_minion->health() < 0) {
+                    attacking.proc_trigger(Keyword::OVERKILL, &*atk_minion);
+                }
             }
+            defending.try_reap_minion(def_minion);
         }
 
+        attacker_died = attacking.try_reap_minion(atk_minion);
         if (attacker_died) {
             break;
         }
