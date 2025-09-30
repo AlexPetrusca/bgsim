@@ -166,6 +166,8 @@ public:
         SIEGEBREAKER_G = 58418,
         STRONGSHELL_SCAVENGER = 97422,
         STRONGSHELL_SCAVENGER_G = 59508,
+        VIRMEN_SENSEI = 40641,
+        VIRMEN_SENSEI_G = 59512,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -110,7 +110,7 @@ private:
         CardDb::Id::SIEGEBREAKER,
         CardDb::Id::STRONGSHELL_SCAVENGER,
         // CardDb::Id::THE_BOOGEYMONSTER,
-        // CardDb::Id::VIRMEN_SENSEI,
+        CardDb::Id::VIRMEN_SENSEI,
     };
 
     inline static std::vector<CardDb::Id> _tier5 {

@@ -4655,5 +4655,59 @@
     "rarity": "RARE",
     "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 40641,
+    "name": "Virmen Sensei",
+    "tier": 4,
+    "attack": 4,
+    "health": 5,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          63
+        ]
+      }
+    ],
+    "id": "CFM_816",
+    "goldenDbfId": 59512,
+    "artist": "Dany Orizio",
+    "cardClass": "DRUID",
+    "flavor": "There is no carrot.",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59512,
+    "name": "Virmen Sensei",
+    "tier": 4,
+    "attack": 8,
+    "health": 10,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          64
+        ]
+      }
+    ],
+    "id": "CFM_816_G",
+    "normalDbfId": 40641,
+    "artist": "Dany Orizio",
+    "cardClass": "DRUID",
+    "flavor": "There is no carrot.",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4.",
+    "type": "MINION"
   }
 ]

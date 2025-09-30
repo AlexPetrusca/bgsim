@@ -677,5 +677,29 @@
     "health": 4,
     "text": "Give your <b>Taunt</b> minions +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 63,
+    "name": "Virmen Sensei",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a friendly Beast +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 64,
+    "name": "Virmen Sensei",
+    "target": "SINGLE",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give a friendly Beast +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]
