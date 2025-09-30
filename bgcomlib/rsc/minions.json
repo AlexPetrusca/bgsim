@@ -4603,5 +4603,57 @@
     "rarity": "RARE",
     "text": "<b>Taunt</b>\nYour other Demons have +2 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 97422,
+    "name": "Strongshell Scavenger",
+    "tier": 4,
+    "attack": 2,
+    "health": 3,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          61
+        ]
+      }
+    ],
+    "id": "BG_ICC_807",
+    "goldenDbfId": 59508,
+    "artist": "James Ryman",
+    "cardClass": "DRUID",
+    "flavor": "It isn't \"grave robbing\" when there's no grave. It's just scavenging…",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59508,
+    "name": "Strongshell Scavenger",
+    "tier": 4,
+    "attack": 4,
+    "health": 6,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          62
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_072",
+    "normalDbfId": 97422,
+    "cardClass": "NEUTRAL",
+    "rarity": "RARE",
+    "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +4/+4.",
+    "type": "MINION"
   }
 ]

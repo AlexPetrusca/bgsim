@@ -653,5 +653,29 @@
     "attack": 2,
     "text": "Your other Demons have +2 Attack.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 61,
+    "name": "Strongshell",
+    "target": "ALL",
+    "constraints": [
+      "TAUNT"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give your <b>Taunt</b> minions +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 62,
+    "name": "Strongshell",
+    "target": "ALL",
+    "constraints": [
+      "TAUNT"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give your <b>Taunt</b> minions +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

@@ -108,7 +108,7 @@ private:
         CardDb::Id::SAVANNAH_HIGHMANE,
         CardDb::Id::SECURITY_ROVER,
         CardDb::Id::SIEGEBREAKER,
-        // CardDb::Id::STRONGSHELL_SCAVENGER,
+        CardDb::Id::STRONGSHELL_SCAVENGER,
         // CardDb::Id::THE_BOOGEYMONSTER,
         // CardDb::Id::VIRMEN_SENSEI,
     };

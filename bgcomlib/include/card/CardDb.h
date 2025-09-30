@@ -164,6 +164,8 @@ public:
         PILOTED_SKY_GOLEM_G = 12073,
         SIEGEBREAKER = 54835,
         SIEGEBREAKER_G = 58418,
+        STRONGSHELL_SCAVENGER = 97422,
+        STRONGSHELL_SCAVENGER_G = 59508,
 
         // tokens
         TABBYCAT_T = 96759,
