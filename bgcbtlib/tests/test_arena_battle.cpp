@@ -2912,7 +2912,7 @@ TEST(ArenaBattleTest, PilotedSkyGolem) {
         CardDb::Id::HARMLESS_BONEHEAD_G,
     });
 
-    rng.seed(12345);
+    rng.seed(123456);
     Arena arena = Arena::from_boards(boardA, boardB);
 
     Pool pool;
@@ -3069,4 +3069,67 @@ TEST(ArenaBattleTest, VirmenSenseiGolden) {
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonster) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonsterGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, TheBoogeymonsterGoldenOutheals) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 4);
 }

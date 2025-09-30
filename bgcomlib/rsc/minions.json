@@ -4657,6 +4657,62 @@
     "type": "MINION"
   },
   {
+    "dbfId": 38895,
+    "name": "The Boogeymonster",
+    "tier": 4,
+    "attack": 6,
+    "health": 7,
+    "mechanics": [
+      "ON_KILL"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_KILL",
+        "type": "ENCHANT",
+        "args": [
+          65
+        ]
+      }
+    ],
+    "id": "OG_300",
+    "goldenDbfId": 58425,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "Has 20 years of training in classical ballet, but ALLLLLL he ever gets asked to do is boogie.",
+    "rarity": "LEGENDARY",
+    "text": "Whenever this attacks and kills a minion, gain +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58425,
+    "name": "The Boogeymonster",
+    "tier": 4,
+    "attack": 12,
+    "health": 14,
+    "mechanics": [
+      "ON_KILL"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_KILL",
+        "type": "ENCHANT",
+        "args": [
+          66
+        ]
+      }
+    ],
+    "id": "OG_300_G",
+    "normalDbfId": 38895,
+    "artist": "Alex Horley Orlandelli",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "Has 20 years of training in classical ballet, but ALLLLLL he ever gets asked to do is boogie.",
+    "rarity": "LEGENDARY",
+    "text": "Whenever this attacks and kills a minion, gain +4/+4.",
+    "type": "MINION"
+  },
+  {
     "dbfId": 40641,
     "name": "Virmen Sensei",
     "tier": 4,

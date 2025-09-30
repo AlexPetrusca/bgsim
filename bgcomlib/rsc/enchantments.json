@@ -701,5 +701,23 @@
     "health": 4,
     "text": "Give a friendly Beast +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 65,
+    "name": "Boogeymonster Buff",
+    "target": "SELF",
+    "attack": 2,
+    "health": 2,
+    "text": "Gain +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 66,
+    "name": "Boogeymonster Buff",
+    "target": "SELF",
+    "attack": 4,
+    "health": 4,
+    "text": "Gain +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

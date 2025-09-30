@@ -141,11 +141,15 @@ void Arena::combat(const int turn, const bool debug) {
             auto m = defending.minions().begin();
             while (m != defending.minions().end()) {
                 const auto m_next = std::next(m);
-                defending.try_reap_minion(m);
+                if (defending.try_reap_minion(m)) {
+                    attacking.proc_trigger(Keyword::ON_KILL);
+                }
                 m = m_next;
             }
         } else {
-            defending.try_reap_minion(def_minion);
+            if (defending.try_reap_minion(def_minion)) {
+                attacking.proc_trigger(Keyword::ON_KILL);
+            }
         }
 
         if (attacker_died) {
