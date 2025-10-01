@@ -133,7 +133,7 @@ private:
         // CardDb::Id::GENTLE_MEGASAUR,
         // CardDb::Id::GHASTCOILER,
         // CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
-        // CardDb::Id::MAEXXNA,
+        CardDb::Id::MAEXXNA,
         // CardDb::Id::ZAPP_SLYWICK,
     };
 

@@ -176,6 +176,8 @@ public:
         IRONHIDE_DIREHORN_G = 58412,
         MALGANIS = 1986,
         MALGANIS_G = 58428,
+        MAEXXNA = 1791,
+        MAEXXNA_G = 63781,
 
         // tokens
         TABBYCAT_T = 96759,

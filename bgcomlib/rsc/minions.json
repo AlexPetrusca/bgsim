@@ -4977,5 +4977,49 @@
     "rarity": "LEGENDARY",
     "text": "Your hero is <b>Immune</b>.\nYour other Demons\nhave +4/+4.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 1791,
+    "name": "Maexxna",
+    "tier": 6,
+    "attack": 2,
+    "health": 8,
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "FP1_010",
+    "goldenDbfId": 63781,
+    "artist": "Howard Lyon",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "Maexxna gets super mad when people introduce her as \"Maxina\" or \"Maxxy\".",
+    "rarity": "LEGENDARY",
+    "text": "<b>Poisonous</b>",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63781,
+    "name": "Maexxna",
+    "tier": 6,
+    "attack": 4,
+    "health": 16,
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "FP1_010_G",
+    "normalDbfId": 1791,
+    "artist": "Howard Lyon",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "Maexxna gets super mad when people introduce her as \"Maxina\" or \"Maxxy\".",
+    "rarity": "LEGENDARY",
+    "text": "<b>Poisonous</b>",
+    "type": "MINION"
   }
 ]

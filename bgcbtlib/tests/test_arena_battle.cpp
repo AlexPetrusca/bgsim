@@ -3363,3 +3363,23 @@ TEST(ArenaBattleTest, MalganisNoDeathsOnUnapplyAura) {
     EXPECT_EQ(report.damage(), 1);
     EXPECT_EQ(board.minions().begin()->health(), 1);
 }
+
+TEST(ArenaBattleTest, Maexxna) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::MAEXXNA,
+        CardDb::Id::MAEXXNA_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::SECURITY_ROVER_G,
+        CardDb::Id::SECURITY_ROVER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
