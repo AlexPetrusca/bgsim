@@ -119,7 +119,7 @@ private:
         CardDb::Id::IRONHIDE_DIREHORN,
         // CardDb::Id::KANGORS_APPRENTICE,
         // CardDb::Id::LIGHTFANG_ENFORCER,
-        // CardDb::Id::MALGANIS,
+        CardDb::Id::MALGANIS,
         // CardDb::Id::PRIMALFIN_LOOKOUT,
         CardDb::Id::SATED_THRESHADON,
         // CardDb::Id::SNEEDS_OLD_SHREDDER,

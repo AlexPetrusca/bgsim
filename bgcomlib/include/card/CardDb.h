@@ -84,8 +84,8 @@ public:
         ROCKPOOL_HUNTER_G = 59485,
         VULGAR_HOMUNCULUS = 43121,
         VULGAR_HOMUNCULUS_G = 63778,
-        WRATH_WEAVER = 59670,
-        WRATH_WEAVER_G = 59679,
+        WRATH_WEAVER = 59670, // todo: turns out I implemented the wrong version
+        WRATH_WEAVER_G = 59679, // todo: turns out I implemented the wrong version
         COLDLIGHT_SEER = 96773,
         COLDLIGHT_SEER_G = 59491,
         HARVEST_GOLEM = 96763,
@@ -174,6 +174,8 @@ public:
         FESTEROOT_HULK_G = 99157,
         IRONHIDE_DIREHORN = 49973,
         IRONHIDE_DIREHORN_G = 58412,
+        MALGANIS = 1986,
+        MALGANIS_G = 58428,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -37,6 +37,8 @@ int Player::total_health() {
 }
 
 void Player::deal_damage(const int damage) {
+    if (_is_immune) return;
+
     if (damage < _armor) {
         _armor -= damage;
     } else {
@@ -59,6 +61,14 @@ void Player::increment_pogo_counter() {
 
 int Player::pogo_counter() {
     return _pogo_counter;
+}
+
+bool Player::is_immune() {
+    return _is_immune;
+}
+
+void Player::set_immune(const bool is_immune) {
+    _is_immune = is_immune;
 }
 
 Player* Player::opponent() {

@@ -161,6 +161,9 @@ MinionLoc Board::add_minion(const Minion& minion) {
 
 MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
     const MinionLoc spawn_loc = _minions.insert(loc, minion);
+    if (minions().size() == 1) {
+        _active = spawn_loc;
+    }
     proc_trigger(Keyword::ON_ADD, &*spawn_loc);
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count++;
@@ -188,6 +191,11 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
             case CardDb::Id::KHADGAR:
             case CardDb::Id::KHADGAR_G: {
                 _summon_multiplier += minion.is_golden() ? 2 : 1;
+                break;
+            }
+            case CardDb::Id::MALGANIS:
+            case CardDb::Id::MALGANIS_G: {
+                _player->set_immune(true);
                 break;
             }
             default: break;
@@ -443,6 +451,11 @@ void Board::reap_minion(const MinionLoc loc) {
                 _summon_multiplier -= loc->is_golden() ? 2 : 1;
                 break;
             }
+            case CardDb::Id::MALGANIS:
+            case CardDb::Id::MALGANIS_G: {
+                _player->set_immune(false);
+                break;
+            }
             default: break;
         }
     }
@@ -689,9 +702,9 @@ void Board::undo_aura(const MinionLoc loc) {
                 // todo: [BUG] handle case where we disenchant taunt, so we need to unapply the aura for "Phalanx Commander"
                 if (enchantment.constraints().any() && !m->props().intersects(enchantment.constraints())) continue;
                 if (enchantment.target() == Target::ALL) {
-                    disenchant_minion(*m, enchantment);
+                    disenchant_minion(*m, enchantment, true);
                 } else if (enchantment.target() == Target::ALL_OTHER && m != loc) {
-                    disenchant_minion(*m, enchantment);
+                    disenchant_minion(*m, enchantment, true);
                 }
             }
         }
@@ -719,6 +732,8 @@ void Board::post_attack() {
     proc_trigger(Keyword::ON_POST_ATTACK);
 }
 
+// todo: maybe need to handle the case in which only zombies are left on the board
+//  - In this case, _active will point to bad memory
 void Board::increment_active() {
     if (empty(true)) return;
 
@@ -732,7 +747,7 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
     if (!_triggers.contains(trigger)) return;
 
     for (const MinionLoc listener : _triggers.at(trigger)) { // todo: remove array indexing (inefficient)
-        // todo: replace this if-else chain with switch
+        // todo: can we get rid of Keyword::SPECIAL case here?
         if (listener->has(Keyword::SPECIAL)) {
             switch (static_cast<CardDb::Id>(listener->id())) {
                 case CardDb::Id::OLD_MURK_EYE:
@@ -744,11 +759,14 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                         }
                         listener->delta_attack(buff);
                     }
-                    break;
+                    continue;
                 }
                 default: break;
             }
-        } else if (listener->has(Keyword::ADJACENT_AURA)) {
+        }
+
+        // todo: replace this if-else chain with switch
+        if (listener->has(Keyword::ADJACENT_AURA)) {
             if (trigger == Keyword::ON_PRE_ATTACK) {
                 apply_adjacent_aura(listener);
             } else if (trigger == Keyword::ON_POST_ATTACK) {

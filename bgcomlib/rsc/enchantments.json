@@ -719,5 +719,29 @@
     "health": 4,
     "text": "Gain +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 67,
+    "name": "Mal'Ganis Buff",
+    "target": "ALL_OTHER",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Your other Demons have +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 68,
+    "name": "Mal'Ganis Buff",
+    "target": "ALL_OTHER",
+    "races": [
+      "DEMON"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Your other Demons have +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]

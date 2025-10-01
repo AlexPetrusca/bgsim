@@ -3254,3 +3254,112 @@ TEST(ArenaBattleTest, FesterootHulkGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+// todo: However, a health-granting aura such as Mal'Ganis can save a minion from dying, even if it enters play the same Phase the other minion was mortally wounded, because the aura recalculation is done before the Death Creation Step.
+//  - Need a test to cover this.
+
+TEST(ArenaBattleTest, Malganis) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::FLOATING_WATCHER_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Board& board = arena.playerA().board();
+    board.play_minion(db.get_minion(CardDb::Id::MALGANIS), board.minions().begin());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MalganisGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::IMP_T_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Board& board = arena.playerA().board();
+    board.play_minion(db.get_minion(CardDb::Id::MALGANIS_G), board.minions().begin());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MalganisImmuneHero) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::WRATH_WEAVER,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    int health_before = arena.playerA().total_health();
+    Board& board = arena.playerA().board();
+    board.play_minion(db.get_minion(CardDb::Id::MALGANIS));
+    board.play_minion(db.get_minion(CardDb::Id::FLOATING_WATCHER));
+
+    EXPECT_EQ(arena.playerA().total_health(), health_before);
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, MalganisNoDeathsOnUnapplyAura) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Board& board = arena.playerA().board();
+    Minion minion = db.get_minion(CardDb::Id::MALGANIS_G);
+    minion.props().set(Keyword::TAUNT);
+    board.play_minion(minion, board.minions().begin());
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), WIN_A);
+    EXPECT_EQ(report.damage(), 1);
+    EXPECT_EQ(board.minions().begin()->health(), 1);
+}

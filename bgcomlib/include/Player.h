@@ -33,6 +33,10 @@ public:
 
     int pogo_counter();
 
+    bool is_immune();
+
+    void set_immune(bool is_immune);
+
     Player* opponent();
 
     Pool* pool();
@@ -52,7 +56,8 @@ private:
 
     Player* _opponenet{};
     Pool* _pool{};
-    int _pogo_counter{};
+    int _pogo_counter{}; // todo: should this be on the board instead? probably...
+    bool _is_immune{};
 };
 
 #endif //PLAYER_H

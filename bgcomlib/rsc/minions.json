@@ -4913,5 +4913,69 @@
     "flavor": "Tree puns arboring.",
     "text": "After a friendly minion attacks, gain +2 Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 1986,
+    "name": "Mal'Ganis",
+    "tier": 5,
+    "attack": 9,
+    "health": 7,
+    "mechanics": [
+      "SPECIAL",
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          67
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "GVG_021",
+    "goldenDbfId": 58428,
+    "artist": "Wayne Reynolds",
+    "cardClass": "WARLOCK",
+    "elite": true,
+    "flavor": "Mal'Ganis doesn't like being betrayed, so if you discard him, watch out.",
+    "rarity": "LEGENDARY",
+    "text": "Your hero is <b>Immune</b>.\nYour other Demons\nhave +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58428,
+    "name": "Mal'Ganis",
+    "tier": 5,
+    "attack": 18,
+    "health": 14,
+    "mechanics": [
+      "SPECIAL",
+      "AURA"
+    ],
+    "effects": [
+      {
+        "trigger": "AURA",
+        "type": "ENCHANT",
+        "args": [
+          68
+        ]
+      }
+    ],
+    "races": [
+      "DEMON"
+    ],
+    "id": "GVG_021",
+    "normalDbfId": 1986,
+    "artist": "Wayne Reynolds",
+    "cardClass": "WARLOCK",
+    "elite": true,
+    "flavor": "Mal'Ganis doesn't like being betrayed, so if you discard him, watch out.",
+    "rarity": "LEGENDARY",
+    "text": "Your hero is <b>Immune</b>.\nYour other Demons\nhave +4/+4.",
+    "type": "MINION"
   }
 ]

@@ -121,8 +121,14 @@ int Minion::delta_attack(const int delta, const bool aura) {
 
 int Minion::delta_health(const int delta, const bool aura) {
     if (aura) {
-        _aura_health += delta;
-        _max_health += delta;
+        if (delta < 0) {
+            _aura_health += delta;
+            _max_health += delta;
+            _health = std::min(_max_health, _health) - delta;
+        } else {
+            _aura_health += delta;
+            _max_health += delta;
+        }
     } else if (delta > 0) {
         _max_health += delta;
     }
