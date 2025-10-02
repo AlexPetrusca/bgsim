@@ -743,5 +743,18 @@
     "health": 4,
     "text": "Your other Demons have +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 69,
+    "name": "Toxfin Buff",
+    "target": "SINGLE",
+    "races": [
+      "MURLOC"
+    ],
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "text": "Give a friendly Murloc Poisonous.",
+    "type": "ENCHANTMENT"
   }
 ]

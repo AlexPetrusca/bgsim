@@ -3383,3 +3383,24 @@ TEST(ArenaBattleTest, Maexxna) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, Toxfin) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::TOXFIN,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::TOXFIN_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::THE_BOOGEYMONSTER_G,
+        CardDb::Id::THE_BOOGEYMONSTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

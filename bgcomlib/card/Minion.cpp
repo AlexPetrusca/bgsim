@@ -186,6 +186,16 @@ void Minion::set_reaped(const bool is_reaped) {
     _is_reaped = is_reaped;
 }
 
+// todo: logic is pretty confusing here - refactor?
+//  - is_reaped AND is_zombie AND is_saved is too confusing to reason with.
+//      - is_zombie - the minion is marked to die
+//          1. health < 0: CAN BE SAVED (if it gains back health)
+//          2. poisoned: cannot be saved
+//      - is_reaped - the minion has already died, i.e. reap_minion has been called on it (cannot be saved)
+bool Minion::is_saved() const {
+    return _is_zombie && !_is_reaped && !_is_poisoned && _health > 0;
+}
+
 bool Minion::is_poisoned() const {
     return _is_poisoned;
 }

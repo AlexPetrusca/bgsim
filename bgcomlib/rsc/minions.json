@@ -5021,5 +5021,65 @@
     "rarity": "LEGENDARY",
     "text": "<b>Poisonous</b>",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96842,
+    "name": "Toxfin",
+    "tier": 5,
+    "attack": 1,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          69
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BG_DAL_077",
+    "goldenDbfId": 63796,
+    "artist": "Anton Zemskov",
+    "cardClass": "NEUTRAL",
+    "flavor": "I'm addicted to him, but I know that he's Toxfin.",
+    "rarity": "COMMON",
+    "targetingArrowText": "Give a friendly Murloc Poisonous.",
+    "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 63796,
+    "name": "Toxfin",
+    "tier": 5,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ENCHANT",
+        "args": [
+          69
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_152",
+    "normalDbfId": 96842,
+    "cardClass": "NEUTRAL",
+    "rarity": "COMMON",
+    "targetingArrowText": "Give a friendly Murloc Poisonous.",
+    "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
+    "type": "MINION"
   }
 ]

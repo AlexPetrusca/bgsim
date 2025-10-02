@@ -380,7 +380,7 @@ void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const
     minion.props() |= enchantment.props();
     minion.delta_attack(enchantment.attack(), aura);
     minion.delta_health(enchantment.health(), aura);
-    if (minion.is_zombie() && !minion.is_reaped() && minion.health() > 0) { // todo: logic is pretty confusing here - refactor?
+    if (minion.is_saved()) {
         minion.set_zombie(false); // saved
         _zombie_count--;
     }

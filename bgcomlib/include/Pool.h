@@ -123,7 +123,7 @@ private:
         // CardDb::Id::PRIMALFIN_LOOKOUT,
         CardDb::Id::SATED_THRESHADON,
         // CardDb::Id::SNEEDS_OLD_SHREDDER,
-        // CardDb::Id::TOXFIN,
+        CardDb::Id::TOXFIN,
         CardDb::Id::VOIDLORD,
     };
 

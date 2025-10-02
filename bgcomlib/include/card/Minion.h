@@ -73,6 +73,8 @@ public:
 
     void set_reaped(bool is_reaped);
 
+    bool is_saved() const;
+
     [[nodiscard]] bool is_poisoned() const;
 
     void set_poisoned(bool is_poisoned);
