@@ -5234,5 +5234,61 @@
     "elite": true,
     "text": "<b>Windfury</b>\nThis minion always attacks\nthe enemy minion with\nthe lowest Attack.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59955,
+    "name": "Goldrinn, the Great Wolf",
+    "tier": 6,
+    "attack": 6,
+    "health": 6,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          70
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BGS_018",
+    "goldenDbfId": 59956,
+    "cardClass": "HUNTER",
+    "elite": true,
+    "text": "<b>Deathrattle</b>: Give your Beasts +4/+4.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59956,
+    "name": "Goldrinn, the Great Wolf",
+    "tier": 6,
+    "attack": 12,
+    "health": 12,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "ENCHANT",
+        "args": [
+          71
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_085",
+    "normalDbfId": 59955,
+    "cardClass": "HUNTER",
+    "elite": true,
+    "text": "<b>Deathrattle</b>: Give your Beasts +8/+8.",
+    "type": "MINION"
   }
 ]

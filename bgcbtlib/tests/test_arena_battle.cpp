@@ -3544,3 +3544,46 @@ TEST(ArenaBattleTest, ZappSlywickGolden) {
     EXPECT_EQ(report.damage(), 0);
 }
 
+TEST(ArenaBattleTest, GoldrinnTheGreatWolf) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, GoldrinnTheGreatWolfGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::GOLDRINN_THE_GREAT_WOLF_G,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+        CardDb::Id::SAVANNAH_HIGHMANE_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

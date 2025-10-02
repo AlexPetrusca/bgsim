@@ -186,6 +186,8 @@ public:
         GHASTCOILER_G = 58424,
         ZAPP_SLYWICK = 60040,
         ZAPP_SLYWICK_G = 60041,
+        GOLDRINN_THE_GREAT_WOLF = 59955,
+        GOLDRINN_THE_GREAT_WOLF_G = 59956,
 
         // tokens
         TABBYCAT_T = 96759,

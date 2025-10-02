@@ -131,6 +131,7 @@ private:
         CardDb::Id::SNEEDS_OLD_SHREDDER,
         CardDb::Id::TOXFIN,
         CardDb::Id::VOIDLORD,
+        CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
     };
 
     inline static std::vector<CardDb::Id> _tier6 {
@@ -138,7 +139,6 @@ private:
         CardDb::Id::MAMA_BEAR,
         // CardDb::Id::GENTLE_MEGASAUR,
         CardDb::Id::GHASTCOILER,
-        // CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
         CardDb::Id::MAEXXNA,
         CardDb::Id::ZAPP_SLYWICK,
     };

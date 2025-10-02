@@ -756,5 +756,29 @@
     ],
     "text": "Give a friendly Murloc Poisonous.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 70,
+    "name": "Goldrinn Buff",
+    "target": "ALL",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give your Beasts +4/+4.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 71,
+    "name": "Goldrinn Buff",
+    "target": "ALL",
+    "races": [
+      "BEAST"
+    ],
+    "attack": 8,
+    "health": 8,
+    "text": "Give your Beasts +8/+8.",
+    "type": "ENCHANTMENT"
   }
 ]
