@@ -366,8 +366,10 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
                     }
                     count++;
                 }
-                enchant_minion(*random_loc, enchantment);
-                selections.insert(random_loc);
+                if (random_loc != minions().end()) {
+                    enchant_minion(*random_loc, enchantment);
+                    selections.insert(random_loc);
+                }
             }
             break;
         }

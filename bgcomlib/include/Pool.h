@@ -124,7 +124,7 @@ private:
         // CardDb::Id::BRANN_BRONZEBEARD,
         CardDb::Id::IRONHIDE_DIREHORN,
         // CardDb::Id::KANGORS_APPRENTICE,
-        // CardDb::Id::LIGHTFANG_ENFORCER,
+        CardDb::Id::LIGHTFANG_ENFORCER,
         CardDb::Id::MALGANIS,
         // CardDb::Id::PRIMALFIN_LOOKOUT,
         CardDb::Id::SATED_THRESHADON,

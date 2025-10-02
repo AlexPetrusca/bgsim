@@ -12,7 +12,14 @@ Enchantment::Enchantment(const json& enchant_json) {
     }
     if (enchant_json.contains("races")) {
         for (const auto& race_json : enchant_json["races"]) {
-            _races.set(RaceUtil::fromString(race_json));
+            if (race_json == "ALL") {
+                _races.set(Race::ALL);
+                for (const Race race : RaceUtil::races) {
+                    _races.set(race);
+                }
+            } else {
+                _races.set(RaceUtil::fromString(race_json));
+            }
         }
     }
     if (enchant_json.contains("constraints")) {

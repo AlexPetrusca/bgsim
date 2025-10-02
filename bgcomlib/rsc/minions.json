@@ -5259,6 +5259,7 @@
     "id": "BGS_018",
     "goldenDbfId": 59956,
     "cardClass": "HUNTER",
+    "rarity": "LEGENDARY",
     "elite": true,
     "text": "<b>Deathrattle</b>: Give your Beasts +4/+4.",
     "type": "MINION"
@@ -5287,8 +5288,57 @@
     "id": "TB_BaconUps_085",
     "normalDbfId": 59955,
     "cardClass": "HUNTER",
+    "rarity": "LEGENDARY",
     "elite": true,
     "text": "<b>Deathrattle</b>: Give your Beasts +8/+8.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59707,
+    "name": "Lightfang Enforcer",
+    "tier": 5,
+    "attack": 2,
+    "health": 2,
+    "mechanics": [
+      "ON_TURN_END"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_END",
+        "type": "ENCHANT",
+        "args": [
+          72
+        ]
+      }
+    ],
+    "id": "BGS_009",
+    "goldenDbfId": 59711,
+    "cardClass": "NEUTRAL",
+    "text": "At the end of your turn,\ngive a friendly minion\nof each type +2/+2.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59711,
+    "name": "Lightfang Enforcer",
+    "tier": 5,
+    "attack": 4,
+    "health": 4,
+    "mechanics": [
+      "ON_TURN_END"
+    ],
+    "effects": [
+      {
+        "trigger": "ON_TURN_END",
+        "type": "ENCHANT",
+        "args": [
+          73
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_082",
+    "normalDbfId": 59707,
+    "cardClass": "NEUTRAL",
+    "text": "At the end of your turn,\ngive a friendly minion\nof each type +4/+4.",
     "type": "MINION"
   }
 ]

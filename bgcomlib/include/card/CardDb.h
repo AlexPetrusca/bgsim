@@ -188,6 +188,8 @@ public:
         ZAPP_SLYWICK_G = 60041,
         GOLDRINN_THE_GREAT_WOLF = 59955,
         GOLDRINN_THE_GREAT_WOLF_G = 59956,
+        LIGHTFANG_ENFORCER = 59707,
+        LIGHTFANG_ENFORCER_G = 59711,
 
         // tokens
         TABBYCAT_T = 96759,

@@ -3587,3 +3587,58 @@ TEST(ArenaBattleTest, GoldrinnTheGreatWolfGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, LightfangEnforcer) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::PRIMALFIN_T_G,
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::LIGHTFANG_ENFORCER,
+    });
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, LightfangEnforcerGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::PRIMALFIN_T_G,
+        CardDb::Id::PRIMALFIN_T_G,
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::JO_E_BOT_T_G,
+        CardDb::Id::LIGHTFANG_ENFORCER_G,
+    });
+    boardA.proc_trigger(Keyword::ON_TURN_END);
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

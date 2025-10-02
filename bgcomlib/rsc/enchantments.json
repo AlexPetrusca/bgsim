@@ -780,5 +780,29 @@
     "health": 8,
     "text": "Give your Beasts +8/+8.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 72,
+    "name": "Lightfang Buff",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "ALL"
+    ],
+    "attack": 2,
+    "health": 2,
+    "text": "Give a friendly minion of each type +2/+2.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 73,
+    "name": "Lightfang Buff",
+    "target": "ONE_OF_EACH",
+    "races": [
+      "ALL"
+    ],
+    "attack": 4,
+    "health": 4,
+    "text": "Give a friendly minion of each type +4/+4.",
+    "type": "ENCHANTMENT"
   }
 ]
