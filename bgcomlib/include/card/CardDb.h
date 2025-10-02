@@ -180,6 +180,10 @@ public:
         MAEXXNA_G = 63781,
         TOXFIN = 96842,
         TOXFIN_G = 63796,
+        SNEEDS_OLD_SHREDDER = 59682,
+        SNEEDS_OLD_SHREDDER_G = 59683,
+        GHASTCOILER = 59687,
+        GHASTCOILER_G = 58424,
 
         // tokens
         TABBYCAT_T = 96759,

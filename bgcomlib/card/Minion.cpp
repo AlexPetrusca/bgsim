@@ -28,6 +28,9 @@ Minion::Minion(const json& json) {
             set(KeywordUtil::fromString(keyword_json));
         }
     }
+    if (json.contains("rarity") && json["rarity"] == "LEGENDARY") {
+        set(Keyword::LEGENDARY);
+    }
     if (json.contains("effects")) {
         for (const auto& effect_json : json["effects"]) {
             Effect effect(effect_json);

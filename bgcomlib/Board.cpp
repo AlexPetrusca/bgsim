@@ -244,6 +244,7 @@ MinionLoc Board::summon_minion(const Minion& minion, const bool post_death) {
     return summon_minion(minion, _minions.end(), post_death);
 }
 
+// todo: post_death is kinda confusing - either change the name or can we refactor out?
 MinionLoc Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
     MinionLoc spawn_loc;
     for (int i = 0; i < _summon_multiplier; i++) {
@@ -525,16 +526,17 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_6:
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
                         const Minion& minion = db.get_minion(_player->pool()->get_random_minionid_from_tier(arg));
-                        const bool post_death = effect.trigger() == Keyword::DEATHRATTLE;
-                        summon_minion(minion, get_right_minion_loc(source), post_death);
+                        summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
-                        // todo
+                        const Minion& minion = db.get_minion(_player->pool()->get_random_deathrattle_minionid());
+                        summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_LEGENDARY: {
-                        // todo
+                        const Minion& minion = db.get_minion(_player->pool()->get_random_legendary_minionid());
+                        summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
                     case Effect::SpecialSummon::RAT_PACK: {

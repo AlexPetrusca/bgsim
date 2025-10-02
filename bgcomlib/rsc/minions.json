@@ -5081,5 +5081,122 @@
     "targetingArrowText": "Give a friendly Murloc Poisonous.",
     "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59682,
+    "name": "Sneed's Old Shredder",
+    "tier": 5,
+    "attack": 5,
+    "health": 7,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          9
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BGS_006",
+    "goldenDbfId": 59683,
+    "cardClass": "PALADIN",
+    "elite": true,
+    "rarity": "LEGENDARY",
+    "text": "<b>Deathrattle:</b> Summon a random <b>Legendary</b> minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59683,
+    "name": "Sneed's Old Shredder",
+    "tier": 5,
+    "attack": 10,
+    "health": 14,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          9,
+          9
+        ]
+      }
+    ],
+    "races": [
+      "MECHANICAL"
+    ],
+    "id": "BGS_006_G",
+    "normalDbfId": 59682,
+    "cardClass": "PALADIN",
+    "elite": true,
+    "rarity": "LEGENDARY",
+    "text": "<b>Deathrattle:</b> Summon two random <b>Legendary</b> minion.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59687,
+    "name": "Ghastcoiler",
+    "tier": 6,
+    "attack": 7,
+    "health": 7,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          8,
+          8
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BGS_008",
+    "goldenDbfId": 58424,
+    "cardClass": "HUNTER",
+    "text": "<b>Deathrattle:</b> Summon\n2 random <b>Deathrattle</b> minions.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58424,
+    "name": "Ghastcoiler",
+    "tier": 6,
+    "attack": 14,
+    "health": 14,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          8,
+          8,
+          8,
+          8
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_057",
+    "normalDbfId": 59687,
+    "cardClass": "HUNTER",
+    "text": "<b>Deathrattle:</b> Summon\n4 random <b>Deathrattle</b> minions.",
+    "type": "MINION"
   }
 ]

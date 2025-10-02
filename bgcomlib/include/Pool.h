@@ -13,6 +13,10 @@ public:
 
     [[nodiscard]] CardDb::Id get_random_minionid_up_to_tier(int tier) const;
 
+    [[nodiscard]] CardDb::Id get_random_legendary_minionid() const;
+
+    [[nodiscard]] CardDb::Id get_random_deathrattle_minionid() const;
+
     void take(CardDb::Id id, int count = 1);
 
     void put(CardDb::Id id, int count = 1);
@@ -33,6 +37,8 @@ private:
     std::unordered_map<CardDb::Id, int> _pool;
     int _total_count{};
     std::vector<int> _tier_counts;
+    int _legendary_count{};
+    int _deathrattle_count{};
 
     inline static std::vector<CardDb::Id> _tier1 {
         CardDb::Id::ALLEYCAT,
@@ -122,7 +128,7 @@ private:
         CardDb::Id::MALGANIS,
         // CardDb::Id::PRIMALFIN_LOOKOUT,
         CardDb::Id::SATED_THRESHADON,
-        // CardDb::Id::SNEEDS_OLD_SHREDDER,
+        CardDb::Id::SNEEDS_OLD_SHREDDER,
         CardDb::Id::TOXFIN,
         CardDb::Id::VOIDLORD,
     };
@@ -145,6 +151,10 @@ private:
     inline static std::vector<std::vector<CardDb::Id>> _tiers {
         _tier1, _tier2, _tier3, _tier4, _tier5, _tier6, _tier7,
     };
+
+    inline static std::vector<CardDb::Id> _legendaries;
+
+    inline static std::vector<CardDb::Id> _deathrattles;
 
     inline static std::vector<int> _copies_by_tier {
         15, 15, 13, 11, 9, 7, 5,
