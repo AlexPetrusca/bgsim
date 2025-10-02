@@ -5198,5 +5198,41 @@
     "cardClass": "HUNTER",
     "text": "<b>Deathrattle:</b> Summon\n4 random <b>Deathrattle</b> minions.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 60040,
+    "name": "Zapp Slywick",
+    "tier": 6,
+    "attack": 7,
+    "health": 10,
+    "mechanics": [
+      "SPECIAL",
+      "WINDFURY"
+    ],
+    "id": "BGS_022",
+    "goldenDbfId": 60041,
+    "cardClass": "NEUTRAL",
+    "rarity": "LEGENDARY",
+    "elite": true,
+    "text": "<b>Windfury</b>\nThis minion always attacks\nthe enemy minion with\nthe lowest Attack.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60041,
+    "name": "Zapp Slywick",
+    "tier": 6,
+    "attack": 14,
+    "health": 20,
+    "mechanics": [
+      "SPECIAL",
+      "WINDFURY"
+    ],
+    "id": "TB_BaconUps_091",
+    "normalDbfId": 60040,
+    "cardClass": "NEUTRAL",
+    "rarity": "LEGENDARY",
+    "elite": true,
+    "text": "<b>Windfury</b>\nThis minion always attacks\nthe enemy minion with\nthe lowest Attack.",
+    "type": "MINION"
   }
 ]

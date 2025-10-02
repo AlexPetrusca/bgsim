@@ -184,6 +184,8 @@ public:
         SNEEDS_OLD_SHREDDER_G = 59683,
         GHASTCOILER = 59687,
         GHASTCOILER_G = 58424,
+        ZAPP_SLYWICK = 60040,
+        ZAPP_SLYWICK_G = 60041,
 
         // tokens
         TABBYCAT_T = 96759,

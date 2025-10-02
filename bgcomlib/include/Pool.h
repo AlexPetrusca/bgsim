@@ -137,10 +137,10 @@ private:
         CardDb::Id::FOE_REAPER_4000,
         CardDb::Id::MAMA_BEAR,
         // CardDb::Id::GENTLE_MEGASAUR,
-        // CardDb::Id::GHASTCOILER,
+        CardDb::Id::GHASTCOILER,
         // CardDb::Id::GOLDRINN_THE_GREAT_WOLF,
         CardDb::Id::MAEXXNA,
-        // CardDb::Id::ZAPP_SLYWICK,
+        CardDb::Id::ZAPP_SLYWICK,
     };
 
     inline static std::vector<CardDb::Id> _tier7 {

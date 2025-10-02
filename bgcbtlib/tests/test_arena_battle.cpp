@@ -3505,3 +3505,42 @@ TEST(ArenaBattleTest, GhastcoilerGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, ZappSlywick) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ZAPP_SLYWICK,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::IMP_T,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::IMP_GANG_BOSS,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, ZappSlywickGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ZAPP_SLYWICK_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::IMP_GANG_BOSS_G,
+        CardDb::Id::HYENA_T_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+

@@ -72,6 +72,7 @@ void fight_minions(Board& attacking, Board& defending, const MinionLoc atk, cons
 }
 
 // todo: refactor most of this code out to Board
+// todo: implement STEALTH keyword in combat
 void Arena::combat(const int turn, const bool debug) {
     Board& attacking = turn % 2 == 0 ? _p1.board() : _p2.board();
     Board& defending = turn % 2 == 0 ? _p2.board() : _p1.board();
@@ -90,7 +91,22 @@ void Arena::combat(const int turn, const bool debug) {
     for (int i = 0; i < attack_count; i++) {
         // select defender
         MinionLoc def_minion;
-        if (defending.taunt_count() > 0) {
+        const CardDb::Id atk_id = static_cast<CardDb::Id>(atk_minion->id());
+        if (atk_id == CardDb::Id::ZAPP_SLYWICK || atk_id == CardDb::Id::ZAPP_SLYWICK_G) {
+            def_minion = defending.minions().begin();
+            double count = 1;
+            for (auto m = std::next(defending.minions().begin()); m != defending.minions().end(); ++m) {
+                if (m->attack() < def_minion->attack()) { // select, if not tied
+                    def_minion = m;
+                    count = 1;
+                } else if (m->attack() == def_minion->attack()) { // random sample, if tied
+                    if (rng.rand_percent() < 1 / (count + 1)) {
+                        def_minion = m;
+                    }
+                    count++;
+                }
+            }
+        } else if (defending.taunt_count() > 0) {
             int taunt_idx = rng.rand_int(defending.taunt_count() - 1);
             for (auto m = defending.minions().begin(); m != defending.minions().end(); ++m) {
                 if (m->has(Keyword::TAUNT)) {
