@@ -11,6 +11,7 @@
 Board::Board(const std::vector<Minion>& minions):
     _summon_multiplier(1),
     _deathrattle_multiplier(1),
+    _battlecry_multiplier(1),
     _player(nullptr)
 {
     if (minions.size() > 7) {
@@ -39,6 +40,7 @@ Board::Board(const Board& other):
     _zombie_count(other._zombie_count),
     _summon_multiplier(other._summon_multiplier),
     _deathrattle_multiplier(other._deathrattle_multiplier),
+    _battlecry_multiplier(other._battlecry_multiplier),
     _player(other._player)
 {
     _triggers.clear();
@@ -55,6 +57,7 @@ Board& Board::operator=(const Board& other) {
     _zombie_count = other._zombie_count;
     _summon_multiplier = other._summon_multiplier;
     _deathrattle_multiplier = other._deathrattle_multiplier;
+    _battlecry_multiplier = other._battlecry_multiplier;
     _player = other._player;
 
     _triggers.clear();
@@ -212,6 +215,11 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
                 _deathrattle_multiplier = std::max(_deathrattle_multiplier, minion.is_golden() ? 3 : 2);
                 break;
             }
+            case CardDb::Id::BRANN_BRONZEBEARD:
+            case CardDb::Id::BRANN_BRONZEBEARD_G: {
+                _battlecry_multiplier = std::max(_battlecry_multiplier, minion.is_golden() ? 3 : 2);
+                break;
+            }
             case CardDb::Id::MALGANIS:
             case CardDb::Id::MALGANIS_G: {
                 _player->set_immune(true);
@@ -252,7 +260,9 @@ MinionLoc Board::play_minion(const Minion& minion, MinionLoc loc) {
 
     const MinionLoc spawn_loc = add_minion(minion, loc);
     if (minion.has(Keyword::BATTLECRY)) {
-        exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
+        for (int i = 0 ; i < _battlecry_multiplier; i++) {
+            exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
+        }
     }
     proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
     proc_trigger(Keyword::ON_PLAY, &*spawn_loc);
@@ -480,8 +490,22 @@ void Board::reap_minion(const MinionLoc loc) {
                 _deathrattle_multiplier = 1;
                 // todo: maybe refactor - this could be inefficient
                 for (auto m = minions().begin(); m != minions().end(); ++m) {
+                    if (m->is_zombie()) continue;
                     const CardDb::Id id = static_cast<CardDb::Id>(m->id());
                     if (id == CardDb::Id::BARON_RIVENDARE || id == CardDb::Id::BARON_RIVENDARE_G) {
+                        _deathrattle_multiplier = std::max(_deathrattle_multiplier, minion.is_golden() ? 3 : 2);
+                    }
+                }
+                break;
+            }
+            case CardDb::Id::BRANN_BRONZEBEARD:
+            case CardDb::Id::BRANN_BRONZEBEARD_G: {
+                _battlecry_multiplier = 1;
+                // todo: maybe refactor - this could be inefficient
+                for (auto m = minions().begin(); m != minions().end(); ++m) {
+                    if (m->is_zombie()) continue;
+                    const CardDb::Id id = static_cast<CardDb::Id>(m->id());
+                    if (id == CardDb::Id::BRANN_BRONZEBEARD || id == CardDb::Id::BRANN_BRONZEBEARD_G) {
                         _deathrattle_multiplier = std::max(_deathrattle_multiplier, minion.is_golden() ? 3 : 2);
                     }
                 }
@@ -624,25 +648,37 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
             if (is_battlecry_left && is_battlecry_right) {
                 if (rng.coin_flip()) {
-                    exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                    for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                        exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                    }
                 } else {
-                    exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                    for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                        exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                    }
                 }
             } else if (is_battlecry_left) {
-                exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                }
             } else if (is_battlecry_right) {
-                exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                }
             }
             break;
         }
         case Effect::Type::TRIGGER_ADJACENT_BATTLECRIES: {
             const auto l = get_left_minion_loc(source);
             if (is_minion(l) && l->has(Keyword::BATTLECRY)) {
-                exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    exec_effects(l->get_effects(Keyword::BATTLECRY), l);
+                }
             }
             const auto r = get_right_minion_loc(source);
             if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
-                exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    exec_effects(r->get_effects(Keyword::BATTLECRY), r);
+                }
             }
             break;
         }

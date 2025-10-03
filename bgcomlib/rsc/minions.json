@@ -5376,5 +5376,41 @@
     "rarity": "LEGENDARY",
     "text": "Your minions trigger their <b>Deathrattles</b> three times.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 96786,
+    "name": "Brann Bronzebeard",
+    "tier": 5,
+    "attack": 2,
+    "health": 4,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "BG_LOE_077",
+    "goldenDbfId": 58400,
+    "artist": "Sam Nielson",
+    "cardClass": "NEUTRAL",
+    "rarity": "LEGENDARY",
+    "elite": true,
+    "flavor": "Contains 75% more fiber than his brother Magni!",
+    "text": "Your <b>Battlecries</b> trigger twice.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58400,
+    "name": "Brann Bronzebeard",
+    "tier": 5,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "TB_BaconUps_045",
+    "normalDbfId": 96786,
+    "cardClass": "NEUTRAL",
+    "rarity": "LEGENDARY",
+    "elite": true,
+    "text": "Your <b>Battlecries</b> trigger three times.",
+    "type": "MINION"
   }
 ]

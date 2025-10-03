@@ -121,7 +121,7 @@ private:
     inline static std::vector<CardDb::Id> _tier5 {
         CardDb::Id::ANNIHILAN_BATTLEMASTER,
         CardDb::Id::BARON_RIVENDARE,
-        // CardDb::Id::BRANN_BRONZEBEARD,
+        CardDb::Id::BRANN_BRONZEBEARD,
         CardDb::Id::IRONHIDE_DIREHORN,
         // CardDb::Id::KANGORS_APPRENTICE,
         CardDb::Id::LIGHTFANG_ENFORCER,

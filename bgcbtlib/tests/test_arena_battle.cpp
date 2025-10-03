@@ -3624,7 +3624,6 @@ TEST(ArenaBattleTest, LightfangEnforcerGolden) {
         CardDb::Id::JO_E_BOT_T_G,
         CardDb::Id::LIGHTFANG_ENFORCER_G,
     });
-    boardA.proc_trigger(Keyword::ON_TURN_END);
 
     Board boardB = Board::from_ids({
         CardDb::Id::SAVANNAH_HIGHMANE,
@@ -3635,7 +3634,8 @@ TEST(ArenaBattleTest, LightfangEnforcerGolden) {
         CardDb::Id::HYENA_T,
     });
 
-    rng.seed(12345);
+    rng.seed(436236);
+    boardA.proc_trigger(Keyword::ON_TURN_END);
     Arena arena = Arena::from_boards(boardA, boardB);
     BattleReport report = arena.battle(true);
 
@@ -3725,6 +3725,119 @@ TEST(ArenaBattleTest, BaronRivendareWithRylak) {
     });
 
     Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BaronRivendareSniped) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::IMP_T,
+        CardDb::Id::ANNOY_O_MODULE_G,
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::BARON_RIVENDARE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::ZAPP_SLYWICK,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BrannBronzebeard) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::BRANN_BRONZEBEARD,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ALLEYCAT_G));
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BrannBronzebeardGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::BRANN_BRONZEBEARD_G,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::ALLEYCAT_G));
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::HARMLESS_BONEHEAD_G,
+        CardDb::Id::SKELETON_T_G,
+        CardDb::Id::SKELETON_T_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BrannBronzebeardWithRylak) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::BRANN_BRONZEBEARD,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BrannBronzebeardWithRylakAndBaronRivendare) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::BRANN_BRONZEBEARD,
+        CardDb::Id::BARON_RIVENDARE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,

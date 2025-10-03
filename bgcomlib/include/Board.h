@@ -139,6 +139,7 @@ private:
 
     int _summon_multiplier{}; // todo: get rid of this in favor of trigger-based impl
     int _deathrattle_multiplier{};
+    int _battlecry_multiplier{};
 
     Player* _player;
 };

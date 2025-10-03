@@ -192,6 +192,8 @@ public:
         LIGHTFANG_ENFORCER_G = 59711,
         BARON_RIVENDARE = 96785,
         BARON_RIVENDARE_G = 58421,
+        BRANN_BRONZEBEARD = 96786,
+        BRANN_BRONZEBEARD_G = 58400,
 
         // tokens
         TABBYCAT_T = 96759,
