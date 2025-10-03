@@ -137,7 +137,8 @@ private:
     int _taunt_count{};
     int _zombie_count{};
 
-    int _summon_multiplier{};
+    int _summon_multiplier{}; // todo: get rid of this in favor of trigger-based impl
+    int _deathrattle_multiplier{};
 
     Player* _player;
 };

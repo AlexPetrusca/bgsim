@@ -190,6 +190,8 @@ public:
         GOLDRINN_THE_GREAT_WOLF_G = 59956,
         LIGHTFANG_ENFORCER = 59707,
         LIGHTFANG_ENFORCER_G = 59711,
+        BARON_RIVENDARE = 96785,
+        BARON_RIVENDARE_G = 58421,
 
         // tokens
         TABBYCAT_T = 96759,

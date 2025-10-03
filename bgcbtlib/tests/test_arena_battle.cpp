@@ -3642,3 +3642,98 @@ TEST(ArenaBattleTest, LightfangEnforcerGolden) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, BaronRivendare) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::BARON_RIVENDARE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BaronRivendareGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::BARON_RIVENDARE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SAVANNAH_HIGHMANE,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BaronRivendareWithBuff) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::SPAWN_OF_NZOTH_G,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::BARON_RIVENDARE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::HYENA_T_G,
+        CardDb::Id::ANNOY_O_MODULE_G,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, BaronRivendareWithRylak) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::NATHREZIM_OVERSEER_G,
+        CardDb::Id::IMP_T_G,
+        CardDb::Id::BARON_RIVENDARE,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

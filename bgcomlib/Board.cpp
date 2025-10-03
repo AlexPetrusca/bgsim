@@ -10,6 +10,7 @@
 
 Board::Board(const std::vector<Minion>& minions):
     _summon_multiplier(1),
+    _deathrattle_multiplier(1),
     _player(nullptr)
 {
     if (minions.size() > 7) {
@@ -37,6 +38,7 @@ Board::Board(const Board& other):
     _taunt_count(other._taunt_count),
     _zombie_count(other._zombie_count),
     _summon_multiplier(other._summon_multiplier),
+    _deathrattle_multiplier(other._deathrattle_multiplier),
     _player(other._player)
 {
     _triggers.clear();
@@ -52,6 +54,7 @@ Board& Board::operator=(const Board& other) {
     _taunt_count = other._taunt_count;
     _zombie_count = other._zombie_count;
     _summon_multiplier = other._summon_multiplier;
+    _deathrattle_multiplier = other._deathrattle_multiplier;
     _player = other._player;
 
     _triggers.clear();
@@ -190,7 +193,23 @@ MinionLoc Board::add_minion(const Minion& minion, const MinionLoc loc) {
             }
             case CardDb::Id::KHADGAR:
             case CardDb::Id::KHADGAR_G: {
-                _summon_multiplier += minion.is_golden() ? 2 : 1;
+                // todo: khadgar isn't implemented correctly... right?
+                //  - we actually do need the trigger-based implementation
+                //  - say we have a pack leader and a khadgar
+                //      - the first summons will have 1 stack of pack leader buff
+                //      - the secondary khadgar summons will have 2 stacks of pack leader buff
+                //  - do I care though?? idk if i'm even right!
+                //      - I am right: https://youtu.be/U-44HtbiIwQ?si=dM1DF9Y_pL1GasTj&t=538
+                //      - Khadgar procs summon after all buffs are applied to the original
+                //  - Jesus Khadgar is confusing with Scallywag:
+                //      - https://www.youtube.com/watch?v=ocp4KY0snMQ
+                //      - https://www.youtube.com/watch?v=JUn7p6jJ9TE
+                _summon_multiplier *= minion.is_golden() ? 3 : 2;
+                break;
+            }
+            case CardDb::Id::BARON_RIVENDARE:
+            case CardDb::Id::BARON_RIVENDARE_G: {
+                _deathrattle_multiplier = std::max(_deathrattle_multiplier, minion.is_golden() ? 3 : 2);
                 break;
             }
             case CardDb::Id::MALGANIS:
@@ -434,7 +453,9 @@ void Board::reap_minion(const MinionLoc loc) {
     loc->set_reaped(true);
     const Minion& minion = *loc;
     if (minion.has(Keyword::DEATHRATTLE)) {
-        exec_effects(minion.get_effects(Keyword::DEATHRATTLE), loc);
+        for (int i = 0; i < _deathrattle_multiplier; i++) {
+            exec_effects(minion.get_effects(Keyword::DEATHRATTLE), loc);
+        }
     }
     if (minion.has(Keyword::REBORN)) {
         // todo: [optimize] so inefficient (maybe don't handle with effect)
@@ -451,7 +472,19 @@ void Board::reap_minion(const MinionLoc loc) {
         switch (static_cast<CardDb::Id>(minion.id())) {
             case CardDb::Id::KHADGAR:
             case CardDb::Id::KHADGAR_G: {
-                _summon_multiplier -= loc->is_golden() ? 2 : 1;
+                _summon_multiplier /= loc->is_golden() ? 3 : 2;
+                break;
+            }
+            case CardDb::Id::BARON_RIVENDARE:
+            case CardDb::Id::BARON_RIVENDARE_G: {
+                _deathrattle_multiplier = 1;
+                // todo: maybe refactor - this could be inefficient
+                for (auto m = minions().begin(); m != minions().end(); ++m) {
+                    const CardDb::Id id = static_cast<CardDb::Id>(m->id());
+                    if (id == CardDb::Id::BARON_RIVENDARE || id == CardDb::Id::BARON_RIVENDARE_G) {
+                        _deathrattle_multiplier = std::max(_deathrattle_multiplier, minion.is_golden() ? 3 : 2);
+                    }
+                }
                 break;
             }
             case CardDb::Id::MALGANIS:

@@ -5238,7 +5238,7 @@
   {
     "dbfId": 59955,
     "name": "Goldrinn, the Great Wolf",
-    "tier": 6,
+    "tier": 5,
     "attack": 6,
     "health": 6,
     "mechanics": [
@@ -5267,7 +5267,7 @@
   {
     "dbfId": 59956,
     "name": "Goldrinn, the Great Wolf",
-    "tier": 6,
+    "tier": 5,
     "attack": 12,
     "health": 12,
     "mechanics": [
@@ -5339,6 +5339,42 @@
     "normalDbfId": 59707,
     "cardClass": "NEUTRAL",
     "text": "At the end of your turn,\ngive a friendly minion\nof each type +4/+4.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 96785,
+    "name": "Baron Rivendare",
+    "tier": 5,
+    "attack": 1,
+    "health": 7,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "BG_FP1_031",
+    "goldenDbfId": 58421,
+    "artist": "Ralph Horsley",
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "flavor": "There used to be five Horsemen but one of them left because a job opened up in the deadmines and the benefits were better.",
+    "rarity": "LEGENDARY",
+    "text": "Your minions trigger their <b>Deathrattles</b> twice.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 58421,
+    "name": "Baron Rivendare",
+    "tier": 5,
+    "attack": 2,
+    "health": 14,
+    "mechanics": [
+      "SPECIAL"
+    ],
+    "id": "TB_BaconUps_055",
+    "normalDbfId": 96785,
+    "cardClass": "NEUTRAL",
+    "elite": true,
+    "rarity": "LEGENDARY",
+    "text": "Your minions trigger their <b>Deathrattles</b> three times.",
     "type": "MINION"
   }
 ]

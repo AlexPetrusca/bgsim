@@ -17,7 +17,8 @@ TEST(PoolTest, InitializedProperly) {
         const std::vector<CardDb::Id>& tier_ids = Pool::get_tier(t);
         int tier_copies = Pool::get_copies_for_tier(t);
         for (const CardDb::Id id : tier_ids) {
-            EXPECT_EQ(db.get_minion(id).tier(), t);
+            Minion minion = db.get_minion(id);
+            EXPECT_EQ(minion.tier(), t) << "(id: " << static_cast<int>(id) << ", name: "<< minion.name() << ")";
             EXPECT_EQ(tier_copies, pool.card_count(id));
         }
         EXPECT_EQ(pool.tier_count(t), tier_ids.size() * tier_copies);
