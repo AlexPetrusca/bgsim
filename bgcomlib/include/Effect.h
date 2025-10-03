@@ -78,7 +78,6 @@ public:
     };
 
     enum class SpecialSummon {
-        FIRST_TWO_DEAD_MECHS = 0,
         RANDOM_TIER_1 = 1,
         RANDOM_TIER_2 = 2,
         RANDOM_TIER_3 = 3,
@@ -91,6 +90,8 @@ public:
         RAT_PACK = 10,
         RAT_PACK_GOLDEN = 11,
         THE_BEAST = 12,
+        FIRST_TWO_DEAD_MECHS = 13,
+        FIRST_FOUR_DEAD_MECHS = 14,
     };
 
     explicit Effect(const json& json);

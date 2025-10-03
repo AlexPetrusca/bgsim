@@ -141,6 +141,8 @@ private:
     int _deathrattle_multiplier{};
     int _battlecry_multiplier{};
 
+    std::vector<CardDb::Id> _dead_mechs;
+
     Player* _player;
 };
 

@@ -522,6 +522,9 @@ void Board::reap_minion(const MinionLoc loc) {
     if (minion.has(Keyword::TAUNT)) {
         _taunt_count--;
     }
+    if (minion.is(Race::MECHANICAL)) {
+        _dead_mechs.push_back(static_cast<CardDb::Id>(loc->id()));
+    }
 
     if (_active == loc) {
         increment_active();
@@ -573,10 +576,6 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
         case Effect::Type::SUMMON_SPECIAL: {
             for (const int arg: effect.args()) {
                 switch (static_cast<Effect::SpecialSummon>(arg)) {
-                    case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
-                        // todo
-                        break;
-                    }
                     case Effect::SpecialSummon::RANDOM_TIER_1:
                     case Effect::SpecialSummon::RANDOM_TIER_2:
                     case Effect::SpecialSummon::RANDOM_TIER_3:
@@ -616,6 +615,20 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT_T);
                         for (int i = 0; i < _summon_multiplier; i++) {
                             _player->opponent()->board().summon_minion(pip);
+                        }
+                        break;
+                    }
+                    case Effect::SpecialSummon::FIRST_TWO_DEAD_MECHS: {
+                        int n = std::min(2, static_cast<int>(_dead_mechs.size()));
+                        for (int i = 0; i < n; i++) {
+                            summon_minion(db.get_minion(_dead_mechs[i]), get_right_minion_loc(source), true);
+                        }
+                        break;
+                    }
+                    case Effect::SpecialSummon::FIRST_FOUR_DEAD_MECHS: {
+                        int n = std::min(4, static_cast<int>(_dead_mechs.size()));
+                        for (int i = 0; i < n; i++) {
+                            summon_minion(db.get_minion(_dead_mechs[i]), get_right_minion_loc(source), true);
                         }
                         break;
                     }

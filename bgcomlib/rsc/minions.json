@@ -5412,5 +5412,53 @@
     "elite": true,
     "text": "Your <b>Battlecries</b> trigger three times.",
     "type": "MINION"
+  },
+  {
+    "dbfId": 59935,
+    "name": "Kangor's Apprentice",
+    "tier": 5,
+    "attack": 4,
+    "health": 8,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          13
+        ]
+      }
+    ],
+    "id": "BGS_012",
+    "goldenDbfId": 59976,
+    "cardClass": "NEUTRAL",
+    "text": "<b>Deathrattle:</b> Summon plain\ncopies of your first 2 Mechs\nthat died this combat.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59976,
+    "name": "Kangor's Apprentice",
+    "tier": 5,
+    "attack": 8,
+    "health": 16,
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON_SPECIAL",
+        "args": [
+          14
+        ]
+      }
+    ],
+    "id": "TB_BaconUps_087",
+    "normalDbfId": 59935,
+    "cardClass": "NEUTRAL",
+    "text": "<b>Deathrattle:</b> Summon plain\ncopies of your first 4 Mechs\nthat died this combat.",
+    "type": "MINION"
   }
 ]

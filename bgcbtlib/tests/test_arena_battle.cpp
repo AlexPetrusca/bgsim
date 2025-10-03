@@ -3850,3 +3850,53 @@ TEST(ArenaBattleTest, BrannBronzebeardWithRylakAndBaronRivendare) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, KangorsApprentice) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::KANGORS_APPRENTICE
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, KangorsApprenticeGolden) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::ANNOY_O_TRON_G,
+        CardDb::Id::KANGORS_APPRENTICE_G
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::THE_BOOGEYMONSTER,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

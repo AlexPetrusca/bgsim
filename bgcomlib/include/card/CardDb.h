@@ -194,6 +194,8 @@ public:
         BARON_RIVENDARE_G = 58421,
         BRANN_BRONZEBEARD = 96786,
         BRANN_BRONZEBEARD_G = 58400,
+        KANGORS_APPRENTICE = 59935,
+        KANGORS_APPRENTICE_G = 59976,
 
         // tokens
         TABBYCAT_T = 96759,
