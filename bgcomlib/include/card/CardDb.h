@@ -182,8 +182,8 @@ public:
         MAEXXNA_G = 63781,
         TOXFIN = 96842,
         TOXFIN_G = 63796,
-        SNEEDS_OLD_SHREDDER = 59682, // todo: not fully implemented (use elite status)
-        SNEEDS_OLD_SHREDDER_G = 59683, // todo: not fully implemented (use elite status)
+        SNEEDS_OLD_SHREDDER = 59682, // todo: double check interactions - write tests
+        SNEEDS_OLD_SHREDDER_G = 59683, // todo: eg. summon baron rivendare, summon khadgar + other, etc.
         GHASTCOILER = 59687,
         GHASTCOILER_G = 58424,
         ZAPP_SLYWICK = 60040,
