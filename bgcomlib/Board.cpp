@@ -78,7 +78,7 @@ Race Board::get_random_race() {
 }
 
 Race Board::get_random_race(const std::vector<Race>& races) {
-    Race race = Race::NONE;
+    Race race;
     double count = 1;
     for (const Race r : races) {
         if (rng.rand_percent() < 1 / count) {
@@ -90,7 +90,7 @@ Race Board::get_random_race(const std::vector<Race>& races) {
 }
 
 Race Board::get_random_race(const BitVector<Race>& races) {
-    Race race = Race::NONE;
+    Race race;
     double count = 1;
     for (const Race r : races) {
         if (rng.rand_percent() < 1 / count) {
@@ -260,7 +260,8 @@ MinionLoc Board::play_minion(const Minion& minion, MinionLoc loc) {
 
     const MinionLoc spawn_loc = add_minion(minion, loc);
     if (minion.has(Keyword::BATTLECRY)) {
-        for (int i = 0 ; i < _battlecry_multiplier; i++) {
+        const int multiplier = _battlecry_multiplier;
+        for (int i = 0 ; i < multiplier; i++) {
             exec_effects(minion.get_effects(Keyword::BATTLECRY), spawn_loc);
         }
     }
@@ -276,7 +277,8 @@ MinionLoc Board::summon_minion(const Minion& minion, const bool post_death) {
 // todo: post_death is kinda confusing - either change the name or can we refactor out?
 MinionLoc Board::summon_minion(const Minion& minion, const MinionLoc loc, const bool post_death) {
     MinionLoc spawn_loc;
-    for (int i = 0; i < _summon_multiplier; i++) {
+    const int multiplier = _summon_multiplier;
+    for (int i = 0; i < multiplier; i++) {
         if (full(!post_death)) return minions().end();
         spawn_loc = add_minion(minion, loc);
         proc_trigger(Keyword::ON_SUMMON, &*spawn_loc);
@@ -463,7 +465,8 @@ void Board::reap_minion(const MinionLoc loc) {
     loc->set_reaped(true);
     const Minion& minion = *loc;
     if (minion.has(Keyword::DEATHRATTLE)) {
-        for (int i = 0; i < _deathrattle_multiplier; i++) {
+        const int multiplier = _deathrattle_multiplier;
+        for (int i = 0; i < multiplier; i++) {
             exec_effects(minion.get_effects(Keyword::DEATHRATTLE), loc);
         }
     }
@@ -583,17 +586,17 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     case Effect::SpecialSummon::RANDOM_TIER_5:
                     case Effect::SpecialSummon::RANDOM_TIER_6:
                     case Effect::SpecialSummon::RANDOM_TIER_7: {
-                        const Minion& minion = db.get_minion(_player->pool()->get_random_minionid_from_tier(arg));
+                        const Minion& minion = db.get_minion(_player->pool()->get_random_from_tier(arg));
                         summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_DEATHRATTLE: {
-                        const Minion& minion = db.get_minion(_player->pool()->get_random_deathrattle_minionid());
+                        const Minion& minion = db.get_minion(_player->pool()->fetch_keyword(_player->tier(), Keyword::DEATHRATTLE, &*source));
                         summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
                     case Effect::SpecialSummon::RANDOM_LEGENDARY: {
-                        const Minion& minion = db.get_minion(_player->pool()->get_random_legendary_minionid());
+                        const Minion& minion = db.get_minion(_player->pool()->fetch_keyword(_player->tier(), Keyword::LEGENDARY, &*source));
                         summon_minion(minion, get_right_minion_loc(source), effect.trigger() == Keyword::DEATHRATTLE);
                         break;
                     }
@@ -613,7 +616,8 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                     }
                     case Effect::SpecialSummon::THE_BEAST: {
                         const Minion& pip = db.get_minion(CardDb::Id::PIP_QUICKWIT_T);
-                        for (int i = 0; i < _summon_multiplier; i++) {
+                        const int summon_multiplier = _summon_multiplier;
+                        for (int i = 0; i < summon_multiplier; i++) {
                             _player->opponent()->board().summon_minion(pip);
                         }
                         break;
@@ -659,37 +663,39 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             const auto r = get_right_minion_loc(source);
             const bool is_battlecry_left = is_minion(l) && l->has(Keyword::BATTLECRY);
             const bool is_battlecry_right = is_minion(r) && r->has(Keyword::BATTLECRY);
+            const int multiplier = _battlecry_multiplier;
             if (is_battlecry_left && is_battlecry_right) {
                 if (rng.coin_flip()) {
-                    for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    for (int i = 0 ; i < multiplier; i++) {
                         exec_effects(l->get_effects(Keyword::BATTLECRY), l);
                     }
                 } else {
-                    for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                    for (int i = 0 ; i < multiplier; i++) {
                         exec_effects(r->get_effects(Keyword::BATTLECRY), r);
                     }
                 }
             } else if (is_battlecry_left) {
-                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                for (int i = 0 ; i < multiplier; i++) {
                     exec_effects(l->get_effects(Keyword::BATTLECRY), l);
                 }
             } else if (is_battlecry_right) {
-                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                for (int i = 0 ; i < multiplier; i++) {
                     exec_effects(r->get_effects(Keyword::BATTLECRY), r);
                 }
             }
             break;
         }
         case Effect::Type::TRIGGER_ADJACENT_BATTLECRIES: {
+            const int multiplier = _battlecry_multiplier;
             const auto l = get_left_minion_loc(source);
             if (is_minion(l) && l->has(Keyword::BATTLECRY)) {
-                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                for (int i = 0 ; i < multiplier; i++) {
                     exec_effects(l->get_effects(Keyword::BATTLECRY), l);
                 }
             }
             const auto r = get_right_minion_loc(source);
             if (is_minion(r) && r->has(Keyword::BATTLECRY)) {
-                for (int i = 0 ; i < _battlecry_multiplier; i++) {
+                for (int i = 0 ; i < multiplier; i++) {
                     exec_effects(r->get_effects(Keyword::BATTLECRY), r);
                 }
             }
@@ -716,6 +722,54 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             }
             for (const MinionLoc minion_loc : zombies) {
                 opp_board.reap_minion(minion_loc);
+            }
+            break;
+        }
+        case Effect::Type::DISCOVER: {
+            if (is_in_combat()) {
+                // todo: Hearthstone’s Discover mechanic explicitly excludes the exact card generating the Discover effect
+                for (const int arg: effect.args()) {
+                    const auto discover = static_cast<Effect::Discover>(arg);
+                    switch (discover) {
+                        case Effect::Discover::TIER_1:
+                        case Effect::Discover::TIER_2:
+                        case Effect::Discover::TIER_3:
+                        case Effect::Discover::TIER_4:
+                        case Effect::Discover::TIER_5:
+                        case Effect::Discover::TIER_6:
+                        case Effect::Discover::TIER_7: {
+                            const int tier = static_cast<int>(discover);
+                            CardDb::Id id = _player->pool()->get_random_from_tier(tier);
+                            _player->hand().add_card(id);
+                            break;
+                        }
+                        case Effect::Discover::BEAST:
+                        case Effect::Discover::DEMON:
+                        case Effect::Discover::DRAGON:
+                        case Effect::Discover::ELEMENTAL:
+                        case Effect::Discover::MECHANICAL:
+                        case Effect::Discover::MURLOC:
+                        case Effect::Discover::NAGA:
+                        case Effect::Discover::PIRATE:
+                        case Effect::Discover::QUILLBOAR:
+                        case Effect::Discover::UNDEAD: {
+                            Race race = Effect::DiscoverUtil::to_race(discover);
+                            CardDb::Id id = _player->pool()->fetch_race(_player->tier(), race, &*source);
+                            _player->hand().add_card(id);
+                            break;
+                        }
+                        case Effect::Discover::BATTLECRY:
+                        case Effect::Discover::DEATHRATTLE: {
+                            Keyword keyword = Effect::DiscoverUtil::to_keyword(discover);
+                            CardDb::Id id = _player->pool()->fetch_keyword(_player->tier(), keyword, &*source);
+                            _player->hand().add_card(id);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                _player->set_discovering(true);
+                // todo: implement on play effect
             }
             break;
         }
@@ -860,11 +914,15 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
             }
         } else if (listener->has(Keyword::AURA)) {
             if (trigger == Keyword::ON_ADD) {
-                const std::vector<Effect>& effects = listener->get_effects(Keyword::AURA);
-                for (const Effect& effect : effects) {
+                // todo: simplify code - maybe just refactor into its own helper function
+                for (const Effect& effect: listener->get_effects(Keyword::AURA)) {
                     for (const int enchantment_id: effect.args()) {
                         const Enchantment& enchantment = db.get_enchantment(enchantment_id);
-                        enchant_minion(*source, enchantment, true);
+                        if (enchantment.races().any() && !source->races().intersects(enchantment.races()))
+                            continue;
+                        if (enchantment.constraints().any() && !source->props().intersects(enchantment.constraints()))
+                            continue;
+                        enchant_minion(*source, enchantment);
                     }
                 }
             }
@@ -981,6 +1039,14 @@ int Board::taunt_count() const {
 
 int Board::zombie_count() const {
     return _zombie_count;
+}
+
+bool Board::is_in_combat() const {
+    return _is_in_combat;
+}
+
+void Board::set_in_combat(bool is_in_combat) {
+    _is_in_combat = is_in_combat;
 }
 
 void Board::bind_player(Player* player) {

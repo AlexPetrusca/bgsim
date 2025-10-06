@@ -28,10 +28,10 @@ TEST(PoolTest, InitializedProperly) {
 }
 
 TEST(PoolTest, RandomSampleFromTier) {
-    const Pool pool;
+    Pool pool;
     std::unordered_map<CardDb::Id, int> counts;
     for (int i = 0; i < ITERATIONS; i++) {
-        counts[pool.get_random_minionid_from_tier(1)]++;
+        counts[pool.get_random_from_tier(1)]++;
     }
 
     const int expected = ITERATIONS / static_cast<int>(Pool::get_tier(1).size());
@@ -45,11 +45,11 @@ TEST(PoolTest, RandomSampleFromTier) {
 }
 
 TEST(PoolTest, RandomSampleUpToTier) {
-    const Pool pool;
+    Pool pool;
     std::unordered_map<int, int> tier_counts;
     std::unordered_map<CardDb::Id, int> id_counts;
     for (int i = 0; i < ITERATIONS; i++) {
-        CardDb::Id id = pool.get_random_minionid_up_to_tier(6);
+        CardDb::Id id = pool.fetch(6);
         tier_counts[db.get_minion(id).tier()]++;
         id_counts[id]++;
     }
@@ -77,4 +77,25 @@ TEST(PoolTest, RandomSampleUpToTier) {
         std::cout << "Tier " << t << ": " << 100 * expected << "% (Expected) vs " << 100 * actual << "% (Actual)" << std::endl;
         EXPECT_APPROX_EQ(actual, expected, CI);
     }
+}
+
+TEST(PoolTest, RandomSampleByRaceWithExclude) {
+    Pool pool;
+    std::unordered_map<CardDb::Id, int> counts;
+    const Minion source = db.get_minion(CardDb::Id::PRIMALFIN_LOOKOUT_G);
+    for (int i = 0; i < ITERATIONS; i++) {
+        counts[pool.fetch_race(6, Race::MURLOC, &source)]++;
+    }
+
+    // for (const auto& [id, count] : counts) {
+    //     std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;
+    //     if (id == static_cast<CardDb::Id>(source.id())) {
+    //         EXPECT_EQ(count, 0);
+    //     } else {
+    //         const int expected = ???;
+    //         EXPECT_APPROX_EQ(count, expected, CI);
+    //     }
+    // }
+
+    EXPECT_EQ(counts[static_cast<CardDb::Id>(source.id())], 0);
 }

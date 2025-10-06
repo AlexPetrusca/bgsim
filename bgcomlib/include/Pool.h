@@ -9,13 +9,19 @@ class Pool {
 public:
     Pool();
 
-    [[nodiscard]] CardDb::Id get_random_minionid_from_tier(int tier) const;
+    [[nodiscard]] CardDb::Id get_random_from_tier(int tier);
 
-    [[nodiscard]] CardDb::Id get_random_minionid_up_to_tier(int tier) const;
+    [[nodiscard]] CardDb::Id fetch(int tier, const Minion* source = nullptr);
 
-    [[nodiscard]] CardDb::Id get_random_legendary_minionid() const;
+    [[nodiscard]] CardDb::Id fetch_race(int tier, Race race, const Minion* source = nullptr);
 
-    [[nodiscard]] CardDb::Id get_random_deathrattle_minionid() const;
+    [[nodiscard]] CardDb::Id fetch_keyword(int tier, Keyword keyword, const Minion* source = nullptr);
+
+    [[nodiscard]] std::vector<CardDb::Id> discover(int tier, const Minion* source = nullptr, int count = 3);
+
+    [[nodiscard]] std::vector<CardDb::Id> discover_race(int tier, Race race, const Minion* source = nullptr, int count = 3);
+
+    [[nodiscard]] std::vector<CardDb::Id> discover_keyword(int tier, Keyword keyword, const Minion* source = nullptr, int count = 3);
 
     void take(CardDb::Id id, int count = 1);
 
@@ -31,14 +37,20 @@ public:
 
     static const std::vector<CardDb::Id>& get_tier(int tier);
 
+    const std::vector<CardDb::Id>& get_race(int tier, Race race);
+
+    const std::vector<CardDb::Id>& get_keyword(int tier, Keyword keyword);
+
     static int get_copies_for_tier(int tier);
 
 private:
     std::unordered_map<CardDb::Id, int> _pool;
     int _total_count{};
     std::vector<int> _tier_counts;
-    int _legendary_count{};
-    int _deathrattle_count{};
+    std::vector<std::unordered_map<Keyword, std::vector<CardDb::Id>>> _keywords;
+    std::vector<std::unordered_map<Keyword, int>> _keyword_counts;
+    std::vector<std::unordered_map<Race, std::vector<CardDb::Id>>> _races;
+    std::vector<std::unordered_map<Race, int>> _race_counts;
 
     inline static std::vector<CardDb::Id> _tier1 {
         CardDb::Id::ALLEYCAT,
@@ -126,7 +138,7 @@ private:
         CardDb::Id::KANGORS_APPRENTICE,
         CardDb::Id::LIGHTFANG_ENFORCER,
         CardDb::Id::MALGANIS,
-        // CardDb::Id::PRIMALFIN_LOOKOUT,
+        CardDb::Id::PRIMALFIN_LOOKOUT,
         CardDb::Id::SATED_THRESHADON,
         CardDb::Id::SNEEDS_OLD_SHREDDER,
         CardDb::Id::TOXFIN,
@@ -151,10 +163,6 @@ private:
     inline static std::vector<std::vector<CardDb::Id>> _tiers {
         _tier1, _tier2, _tier3, _tier4, _tier5, _tier6, _tier7,
     };
-
-    inline static std::vector<CardDb::Id> _legendaries;
-
-    inline static std::vector<CardDb::Id> _deathrattles;
 
     inline static std::vector<int> _copies_by_tier {
         15, 15, 13, 11, 9, 7, 5,

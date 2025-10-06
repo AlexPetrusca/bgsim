@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 
 #include "Keyword.h"
+#include "Race.h"
 
 using json = nlohmann::json;
 
@@ -14,6 +15,7 @@ public:
         SUMMON_SPECIAL,
         REBORN_SUMMON,
         GEN_CARD,
+        DISCOVER,
         ENCHANT,
         DEAL_DAMAGE_PLAYER,
         DEAL_DAMAGE_OTHER,
@@ -28,6 +30,7 @@ public:
             {"SUMMON_SPECIAL", Type::SUMMON_SPECIAL},
             {"REBORN_SUMMON", Type::REBORN_SUMMON},
             {"GEN_CARD", Type::GEN_CARD},
+            {"DISCOVER", Type::DISCOVER},
             {"ENCHANT", Type::ENCHANT},
             {"DEAL_DAMAGE_PLAYER", Type::DEAL_DAMAGE_PLAYER},
             {"DEAL_DAMAGE_OTHER", Type::DEAL_DAMAGE_OTHER},
@@ -92,6 +95,37 @@ public:
         THE_BEAST = 12,
         FIRST_TWO_DEAD_MECHS = 13,
         FIRST_FOUR_DEAD_MECHS = 14,
+    };
+
+    enum class Discover {
+        TIER_1 = 1,
+        TIER_2 = 2,
+        TIER_3 = 3,
+        TIER_4 = 4,
+        TIER_5 = 5,
+        TIER_6 = 6,
+        TIER_7 = 7,
+
+        BEAST = 8,
+        DEMON = 9,
+        DRAGON = 10,
+        ELEMENTAL = 11,
+        MECHANICAL = 12,
+        MURLOC = 13,
+        NAGA = 14,
+        PIRATE = 15,
+        QUILLBOAR = 16,
+        UNDEAD = 17,
+
+        BATTLECRY = 18,
+        DEATHRATTLE = 19,
+    };
+
+    class DiscoverUtil {
+    public:
+        static Race to_race(Discover discover);
+
+        static Keyword to_keyword(Discover discover);
     };
 
     explicit Effect(const json& json);

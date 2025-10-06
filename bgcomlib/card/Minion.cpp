@@ -28,7 +28,7 @@ Minion::Minion(const json& json) {
             set(KeywordUtil::fromString(keyword_json));
         }
     }
-    if (json.contains("rarity") && json["rarity"] == "LEGENDARY") {
+    if (json.contains("elite")) {
         set(Keyword::LEGENDARY);
     }
     if (json.contains("effects")) {
@@ -211,7 +211,15 @@ BitVector<Keyword>& Minion::props() {
     return _props;
 }
 
+const BitVector<Keyword>& Minion::props() const {
+    return _props;
+}
+
 BitVector<Race>& Minion::races() {
+    return _races;
+}
+
+const BitVector<Race>& Minion::races() const {
     return _races;
 }
 

@@ -71,6 +71,22 @@ void Player::set_immune(const bool is_immune) {
     _is_immune = is_immune;
 }
 
+bool Player::is_discovering() {
+    return _is_discovering;
+}
+
+void Player::set_discovering(const bool is_discovering) {
+    _is_discovering = is_discovering;
+}
+
+void Player::set_tier(const int tier) {
+    _tier = tier;
+}
+
+int Player::tier() {
+    return _tier;
+}
+
 Player* Player::opponent() {
     return _opponenet;
 }

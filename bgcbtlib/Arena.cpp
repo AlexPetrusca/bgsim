@@ -196,6 +196,9 @@ void Arena::combat(const int turn, const bool debug) {
 }
 
 BattleReport Arena::battle(const bool debug, const bool analysis) {
+    _p1.board().set_in_combat(true);
+    _p2.board().set_in_combat(true);
+
     // bind opponent
     _p1.bind_opponent(&_p2);
     _p2.bind_opponent(&_p1);
@@ -248,10 +251,13 @@ BattleReport Arena::battle(const bool debug, const bool analysis) {
     _p1.unbind_opponent();
     _p2.unbind_opponent();
 
+    _p1.board().set_in_combat(false);
+    _p2.board().set_in_combat(false);
+
     return report;
 }
 
-AnalysisReport Arena::analyze(int iterations) {
+AnalysisReport Arena::analyze(const int iterations) {
     AnalysisReport analysis_report = AnalysisReport();
     for (int i = 0; i < iterations; i++) {
         const BattleReport battle_report = battle(false, true);

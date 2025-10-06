@@ -81,7 +81,11 @@ public:
 
     BitVector<Keyword>& props();
 
+    [[nodiscard]] const BitVector<Keyword>& props() const;
+
     BitVector<Race>& races();
+
+    [[nodiscard]] const BitVector<Race>& races() const;
 
     [[nodiscard]] bool has(Keyword keyword) const;
 

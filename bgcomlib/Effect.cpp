@@ -9,6 +9,44 @@ Effect::Constraint Effect::ConstraintUtil::fromString(const std::string& str) {
     return pair != constraint_map.end() ? pair->second : Constraint::NONE;
 }
 
+Race Effect::DiscoverUtil::to_race(Discover discover) {
+    switch (discover) {
+        case Discover::BEAST:
+            return Race::BEAST;
+        case Discover::DEMON:
+            return Race::DEMON;
+        case Discover::DRAGON:
+            return Race::DRAGON;
+        case Discover::ELEMENTAL:
+            return Race::ELEMENTAL;
+        case Discover::MECHANICAL:
+            return Race::MECHANICAL;
+        case Discover::MURLOC:
+            return Race::MURLOC;
+        case Discover::NAGA:
+            return Race::NAGA;
+        case Discover::PIRATE:
+            return Race::PIRATE;
+        case Discover::QUILLBOAR:
+            return Race::QUILLBOAR;
+        case Discover::UNDEAD:
+            return Race::UNDEAD;
+        default:
+            std::unreachable();
+    }
+}
+
+Keyword Effect::DiscoverUtil::to_keyword(Discover discover) {
+    switch (discover) {
+        case Discover::BATTLECRY:
+            return Keyword::BATTLECRY;
+        case Discover::DEATHRATTLE:
+            return Keyword::DEATHRATTLE;
+        default:
+            std::unreachable();
+    }
+}
+
 Effect::Effect(const json& json) {
     _trigger = KeywordUtil::fromString(json["trigger"]);
     _type = TypeUtil::fromString(json["type"]);

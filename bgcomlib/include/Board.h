@@ -126,6 +126,10 @@ public:
 
     [[nodiscard]] int zombie_count() const;
 
+    [[nodiscard]] bool is_in_combat() const;
+
+    void set_in_combat(bool is_in_combat);
+
     void bind_player(Player* player);
 
     [[nodiscard]] std::string to_string() override;
@@ -136,6 +140,7 @@ private:
     std::unordered_map<Keyword, MinionLocSet> _triggers;
     int _taunt_count{};
     int _zombie_count{};
+    bool _is_in_combat{};
 
     int _summon_multiplier{}; // todo: get rid of this in favor of trigger-based impl
     int _deathrattle_multiplier{};

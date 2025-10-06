@@ -3723,6 +3723,7 @@
     "goldenDbfId": 60233,
     "cardClass": "NEUTRAL",
     "elite": true,
+    "rarity": "LEGENDARY",
     "text": "Each turn this is in your\nhand, transform it into a\nrandom minion. It keeps\nenchantments.",
     "type": "MINION"
   },
@@ -3739,6 +3740,7 @@
     "normalDbfId": 57742,
     "cardClass": "NEUTRAL",
     "elite": true,
+    "rarity": "LEGENDARY",
     "text": "Each turn this is in your\nhand, transform it into a\n random Golden minion.\n It keeps enchantments.",
     "type": "MINION"
   },
@@ -5459,6 +5461,63 @@
     "normalDbfId": 59935,
     "cardClass": "NEUTRAL",
     "text": "<b>Deathrattle:</b> Summon plain\ncopies of your first 4 Mechs\nthat died this combat.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60028,
+    "name": "Primalfin Lookout",
+    "tier": 5,
+    "attack": 3,
+    "health": 2,
+    "mechanics": [
+      "BATTLECRY",
+      "DISCOVER"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "DISCOVER",
+        "args": [
+          13
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "BGS_020",
+    "goldenDbfId": 60027,
+    "cardClass": "SHAMAN",
+    "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> a Murloc.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 60027,
+    "name": "Primalfin Lookout",
+    "tier": 5,
+    "attack": 6,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY",
+      "DISCOVER"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "DISCOVER",
+        "args": [
+          13,
+          13
+        ]
+      }
+    ],
+    "races": [
+      "MURLOC"
+    ],
+    "id": "TB_BaconUps_089",
+    "normalDbfId": 60028,
+    "cardClass": "SHAMAN",
+    "text": "<b>Battlecry:</b> If you control\nanother Murloc,\n<b>Discover</b> 2 Murlocs.",
     "type": "MINION"
   }
 ]

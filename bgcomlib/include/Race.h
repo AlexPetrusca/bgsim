@@ -5,7 +5,6 @@
 #include <unordered_map>
 
 enum class Race {
-    NONE = 0,
     BEAST = 1 << 0,
     DEMON = 1 << 1,
     DRAGON = 1 << 2,

@@ -37,6 +37,14 @@ public:
 
     void set_immune(bool is_immune);
 
+    bool is_discovering();
+
+    void set_discovering(bool is_discovering);
+
+    void set_tier(int tier);
+
+    int tier();
+
     Player* opponent();
 
     Pool* pool();
@@ -53,11 +61,13 @@ private:
     int _health{};
     int _max_health{};
     int _armor{};
+    int _tier{1};
 
     Player* _opponenet{};
     Pool* _pool{};
     int _pogo_counter{}; // todo: should this be on the board instead? probably...
     bool _is_immune{};
+    bool _is_discovering{};
 };
 
 #endif //PLAYER_H

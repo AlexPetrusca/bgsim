@@ -3354,7 +3354,7 @@ TEST(ArenaBattleTest, MalganisNoDeathsOnUnapplyAura) {
 
     Board& board = arena.playerA().board();
     Minion minion = db.get_minion(CardDb::Id::MALGANIS_G);
-    minion.props().set(Keyword::TAUNT);
+    minion.set(Keyword::TAUNT);
     board.play_minion(minion, board.minions().begin());
 
     BattleReport report = arena.battle(true);
@@ -3417,8 +3417,9 @@ TEST(ArenaBattleTest, SneedsOldShredder) {
         CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(123456);
+    rng.seed(1234567);
     Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
 
     Pool pool;
     arena.bind_pool(&pool);
@@ -3436,15 +3437,16 @@ TEST(ArenaBattleTest, SneedsOldShredderGolden) {
 
     Board boardB = Board::from_ids({
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(123456);
+    rng.seed(1234567);
     Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
 
     Pool pool;
     arena.bind_pool(&pool);
@@ -3465,11 +3467,11 @@ TEST(ArenaBattleTest, Ghastcoiler) {
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(123456);
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
 
     Pool pool;
     arena.bind_pool(&pool);
@@ -3490,12 +3492,13 @@ TEST(ArenaBattleTest, GhastcoilerGolden) {
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(123456);
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
 
     Pool pool;
     arena.bind_pool(&pool);
@@ -3899,4 +3902,113 @@ TEST(ArenaBattleTest, KangorsApprenticeGolden) {
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PrimalfinLookout) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_LOOKOUT,
+        CardDb::Id::PRIMALFIN_LOOKOUT_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HARMLESS_BONEHEAD,
+        CardDb::Id::HARMLESS_BONEHEAD,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PrimalfinLookoutDiscoverWithRylak) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::PRIMALFIN_LOOKOUT,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    BattleReport report = arena.battle(true);
+
+    Hand& hand = arena.playerA().hand();
+    EXPECT_EQ(hand.size(), 1);
+    EXPECT_TRUE(hand.begin()->is(Race::MURLOC));
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PrimalfinLookoutDoubleDiscoverWithRylak) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::RYLAK_METALHEAD,
+        CardDb::Id::PRIMALFIN_LOOKOUT_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    Hand& hand = arena.playerA().hand();
+    EXPECT_EQ(hand.size(), 2);
+    EXPECT_TRUE(hand.begin()->is(Race::MURLOC));
+    EXPECT_TRUE(std::next(hand.begin())->is(Race::MURLOC));
+}
+
+TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_LOOKOUT_G,
+        CardDb::Id::RYLAK_METALHEAD_G,
+        CardDb::Id::PRIMALFIN_LOOKOUT_G,
+        CardDb::Id::BARON_RIVENDARE_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+
+    Hand& hand = arena.playerA().hand();
+    EXPECT_EQ(hand.size(), Hand::MAX_HAND_SIZE);
+
+    MinionLoc discover_minion = hand.begin();
+    for (int i = 0; i < hand.size(); ++i) {
+        EXPECT_TRUE(discover_minion->is(Race::MURLOC));
+        ++discover_minion;
+    }
 }

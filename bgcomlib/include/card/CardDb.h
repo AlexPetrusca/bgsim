@@ -11,6 +11,8 @@ public:
     CardDb();
 
     enum class Id {
+        NONE = 0,
+
         // minions
         ALLEYCAT = 96758,
         ALLEYCAT_G = 60053,
@@ -122,8 +124,8 @@ public:
         INFESTED_WOLF_G = 58365,
         IRON_SENSEI = 97423,
         IRON_SENSEI_G = 58397,
-        KHADGAR = 96779,
-        KHADGAR_G = 58380,
+        KHADGAR = 96779, // todo: not fully implemented (nuances)
+        KHADGAR_G = 58380, // todo: not fully implemented (nuances)
         PHALANX_COMMANDER = 54153,
         PHALANX_COMMANDER_G = 58385,
         PILOTED_SHREDDER = 2064,
@@ -180,8 +182,8 @@ public:
         MAEXXNA_G = 63781,
         TOXFIN = 96842,
         TOXFIN_G = 63796,
-        SNEEDS_OLD_SHREDDER = 59682,
-        SNEEDS_OLD_SHREDDER_G = 59683,
+        SNEEDS_OLD_SHREDDER = 59682, // todo: not fully implemented (use elite status)
+        SNEEDS_OLD_SHREDDER_G = 59683, // todo: not fully implemented (use elite status)
         GHASTCOILER = 59687,
         GHASTCOILER_G = 58424,
         ZAPP_SLYWICK = 60040,
@@ -196,6 +198,8 @@ public:
         BRANN_BRONZEBEARD_G = 58400,
         KANGORS_APPRENTICE = 59935,
         KANGORS_APPRENTICE_G = 59976,
+        PRIMALFIN_LOOKOUT = 60028, // todo: not fully implemented (discover)
+        PRIMALFIN_LOOKOUT_G = 60027, // todo: not fully implemented (discover)
 
         // tokens
         TABBYCAT_T = 96759,
