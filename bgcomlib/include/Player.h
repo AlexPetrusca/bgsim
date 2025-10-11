@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Board.h"
+#include "Discovers.h"
 #include "Hand.h"
 #include "Pool.h"
 
@@ -14,6 +15,8 @@ public:
     void set_board(Board& board);
 
     [[nodiscard]] Hand& hand();
+
+    [[nodiscard]] Discovers& discovers();
 
     [[nodiscard]] int health() const;
 
@@ -37,13 +40,11 @@ public:
 
     void set_immune(bool is_immune);
 
-    bool is_discovering();
-
-    void set_discovering(bool is_discovering);
-
     void set_tier(int tier);
 
     int tier();
+
+    void select_discover(int idx);
 
     Player* opponent();
 
@@ -58,6 +59,7 @@ public:
 private:
     Board _board;
     Hand _hand;
+    Discovers _discovers;
     int _health{};
     int _max_health{};
     int _armor{};
@@ -67,7 +69,6 @@ private:
     Pool* _pool{};
     int _pogo_counter{}; // todo: should this be on the board instead? probably...
     bool _is_immune{};
-    bool _is_discovering{};
 };
 
 #endif //PLAYER_H

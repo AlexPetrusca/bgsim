@@ -2151,7 +2151,7 @@ TEST(ArenaBattleTest, PilotedShredder) {
     Board boardB = Board::from_ids({
         CardDb::Id::HYENA_T_G,
         CardDb::Id::HYENA_T_G,
-        CardDb::Id::HYENA_T,
+        CardDb::Id::HYENA_T_G,
         CardDb::Id::HYENA_T,
         CardDb::Id::HYENA_T,
         CardDb::Id::HYENA_T,
@@ -3437,14 +3437,15 @@ TEST(ArenaBattleTest, SneedsOldShredderGolden) {
 
     Board boardB = Board::from_ids({
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(1234567);
+    rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
     arena.playerA().set_tier(6);
 
@@ -3463,6 +3464,7 @@ TEST(ArenaBattleTest, Ghastcoiler) {
     });
 
     Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
@@ -3491,12 +3493,12 @@ TEST(ArenaBattleTest, GhastcoilerGolden) {
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER_G,
     });
 
-    rng.seed(12345);
+    rng.seed(123456);
     Arena arena = Arena::from_boards(boardA, boardB);
     arena.playerA().set_tier(6);
 
@@ -4011,4 +4013,115 @@ TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
         EXPECT_TRUE(discover_minion->is(Race::MURLOC));
         ++discover_minion;
     }
+}
+
+TEST(ArenaBattleTest, PrimalfinLookoutDiscoverOnPlay) {
+    Board boardA = Board();
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    int pool_size_0 = pool.total_count();
+    int murloc_pool_size_0 = pool.race_count_up_to(Race::MURLOC, 6);
+
+    // after play, expect 3 discovers
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::PRIMALFIN_LOOKOUT));
+    EXPECT_EQ(arena.playerA().discovers().size(), 3);
+
+    // expect discovers are unique
+    std::unordered_set<int> discover_set;
+    for (const Minion& minion : arena.playerA().discovers()) {
+        discover_set.insert(minion.id());
+    }
+    EXPECT_EQ(discover_set.size(), 3);
+
+    // expect pool has exactly 3 murloc missing
+    int pool_size_1 = pool.total_count();
+    int murloc_pool_size_1 = pool.race_count_up_to(Race::MURLOC, 6);
+    EXPECT_EQ(pool_size_0 - pool_size_1, 3);
+    EXPECT_EQ(murloc_pool_size_0 - murloc_pool_size_1, 3);
+
+    // after select, expect 1 card in hand & 0 discovers
+    arena.playerA().select_discover(1);
+    EXPECT_EQ(arena.playerA().discovers().size(), 0);
+    EXPECT_EQ(arena.playerA().hand().size(), 1);
+
+    // expect pool has exactly 1 murloc missing
+    int pool_size_2 = pool.total_count();
+    int murloc_pool_size_2 = pool.race_count_up_to(Race::MURLOC, 6);
+    EXPECT_EQ(pool_size_0 - pool_size_2, 1);
+    EXPECT_EQ(murloc_pool_size_0 - murloc_pool_size_2, 1);
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, PrimalfinLookoutGoldenDiscoverOnPlay) {
+    Board boardA = Board();
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+        CardDb::Id::SKELETON_T,
+    });
+
+    rng.seed(123456);
+    Arena arena = Arena::from_boards(boardA, boardB);
+    arena.playerA().set_tier(6);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    int pool_size_0 = pool.total_count();
+    int murloc_pool_size_0 = pool.race_count_up_to(Race::MURLOC, 6);
+
+    // after play, expect 6 discovers
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::PRIMALFIN_LOOKOUT_G));
+    EXPECT_EQ(arena.playerA().discovers().size(), 6);
+
+    // expect discovers are unique
+    std::unordered_set<int> discover_set;
+    for (const Minion& minion : arena.playerA().discovers()) {
+        discover_set.insert(minion.id());
+    }
+    EXPECT_EQ(discover_set.size(), 6);
+
+    // expect pool has exactly 6 murloc missing
+    int pool_size_1 = pool.total_count();
+    int murloc_pool_size_1 = pool.race_count_up_to(Race::MURLOC, 6);
+    EXPECT_EQ(pool_size_0 - pool_size_1, 6);
+    EXPECT_EQ(murloc_pool_size_0 - murloc_pool_size_1, 6);
+
+    // after 1st select, expect 1 card in hand & 3 discovers
+    arena.playerA().select_discover(1);
+    EXPECT_EQ(arena.playerA().discovers().size(), 3);
+    EXPECT_EQ(arena.playerA().hand().size(), 1);
+
+    // after 2nd select, expect 2 cards in hand & 0 discovers
+    arena.playerA().select_discover(1);
+    EXPECT_EQ(arena.playerA().discovers().size(), 0);
+    EXPECT_EQ(arena.playerA().hand().size(), 2);
+
+    // expect pool has exactly 2 murlocs missing
+    int pool_size_2 = pool.total_count();
+    int murloc_pool_size_2 = pool.race_count_up_to(Race::MURLOC, 6);
+    EXPECT_EQ(pool_size_0 - pool_size_2, 2);
+    EXPECT_EQ(murloc_pool_size_0 - murloc_pool_size_2, 2);
+
+    BattleReport report = arena.battle(true);
+
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
 }

@@ -20,6 +20,10 @@ Hand& Player::hand() {
     return _hand;
 }
 
+Discovers& Player::discovers() {
+    return _discovers;
+}
+
 int Player::health() const {
     return _health;
 }
@@ -71,20 +75,18 @@ void Player::set_immune(const bool is_immune) {
     _is_immune = is_immune;
 }
 
-bool Player::is_discovering() {
-    return _is_discovering;
-}
-
-void Player::set_discovering(const bool is_discovering) {
-    _is_discovering = is_discovering;
-}
-
 void Player::set_tier(const int tier) {
     _tier = tier;
 }
 
 int Player::tier() {
     return _tier;
+}
+
+void Player::select_discover(const int idx) {
+    if (_hand.full()) return;
+    const Minion discover = _discovers.select(idx);
+    _hand.add_card(discover);
 }
 
 Player* Player::opponent() {
@@ -101,6 +103,7 @@ void Player::bind_opponent(Player* opponenet) {
 
 void Player::bind_pool(Pool* pool) {
     _pool = pool;
+    _discovers.bind_pool(pool);
 }
 
 void Player::unbind_opponent() {

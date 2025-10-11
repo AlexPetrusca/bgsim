@@ -11,7 +11,7 @@ static constexpr int ITERATIONS = 250000;
 static constexpr float CI = 0.05;
 
 TEST(PoolTest, InitializedProperly) {
-    const Pool pool;
+    Pool pool;
     int computed_total_count = 0;
     for (int t = 1; t <= 7; t++) {
         const std::vector<CardDb::Id>& tier_ids = Pool::get_tier(t);
@@ -87,15 +87,17 @@ TEST(PoolTest, RandomSampleByRaceWithExclude) {
         counts[pool.fetch_race(6, Race::MURLOC, &source)]++;
     }
 
-    // for (const auto& [id, count] : counts) {
-    //     std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;
-    //     if (id == static_cast<CardDb::Id>(source.id())) {
-    //         EXPECT_EQ(count, 0);
-    //     } else {
-    //         const int expected = ???;
-    //         EXPECT_APPROX_EQ(count, expected, CI);
-    //     }
-    // }
+    CardDb::Id exclude_id = static_cast<CardDb::Id>(source.id());
+    int total_count = pool.race_count_up_to(Race::MURLOC, 6) - pool.card_count(exclude_id);
+    for (const auto& [id, count] : counts) {
+        std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;
+        if (id == exclude_id) {
+            EXPECT_EQ(count, 0);
+        } else {
+            const int expected = ITERATIONS * static_cast<double>(pool.card_count(id)) / total_count;
+            EXPECT_APPROX_EQ(count, expected, CI);
+        }
+    }
 
     EXPECT_EQ(counts[static_cast<CardDb::Id>(source.id())], 0);
 }

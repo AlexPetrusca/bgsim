@@ -19,7 +19,7 @@ public:
 
     void remove_card(MinionLoc loc);
 
-    void remove_card(int index);
+    void remove_card(int idx);
 
     MinionLoc begin();
 
@@ -28,6 +28,10 @@ public:
     std::list<Minion>& cards();
 
     int size();
+
+    bool empty();
+
+    bool full();
 
 private:
     std::list<Minion> _cards;

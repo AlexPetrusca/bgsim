@@ -165,51 +165,38 @@ CardDb::Id Pool::fetch_keyword(const int tier, const Keyword keyword, const Mini
     std::unreachable();
 }
 
+// todo: we cant pick the same minion twice when we discover
+// todo: pretty slow - we could use some sampling technique here instead (e.g. reservoir sampling)
+
 std::vector<CardDb::Id> Pool::discover(const int tier, const Minion* source, const int count) {
-    return {}; // todo: implement
+    std::vector<CardDb::Id> discovers;
+    for (int i = 0; i < count; i++) {
+        CardDb::Id id = fetch(tier, source);
+        discovers.push_back(id);
+        take(id);
+    }
+    return discovers;
 }
 
 std::vector<CardDb::Id> Pool::discover_race(const int tier, const Race race, const Minion* source, const int count) {
-    return {}; // todo: implement
+    std::vector<CardDb::Id> discovers;
+    for (int i = 0; i < count; i++) {
+        CardDb::Id id = fetch_race(tier, race, source);
+        discovers.push_back(id);
+        take(id);
+    }
+    return discovers;
 }
 
 std::vector<CardDb::Id> Pool::discover_keyword(const int tier, const Keyword keyword, const Minion* source, const int count) {
-    return {}; // todo: implement
+    std::vector<CardDb::Id> discovers;
+    for (int i = 0; i < count; i++) {
+        CardDb::Id id = fetch_keyword(tier, keyword, source);
+        discovers.push_back(id);
+        take(id);
+    }
+    return discovers;
 }
-
-// CardDb::Id Pool::get_random_minionid_by_race(const Race race, const Minion* source) {
-//     const CardDb::Id exclude_id = source != nullptr
-//         ? static_cast<CardDb::Id>(source->id())
-//         : CardDb::Id::NONE;
-//     const int exclude_count = _pool.at(exclude_id);
-//
-//     int select_idx = rng.rand_int(1, _race_counts[race] - exclude_count);
-//     for (CardDb::Id id : _races[race]) {
-//         if (id == exclude_id) continue;
-//         select_idx -= _pool.at(id);
-//         if (select_idx <= 0) {
-//             return id;
-//         }
-//     }
-//     std::unreachable();
-// }
-
-// CardDb::Id Pool::get_random_minionid_by_keyword(const Keyword keyword, const Minion* source) {
-//     const CardDb::Id exclude_id = source != nullptr
-//         ? static_cast<CardDb::Id>(source->id())
-//         : CardDb::Id::NONE;
-//     const int exclude_count = _pool.at(exclude_id);
-//
-//     int select_idx = rng.rand_int(1, _keyword_counts[keyword] - exclude_count);
-//     for (CardDb::Id id : _keywords[keyword]) {
-//         if (id == exclude_id) continue;
-//         select_idx -= _pool.at(id);
-//         if (select_idx <= 0) {
-//             return id;
-//         }
-//     }
-//     std::unreachable();
-// }
 
 void Pool::take(const CardDb::Id id, const int count) {
     const Minion& minion = db.get_minion(id);
@@ -237,20 +224,53 @@ void Pool::put(const CardDb::Id id, const int count) {
     }
 }
 
-int Pool::total_count() const {
+int Pool::total_count() {
     return _total_count;
 }
 
-int Pool::tier_count(const int tier) const {
+int Pool::tier_count(const int tier) {
     return _tier_counts[tier - 1];
 }
 
-int Pool::card_count(const CardDb::Id id) const {
-    return _pool.at(id);
+int Pool::tier_count_up_to(const int max_tier) {
+    int count = 0;
+    for (int t = 1; t <= max_tier; t++) {
+        count += tier_count(t);
+    }
+    return count;
 }
 
-const std::vector<int>& Pool::tier_counts() const {
-    return _tier_counts;
+int Pool::race_count(const Race race, const int tier) {
+    return _race_counts[tier - 1][race];
+}
+
+int Pool::race_count_up_to(const Race race, const int max_tier) {
+    int count = 0;
+    for (int t = 1; t <= max_tier; t++) {
+        count += race_count(race, t);
+    }
+    return count;
+}
+
+int Pool::keyword_count(const Keyword keyword, const int tier) {
+    return _keyword_counts[tier - 1][keyword];
+}
+
+int Pool::keyword_count_up_to(const Keyword keyword, const int max_tier) {
+    int count = 0;
+    for (int t = 1; t <= max_tier; t++) {
+        count += keyword_count(keyword, t);
+    }
+    return count;
+}
+
+int Pool::card_count(const CardDb::Id id) {
+    const Minion& minion = db.get_minion(id);
+    if (minion.is_golden()) {
+        return _pool.at(static_cast<CardDb::Id>(minion.alt_id()));
+    } else {
+        return _pool.at(id);
+    }
 }
 
 const std::vector<CardDb::Id>& Pool::get_tier(const int tier) {
@@ -258,11 +278,11 @@ const std::vector<CardDb::Id>& Pool::get_tier(const int tier) {
 }
 
 const std::vector<CardDb::Id>& Pool::get_race(const int tier, const Race race) {
-    return _races.at(tier).at(race);
+    return _races[tier][race];
 }
 
 const std::vector<CardDb::Id>& Pool::get_keyword(const int tier, const Keyword keyword) {
-    return _keywords.at(tier).at(keyword);
+    return _keywords[tier][keyword];
 }
 
 int Pool::get_copies_for_tier(const int tier) {

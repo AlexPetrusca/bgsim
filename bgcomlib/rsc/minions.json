@@ -2284,7 +2284,7 @@
   {
     "dbfId": 96773,
     "name": "Coldlight Seer",
-    "tier": 2,
+    "tier": 3,
     "attack": 2,
     "health": 3,
     "mechanics": [
@@ -2313,7 +2313,7 @@
   {
     "dbfId": 59491,
     "name": "Coldlight Seer",
-    "tier": 2,
+    "tier": 3,
     "attack": 4,
     "health": 6,
     "mechanics": [

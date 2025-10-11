@@ -726,10 +726,9 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             break;
         }
         case Effect::Type::DISCOVER: {
-            if (is_in_combat()) {
-                // todo: Hearthstone’s Discover mechanic explicitly excludes the exact card generating the Discover effect
-                for (const int arg: effect.args()) {
-                    const auto discover = static_cast<Effect::Discover>(arg);
+            for (const int arg: effect.args()) {
+                const auto discover = static_cast<Effect::Discover>(arg);
+                if (is_in_combat()) {
                     switch (discover) {
                         case Effect::Discover::TIER_1:
                         case Effect::Discover::TIER_2:
@@ -766,10 +765,9 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                             break;
                         }
                     }
+                } else {
+                    _player->discovers().discover(discover, _player->tier(), &*source);
                 }
-            } else {
-                _player->set_discovering(true);
-                // todo: implement on play effect
             }
             break;
         }

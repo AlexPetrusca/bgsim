@@ -27,13 +27,21 @@ public:
 
     void put(CardDb::Id id, int count = 1);
 
-    [[nodiscard]] int total_count() const;
+    [[nodiscard]] int total_count();
 
-    [[nodiscard]] int tier_count(int tier) const;
+    [[nodiscard]] int tier_count(int tier);
 
-    [[nodiscard]] int card_count(CardDb::Id id) const;
+    [[nodiscard]] int tier_count_up_to(int max_tier);
 
-    [[nodiscard]] const std::vector<int>& tier_counts() const;
+    [[nodiscard]] int race_count(Race race, int tier);
+
+    [[nodiscard]] int race_count_up_to(Race race, int max_tier);
+
+    [[nodiscard]] int keyword_count(Keyword keyword, int tier);
+
+    [[nodiscard]] int keyword_count_up_to(Keyword keyword, int max_tier);
+
+    [[nodiscard]] int card_count(CardDb::Id id);
 
     static const std::vector<CardDb::Id>& get_tier(int tier);
 
@@ -73,7 +81,6 @@ private:
     inline static std::vector<CardDb::Id> _tier2 {
         CardDb::Id::KINDLY_GRANDMOTHER,
         CardDb::Id::SHIELDED_MINIBOT,
-        CardDb::Id::COLDLIGHT_SEER,
         CardDb::Id::HARVEST_GOLEM,
         CardDb::Id::KABOOM_BOT,
         CardDb::Id::METALTOOTH_LEAPER,
@@ -90,6 +97,7 @@ private:
     };
 
     inline static std::vector<CardDb::Id> _tier3 {
+        CardDb::Id::COLDLIGHT_SEER,
         CardDb::Id::IMP_GANG_BOSS,
         CardDb::Id::ANNOY_O_MODULE,
         CardDb::Id::COBALT_GUARDIAN,

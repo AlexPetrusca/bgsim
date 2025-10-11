@@ -30,6 +30,8 @@ add_library(bgcomlib STATIC
         include/Pool.h
         Game.cpp
         include/Game.h
+        include/Discovers.h
+        Discovers.cpp
 )
 target_include_directories(bgcomlib PUBLIC include)
 
