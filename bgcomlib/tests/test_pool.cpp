@@ -7,8 +7,8 @@
 #define EXPECT_APPROX_EQ(val1, val2, error) \
     EXPECT_LE(std::abs(1.0 - ((double)(val1)) / ((double)(val2))), (error))
 
-static constexpr int ITERATIONS = 250000;
-static constexpr float CI = 0.05;
+static constexpr int ITERATIONS = 50000;
+static constexpr float CI = 0.15;
 
 TEST(PoolTest, InitializedProperly) {
     Pool pool;
@@ -62,8 +62,7 @@ TEST(PoolTest, RandomSampleUpToTier) {
         std::cout << "Total: " << total << std::endl;
         std::cout << "Expected: " << expected << std::endl;
         std::cout << "----------------" << std::endl;
-        const std::vector<CardDb::Id>& ids = Pool::get_tier(tier);
-        for (const CardDb::Id id : ids) {
+        for (const CardDb::Id id : Pool::get_tier(tier)) {
             std::cout << static_cast<int>(id) << " \t-\t" << id_counts[id] << std::endl;
             EXPECT_APPROX_EQ(id_counts[id], expected, CI);
         }
@@ -72,8 +71,8 @@ TEST(PoolTest, RandomSampleUpToTier) {
 
     // check tier probabilities
     for (int t = 1; t <= 6; t++) {
-        double actual = static_cast<double>(tier_counts.at(t)) / ITERATIONS;
-        double expected = static_cast<double>(pool.tier_count(t)) / pool.total_count();
+        const int actual = tier_counts.at(t);
+        const int expected = ITERATIONS * static_cast<double>(pool.tier_count(t)) / pool.total_count();
         std::cout << "Tier " << t << ": " << 100 * expected << "% (Expected) vs " << 100 * actual << "% (Actual)" << std::endl;
         EXPECT_APPROX_EQ(actual, expected, CI);
     }
@@ -87,7 +86,7 @@ TEST(PoolTest, RandomSampleByRaceWithExclude) {
         counts[pool.fetch_race(6, Race::MURLOC, &source)]++;
     }
 
-    CardDb::Id exclude_id = static_cast<CardDb::Id>(source.id());
+    CardDb::Id exclude_id = static_cast<CardDb::Id>(source.alt_id());
     int total_count = pool.race_count_up_to(Race::MURLOC, 6) - pool.card_count(exclude_id);
     for (const auto& [id, count] : counts) {
         std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;

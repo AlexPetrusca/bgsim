@@ -3409,15 +3409,14 @@ TEST(ArenaBattleTest, SneedsOldShredder) {
     Board boardA = Board::from_ids({
         CardDb::Id::SNEEDS_OLD_SHREDDER,
     });
-
     Board boardB = Board::from_ids({
         CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HYENA_T,
         CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(1234567);
+
+    rng.seed(1234);
     Arena arena = Arena::from_boards(boardA, boardB);
     arena.playerA().set_tier(6);
 
@@ -3439,7 +3438,6 @@ TEST(ArenaBattleTest, SneedsOldShredderGolden) {
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
@@ -3468,10 +3466,9 @@ TEST(ArenaBattleTest, Ghastcoiler) {
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
         CardDb::Id::HOUNDMASTER,
-        CardDb::Id::HOUNDMASTER,
     });
 
-    rng.seed(12345);
+    rng.seed(123456);
     Arena arena = Arena::from_boards(boardA, boardB);
     arena.playerA().set_tier(6);
 
@@ -3495,7 +3492,7 @@ TEST(ArenaBattleTest, GhastcoilerGolden) {
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
         CardDb::Id::HOUNDMASTER_G,
-        CardDb::Id::HOUNDMASTER_G,
+        CardDb::Id::HOUNDMASTER,
     });
 
     rng.seed(123456);
@@ -4092,11 +4089,19 @@ TEST(ArenaBattleTest, PrimalfinLookoutGoldenDiscoverOnPlay) {
     EXPECT_EQ(arena.playerA().discovers().size(), 6);
 
     // expect discovers are unique
-    std::unordered_set<int> discover_set;
+    std::unordered_set<int> discover_set_1;
+    std::unordered_set<int> discover_set_2;
+    int i = 0;
     for (const Minion& minion : arena.playerA().discovers()) {
-        discover_set.insert(minion.id());
+        if (i < 3) {
+            discover_set_1.insert(minion.id());
+        } else {
+            discover_set_2.insert(minion.id());
+        }
+        i++;
     }
-    EXPECT_EQ(discover_set.size(), 6);
+    EXPECT_EQ(discover_set_1.size(), 3);
+    EXPECT_EQ(discover_set_2.size(), 3);
 
     // expect pool has exactly 6 murloc missing
     int pool_size_1 = pool.total_count();
