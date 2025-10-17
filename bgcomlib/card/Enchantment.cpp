@@ -1,9 +1,12 @@
 #include "../include/card/Enchantment.h"
 
+#include <sstream>
+
 Enchantment::Enchantment() = default;
 
 Enchantment::Enchantment(const json& enchant_json) {
     _id = enchant_json["dbfId"];
+    _name = enchant_json["name"];
     _target = TargetUtil::fromString(enchant_json["target"]);
     if (enchant_json.contains("mechanics")) {
         for (const auto& keyword_json : enchant_json["mechanics"]) {
@@ -33,10 +36,6 @@ Enchantment::Enchantment(const json& enchant_json) {
     if (enchant_json.contains("health")) {
         _health = enchant_json["health"];
     }
-}
-
-int Enchantment::id() const {
-    return _id;
 }
 
 Target Enchantment::target() const {
@@ -73,10 +72,55 @@ void Enchantment::set_health(const int health) {
 
 bool Enchantment::has(const Keyword keyword) const {
     return _props.has(keyword);
-
 }
 
 bool Enchantment::is(const Race race) const {
     return _races.has(race);
+}
 
+[[nodiscard]] std::string Enchantment::to_string() {
+    std::ostringstream oss;
+    oss << "\"" << _name << "\" ";
+
+    if (_attack > 0 && _health > 0) {
+        oss << "(+" << _attack << "/+" << _health << ")";
+    } else if (_attack > 0) {
+        oss << "(+" << _attack << " attack)";
+    } else {
+        oss << "(+" << _health << " health)";
+    }
+
+    if (
+        has(Keyword::DIVINE_SHIELD) || has(Keyword::TAUNT) ||
+        has(Keyword::REBORN) || has(Keyword::DEATHRATTLE) ||
+        has(Keyword::POISONOUS) || has(Keyword::VENOMOUS) ||
+        has(Keyword::WINDFURY) || has(Keyword::MEGA_WINDFURY)
+    ) {
+        oss << " ";
+    }
+    if (has(Keyword::DIVINE_SHIELD)) {
+        oss << "[S]";
+    }
+    if (has(Keyword::TAUNT)) {
+        oss << "[T]";
+    }
+    if (has(Keyword::REBORN)) {
+        oss << "[R]";
+    }
+    if (has(Keyword::DEATHRATTLE)) {
+        oss << "[D]";
+    }
+    if (has(Keyword::WINDFURY)) {
+        oss << "[W]";
+    }
+    if (has(Keyword::MEGA_WINDFURY)) {
+        oss << "[MW]";
+    }
+    if (has(Keyword::POISONOUS)) {
+        oss << "[P]";
+    }
+    if (has(Keyword::VENOMOUS)) {
+        oss << "[V]";
+    }
+    return oss.str();
 }

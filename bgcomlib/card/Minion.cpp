@@ -44,18 +44,10 @@ Minion::Minion(const json& json) {
 }
 
 Minion::Minion(std::string name, const int tier, const int attack, const int health) {
-    this->_name = std::move(name);
-    this->_tier = tier;
-    this->_attack = attack;
-    this->_health = health;
-}
-
-std::string Minion::name() const {
-    return _name;
-}
-
-void Minion::set_name(const std::string& name) {
-    _name = name;
+    _name = std::move(name);
+    _tier = tier;
+    _attack = attack;
+    _health = health;
 }
 
 int Minion::tier() const {
@@ -159,10 +151,6 @@ const std::unordered_map<Keyword, std::vector<Effect>>& Minion::effects() const 
 
 const std::vector<Effect>& Minion::get_effects(const Keyword keyword) const {
     return _effects.at(keyword);
-}
-
-int Minion::id() const {
-    return _id;
 }
 
 int Minion::alt_id() const {

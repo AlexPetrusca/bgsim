@@ -3,6 +3,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Card.h"
 #include "Keyword.h"
 #include "Race.h"
 #include "Target.h"
@@ -10,13 +11,11 @@
 
 using json = nlohmann::json;
 
-class Enchantment {
+class Enchantment : public Card {
 public:
     Enchantment();
 
     explicit Enchantment(const json& enchant_json);
-
-    [[nodiscard]] int id() const;
 
     [[nodiscard]] Target target() const;
 
@@ -38,8 +37,9 @@ public:
 
     [[nodiscard]] bool is(Race race) const;
 
+    [[nodiscard]] std::string to_string() override;
+
 private:
-    int _id{};
     Target _target{};
     BitVector<Keyword> _props;
     BitVector<Race> _races;

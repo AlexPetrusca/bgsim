@@ -32,6 +32,8 @@ add_library(bgcomlib STATIC
         include/Game.h
         include/Discovers.h
         Discovers.cpp
+        include/card/Card.h
+        card/Card.cpp
 )
 target_include_directories(bgcomlib PUBLIC include)
 

@@ -3,23 +3,19 @@
 
 #include <string>
 
+#include "Card.h"
 #include "Effect.h"
 #include "Keyword.h"
 #include "Race.h"
 #include "util/BitVector.h"
-#include "../../IPrintable.h"
 
-class Minion : public IPrintable {
+class Minion : public Card {
 public:
     Minion();
 
     explicit Minion(const json& json);
 
     Minion(std::string name, int tier, int attack, int health); // todo: delete me
-
-    [[nodiscard]] std::string name() const;
-
-    void set_name(const std::string &name);
 
     [[nodiscard]] int tier() const;
 
@@ -58,8 +54,6 @@ public:
     [[nodiscard]] const std::unordered_map<Keyword, std::vector<Effect>>& effects() const;
 
     [[nodiscard]] const std::vector<Effect>& get_effects(Keyword keyword) const;
-
-    [[nodiscard]] int id() const;
 
     [[nodiscard]] int alt_id() const;
 
@@ -109,11 +103,9 @@ public:
 
     [[nodiscard]] std::string to_string() override;
 
+// todo: how many of these fields can we get rid of - to improve performance
 private:
-    // todo: how many of these fields can you get rid of
-    std::string _name;
     int _tier{};
-    int _id{};
     int _alt_id{};
     bool _is_golden{};
 
