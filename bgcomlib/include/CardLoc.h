@@ -9,7 +9,7 @@
 
 using CardLoc = std::list<std::shared_ptr<Card>>::iterator;
 
-class CardLocUtil {
+class CardUtil {
 public:
     static Card& as_card(const CardLoc loc) {
         return *loc->get();
@@ -21,6 +21,18 @@ public:
 
     static Enchantment& as_enchantment(const CardLoc loc) {
         return *dynamic_cast<Enchantment*>(loc->get());
+    }
+
+    static Card& as_card(const std::shared_ptr<Card>& card) {
+        return *card;
+    }
+
+    static Minion& as_minion(const std::shared_ptr<Card>& card) {
+        return dynamic_cast<Minion&>(*card);
+    }
+
+    static Enchantment& as_enchantment(const std::shared_ptr<Card>& card) {
+        return dynamic_cast<Enchantment&>(*card);
     }
 };
 

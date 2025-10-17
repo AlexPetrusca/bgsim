@@ -17,7 +17,7 @@ void Discovers::discover(const Effect::Discover type, const int tier, const Mini
         case Effect::Discover::TIER_7: {
             const int discover_tier = static_cast<int>(type);
             for (const CardDb::Id id : _pool->discover(discover_tier, source, 3)) {
-                add_card(id);
+                add_minion(id);
             }
             break;
         }
@@ -33,7 +33,7 @@ void Discovers::discover(const Effect::Discover type, const int tier, const Mini
         case Effect::Discover::UNDEAD: {
             const Race race = Effect::DiscoverUtil::to_race(type);
             for (const CardDb::Id id : _pool->discover_race(tier, race, source, 3)) {
-                add_card(id);
+                add_minion(id);
             }
             break;
         }
@@ -41,7 +41,7 @@ void Discovers::discover(const Effect::Discover type, const int tier, const Mini
         case Effect::Discover::DEATHRATTLE: {
             const Keyword keyword = Effect::DiscoverUtil::to_keyword(type);
             for (const CardDb::Id id : _pool->discover_keyword(tier, keyword, source, 3)) {
-                add_card(id);
+                add_minion(id);
             }
             break;
         }
@@ -55,15 +55,15 @@ void Discovers::adapt() {
 Minion Discovers::select(const int idx) {
     assert(idx < _cards.size() && "Out of bounds!");
 
-    MinionLoc loc = _cards.begin();
+    CardLoc loc = _cards.begin();
     for (int i = 0; i < idx; i++) {
         ++loc;
     }
-    Minion minion = *loc;
+    Minion minion = CardUtil::as_minion(loc); // todo: WRONG
 
     for (int i = 0; i < 3; i++) {
         if (i != idx) {
-            _pool->put(static_cast<CardDb::Id>(_cards.front().id())); // todo: we should have another id method to avoid static_cast
+            _pool->put(static_cast<CardDb::Id>(_cards.front()->id())); // todo: we should have another id method to avoid static_cast
         }
         _cards.pop_front();
     }
@@ -71,37 +71,37 @@ Minion Discovers::select(const int idx) {
     return minion;
 }
 
-void Discovers::add_card(const Minion& minion) {
-    _cards.push_back(minion);
+void Discovers::add_minion(const Minion& minion) {
+    _cards.push_back(std::make_shared<Minion>(minion));
 }
 
-void Discovers::add_card(const CardDb::Id id) {
-    add_card(db.get_minion(id));
+void Discovers::add_minion(const CardDb::Id id) {
+    add_minion(db.get_minion(id));
 }
 
-void Discovers::remove_card(const MinionLoc loc) {
+void Discovers::remove_card(const CardLoc loc) {
     _cards.erase(loc);
 }
 
 void Discovers::remove_card(const int idx) {
     if (idx >= _cards.size()) return;
 
-    MinionLoc loc = _cards.begin();
+    CardLoc loc = _cards.begin();
     for (int i = 0; i < idx; i++) {
         ++loc;
     }
     remove_card(loc);
 }
 
-MinionLoc Discovers::begin() {
+CardLoc Discovers::begin() {
     return _cards.begin();
 }
 
-MinionLoc Discovers::end() {
+CardLoc Discovers::end() {
     return _cards.end();
 }
 
-std::list<Minion>& Discovers::cards() {
+std::list<std::shared_ptr<Card>>& Discovers::cards() {
     return _cards;
 }
 

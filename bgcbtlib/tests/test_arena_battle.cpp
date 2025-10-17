@@ -3943,7 +3943,7 @@ TEST(ArenaBattleTest, PrimalfinLookoutDiscoverWithRylak) {
 
     Hand& hand = arena.playerA().hand();
     EXPECT_EQ(hand.size(), 1);
-    EXPECT_TRUE(CardLocUtil::as_minion(hand.begin()).is(Race::MURLOC));
+    EXPECT_TRUE(CardUtil::as_minion(hand.begin()).is(Race::MURLOC));
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
@@ -3972,8 +3972,8 @@ TEST(ArenaBattleTest, PrimalfinLookoutDoubleDiscoverWithRylak) {
 
     Hand& hand = arena.playerA().hand();
     EXPECT_EQ(hand.size(), 2);
-    EXPECT_TRUE(CardLocUtil::as_minion(hand.begin()).is(Race::MURLOC));
-    EXPECT_TRUE(CardLocUtil::as_minion(std::next(hand.begin())).is(Race::MURLOC));
+    EXPECT_TRUE(CardUtil::as_minion(hand.begin()).is(Race::MURLOC));
+    EXPECT_TRUE(CardUtil::as_minion(std::next(hand.begin())).is(Race::MURLOC));
 }
 
 TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
@@ -4007,7 +4007,7 @@ TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
 
     CardLoc discover_minion = hand.begin();
     for (int i = 0; i < hand.size(); ++i) {
-        EXPECT_TRUE(CardLocUtil::as_minion(discover_minion).is(Race::MURLOC));
+        EXPECT_TRUE(CardUtil::as_minion(discover_minion).is(Race::MURLOC));
         ++discover_minion;
     }
 }
@@ -4036,8 +4036,8 @@ TEST(ArenaBattleTest, PrimalfinLookoutDiscoverOnPlay) {
 
     // expect discovers are unique
     std::unordered_set<int> discover_set;
-    for (const Minion& minion : arena.playerA().discovers()) {
-        discover_set.insert(minion.id());
+    for (const std::shared_ptr<Card>& card: arena.playerA().discovers()) {
+        discover_set.insert(card->id());
     }
     EXPECT_EQ(discover_set.size(), 3);
 
@@ -4092,11 +4092,11 @@ TEST(ArenaBattleTest, PrimalfinLookoutGoldenDiscoverOnPlay) {
     std::unordered_set<int> discover_set_1;
     std::unordered_set<int> discover_set_2;
     int i = 0;
-    for (const Minion& minion : arena.playerA().discovers()) {
+    for (const std::shared_ptr<Card>& card : arena.playerA().discovers()) {
         if (i < 3) {
-            discover_set_1.insert(minion.id());
+            discover_set_1.insert(card->id());
         } else {
-            discover_set_2.insert(minion.id());
+            discover_set_2.insert(card->id());
         }
         i++;
     }

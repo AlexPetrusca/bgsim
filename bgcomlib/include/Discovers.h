@@ -19,26 +19,26 @@ public:
 
     Minion select(int idx);
 
-    void add_card(const Minion& minion);
+    void add_minion(const Minion& minion);
 
-    void add_card(CardDb::Id id);
+    void add_minion(CardDb::Id id);
 
-    void remove_card(MinionLoc loc);
+    void remove_card(CardLoc loc);
 
     void remove_card(int idx);
 
-    MinionLoc begin();
+    CardLoc begin();
 
-    MinionLoc end();
+    CardLoc end();
 
-    std::list<Minion>& cards();
+    std::list<std::shared_ptr<Card>>& cards();
 
     int size();
 
     void bind_pool(Pool* pool);
 
 private:
-    std::list<Minion> _cards;
+    std::list<std::shared_ptr<Card>> _cards;
 
     Pool* _pool{}; // todo: should pool just be a global?
 };
