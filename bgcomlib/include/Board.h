@@ -5,7 +5,7 @@
 #include <random>
 #include <unordered_set>
 
-#include "MinionLoc.h"
+#include "CardLoc.h"
 #include "card/Minion.h"
 #include "card/CardDb.h"
 #include "../IPrintable.h"

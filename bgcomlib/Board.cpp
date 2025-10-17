@@ -739,7 +739,7 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         case Effect::Discover::TIER_7: {
                             const int tier = static_cast<int>(discover);
                             CardDb::Id id = _player->pool()->get_random_from_tier(tier);
-                            _player->hand().add_card(id);
+                            _player->hand().add_minion(id);
                             break;
                         }
                         case Effect::Discover::BEAST:
@@ -754,14 +754,14 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
                         case Effect::Discover::UNDEAD: {
                             Race race = Effect::DiscoverUtil::to_race(discover);
                             CardDb::Id id = _player->pool()->fetch_race(_player->tier(), race, &*source);
-                            _player->hand().add_card(id);
+                            _player->hand().add_minion(id);
                             break;
                         }
                         case Effect::Discover::BATTLECRY:
                         case Effect::Discover::DEATHRATTLE: {
                             Keyword keyword = Effect::DiscoverUtil::to_keyword(discover);
                             CardDb::Id id = _player->pool()->fetch_keyword(_player->tier(), keyword, &*source);
-                            _player->hand().add_card(id);
+                            _player->hand().add_minion(id);
                             break;
                         }
                     }

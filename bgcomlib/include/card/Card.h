@@ -12,6 +12,8 @@ public:
 
     void set_name(const std::string &name);
 
+    [[nodiscard]] std::string to_string() override;
+
 protected:
     int _id{};
     std::string _name;

@@ -1,42 +1,41 @@
 #include "include/Hand.h"
 
-Hand::Hand() {
-}
+Hand::Hand() = default;
 
-bool Hand::add_card(const Minion& minion) {
+bool Hand::add_minion(const Minion& minion) {
     if (full()) return false;
 
-    _cards.push_back(minion);
+    _cards.push_back(std::make_shared<Minion>(minion));
     return true;
 }
 
-bool Hand::add_card(const CardDb::Id id) {
-    return add_card(db.get_minion(id));
+bool Hand::add_minion(const CardDb::Id id) {
+    return add_minion(db.get_minion(id));
 }
 
-void Hand::remove_card(const MinionLoc loc) {
+void Hand::remove_card(const CardLoc loc) {
     _cards.erase(loc);
 }
 
 void Hand::remove_card(const int idx) {
     assert(idx >= _cards.size() && "Out of bounds!");
 
-    MinionLoc loc = _cards.begin();
+    CardLoc loc = _cards.begin();
     for (int i = 0; i < idx; i++) {
         ++loc;
     }
     remove_card(loc);
 }
 
-MinionLoc Hand::begin() {
+CardLoc Hand::begin() {
     return _cards.begin();
 }
 
-MinionLoc Hand::end() {
+CardLoc Hand::end() {
     return _cards.end();
 }
 
-std::list<Minion>& Hand::cards() {
+std::list<std::shared_ptr<Card>>& Hand::cards() {
     return _cards;
 }
 

@@ -3,7 +3,7 @@
 
 #include <list>
 
-#include "MinionLoc.h"
+#include "CardLoc.h"
 #include "Pool.h"
 #include "card/CardDb.h"
 #include "card/Minion.h"

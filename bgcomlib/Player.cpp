@@ -86,7 +86,7 @@ int Player::tier() {
 void Player::select_discover(const int idx) {
     if (_hand.full()) return;
     const Minion discover = _discovers.select(idx);
-    _hand.add_card(discover);
+    _hand.add_minion(discover);
 }
 
 Player* Player::opponent() {

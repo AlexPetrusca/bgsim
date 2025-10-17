@@ -3,7 +3,7 @@
 
 #include <list>
 
-#include "MinionLoc.h"
+#include "CardLoc.h"
 #include "card/CardDb.h"
 #include "card/Minion.h"
 
@@ -13,19 +13,19 @@ public:
 
     Hand();
 
-    bool add_card(const Minion& minion);
+    bool add_minion(const Minion& minion);
 
-    bool add_card(CardDb::Id id);
+    bool add_minion(CardDb::Id id);
 
-    void remove_card(MinionLoc loc);
+    void remove_card(CardLoc loc);
 
     void remove_card(int idx);
 
-    MinionLoc begin();
+    CardLoc begin();
 
-    MinionLoc end();
+    CardLoc end();
 
-    std::list<Minion>& cards();
+    std::list<std::shared_ptr<Card>>& cards();
 
     int size();
 
@@ -34,7 +34,7 @@ public:
     bool full();
 
 private:
-    std::list<Minion> _cards;
+    std::list<std::shared_ptr<Card>> _cards;
 };
 
 #endif //HAND_H

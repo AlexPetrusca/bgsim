@@ -3943,7 +3943,7 @@ TEST(ArenaBattleTest, PrimalfinLookoutDiscoverWithRylak) {
 
     Hand& hand = arena.playerA().hand();
     EXPECT_EQ(hand.size(), 1);
-    EXPECT_TRUE(hand.begin()->is(Race::MURLOC));
+    EXPECT_TRUE(CardLocUtil::as_minion(hand.begin()).is(Race::MURLOC));
 
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
@@ -3972,8 +3972,8 @@ TEST(ArenaBattleTest, PrimalfinLookoutDoubleDiscoverWithRylak) {
 
     Hand& hand = arena.playerA().hand();
     EXPECT_EQ(hand.size(), 2);
-    EXPECT_TRUE(hand.begin()->is(Race::MURLOC));
-    EXPECT_TRUE(std::next(hand.begin())->is(Race::MURLOC));
+    EXPECT_TRUE(CardLocUtil::as_minion(hand.begin()).is(Race::MURLOC));
+    EXPECT_TRUE(CardLocUtil::as_minion(std::next(hand.begin())).is(Race::MURLOC));
 }
 
 TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
@@ -4005,9 +4005,9 @@ TEST(ArenaBattleTest, PrimalfinLookoutFullHandDiscoverWithRylakAndBaron) {
     Hand& hand = arena.playerA().hand();
     EXPECT_EQ(hand.size(), Hand::MAX_HAND_SIZE);
 
-    MinionLoc discover_minion = hand.begin();
+    CardLoc discover_minion = hand.begin();
     for (int i = 0; i < hand.size(); ++i) {
-        EXPECT_TRUE(discover_minion->is(Race::MURLOC));
+        EXPECT_TRUE(CardLocUtil::as_minion(discover_minion).is(Race::MURLOC));
         ++discover_minion;
     }
 }
