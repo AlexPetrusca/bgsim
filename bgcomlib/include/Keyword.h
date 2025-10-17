@@ -20,7 +20,6 @@ enum class Keyword: uint64_t {
     MEGA_WINDFURY = 1ull << 10,
     STEALTH = 1ull << 11,
     CHOOSE_ONE = 1ull << 12,
-    DISCOVER = 1ull << 13,
 
     // Custom
     CLEAVE = 1ull << 14,
@@ -64,7 +63,6 @@ namespace KeywordUtil {
         {"MEGA_WINDFURY", Keyword::MEGA_WINDFURY},
         {"STEALTH", Keyword::STEALTH},
         {"CHOOSE_ONE", Keyword::CHOOSE_ONE},
-        {"DISCOVER", Keyword::DISCOVER},
 
         {"CLEAVE", Keyword::CLEAVE},
         {"IMMUNE", Keyword::IMMUNE},

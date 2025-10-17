@@ -771,6 +771,10 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             }
             break;
         }
+        case Effect::Type::ADAPT: {
+            _player->discovers().adapt();
+            break;
+        }
     }
 }
 

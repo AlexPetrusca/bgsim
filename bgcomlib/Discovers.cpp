@@ -48,6 +48,10 @@ void Discovers::discover(const Effect::Discover type, const int tier, const Mini
     }
 }
 
+void Discovers::adapt() {
+    _pool->adapt();
+}
+
 Minion Discovers::select(const int idx) {
     assert(idx < _cards.size() && "Out of bounds!");
 

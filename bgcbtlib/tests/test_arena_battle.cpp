@@ -4130,3 +4130,46 @@ TEST(ArenaBattleTest, PrimalfinLookoutGoldenDiscoverOnPlay) {
     EXPECT_EQ(report.result(), TIE);
     EXPECT_EQ(report.damage(), 0);
 }
+
+TEST(ArenaBattleTest, GentleMegasaur) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::GENTLE_MEGASAUR,
+        CardDb::Id::GENTLE_MEGASAUR_G,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, GentleMegasaurAdaptOnPlay) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+    });
+    boardA.play_minion(db.get_minion(CardDb::Id::GENTLE_MEGASAUR));
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(12345);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}

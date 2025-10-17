@@ -364,6 +364,10 @@ std::vector<CardDb::Id> Pool::discover_keyword(const int tier, const Keyword key
     return reservoir;
 }
 
+void Pool::adapt() {
+
+}
+
 void Pool::take(const CardDb::Id id, const int count) {
     const Minion& minion = db.get_minion(id);
     _pool[id] -= count;

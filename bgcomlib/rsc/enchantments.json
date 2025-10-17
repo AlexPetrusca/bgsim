@@ -804,5 +804,15 @@
     "health": 4,
     "text": "Give a friendly minion of each type +4/+4.",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 74,
+    "name": "Adapt Murlocs",
+    "target": "ALL",
+    "races": [
+      "MURLOC"
+    ],
+    "text": "Adapt your Murlocs",
+    "type": "ENCHANTMENT"
   }
 ]

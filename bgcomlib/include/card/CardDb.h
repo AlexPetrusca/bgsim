@@ -198,8 +198,8 @@ public:
         BRANN_BRONZEBEARD_G = 58400,
         KANGORS_APPRENTICE = 59935,
         KANGORS_APPRENTICE_G = 59976,
-        PRIMALFIN_LOOKOUT = 60028, // todo: not fully implemented (discover)
-        PRIMALFIN_LOOKOUT_G = 60027, // todo: not fully implemented (discover)
+        PRIMALFIN_LOOKOUT = 60028,
+        PRIMALFIN_LOOKOUT_G = 60027,
 
         // tokens
         TABBYCAT_T = 96759,
@@ -236,6 +236,8 @@ public:
         ROBOSAUR_T_G = 58389,
         IRONHIDE_RUNT_T = 50359,
         IRONHIDE_RUNT_T_G = 50360,
+        GENTLE_MEGASAUR = 56465, // todo: not fully implemented (adapt)
+        GENTLE_MEGASAUR_G = 59828, // todo: not fully implemented (adapt)
 
         // enchantments
         // todo: should these be here

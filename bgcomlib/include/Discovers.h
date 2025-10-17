@@ -15,6 +15,8 @@ public:
 
     void discover(Effect::Discover type, int tier, const Minion* source);
 
+    void adapt();
+
     Minion select(int idx);
 
     void add_card(const Minion& minion);

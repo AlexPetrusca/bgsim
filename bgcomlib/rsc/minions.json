@@ -5470,8 +5470,7 @@
     "attack": 3,
     "health": 2,
     "mechanics": [
-      "BATTLECRY",
-      "DISCOVER"
+      "BATTLECRY"
     ],
     "effects": [
       {
@@ -5498,8 +5497,7 @@
     "attack": 6,
     "health": 4,
     "mechanics": [
-      "BATTLECRY",
-      "DISCOVER"
+      "BATTLECRY"
     ],
     "effects": [
       {
@@ -5518,6 +5516,61 @@
     "normalDbfId": 60028,
     "cardClass": "SHAMAN",
     "text": "<b>Battlecry:</b> If you control\nanother Murloc,\n<b>Discover</b> 2 Murlocs.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 56465,
+    "name": "Gentle Megasaur",
+    "tier": 6,
+    "attack": 5,
+    "health": 4,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ADAPT",
+        "args": [
+          74
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "BGS_031",
+    "goldenDbfId": 59828,
+    "cardClass": "HUNTER",
+    "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 59828,
+    "name": "Gentle Megasaur",
+    "tier": 6,
+    "attack": 10,
+    "health": 8,
+    "mechanics": [
+      "BATTLECRY"
+    ],
+    "effects": [
+      {
+        "trigger": "BATTLECRY",
+        "type": "ADAPT",
+        "args": [
+          74,
+          74
+        ]
+      }
+    ],
+    "races": [
+      "BEAST"
+    ],
+    "id": "TB_BaconUps_084",
+    "normalDbfId": 56465,
+    "cardClass": "HUNTER",
+    "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs twice.",
     "type": "MINION"
   }
 ]
