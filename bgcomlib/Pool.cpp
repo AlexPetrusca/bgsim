@@ -244,7 +244,8 @@ CardDb::Id Pool::fetch_keyword(const int tier, const Keyword keyword, const Mini
     return select;
 }
 
-// todo: pretty slow - we could use some sampling technique here instead (e.g. reservoir sampling)
+// todo: pretty slow - we are repeating reservoir sampling `count` times :(
+//  - we could use the counts we keep track of to speed each iteration up
 
 std::vector<CardDb::Id> Pool::discover(const int tier, const Minion* source, const int count) {
     std::vector<CardDb::Id> reservoir;

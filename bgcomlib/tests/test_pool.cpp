@@ -48,6 +48,8 @@ TEST(PoolTest, RandomSampleUpToTier) {
     Pool pool;
     std::unordered_map<int, int> tier_counts;
     std::unordered_map<CardDb::Id, int> id_counts;
+
+    // randomly sample
     for (int i = 0; i < ITERATIONS; i++) {
         CardDb::Id id = pool.fetch(6);
         tier_counts[db.get_minion(id).tier()]++;
@@ -81,13 +83,85 @@ TEST(PoolTest, RandomSampleUpToTier) {
 TEST(PoolTest, RandomSampleByRaceWithExclude) {
     Pool pool;
     std::unordered_map<CardDb::Id, int> counts;
+
+    // randomly sample
     const Minion source = db.get_minion(CardDb::Id::PRIMALFIN_LOOKOUT_G);
     for (int i = 0; i < ITERATIONS; i++) {
         counts[pool.fetch_race(6, Race::MURLOC, &source)]++;
     }
 
+    // check minion probabilities
     CardDb::Id exclude_id = static_cast<CardDb::Id>(source.alt_id());
     int total_count = pool.race_count_up_to(Race::MURLOC, 6) - pool.card_count(exclude_id);
+    for (const auto& [id, count] : counts) {
+        std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;
+        if (id == exclude_id) {
+            EXPECT_EQ(count, 0);
+        } else {
+            const int expected = ITERATIONS * static_cast<double>(pool.card_count(id)) / total_count;
+            EXPECT_APPROX_EQ(count, expected, CI);
+        }
+    }
+
+    EXPECT_EQ(counts[static_cast<CardDb::Id>(source.id())], 0);
+}
+
+TEST(PoolTest, DiscoverUpToTier) {
+    Pool pool;
+    std::unordered_map<int, int> tier_counts;
+    std::unordered_map<CardDb::Id, int> id_counts;
+
+    // discover
+    for (int i = 0; i < ITERATIONS / 3; i++) {
+        std::vector<CardDb::Id> ids = pool.discover(6);
+        for (const CardDb::Id id : ids) {
+            tier_counts[db.get_minion(id).tier()]++;
+            id_counts[id]++;
+            pool.put(id);
+        }
+    }
+
+    // check minion probabilities
+    for (int tier = 1; tier <= 6; tier++) {
+        const int total = tier_counts[tier];
+        const int expected = total / static_cast<int>(Pool::get_tier(tier).size());
+        std::cout << "----------------" << std::endl;
+        std::cout << "Total: " << total << std::endl;
+        std::cout << "Expected: " << expected << std::endl;
+        std::cout << "----------------" << std::endl;
+        for (const CardDb::Id id : Pool::get_tier(tier)) {
+            std::cout << static_cast<int>(id) << " \t-\t" << id_counts[id] << std::endl;
+            EXPECT_APPROX_EQ(id_counts[id], expected, CI);
+        }
+        std::cout << std::endl;
+    }
+
+    // check tier probabilities
+    for (int t = 1; t <= 6; t++) {
+        const int actual = tier_counts.at(t);
+        const int expected = ITERATIONS * static_cast<double>(pool.tier_count(t)) / pool.total_count();
+        std::cout << "Tier " << t << ": " << 100 * expected << "% (Expected) vs " << 100 * actual << "% (Actual)" << std::endl;
+        EXPECT_APPROX_EQ(actual, expected, CI);
+    }
+}
+
+TEST(PoolTest, DiscoverByKeywordWithExclude) {
+    Pool pool;
+    std::unordered_map<CardDb::Id, int> counts;
+
+    // discover
+    const Minion source = db.get_minion(CardDb::Id::KABOOM_BOT_G);
+    for (int i = 0; i < ITERATIONS / 3; i++) {
+        std::vector<CardDb::Id> ids = pool.discover_keyword(6, Keyword::DEATHRATTLE, &source);
+        for (CardDb::Id id : ids) {
+            counts[id]++;
+            pool.put(id);
+        }
+    }
+
+    // check minion probabilities
+    CardDb::Id exclude_id = static_cast<CardDb::Id>(source.alt_id());
+    int total_count = pool.keyword_count_up_to(Keyword::DEATHRATTLE, 6) - pool.card_count(exclude_id);
     for (const auto& [id, count] : counts) {
         std::cout << static_cast<int>(id) << " \t-\t" << count << std::endl;
         if (id == exclude_id) {
