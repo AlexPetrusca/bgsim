@@ -944,6 +944,18 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
     }
 }
 
+void Board::proc_discover(const std::shared_ptr<Card>& discover) {
+    if (!_triggers.contains(Keyword::DISCOVER)) return;
+
+    for (const MinionLoc listener : _triggers.at(Keyword::DISCOVER)) {
+    }
+
+    if (!_triggers.contains(Keyword::ADAPT)) return;
+
+    for (const MinionLoc listener : _triggers.at(Keyword::ADAPT)) {
+    }
+}
+
 void Board::register_trigger(const Keyword trigger, const MinionLoc loc) {
     _triggers[trigger].insert(loc);
 }

@@ -102,6 +102,8 @@ public:
 
     void proc_trigger(Keyword trigger, Minion* source = nullptr);
 
+    void proc_discover(const std::shared_ptr<Card>& discover);
+
     void register_trigger(Keyword trigger, MinionLoc loc);
 
     void deregister_trigger(Keyword trigger, MinionLoc loc);

@@ -5,7 +5,7 @@ Hand::Hand() = default;
 bool Hand::add_minion(const Minion& minion) {
     if (full()) return false;
 
-    _cards.push_back(std::make_shared<Minion>(minion));
+    _cards.push_back(std::make_shared<Minion>(std::move(minion)));
     return true;
 }
 

@@ -52,27 +52,27 @@ void Discovers::adapt() {
     _pool->adapt();
 }
 
-Minion Discovers::select(const int idx) {
+std::shared_ptr<Card> Discovers::select(const int idx) {
     assert(idx < _cards.size() && "Out of bounds!");
 
     CardLoc loc = _cards.begin();
     for (int i = 0; i < idx; i++) {
         ++loc;
     }
-    Minion minion = CardUtil::as_minion(loc); // todo: WRONG
+    std::shared_ptr<Card> card = *loc;
 
     for (int i = 0; i < 3; i++) {
-        if (i != idx) {
-            _pool->put(static_cast<CardDb::Id>(_cards.front()->id())); // todo: we should have another id method to avoid static_cast
+        if (CardUtil::is_minion(card) && i != idx) {
+            _pool->put(static_cast<CardDb::Id>(_cards.front()->id()));
         }
         _cards.pop_front();
     }
 
-    return minion;
+    return card;
 }
 
 void Discovers::add_minion(const Minion& minion) {
-    _cards.push_back(std::make_shared<Minion>(minion));
+    _cards.push_back(std::make_shared<Minion>(std::move(minion)));
 }
 
 void Discovers::add_minion(const CardDb::Id id) {

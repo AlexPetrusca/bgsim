@@ -17,7 +17,7 @@ public:
 
     void adapt();
 
-    Minion select(int idx);
+    std::shared_ptr<Card> select(int idx);
 
     void add_minion(const Minion& minion);
 
