@@ -48,7 +48,7 @@ public:
     }
 
     static bool is_enchantment(const std::shared_ptr<Card>& card) {
-        return std::dynamic_pointer_cast<Enchantment>(card) == nullptr;
+        return std::dynamic_pointer_cast<Enchantment>(card) != nullptr;
     }
 };
 
