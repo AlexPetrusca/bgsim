@@ -25,6 +25,12 @@ Enchantment::Enchantment(const json& enchant_json) {
             }
         }
     }
+    if (enchant_json.contains("effects")) {
+        for (const auto& effect_json : enchant_json["effects"]) {
+            Effect effect(effect_json);
+            _effects[effect.trigger()].push_back(effect);
+        }
+    }
     if (enchant_json.contains("constraints")) {
         for (const auto& keyword_json : enchant_json["constraints"]) {
             _constraints.set(KeywordUtil::fromString(keyword_json));
@@ -54,6 +60,14 @@ const BitVector<Keyword>& Enchantment::constraints() const {
     return _constraints;
 }
 
+const std::unordered_map<Keyword, std::vector<Effect>>& Enchantment::effects() const {
+    return _effects;
+}
+
+const std::vector<Effect>& Enchantment::get_effects(Keyword keyword) const {
+    return _effects.at(keyword);
+}
+
 int Enchantment::attack() const {
     return _attack;
 }
@@ -76,6 +90,15 @@ bool Enchantment::has(const Keyword keyword) const {
 
 bool Enchantment::is(const Race race) const {
     return _races.has(race);
+}
+
+void Enchantment::merge(const Enchantment& other) {
+    _props |= other._props;
+    _races |= other._races;
+    _constraints |= other._constraints;
+    _effects.insert(other._effects.begin(), other._effects.end());
+    _attack += other._attack;
+    _health += other._health;
 }
 
 [[nodiscard]] std::string Enchantment::to_string() {

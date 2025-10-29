@@ -53,6 +53,8 @@ public:
 
     [[nodiscard]] const std::unordered_map<Keyword, std::vector<Effect>>& effects() const;
 
+    std::unordered_map<Keyword, std::vector<Effect>>& effects();
+
     [[nodiscard]] const std::vector<Effect>& get_effects(Keyword keyword) const;
 
     [[nodiscard]] int alt_id() const;

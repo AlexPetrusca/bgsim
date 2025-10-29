@@ -149,6 +149,10 @@ const std::unordered_map<Keyword, std::vector<Effect>>& Minion::effects() const 
     return _effects;
 }
 
+std::unordered_map<Keyword, std::vector<Effect>>& Minion::effects() {
+    return _effects;
+}
+
 const std::vector<Effect>& Minion::get_effects(const Keyword keyword) const {
     return _effects.at(keyword);
 }

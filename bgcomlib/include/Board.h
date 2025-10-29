@@ -64,6 +64,8 @@ public:
 
     void magnetize_minion(MinionLoc minion, const Minion& other);
 
+    void proc_enchantment(const Enchantment& enchantment, MinionLoc source, Minion* target = nullptr);
+
     void proc_enchantment(int enchantment_id, MinionLoc source, Minion* target = nullptr);
 
     void enchant_minion(Minion& minion, const Enchantment& enchantment, bool aura = false);
@@ -101,8 +103,6 @@ public:
     void increment_active();
 
     void proc_trigger(Keyword trigger, Minion* source = nullptr);
-
-    void proc_discover(const std::shared_ptr<Card>& discover);
 
     void register_trigger(Keyword trigger, MinionLoc loc);
 

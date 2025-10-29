@@ -83,6 +83,6 @@ Effect::Type Effect::type() const {
     return _type;
 }
 
-const std::vector<int>& Effect::args() const {
+std::vector<int>& Effect::args() const {
     return _args;
 }

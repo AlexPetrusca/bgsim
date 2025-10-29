@@ -85,9 +85,14 @@ int Player::tier() {
 
 void Player::select_discover(const int idx) {
     if (_hand.full()) return;
+
     std::shared_ptr<Card> discover = _discovers.select(idx);
-    // _board.proc_discover(discover);
-    _hand.add_minion(CardUtil::as_minion(discover));
+    if (CardUtil::is_minion(discover)) {
+        _hand.add_minion(CardUtil::as_minion(discover));
+        _board.proc_trigger(Keyword::DISCOVER);
+    } else if (CardUtil::is_enchantment(discover)) {
+        _board.proc_trigger(Keyword::ADAPT);
+    }
 }
 
 Player* Player::opponent() {

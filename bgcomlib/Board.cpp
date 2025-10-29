@@ -286,31 +286,7 @@ MinionLoc Board::summon_minion(const Minion& minion, const MinionLoc loc, const 
     return spawn_loc;
 }
 
-void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, Minion* target) {
-    Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
-    switch (static_cast<CardDb::Id>(enchantment_id)) {
-        case CardDb::Id::GIVE_ATTACK_E: {
-            enchantment.set_attack(source->attack());
-            break;
-        }
-        case CardDb::Id::GIVE_HEALTH_E: {
-            enchantment.set_health(source->max_health());
-            break;
-        }
-        case CardDb::Id::POGO_HOP_E:
-        case CardDb::Id::POGO_HOP_G_E: {
-            enchantment.set_attack((_player->pogo_counter() - 1) * enchantment.attack());
-            enchantment.set_health((_player->pogo_counter() - 1) * enchantment.health());
-            break;
-        }
-        case CardDb::Id::ANNIHILAN_MIGHT_E:
-        case CardDb::Id::ANNIHILAN_MIGHT_G_E: {
-            enchantment.set_health(_player->missing_health() * enchantment.health());
-            break;
-        }
-        default: break;
-    }
-
+void Board::proc_enchantment(const Enchantment& enchantment, const MinionLoc source, Minion* target) {
     switch (enchantment.target()) {
         case Target::SINGLE: {
             if (target != nullptr) {
@@ -407,11 +383,39 @@ void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, M
     }
 }
 
+void Board::proc_enchantment(const int enchantment_id, const MinionLoc source, Minion* target) {
+    Enchantment enchantment = db.get_enchantment(enchantment_id); // todo: don't copy
+    switch (static_cast<CardDb::Id>(enchantment_id)) {
+        case CardDb::Id::GIVE_ATTACK_E: {
+            enchantment.set_attack(source->attack());
+            break;
+        }
+        case CardDb::Id::GIVE_HEALTH_E: {
+            enchantment.set_health(source->max_health());
+            break;
+        }
+        case CardDb::Id::POGO_HOP_E:
+        case CardDb::Id::POGO_HOP_G_E: {
+            enchantment.set_attack((_player->pogo_counter() - 1) * enchantment.attack());
+            enchantment.set_health((_player->pogo_counter() - 1) * enchantment.health());
+            break;
+        }
+        case CardDb::Id::ANNIHILAN_MIGHT_E:
+        case CardDb::Id::ANNIHILAN_MIGHT_G_E: {
+            enchantment.set_health(_player->missing_health() * enchantment.health());
+            break;
+        }
+        default: break;
+    }
+    proc_enchantment(enchantment, source, target);
+}
+
 void Board::enchant_minion(Minion& minion, const Enchantment& enchantment, const bool aura) {
     if (enchantment.has(Keyword::TAUNT) && !minion.has(Keyword::TAUNT)) {
         _taunt_count++;
     }
     minion.props() |= enchantment.props();
+    minion.effects().insert(enchantment.effects().begin(), enchantment.effects().end());
     minion.delta_attack(enchantment.attack(), aura);
     minion.delta_health(enchantment.health(), aura);
     if (minion.is_saved()) {
@@ -425,6 +429,7 @@ void Board::disenchant_minion(Minion& minion, const Enchantment& enchantment, co
         _taunt_count--;
     }
     minion.props() = minion.props() & ~enchantment.props();
+    minion.effects().erase(enchantment.effects().begin(), enchantment.effects().end());
     minion.delta_attack(-enchantment.attack(), aura);
     minion.delta_health(-enchantment.health(), aura);
 }
@@ -772,7 +777,23 @@ void Board::exec_effect(const Effect& effect, const MinionLoc source, Minion* ta
             break;
         }
         case Effect::Type::ADAPT: {
-            _player->discovers().adapt();
+            for (int i = 0; i < effect.args().front(); i++) {
+                _player->discovers().adapt();
+            }
+            register_trigger(Keyword::ADAPT, source);
+            break;
+        }
+        case Effect::Type::ADAPT_ENCHANT: {
+            // todo: should I delete the effect from the source entirely instead?
+            if (effect.args().empty()) return;
+
+            Enchantment enchantment = db.get_enchantment(effect.args().back());
+            Enchantment& adaptation = CardUtil::as_enchantment(_player->discovers().selection());
+            enchantment.merge(adaptation);
+
+            proc_enchantment(enchantment, source, target);
+
+            effect.args().pop_back();
             break;
         }
     }
@@ -941,18 +962,6 @@ void Board::proc_trigger(const Keyword trigger, Minion* source) {
                 }
             }
         }
-    }
-}
-
-void Board::proc_discover(const std::shared_ptr<Card>& discover) {
-    if (!_triggers.contains(Keyword::DISCOVER)) return;
-
-    for (const MinionLoc listener : _triggers.at(Keyword::DISCOVER)) {
-    }
-
-    if (!_triggers.contains(Keyword::ADAPT)) return;
-
-    for (const MinionLoc listener : _triggers.at(Keyword::ADAPT)) {
     }
 }
 

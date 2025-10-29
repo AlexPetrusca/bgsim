@@ -5532,6 +5532,13 @@
         "trigger": "BATTLECRY",
         "type": "ADAPT",
         "args": [
+          1
+        ]
+      },
+      {
+        "trigger": "ADAPT",
+        "type": "ADAPT_ENCHANT",
+        "args": [
           74
         ]
       }
@@ -5559,6 +5566,13 @@
         "trigger": "BATTLECRY",
         "type": "ADAPT",
         "args": [
+          2
+        ]
+      },
+      {
+        "trigger": "ADAPT",
+        "type": "ADAPT_ENCHANT",
+        "args": [
           74,
           74
         ]
@@ -5571,6 +5585,30 @@
     "normalDbfId": 56465,
     "cardClass": "HUNTER",
     "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs twice.",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 41067,
+    "name": "Plant",
+    "tier": 1,
+    "attack": 1,
+    "health": 1,
+    "id": "UNG_999t2t1",
+    "goldenDbfId": 41068,
+    "artist": "Zoltan Boros",
+    "cardClass": "NEUTRAL",
+    "type": "MINION"
+  },
+  {
+    "dbfId": 41068,
+    "name": "Plant",
+    "tier": 1,
+    "attack": 2,
+    "health": 2,
+    "id": "UNG_999t2t2",
+    "normalDbfId": 41067,
+    "artist": "Zoltan Boros",
+    "cardClass": "NEUTRAL",
     "type": "MINION"
   }
 ]

@@ -49,7 +49,9 @@ void Discovers::discover(const Effect::Discover type, const int tier, const Mini
 }
 
 void Discovers::adapt() {
-    _pool->adapt();
+    for (const CardDb::Id id : _pool->adapt()) {
+        add_enchantment(id);
+    }
 }
 
 std::shared_ptr<Card> Discovers::select(const int idx) {
@@ -59,16 +61,16 @@ std::shared_ptr<Card> Discovers::select(const int idx) {
     for (int i = 0; i < idx; i++) {
         ++loc;
     }
-    std::shared_ptr<Card> card = *loc;
+    _selection = *loc;
 
     for (int i = 0; i < 3; i++) {
-        if (CardUtil::is_minion(card) && i != idx) {
+        if (CardUtil::is_minion(_selection) && i != idx) {
             _pool->put(static_cast<CardDb::Id>(_cards.front()->id()));
         }
         _cards.pop_front();
     }
 
-    return card;
+    return _selection;
 }
 
 void Discovers::add_minion(const Minion& minion) {
@@ -77,6 +79,10 @@ void Discovers::add_minion(const Minion& minion) {
 
 void Discovers::add_minion(const CardDb::Id id) {
     add_minion(db.get_minion(id));
+}
+
+void Discovers::add_enchantment(const CardDb::Id id) {
+    _cards.push_back(std::make_shared<Enchantment>(db.get_enchantment(id)));
 }
 
 void Discovers::remove_card(const CardLoc loc) {
@@ -103,6 +109,12 @@ CardLoc Discovers::end() {
 
 std::list<std::shared_ptr<Card>>& Discovers::cards() {
     return _cards;
+}
+
+std::shared_ptr<Card> Discovers::selection() {
+    std::shared_ptr<Card> selection = std::move(_selection);
+    _selection = nullptr;
+    return selection;
 }
 
 int Discovers::size() {

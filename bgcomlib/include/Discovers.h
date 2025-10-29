@@ -23,6 +23,8 @@ public:
 
     void add_minion(CardDb::Id id);
 
+    void add_enchantment(CardDb::Id id);
+
     void remove_card(CardLoc loc);
 
     void remove_card(int idx);
@@ -33,12 +35,15 @@ public:
 
     std::list<std::shared_ptr<Card>>& cards();
 
+    std::shared_ptr<Card> selection();
+
     int size();
 
     void bind_pool(Pool* pool);
 
 private:
     std::list<std::shared_ptr<Card>> _cards;
+    std::shared_ptr<Card> _selection;
 
     Pool* _pool{}; // todo: should pool just be a global?
 };

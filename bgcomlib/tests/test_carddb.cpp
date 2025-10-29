@@ -17,10 +17,10 @@ TEST(CardDbTest, ResolveDeathrattles) {
     EXPECT_EQ(minion.name(), "Harmless Bonehead");
     EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
 
-    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).at(0);
+    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).front();
     EXPECT_TRUE(deathrattle.type() == Effect::Type::SUMMON);
     EXPECT_EQ(deathrattle.args().size(), 2);
-    EXPECT_EQ(deathrattle.args().at(0), 99629);
+    EXPECT_EQ(deathrattle.args().front(), 99629);
 
     const Minion token = db.get_minion(99629); // Skeleton
     EXPECT_EQ(token.name(), "Skeleton");
@@ -48,10 +48,10 @@ TEST(CardDbTest, ResolveEnchantment) {
     EXPECT_EQ(minion.name(), "Selfless Hero");
     EXPECT_TRUE(minion.has(Keyword::DEATHRATTLE));
 
-    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).at(0);
+    const Effect& deathrattle = minion.get_effects(Keyword::DEATHRATTLE).front();
     EXPECT_TRUE(deathrattle.type() == Effect::Type::ENCHANT);
     EXPECT_EQ(deathrattle.args().size(), 1);
-    EXPECT_EQ(deathrattle.args().at(0), 2);
+    EXPECT_EQ(deathrattle.args().front(), 2);
 
     const Enchantment& enchant = db.get_enchantment(2);
     EXPECT_TRUE(enchant.props().has(Keyword::DIVINE_SHIELD));

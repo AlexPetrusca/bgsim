@@ -33,7 +33,7 @@ Minion CardDb::get_minion(const int id) const {
     return _minions.at(id);
 }
 
-Minion CardDb::get_minion(Id id) const {
+Minion CardDb::get_minion(const Id id) const {
     return _minions.at(static_cast<int>(id));
 }
 
@@ -47,6 +47,10 @@ std::unordered_map<int, Enchantment> CardDb::enchantments() const {
 
 const Enchantment& CardDb::get_enchantment(const int id) const {
     return _enchantments.at(id);
+}
+
+const Enchantment& CardDb::get_enchantment(const Id id) const {
+    return _enchantments.at(static_cast<int>(id));
 }
 
 CardDb db = CardDb();

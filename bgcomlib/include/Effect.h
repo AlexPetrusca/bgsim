@@ -17,6 +17,7 @@ public:
         GEN_CARD,
         DISCOVER,
         ADAPT,
+        ADAPT_ENCHANT,
         ENCHANT,
         DEAL_DAMAGE_PLAYER,
         DEAL_DAMAGE_OTHER,
@@ -33,6 +34,7 @@ public:
             {"GEN_CARD", Type::GEN_CARD},
             {"DISCOVER", Type::DISCOVER},
             {"ADAPT", Type::ADAPT},
+            {"ADAPT_ENCHANT", Type::ADAPT_ENCHANT},
             {"ENCHANT", Type::ENCHANT},
             {"DEAL_DAMAGE_PLAYER", Type::DEAL_DAMAGE_PLAYER},
             {"DEAL_DAMAGE_OTHER", Type::DEAL_DAMAGE_OTHER},
@@ -140,13 +142,13 @@ public:
 
     [[nodiscard]] Type type() const;
 
-    [[nodiscard]] const std::vector<int>& args() const;
+    [[nodiscard]] std::vector<int>& args() const;
 
 private:
     Keyword _trigger;
     Constraint _constraint;
     Type _type;
-    std::vector<int> _args;
+    mutable std::vector<int> _args;
 };
 
 #endif //EFFECT_H

@@ -364,8 +364,24 @@ std::vector<CardDb::Id> Pool::discover_keyword(const int tier, const Keyword key
     return reservoir;
 }
 
-void Pool::adapt() {
+std::vector<CardDb::Id> Pool::adapt() {
+    std::vector<CardDb::Id> reservoir;
+    reservoir.reserve(3);
 
+    int counter = 1;
+    for (int id = 75; id < 82; id++) {
+        if (reservoir.size() < 3) {
+            reservoir.push_back(static_cast<CardDb::Id>(id));
+        } else {
+            const int select = rng.rand_int(counter);
+            if (select < reservoir.size()) {
+                reservoir[select] = static_cast<CardDb::Id>(id);
+            }
+        }
+        counter++;
+    }
+
+    return reservoir;
 }
 
 void Pool::take(const CardDb::Id id, const int count) {

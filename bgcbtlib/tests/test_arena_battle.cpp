@@ -4151,14 +4151,11 @@ TEST(ArenaBattleTest, GentleMegasaur) {
     EXPECT_EQ(report.damage(), 0);
 }
 
-TEST(ArenaBattleTest, GentleMegasaurAdaptOnPlay) {
+TEST(ArenaBattleTest, GentleMegasaurAdaptOnPlayPoisonous) {
     Board boardA = Board::from_ids({
         CardDb::Id::PRIMALFIN_T,
         CardDb::Id::PRIMALFIN_T,
-        CardDb::Id::PRIMALFIN_T,
-        CardDb::Id::PRIMALFIN_T,
     });
-    boardA.play_minion(db.get_minion(CardDb::Id::GENTLE_MEGASAUR));
 
     Board boardB = Board::from_ids({
         CardDb::Id::HOUNDMASTER,
@@ -4168,6 +4165,50 @@ TEST(ArenaBattleTest, GentleMegasaurAdaptOnPlay) {
 
     rng.seed(12345);
     Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    // after play, expect 3 discovers
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::GENTLE_MEGASAUR));
+    EXPECT_EQ(arena.playerA().discovers().size(), 3);
+
+    // after 1st select, expect 0 card in hand & 0 discovers
+    arena.playerA().select_discover(1);
+    EXPECT_EQ(arena.playerA().discovers().size(), 0);
+    EXPECT_EQ(arena.playerA().hand().size(), 0);
+
+    BattleReport report = arena.battle(true);
+    EXPECT_EQ(report.result(), TIE);
+    EXPECT_EQ(report.damage(), 0);
+}
+
+TEST(ArenaBattleTest, GentleMegasaurAdaptOnPlayPlants) {
+    Board boardA = Board::from_ids({
+        CardDb::Id::PRIMALFIN_T,
+        CardDb::Id::PRIMALFIN_T,
+    });
+
+    Board boardB = Board::from_ids({
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+        CardDb::Id::HOUNDMASTER,
+    });
+
+    rng.seed(1234567);
+    Arena arena = Arena::from_boards(boardA, boardB);
+
+    Pool pool;
+    arena.bind_pool(&pool);
+
+    // after play, expect 3 discovers
+    arena.playerA().board().play_minion(db.get_minion(CardDb::Id::GENTLE_MEGASAUR));
+    EXPECT_EQ(arena.playerA().discovers().size(), 3);
+
+    // after 1st select, expect 0 card in hand & 0 discovers
+    arena.playerA().select_discover(2);
+    EXPECT_EQ(arena.playerA().discovers().size(), 0);
+    EXPECT_EQ(arena.playerA().hand().size(), 0);
 
     BattleReport report = arena.battle(true);
     EXPECT_EQ(report.result(), TIE);

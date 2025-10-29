@@ -23,7 +23,7 @@ public:
 
     [[nodiscard]] std::vector<CardDb::Id> discover_keyword(int tier, Keyword keyword, const Minion* source = nullptr, int count = 3);
 
-    void adapt();
+    std::vector<CardDb::Id> adapt();
 
     void take(CardDb::Id id, int count = 1);
 

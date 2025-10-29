@@ -198,8 +198,8 @@ public:
         BRANN_BRONZEBEARD_G = 58400,
         KANGORS_APPRENTICE = 59935,
         KANGORS_APPRENTICE_G = 59976,
-        PRIMALFIN_LOOKOUT = 60028,
-        PRIMALFIN_LOOKOUT_G = 60027,
+        PRIMALFIN_LOOKOUT = 60028, // todo: need to implement constraint (needs to be at least one murloc on board)
+        PRIMALFIN_LOOKOUT_G = 60027, // todo: need to implement constraint (needs to be at least one murloc on board)
 
         // tokens
         TABBYCAT_T = 96759,
@@ -258,6 +258,8 @@ public:
     [[nodiscard]] std::unordered_map<int, Enchantment> enchantments() const;
 
     [[nodiscard]] const Enchantment& get_enchantment(int id) const;
+
+    const Enchantment& get_enchantment(Id id) const;
 
 private:
     std::unordered_map<int, Minion> _minions;

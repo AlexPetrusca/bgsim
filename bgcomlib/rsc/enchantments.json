@@ -814,5 +814,90 @@
     ],
     "text": "Adapt your Murlocs",
     "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 75,
+    "name": "Crackling Shield",
+    "target": "SINGLE",
+    "mechanics": [
+      "DIVINE_SHIELD"
+    ],
+    "text": "<b>Divine Shield</b>",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 76,
+    "name": "Flaming Claws",
+    "target": "SINGLE",
+    "attack": 3,
+    "text": "+3 Attack",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 77,
+    "name": "Living Spores",
+    "target": "SINGLE",
+    "mechanics": [
+      "DEATHRATTLE"
+    ],
+    "effects": [
+      {
+        "trigger": "DEATHRATTLE",
+        "type": "SUMMON",
+        "args": [
+          41067,
+          41067
+        ]
+      }
+    ],
+    "text": "<b>Deathrattle</b>: Summon two 1/1 Plants.",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 78,
+    "name": "Lightning Speed",
+    "target": "SINGLE",
+    "mechanics": [
+      "WINDFURY"
+    ],
+    "text": "<b>Windfury</b>",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 79,
+    "name": "Massive",
+    "target": "SINGLE",
+    "mechanics": [
+      "TAUNT"
+    ],
+    "text": "<b>Taunt</b>",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 80,
+    "name": "Rocky Carapace",
+    "target": "SINGLE",
+    "health": 3,
+    "text": "+3 Health",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 81,
+    "name": "Poison Spit",
+    "target": "SINGLE",
+    "mechanics": [
+      "POISONOUS"
+    ],
+    "text": "<b>Poisonous</b>",
+    "type": "ENCHANTMENT"
+  },
+  {
+    "dbfId": 82,
+    "name": "Volcanic Might",
+    "target": "SINGLE",
+    "attack": 1,
+    "health": 1,
+    "text": "+1/+1",
+    "type": "ENCHANTMENT"
   }
 ]

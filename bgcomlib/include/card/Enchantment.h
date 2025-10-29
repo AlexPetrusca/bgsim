@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 
 #include "Card.h"
+#include "Effect.h"
 #include "Keyword.h"
 #include "Race.h"
 #include "Target.h"
@@ -25,6 +26,10 @@ public:
 
     [[nodiscard]] const BitVector<Keyword>& constraints() const;
 
+    [[nodiscard]] const std::unordered_map<Keyword, std::vector<Effect>>& effects() const;
+
+    [[nodiscard]] const std::vector<Effect>& get_effects(Keyword keyword) const;
+
     [[nodiscard]] int attack() const;
 
     void set_attack(int attack);
@@ -37,6 +42,8 @@ public:
 
     [[nodiscard]] bool is(Race race) const;
 
+    void merge(const Enchantment& other);
+
     [[nodiscard]] std::string to_string() override;
 
 private:
@@ -44,6 +51,7 @@ private:
     BitVector<Keyword> _props;
     BitVector<Race> _races;
     BitVector<Keyword> _constraints;
+    std::unordered_map<Keyword, std::vector<Effect>> _effects;
     int _attack{};
     int _health{};
 };
